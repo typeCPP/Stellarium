@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <gradient
+                android:angle="270"
+                android:type="linear"
+                android:startColor= "@color/startGradientBottomNavBackground"
+                android:endColor="#CC030F51">
+            </gradient>
+        </shape>
+    </item>
+</selector>

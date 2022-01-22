@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ic_personalAccount"
+        android:icon="@drawable/ic_person"
+        android:title=""
+        app:showAsAction="always" />
+        <!--android:title="Personal space"-->
+
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_home"
+        android:title=""
+        app:showAsAction="always" />
+       <!-- android:title="Home"-->
+
+    <item
+        android:id="@+id/ic_information"
+        android:icon="@drawable/ic_information"
+        android:title=""
+        app:showAsAction="always" />
+       <!-- android:title="Message"-->
+
+</menu>

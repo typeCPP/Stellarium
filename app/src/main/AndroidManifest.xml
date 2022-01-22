@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stellarium">
+        <!--android:theme="@style/Theme.Stellarium"-->
         <activity
             android:name=".MainActivity"
             android:exported="true">

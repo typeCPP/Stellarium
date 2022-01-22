@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="navColor">#426e86</color>
+    <color name="iconColor1">#f8f1e5</color>
+    <color name="iconColor2">#FFE07B</color>
+    <color name="startGradientBackgroundColor">#182177</color>
+    <color name="endGradientBackgroundColor">#CC303463</color>
+    <color name="startGradientBottomNavBackground">#CC050921</color>
+    <color name="endGradientBottomNavBackground">#CC142683</color>
+    <color name="textColorTitle">#99FFFFFF</color>
+    <color name="shadowColorTitle">#40000000</color>
+    <color name="informationTextColor">#CCFFFFFF</color>
 </resources>

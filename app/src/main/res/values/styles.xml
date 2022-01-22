@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_title">
+        <item name="android:textSize">
+            30sp
+        </item>
+
+        <item name="android:layout_width">
+            match_parent
+        </item>
+
+        <item name="android:textStyle">
+            bold
+        </item>
+
+        <item name="android:textColor">
+            @color/textColorTitle
+        </item>
+
+        <item name="android:shadowColor">
+            @color/shadowColorTitle
+        </item>
+
+        <item name="android:gravity">
+            center|top
+        </item>
+
+        <item name="android:shadowDx">
+            2
+        </item>
+
+        <item name="android:shadowDy">
+            10
+        </item>
+
+        <item name="android:shadowRadius">
+            12
+        </item>
+
+    </style>
+
+</resources>
