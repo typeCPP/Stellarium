@@ -15,4 +15,7 @@
     <color name="endGradientBackgroundColor">#CC303463</color>
     <color name="startGradientBottomNavBackground">#CC050921</color>
     <color name="endGradientBottomNavBackground">#CC142683</color>
+    <color name="textColorTitle">#99FFFFFF</color>
+    <color name="shadowColorTitle">#40000000</color>
+    <color name="informationTextColor">#CCFFFFFF</color>
 </resources>
