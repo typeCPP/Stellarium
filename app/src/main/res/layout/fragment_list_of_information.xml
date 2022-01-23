@@ -5,10 +5,313 @@
     android:layout_height="match_parent"
     tools:context=".FragmentListOfInformation">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="280">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="62"
+                android:gravity="center"
+                android:text="@string/title_information"
+                android:textAppearance="@style/style_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/affirmationButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxHeight="400dp"
+                    android:maxLines="1"
+                    android:minHeight="250dp"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/affirmation_name"
+                    android:translationZ="4dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    tools:targetApi="o" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/horoscopeButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/horoscope_name"
+                    android:translationZ="4dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/taroButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/taro_name"
+                    android:translationZ="4dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compatibilityButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/compatibility_name"
+                    android:translationZ="4dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/moonCalendarButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/moon_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/numerologicButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/numerologic_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/squareOfPythagorasButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/square_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="19"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/yesOrNoButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_weight="0.55"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_info"
+                    android:breakStrategy="balanced"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/yes_no_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
