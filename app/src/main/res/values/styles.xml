@@ -40,10 +40,10 @@
 
     </style>
 
-    <style name="button_style">
+    <style name="button_style_for_home_page">
 
         <item name="android:textSize">
-            12sp
+            8sp
         </item>
 
         <item name="android:textColor">
@@ -52,16 +52,5 @@
 
     </style>
 
-    <style name="button_style_with_little_text">
-
-        <item name="android:textSize">
-            11sp
-        </item>
-
-        <item name="android:textColor">
-            #B3000000
-        </item>
-
-    </style>
 
 </resources>
