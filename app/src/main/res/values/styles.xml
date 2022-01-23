@@ -44,7 +44,6 @@
 
         <item name="android:textSize">
             16.2sp
-        </item>
 
         <item name="android:textColor">
             #B3000000
@@ -53,10 +52,5 @@
     </style>
 
 
-
 </resources>
-
-
-
-
 

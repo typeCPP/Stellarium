@@ -1,17 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".FragmentHome">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
-        android:textSize="45sp"
-        android:textColor="@color/white"
+    <LinearLayout
+        android:id="@+id/vertical_only"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/hello_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.35"
+            android:gravity="center|bottom"
+            android:text="@string/hello"
+            android:textAppearance="@style/style_title" />
+
+        <LinearLayout
+            android:id="@+id/top_space"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"
+            android:weightSum="1" />
+
+        <LinearLayout
+            android:id="@+id/first_line_with_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:minHeight="500dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/affirmationButton"
+                style="@style/button_style_for_home_page"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.35"
+                android:background="@drawable/rectangle_button_home"
+                android:drawableBottom="@drawable/affirmation"
+                android:elevation="5dp"
+                android:maxHeight="300dp"
+                android:minWidth="300dp"
+                android:minHeight="300dp"
+                android:maxWidth="300dp"
+
+                android:onClick="onClick"
+                android:stateListAnimator="@animator/button_animation_shadow"
+                android:text="@string/affirmation_name"
+                android:translationZ="4dp"
+
+                android:breakStrategy="balanced"
+                android:gravity="center_horizontal|center"
+                android:maxLines="1"
+                android:autoSizeMaxTextSize="25sp"
+                android:textSize="10sp"
+                android:autoSizeTextType="uniform"
+                tools:targetApi="o"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/horoscopeButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/horoscope"
+            android:elevation="5dp"
+            android:layerType="software"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/horoscope_name"
+            android:translationZ="4dp"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal|center"
+            android:maxLines="1"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="10sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/first_space"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:orientation="horizontal"
+        android:weightSum="1" />
+
+    <LinearLayout
+        android:id="@+id/second_line_with_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/taroButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/taro"
+            android:elevation="5dp"
+            android:layerType="software"
+            android:layoutDirection="inherit"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/taro_name"
+            android:translationZ="4dp"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal|center"
+            android:maxLines="1"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="10sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/compatibilityButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/compatibility"
+            android:elevation="5dp"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/compatibility_name"
+            android:translationZ="4dp"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal|center"
+            android:maxLines="1"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="11sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_space"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:orientation="horizontal"
+        android:weightSum="1" />
+
+    <LinearLayout
+        android:id="@+id/third_line_with_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/moonCalendarButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/moon_calendar"
+            android:elevation="5dp"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/moon_name"
+            android:translationZ="4dp"
+            android:breakStrategy="simple"
+            android:gravity="center_horizontal|center"
+            android:maxLines="2"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="10sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/numerologicButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/numerologic"
+            android:elevation="5dp"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/numerologic_name"
+            android:translationZ="4dp"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal|center"
+            android:maxLines="1"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="10sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/third_space"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:orientation="horizontal"
+        android:weightSum="1" />
+
+    <LinearLayout
+        android:id="@+id/fourth_line_with_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/squareOfPythagorasButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/square_by_pythagoras"
+            android:elevation="5dp"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/square_name"
+            android:translationZ="4dp"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal|center"
+            android:maxLines="2"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="10sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/yesOrNoButton"
+            style="@style/button_style_for_home_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="0.35"
+            android:background="@drawable/rectangle_button_home"
+            android:drawableBottom="@drawable/divination_yes_no"
+            android:elevation="5dp"
+            android:onClick="onClick"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/yes_no_name"
+            android:translationZ="4dp"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal|center"
+            android:maxLines="1"
+            android:autoSizeMaxTextSize="25sp"
+            android:textSize="10sp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+    </LinearLayout>
+</LinearLayout></ScrollView>
