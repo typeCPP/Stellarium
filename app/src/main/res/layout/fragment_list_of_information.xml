@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="265">
+            android:weightSum="273">
 
 
             <TextView
@@ -31,14 +31,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button4"
-                    style="@style/button_style"
+                    android:id="@+id/affirmationButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
@@ -46,8 +46,18 @@
                     android:background="@drawable/rectangle_button_info"
                     android:maxHeight="400dp"
                     android:minHeight="250dp"
+                    android:onClick="onClick"
                     android:text="Аффирмация"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
 
             </LinearLayout>
 
@@ -59,21 +69,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button6"
-                    style="@style/button_style"
+                    android:id="@+id/horoscopeButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
                     android:background="@drawable/rectangle_button_info"
+                    android:onClick="onClick"
                     android:text="Гороскоп"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
             </LinearLayout>
 
             <Space
@@ -84,21 +104,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button5"
-                    style="@style/button_style"
+                    android:id="@+id/taroButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
                     android:background="@drawable/rectangle_button_info"
+                    android:onClick="onClick"
                     android:text="Таро"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
             </LinearLayout>
 
             <Space
@@ -109,21 +139,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button7"
-                    style="@style/button_style"
+                    android:id="@+id/compatibilityButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
                     android:background="@drawable/rectangle_button_info"
+                    android:onClick="onClick"
                     android:text="Совместимость"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
             </LinearLayout>
 
             <Space
@@ -134,20 +174,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/moonCalendarButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
-                    style="@style/button_style"
                     android:background="@drawable/rectangle_button_info"
-                    android:text="Лунный календарь" />
+                    android:onClick="onClick"
+                    android:text="Лунный календарь"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
             </LinearLayout>
 
             <Space
@@ -158,20 +208,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/numerologicButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
-                    style="@style/button_style"
                     android:background="@drawable/rectangle_button_info"
-                    android:text="Нумерология" />
+                    android:onClick="onClick"
+                    android:text="Нумерология"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
             </LinearLayout>
 
             <Space
@@ -182,20 +242,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/squareOfPythagorasButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
-                    style="@style/button_style"
                     android:background="@drawable/rectangle_button_info"
-                    android:text="Квадрат Пифагора" />
+                    android:onClick="onClick"
+                    android:text="Квадрат Пифагора"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    tools:targetApi="o"/>
             </LinearLayout>
 
             <Space
@@ -206,20 +276,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="18"
+                android:layout_weight="19"
                 android:gravity="center|bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button11"
+                    android:id="@+id/yesOrNoButton"
+                    style="@style/button_style_for_list_of_information"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center"
                     android:layout_weight="0.55"
-                    style="@style/button_style"
                     android:background="@drawable/rectangle_button_info"
-                    android:text="Да-нет" />
+                    android:onClick="onClick"
+                    android:text="Да-нет"
+
+                    android:breakStrategy="balanced"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+
+
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMaxTextSize="20sp"
+                    tools:targetApi="o"
+                    />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
