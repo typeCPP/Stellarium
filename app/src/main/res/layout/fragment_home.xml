@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/vertical_only"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -23,13 +23,14 @@
             android:layout_weight="0.8"
             android:gravity="center"
             android:text="@string/hello"
-            android:textAppearance="@style/style_title" />/>
+            android:textAppearance="@style/style_title" />
 
         <LinearLayout
             android:id="@+id/first_line_with_buttons"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
+            android:minHeight="500dp"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -42,12 +43,14 @@
                 android:id="@+id/affirmationButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="top"
+                android:minHeight="500dp"
+                android:maxHeight="500dp"
+                android:minWidth="500dp"
+                android:autoSizeMinTextSize="45dp"
                 android:layout_weight="0.35"
                 android:background="@drawable/rectangle_button_home"
                 android:drawableBottom="@drawable/affirmation"
                 android:elevation="10dp"
-                android:gravity="center_horizontal|top"
                 android:onClick="onClick"
                 style="@style/button_style"
                 android:text="@string/affirmation_name"/>
