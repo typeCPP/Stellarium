@@ -3,16 +3,13 @@ package com.app.stellarium;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageSwitcher;
 import android.widget.TextView;
@@ -26,7 +23,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private ImageSwitcher imageSwitcherWoman;
     private boolean isTouchMan;
     private boolean isTouchWoman;
-    private Button buttonEndRegistration;
     private TextView editTextDate;
     private int birthdayDay;
     private int birthdayMonth;
@@ -47,18 +43,6 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextDate = findViewById(R.id.registration_date);
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
-        buttonEndRegistration = findViewById(R.id.button_end_registration);
-        buttonEndRegistration.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    buttonEndRegistration.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-
 
     }
 
@@ -101,22 +85,22 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void onSwitcherClickWoman(View view) {
-        imageSwitcherWoman.setAnimation(scaleUp);
-        imageSwitcherWoman.showNext();
-        isTouchWoman = true;
+        if(!isTouchWoman) {
+            imageSwitcherWoman.showNext();
+            isTouchWoman = true;
+        }
         if (isTouchMan) {
-            imageSwitcherMan.setAnimation(scaleUp);
             imageSwitcherMan.showNext();
             isTouchMan = false;
         }
     }
 
     public void onSwitcherClickMan(View view) {
-        imageSwitcherMan.setAnimation(scaleUp);
-        imageSwitcherMan.showNext();
-        isTouchMan = true;
+        if(!isTouchMan) {
+            imageSwitcherMan.showNext();
+            isTouchMan = true;
+        }
         if (isTouchWoman) {
-            imageSwitcherWoman.setAnimation(scaleUp);
             imageSwitcherWoman.showNext();
             isTouchWoman = false;
         }
