@@ -32,7 +32,6 @@ public class FragmentHome extends Fragment {
         // Required empty public constructor
     }
 
-
     public static FragmentHome newInstance(String param1, String param2) {
         FragmentHome fragment = new FragmentHome();
         Bundle args = new Bundle();
@@ -53,110 +52,49 @@ public class FragmentHome extends Fragment {
 
     }
 
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "ClickableViewAccessibility"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
-        affirmationButton = view.findViewById(R.id.affirmationButton);
-        affirmationButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    affirmationButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        horoscopeButton= view.findViewById(R.id.horoscopeButton);
-        horoscopeButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    horoscopeButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        taroButton = view.findViewById(R.id.taroButton);
-        taroButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    taroButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        compatibilityButton = view.findViewById(R.id.compatibilityButton);
-        compatibilityButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    compatibilityButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        moonCalendarButton = view.findViewById(R.id.moonCalendarButton);
-        moonCalendarButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    moonCalendarButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        numerologicButton = view.findViewById(R.id.numerologicButton);
-        numerologicButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    numerologicButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        squareOfPythagorasButton = view.findViewById(R.id.squareOfPythagorasButton);
-        squareOfPythagorasButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    squareOfPythagorasButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        yesOrNoButton = view.findViewById(R.id.yesOrNoButton);
-        yesOrNoButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP)
-                {
-                    yesOrNoButton.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
-        return view;
 
+        class ButtonOnTouchListener implements View.OnTouchListener {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.startAnimation(scaleUp);
+                }
+                return true;
+            }
+        }
+
+        affirmationButton = view.findViewById(R.id.affirmationButton);
+        affirmationButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        horoscopeButton = view.findViewById(R.id.horoscopeButton);
+        horoscopeButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        taroButton = view.findViewById(R.id.taroButton);
+        taroButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        compatibilityButton = view.findViewById(R.id.compatibilityButton);
+        compatibilityButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        moonCalendarButton = view.findViewById(R.id.moonCalendarButton);
+        moonCalendarButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        numerologicButton = view.findViewById(R.id.numerologicButton);
+        numerologicButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        squareOfPythagorasButton = view.findViewById(R.id.squareOfPythagorasButton);
+        squareOfPythagorasButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        yesOrNoButton = view.findViewById(R.id.yesOrNoButton);
+        yesOrNoButton.setOnTouchListener(new ButtonOnTouchListener());
+
+        return view;
     }
 
 }
