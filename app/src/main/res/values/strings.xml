@@ -19,5 +19,10 @@
     <string name="square_name">Квадрат Пифагора</string>
     <string name="yes_no_name">Да-Нет</string>
     <string name="hello">Добрый день, Андрей!</string>
-
+    <string name="title_registration">Добро пожаловать!</string>
+    <string name="name">Имя</string>
+    <string name="birthday_day">Дата рождения</string>
+    <string name="registration_button">Далее</string>
+    <string name="content_description_man">Выбран мужской пол</string>
+    <string name="content_description_woman">Выбран женский пол</string>
 </resources>
