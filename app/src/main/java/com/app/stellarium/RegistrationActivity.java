@@ -11,7 +11,9 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -21,9 +23,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private Animation scaleUp;
     private ImageSwitcher imageSwitcherMan;
     private ImageSwitcher imageSwitcherWoman;
+    private ImageView imageCross;
     private boolean isTouchMan;
     private boolean isTouchWoman;
     private TextView editTextDate;
+    private EditText editTextName;
     private int birthdayDay;
     private int birthdayMonth;
     private int birthdayYear;
@@ -41,6 +45,9 @@ public class RegistrationActivity extends AppCompatActivity {
         imageSwitcherMan = findViewById(R.id.imageSwitcherMan);
 
         editTextDate = findViewById(R.id.registration_date);
+
+        imageCross = findViewById(R.id.cross);
+        editTextName = findViewById(R.id.registration_name);
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
 
@@ -84,8 +91,12 @@ public class RegistrationActivity extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
     }
 
+    public void onClickCross(View view) {
+        editTextName.setText("");
+    }
+
     public void onSwitcherClickWoman(View view) {
-        if(!isTouchWoman) {
+        if (!isTouchWoman) {
             imageSwitcherWoman.showNext();
             isTouchWoman = true;
         }
@@ -96,7 +107,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void onSwitcherClickMan(View view) {
-        if(!isTouchMan) {
+        if (!isTouchMan) {
             imageSwitcherMan.showNext();
             isTouchMan = true;
         }
