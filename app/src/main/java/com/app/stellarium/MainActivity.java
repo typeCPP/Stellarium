@@ -1,5 +1,7 @@
 package com.app.stellarium;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -7,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.InformationTable;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -44,6 +48,43 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                 return true;
             }
+
         });
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        databaseHelper.onUpgrade(database, 1, 1);
+        ContentValues values = new ContentValues();
+        values.put(InformationTable.COLUMN_NAME, "АФФИРМАЦИЯ");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Аффирмации это круто, это класс, кто не согласен тот...");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "ГОРОСКОП");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Все знают что такое гороскоп.");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "ТАРО");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Карты, деньги, два ствола.");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "СОВМЕСТИМОСТЬ");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Милый ты любишь меня?");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "ЛУННЫЙ КАЛЕНДАРЬ");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Стригу волосы только, когда Луна в стадии жопы.");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "НУМЕРОЛОГИЯ");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Цифры решают всё.");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "КВАДРАТ ПИФАГОРА");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Это не похоже на школьную программу.");
+        database.insert(InformationTable.TABLE_NAME, null, values);
+
+        values.put(InformationTable.COLUMN_NAME, "ДА-НЕТ");
+        values.put(InformationTable.COLUMN_DESCRIPTION, "Ну тут уж совсем всё просто.");
+        database.insert(InformationTable.TABLE_NAME, null, values);
     }
 }
