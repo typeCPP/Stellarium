@@ -1,6 +1,7 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -65,6 +66,27 @@ public class FragmentHome extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
+                    Bundle bundle = new Bundle();
+                    switch (view.getId()) {
+                        case R.id.affirmationButton:
+                            break;
+                        case R.id.horoscopeButton:
+                            Intent intent = new Intent(getActivity(), HoroscopeListActivity.class);
+                            startActivity(intent);
+                            break;
+                        case R.id.taroButton:
+                            break;
+                        case R.id.compatibilityButton:
+                            break;
+                        case R.id.moonCalendarButton:
+                            break;
+                        case R.id.numerologicButton:
+                            break;
+                        case R.id.squareOfPythagorasButton:
+                            break;
+                        case R.id.yesOrNoButton:
+                            break;
+                    }
                 }
                 return true;
             }
