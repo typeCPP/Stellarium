@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +14,10 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.InformationTable;
+import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
+import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.flaviofaria.kenburnsview.RandomTransitionGenerator;
+import com.flaviofaria.kenburnsview.Transition;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -18,6 +25,8 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     BadgeDrawable badgeDrawable;
+
+    private KenBurnsView kbv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        kbv = findViewById(R.id.image11);
+        AccelerateDecelerateInterpolator adi = new AccelerateDecelerateInterpolator();
+        StellariumTransitionGenerator stellariumTransitionGenerator =
+                new StellariumTransitionGenerator(10000, adi);
+        kbv.setTransitionGenerator(stellariumTransitionGenerator);
+
+
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
