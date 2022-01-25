@@ -22,4 +22,8 @@
     <color name="startColorOfButtonGradient">#441086</color>
     <color name="centerColorOfButtonGradient">#7157C1</color>
     <color name="endColorOfButtonGradient">#9088EA</color>
+    <color name="registration_edit_text_background">#E8DEF8</color>
+    <color name="button_registration_bottom">#C0A9E2</color>
+    <color name="button_registration_bottom_text">#1D192B</color>
+    <color name="hint_registration">#991D192B</color>
 </resources>

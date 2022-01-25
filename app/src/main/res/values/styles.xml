@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="style_title">
         <item name="android:textSize">
@@ -49,6 +49,32 @@
 
     </style>
 
+    <style name="style_edit_text_registration">
+        <item name="android:textColorHint">
+            #A0A3B6
+        </item>
+        <item name="android:textSize">
+            24sp
+        </item>
+    </style>
+
+
+    <style name="CustomDatePickerDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@color/registration_edit_text_background</item>
+        <item name="android:dialogTheme">@style/MyDialogTheme</item>
+        <item name="background">@color/shadowColorTitle</item>
+        <item name="android:datePickerStyle">@style/MyDatePicker</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="background">@color/shadowColorTitle</item>
+        <item name="android:datePickerStyle">@style/MyDatePicker</item>
+    </style>
+
+    <style name="MyDatePicker" parent="@android:style/Widget.Material.DatePicker">
+        <item name="background">@color/shadowColorTitle</item>
+        <item name="android:datePickerMode">spinner</item>
+    </style>
 
 </resources>
 
