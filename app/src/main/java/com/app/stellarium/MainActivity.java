@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     BadgeDrawable badgeDrawable;
 
     private KenBurnsView kbv;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
