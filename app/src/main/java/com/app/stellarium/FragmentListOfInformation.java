@@ -18,11 +18,6 @@ import android.widget.Button;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.InformationTable;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentListOfInformation#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentListOfInformation extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -67,6 +62,7 @@ public class FragmentListOfInformation extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
 
     @SuppressLint({"ResourceType", "ClickableViewAccessibility"})
     @Override

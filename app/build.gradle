@@ -4,15 +4,14 @@ plugins {
 
 android {
     compileSdk 32
-
     defaultConfig {
         applicationId "com.app.stellarium"
         minSdk 21
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -40,5 +39,5 @@ dependencies {
     implementation 'org.jetbrains:annotations:16.0.2'
     implementation 'com.github.captain-miao:optroundcardview:1.0.0'
     implementation 'com.google.android.material:material:1.5.0'
-
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
 }

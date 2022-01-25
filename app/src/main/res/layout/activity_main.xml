@@ -16,12 +16,20 @@
         android:background="@android:color/transparent"
         android:visibility="visible">
 
-        <ImageView
-            android:id="@+id/image"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitStart"
-            android:src="@drawable/png_background" />
+            android:weightSum="1"
+            android:orientation="vertical">
+
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/image11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.55"
+                android:scaleType="fitStart"
+                android:src="@drawable/png_background" />
+        </LinearLayout>
     </FrameLayout>
 
     <androidx.cardview.widget.CardView
