@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:weightSum="12"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="3"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:visibility="visible">
 
         <ImageView
-            android:id="@+id/image2"
+            android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:scaleType="fitStart"
             android:src="@drawable/png_background" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <fragment
             android:id="@+id/fragment_registration_view"
@@ -34,4 +30,4 @@
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_registration" />
     </FrameLayout>
-</FrameLayout>
+</LinearLayout>
