@@ -1,12 +1,10 @@
 package com.app.stellarium;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.Calendar;
 
@@ -34,6 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private static boolean isSelected;
     private DatePickerDialog datePickerDialog;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+    private KenBurnsView kbv;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -50,7 +54,11 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.registration_name);
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
-
+        kbv = findViewById(R.id.image11);
+        AccelerateDecelerateInterpolator adi = new AccelerateDecelerateInterpolator();
+        StellariumTransitionGenerator stellariumTransitionGenerator =
+                new StellariumTransitionGenerator(10000, adi);
+        kbv.setTransitionGenerator(stellariumTransitionGenerator);
     }
 
     @SuppressLint("ResourceAsColor")

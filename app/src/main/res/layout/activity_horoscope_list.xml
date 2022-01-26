@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    tools:context=".HoroscopeListActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/image11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.55"
+                android:scaleType="fitStart"
+                android:src="@drawable/png_background" />
+        </LinearLayout>
+
+        <com.szugyi.circlemenu.view.CircleLayout
+            android:id="@+id/circle_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/imgspin"
+            android:layout_marginLeft="-505dp"
+            android:foregroundGravity="left"
+            app:firstChildPosition="East"
+            app:isRotating="true"
+            app:speed="75">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ariesButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/aries"
+                android:drawablePadding="5dp"
+                android:stateListAnimator="@animator/button_animation_shadow"
+                android:text="@string/aries" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/taurusButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/taurus"
+                android:drawablePadding="5dp"
+                android:stateListAnimator="@animator/button_animation_shadow"
+                android:text="@string/taurus" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/geminiButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/gemini"
+                android:drawablePadding="5dp"
+                android:text="@string/gemini" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cancerButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/cancer"
+                android:drawablePadding="5dp"
+                android:text="@string/cancer" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/leoButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/pisces"
+                android:drawablePadding="5dp"
+                android:text="@string/pisces" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/virgoButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/virgo"
+                android:drawablePadding="5dp"
+                android:text="@string/virgo" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/libraButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/libra"
+                android:drawablePadding="5dp"
+                android:text="@string/libra" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/scorpioButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/scorpio"
+                android:drawablePadding="5dp"
+                android:text="@string/scorpio" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sagittariusButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/sagittarius"
+                android:drawablePadding="5dp"
+                android:text="@string/sagittarius" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/capricornButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/capricorn"
+                android:drawablePadding="5dp"
+                android:text="@string/capricorn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/aquariusButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/aquarius"
+                android:text="@string/aquarius" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/piscesButton"
+                style="@style/style_horoscope_title"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:drawableBottom="@drawable/pisces"
+                android:drawablePadding="5dp"
+                android:text="@string/pisces" />
+
+        </com.szugyi.circlemenu.view.CircleLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:src="@drawable/space_sphere">
+
+        </pl.droidsonroids.gif.GifImageView>
+    </FrameLayout>
+</LinearLayout>

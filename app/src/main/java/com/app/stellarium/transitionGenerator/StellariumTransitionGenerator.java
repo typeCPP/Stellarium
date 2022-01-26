@@ -73,7 +73,7 @@ public class StellariumTransitionGenerator implements TransitionGenerator {
             maxCrop = new RectF(0, 0, r, b);
         }
 
-        float factor = 0.9f;
+        float factor = 0.95f;
 
         float width = factor * maxCrop.width();
         float height = factor * maxCrop.height();
