@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentHoroscopePage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8" />
+
+            <ImageButton
+                android:id="@+id/infoAboutSignButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@android:color/transparent"
+                android:src="@drawable/info_about_sign">
+
+            </ImageButton>
+        </LinearLayout>
+
+        <TextView
+            style="@style/style_sign_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="top|center"
+            android:text="@string/some_sign_and_date">
+
+        </TextView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/test" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.4"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/todayButton"
+                style="@style/style_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@android:color/transparent"
+                android:text="@string/today">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/tomorrowButton"
+                style="@style/style_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@android:color/transparent"
+                android:text="@string/tomorrow">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/weekButton"
+                style="@style/style_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@android:color/transparent"
+                android:text="@string/week">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/monthButton"
+                style="@style/style_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@android:color/transparent"
+                android:text="@string/month">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/yearButton"
+                style="@style/style_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.17"
+                android:background="@android:color/transparent"
+                android:text="@string/year">
+
+            </androidx.appcompat.widget.AppCompatButton>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/style_period"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/contentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <LinearLayout
+                        android:id="@+id/first_part_of_content_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/commonHoroscopeButton"
+                            style="@style/style_name_of_button_type_horoscope"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="0.9"
+                            android:background="@drawable/button_for_horoscope_item"
+                            android:drawableRight="@drawable/arrow_down_to_navigate"
+                            android:paddingRight="20dp"
+                            android:text="@string/commonHoroscope" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/firstFreeSpace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/loveHoroscopeButton"
+                            style="@style/style_name_of_button_type_horoscope"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="0.9"
+                            android:background="@drawable/button_for_horoscope_item"
+                            android:drawableRight="@drawable/arrow_down_to_navigate"
+                            android:paddingRight="20dp"
+                            android:text="@string/loveHoroscope" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/secondFreeSpace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/healthHoroscopeButton"
+                            style="@style/style_name_of_button_type_horoscope"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="0.9"
+                            android:background="@drawable/button_for_horoscope_item"
+                            android:drawableRight="@drawable/arrow_down_to_navigate"
+                            android:paddingRight="20dp"
+                            android:text="@string/health" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/thirdFreeSpace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/businessHoroscopeButton"
+                            style="@style/style_name_of_button_type_horoscope"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="0.9"
+                            android:background="@drawable/button_for_horoscope_item"
+                            android:drawableRight="@drawable/arrow_down_to_navigate"
+                            android:paddingRight="20dp"
+                            android:text="@string/business" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/fourthFreeSpace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

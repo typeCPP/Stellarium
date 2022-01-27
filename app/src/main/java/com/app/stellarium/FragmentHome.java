@@ -1,7 +1,6 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -71,8 +70,8 @@ public class FragmentHome extends Fragment {
                         case R.id.affirmationButton:
                             break;
                         case R.id.horoscopeButton:
-                            Intent intent = new Intent(getActivity(), HoroscopeListActivity.class);
-                            startActivity(intent);
+                            Fragment fragment = new FragmentHoroscopeList();
+                            getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.taroButton:
                             break;

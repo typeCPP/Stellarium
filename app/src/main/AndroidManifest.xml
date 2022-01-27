@@ -9,9 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stellarium">
-        <activity
-            android:name=".HoroscopeListActivity"
-            android:exported="false" />
         <!-- android:theme="@style/Theme.Stellarium" -->
         <activity
             android:name=".MainActivity"
@@ -24,7 +21,7 @@
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

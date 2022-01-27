@@ -82,5 +82,42 @@
             17sp
         </item>
     </style>
+    <style name="style_period">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textSize">
+            15sp
+        </item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="backgroundTint">
+            @android:color/transparent
+        </item>
+    </style>
+    <style name="style_name_of_button_type_horoscope">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textSize">
+            22sp
+        </item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="android:gravity">
+            left|center_vertical
+        </item>
+        <item name="fontFamily">
+            @font/font_for_horoscope
+        </item>
+        <item name="android:paddingLeft">
+            15dp
+        </item>
+    </style>
+
+    <style name="style_sign_title">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textSize">
+            20sp
+        </item>
+    </style>
 </resources>
 

@@ -37,5 +37,15 @@
     <string name="capricorn">Козерог</string>
     <string name="aquarius">Водолей</string>
     <string name="pisces">Рыбы</string>
+    <string name="some_sign_and_date">Водолей | 21 января - 19 февраля</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="week">Неделя</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
+    <string name="commonHoroscope">Общий гороскоп</string>
+    <string name="loveHoroscope">Любовный гороскоп</string>
+    <string name="health">Здоровье</string>
+    <string name="business">Бизнес</string>
 
 </resources>
