@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FragmentListOfInformation();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 return true;
             }
 
@@ -97,5 +98,17 @@ public class MainActivity extends AppCompatActivity {
         values.put(InformationTable.COLUMN_NAME, "ДА-НЕТ");
         values.put(InformationTable.COLUMN_DESCRIPTION, "Ну тут уж совсем всё просто.");
         database.insert(InformationTable.TABLE_NAME, null, values);
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
     }
 }
