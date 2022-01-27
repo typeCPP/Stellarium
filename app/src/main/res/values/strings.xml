@@ -37,5 +37,25 @@
     <string name="capricorn">Козерог</string>
     <string name="aquarius">Водолей</string>
     <string name="pisces">Рыбы</string>
+    <string name="personality">характер</string>
+    <string name="personality_number">111</string>
+    <string name="health">здоровье</string>
+    <string name="health_number">222</string>
+    <string name="luck">везение</string>
+    <string name="luck_number">333</string>
+    <string name="energy">энергия</string>
+    <string name="energy_number">444</string>
+    <string name="logic">логика</string>
+    <string name="logic_number">555</string>
+    <string name="duty">долг</string>
+    <string name="duty_number">666</string>
+    <string name="interest">интерес</string>
+    <string name="interest_number">777</string>
+    <string name="labor">труд</string>
+    <string name="labor_number">888</string>
+    <string name="mind_memory">ум, память</string>
+    <string name="mind_memory_number">999</string>
+    <string name="enter_birthday_date">Введите дату рождения</string>
+    <string name="characteristic">ХАРАКТЕРИСТИКА</string>
 
 </resources>

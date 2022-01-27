@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".FragmentHomePage">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title_pyth_square_home_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:gravity="center|top"
+            android:text="@string/square_name"
+            android:textAppearance="@style/style_title" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="12">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5" />
+
+        <LinearLayout
+            android:id="@+id/date_layout_second"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:orientation="vertical"
+            android:transitionName="example_transition"
+            android:weightSum="12">
+          <!--  android:visibility="visible"-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:weightSum="12">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <TextView
+                    style="@style/birthday_day"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:autoSizeMinTextSize="15dp"
+                    android:autoSizeStepGranularity="2dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center|top"
+                    android:text="@string/birthday_day"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:weightSum="12">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:id="@+id/pythagorean_date_home_page"
+                    style="@style/date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:autoSizeMinTextSize="15dp"
+                    android:autoSizeStepGranularity="2dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center|top"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
+
+            <TableLayout
+                android:id="@+id/table_pythagorean_square"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:padding="0dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:weightSum="3">
+
+                    <FrameLayout
+                        android:id="@+id/ps_personality"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean"
+                        android:onClick="onCLickPersonality">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/personality" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/personality_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/ps_health"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/health" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/health_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/ps_luck"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/luck" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/luck_number" />
+                    </FrameLayout>
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:weightSum="3">
+
+                    <FrameLayout
+                        android:id="@+id/ps_energy"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/energy" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/energy_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/ps_logic"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/logic" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/logic_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/ps_duty"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/duty" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/duty_number" />
+                    </FrameLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp">
+
+                    <FrameLayout
+                        android:id="@+id/ps_interest"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/interest" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/interest_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/ps_labor"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/labor" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/labor_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/ps_mind_memory"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_pythagorean">
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean"
+                            android:text="@string/mind_memory" />
+
+                        <TextView
+                            style="@style/style_title_button_pythagorean_number"
+                            android:text="@string/mind_memory_number" />
+                    </FrameLayout>
+
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5" />
+    </LinearLayout>
+</FrameLayout>
+

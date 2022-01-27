@@ -82,5 +82,135 @@
             17sp
         </item>
     </style>
+
+    <style name="style_title_button_pythagorean">
+        <item name="android:textColor">
+            @color/title_button_pythagorean
+        </item>
+        <item name="android:autoSizeStepGranularity">
+            2dp
+        </item>
+        <item name="android:autoSizeTextType">
+            uniform
+        </item>
+        <item name="autoSizeMinTextSize">
+            5dp
+        </item>
+        <item name="autoSizeMaxTextSize">
+            40dp
+        </item>
+        <item name="android:gravity">
+            top|center
+        </item>
+        <item name="android:layout_marginTop">
+            10dp
+        </item>
+        <item name="android:layout_marginLeft">
+            2dp
+        </item>
+        <item name="android:layout_marginRight">
+            2dp
+        </item>
+        <item name="android:layout_width">
+            match_parent
+        </item>
+        <item name="android:layout_height">
+            wrap_content
+        </item>
+    </style>
+
+    <style name="style_title_button_pythagorean_number">
+        <item name="android:textStyle">
+            bold
+        </item>
+        <item name="android:textColor">
+            @color/title_button_pythagorean
+        </item>
+        <item name="android:autoSizeStepGranularity">
+            1dp
+        </item>
+        <item name="android:autoSizeTextType">
+            uniform
+        </item>
+        <item name="autoSizeMinTextSize">
+            3dp
+        </item>
+        <item name="autoSizeMaxTextSize">
+            20dp
+        </item>
+        <item name="android:layout_gravity">
+            bottom
+        </item>
+        <item name="android:gravity">
+            bottom|center
+        </item>
+        <item name="android:layout_marginBottom">
+            10dp
+        </item>
+        <item name="android:layout_marginLeft">
+            2dp
+        </item>
+        <item name="android:layout_marginRight">
+            2dp
+        </item>
+        <item name="android:layout_width">
+            match_parent
+        </item>
+        <item name="android:layout_height">
+            20dp
+        </item>
+    </style>
+
+    <style name="birthday_day">
+
+
+        <item name="android:textColor">
+            #F7FFFFFF
+        </item>
+
+        <item name="android:shadowColor">
+            #40000000
+        </item>
+
+        <item name="android:shadowDx">
+            0
+        </item>
+
+        <item name="android:shadowDy">
+            10
+        </item>
+
+        <item name="android:shadowRadius">8
+        </item>
+
+    </style>
+
+    <style name="date">
+
+        <item name="android:textSize">
+            20sp
+        </item>
+
+        <item name="android:textColor">
+            #E6FFFFFF
+        </item>
+
+        <item name="android:shadowColor">
+            #3D4171
+        </item>
+
+        <item name="android:shadowDx">
+            0
+        </item>
+
+        <item name="android:shadowDy">
+            2
+        </item>
+
+        <item name="android:shadowRadius">
+            4
+        </item>
+
+    </style>
 </resources>
 
