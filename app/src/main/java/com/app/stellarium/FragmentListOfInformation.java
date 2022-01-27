@@ -120,7 +120,7 @@ public class FragmentListOfInformation extends Fragment {
                     Fragment fragment = new FragmentInformation();
                     fragment.setArguments(bundle);
 
-                    getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }

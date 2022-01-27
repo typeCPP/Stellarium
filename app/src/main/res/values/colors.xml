@@ -26,5 +26,9 @@
     <color name="button_registration_bottom">#C0A9E2</color>
     <color name="button_registration_bottom_text">#1D192B</color>
     <color name="hint_registration">#991D192B</color>
-    <color name="button_type_horoscope">#809088EA</color>
+    <color name="title_button_pythagorean">#24213C</color>
+    <color name="button_pythagorean_square_end_color">#586CA5</color>
+    <color name="button_pythagorean_square_start_color">#ADBDEA</color>
+    <color name="button_pythagorean_square_stroke">#3F4E79</color>
+
 </resources>
