@@ -2,44 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    android:orientation="vertical"
-    tools:context=".HoroscopeListActivity">
+    tools:context=".FragmentHoroscopeList">
 
     <FrameLayout
-        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:visibility="visible">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1">
-
-            <com.flaviofaria.kenburnsview.KenBurnsView
-                android:id="@+id/image11"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.55"
-                android:scaleType="fitStart"
-                android:src="@drawable/png_background" />
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <com.szugyi.circlemenu.view.CircleLayout
             android:id="@+id/circle_layout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_above="@+id/imgspin"
             android:layout_marginLeft="-505dp"
-            android:foregroundGravity="left"
+            android:persistentDrawingCache="animation"
             app:firstChildPosition="East"
             app:isRotating="true"
+            app:radius="260dp"
             app:speed="75">
 
 
@@ -170,6 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center"
+            android:elevation="5dp"
             android:src="@drawable/space_sphere">
 
         </pl.droidsonroids.gif.GifImageView>

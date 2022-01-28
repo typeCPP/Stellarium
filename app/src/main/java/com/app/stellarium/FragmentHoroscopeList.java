@@ -2,48 +2,39 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
-import com.flaviofaria.kenburnsview.KenBurnsView;
+public class FragmentHoroscopeList extends Fragment {
+    private Button ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
+            libraButton, scorpioButton, sagittariusButton, capricornButton, aquariusButton, piscesButton;
 
-
-public class HoroscopeListActivity extends AppCompatActivity {
-    private KenBurnsView kbv;
-    private Animation scaleUp;
-    private Button ariesButton,taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
-            libraButton, scorpioButton, sagittariusButton,capricornButton, aquariusButton, piscesButton;
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_horoscope_list);
-        kbv = findViewById(R.id.image11);
-        AccelerateDecelerateInterpolator adi = new AccelerateDecelerateInterpolator();
-        StellariumTransitionGenerator stellariumTransitionGenerator =
-                new StellariumTransitionGenerator(10000, adi);
-        kbv.setTransitionGenerator(stellariumTransitionGenerator);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_horoscope_list, container, false);
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    view.startAnimation(scaleUp);
-                    Bundle bundle = new Bundle();
-                    setAnimation();
-
                     int idOfInformationTableElement = 1;
                     switch (view.getId()) {
                         case R.id.ariesButton:
                             idOfInformationTableElement = 1;
+                            Fragment fragment = new FragmentHoroscopePage();
+                            getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.taurusButton:
                             idOfInformationTableElement = 2;
@@ -85,44 +76,41 @@ public class HoroscopeListActivity extends AppCompatActivity {
             }
         }
 
-        ariesButton = findViewById(R.id.ariesButton);
+        ariesButton = view.findViewById(R.id.ariesButton);
         ariesButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        taurusButton = findViewById(R.id.taurusButton);
+        taurusButton = view.findViewById(R.id.taurusButton);
         taurusButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        geminiButton = findViewById(R.id.geminiButton);
+        geminiButton = view.findViewById(R.id.geminiButton);
         geminiButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        cancerButton = findViewById(R.id.cancerButton);
+        cancerButton = view.findViewById(R.id.cancerButton);
         cancerButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        leoButton = findViewById(R.id.leoButton);
+        leoButton = view.findViewById(R.id.leoButton);
         leoButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        virgoButton = findViewById(R.id.virgoButton);
+        virgoButton = view.findViewById(R.id.virgoButton);
         virgoButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        libraButton = findViewById(R.id.libraButton);
+        libraButton = view.findViewById(R.id.libraButton);
         libraButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        scorpioButton = findViewById(R.id.scorpioButton);
+        scorpioButton = view.findViewById(R.id.scorpioButton);
         scorpioButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        sagittariusButton = findViewById(R.id.sagittariusButton);
+        sagittariusButton = view.findViewById(R.id.sagittariusButton);
         sagittariusButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        capricornButton = findViewById(R.id.capricornButton);
+        capricornButton = view.findViewById(R.id.capricornButton);
         capricornButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        aquariusButton = findViewById(R.id.aquariusButton);
+        aquariusButton = view.findViewById(R.id.aquariusButton);
         aquariusButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        piscesButton = findViewById(R.id.piscesButton);
+        piscesButton = view.findViewById(R.id.piscesButton);
         piscesButton.setOnTouchListener(new ButtonOnTouchListener());
-    }
-
-    private void setAnimation() {
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+        return view;
     }
 }
