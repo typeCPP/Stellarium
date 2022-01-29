@@ -71,4 +71,5 @@
     <string name="character">Характер</string>
     <string name="love">Любовь</string>
     <string name="career">Карьера</string>
+    <string name="show_results">показать результаты</string>
 </resources>

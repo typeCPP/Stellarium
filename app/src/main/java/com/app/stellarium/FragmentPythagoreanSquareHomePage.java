@@ -2,6 +2,7 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -66,7 +67,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
         layoutDate = view.findViewById(R.id.date_layout_second);
         editTextDate = view.findViewById(R.id.pythagorean_date_home_page);
         layoutDate.setAlpha(0f);
-        layoutDate.animate().alpha(1f).setDuration(1000).setListener(null);
+        layoutDate.animate().alpha(1f).setDuration(100).setListener(null);
         Bundle bundle = getArguments();
         String date = null;
         if (bundle != null) {
@@ -136,10 +137,16 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                     }
                     bundle.putString("Title", title);
                     bundle.putString("Description", description);
-                    layoutDate.animate().alpha(0f).setDuration(1000).setListener(null);
-                    Fragment fragmentPythagoreanSquare = new FragmentPythagoreanSquare();
-                    fragmentPythagoreanSquare.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
+                    layoutDate.animate().alpha(0f).setDuration(200).setListener(null);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Fragment fragmentPythagoreanSquare = new FragmentPythagoreanSquare();
+                            fragmentPythagoreanSquare.setArguments(bundle);
+                            getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
+                        }
+                    }, 200);
                 }
                 return true;
             }

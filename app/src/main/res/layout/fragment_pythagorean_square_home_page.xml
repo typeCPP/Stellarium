@@ -7,17 +7,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/title_pyth_square_home_page"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:gravity="center|top"
-            android:text="@string/square_name"
-            android:textAppearance="@style/style_title" />
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,12 +29,11 @@
             android:orientation="vertical"
             android:transitionName="example_transition"
             android:weightSum="12">
-          <!--  android:visibility="visible"-->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +99,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.9" />
 
             <TableLayout
                 android:id="@+id/table_pythagorean_square"
@@ -132,7 +121,7 @@
                         android:id="@+id/ps_personality"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/button_pythagorean"
+                        android:background="@drawable/button_pythagorean_top_left_corner"
                         android:onClick="onCLickPersonality">
 
                         <TextView
@@ -163,7 +152,7 @@
                         android:id="@+id/ps_luck"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/button_pythagorean">
+                        android:background="@drawable/button_pythagorean_top_right_corner">
 
                         <TextView
                             style="@style/style_title_button_pythagorean"
@@ -243,7 +232,7 @@
                         android:id="@+id/ps_interest"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/button_pythagorean">
+                        android:background="@drawable/button_pythagorean_bottom_left_corner">
 
                         <TextView
                             style="@style/style_title_button_pythagorean"
@@ -273,7 +262,7 @@
                         android:id="@+id/ps_mind_memory"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/button_pythagorean">
+                        android:background="@drawable/button_pythagorean_bottom_right_corner">
 
                         <TextView
                             style="@style/style_title_button_pythagorean"
@@ -295,4 +284,3 @@
             android:layout_weight="1.5" />
     </LinearLayout>
 </FrameLayout>
-
