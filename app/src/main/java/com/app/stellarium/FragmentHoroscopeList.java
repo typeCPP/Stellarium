@@ -1,14 +1,25 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
+import com.app.stellarium.database.tables.HoroscopePredictionsTable;
+import com.app.stellarium.database.tables.InformationTable;
+
+import java.util.Objects;
 
 public class FragmentHoroscopeList extends Fragment {
     private Button ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
@@ -29,48 +40,63 @@ public class FragmentHoroscopeList extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    int idOfInformationTableElement = 1;
+                    int drawableId = R.drawable.big_aries;
+                    int idOfHoroscopePredictionsByPeriodTableElement = 1;
                     switch (view.getId()) {
                         case R.id.ariesButton:
-                            idOfInformationTableElement = 1;
-                            Fragment fragment = new FragmentHoroscopePage();
-                            getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+                            idOfHoroscopePredictionsByPeriodTableElement = 1;
+                            drawableId = R.drawable.big_aries;
                             break;
                         case R.id.taurusButton:
-                            idOfInformationTableElement = 2;
+                            idOfHoroscopePredictionsByPeriodTableElement = 2;
+                            drawableId = R.drawable.big_taurus;
                             break;
                         case R.id.geminiButton:
-                            idOfInformationTableElement = 3;
+                            idOfHoroscopePredictionsByPeriodTableElement = 3;
+                            drawableId = R.drawable.big_gemini;
                             break;
                         case R.id.cancerButton:
-                            idOfInformationTableElement = 4;
+                            idOfHoroscopePredictionsByPeriodTableElement = 4;
+                            drawableId = R.drawable.big_cancer;
                             break;
                         case R.id.leoButton:
-                            idOfInformationTableElement = 5;
+                            idOfHoroscopePredictionsByPeriodTableElement = 5;
+                            drawableId = R.drawable.big_leo;
                             break;
                         case R.id.virgoButton:
-                            idOfInformationTableElement = 6;
+                            idOfHoroscopePredictionsByPeriodTableElement = 6;
+                            drawableId = R.drawable.big_virgo;
                             break;
                         case R.id.libraButton:
-                            idOfInformationTableElement = 7;
+                            idOfHoroscopePredictionsByPeriodTableElement = 7;
+                            drawableId = R.drawable.big_libra;
                             break;
                         case R.id.scorpioButton:
-                            idOfInformationTableElement = 8;
+                            idOfHoroscopePredictionsByPeriodTableElement = 8;
+                            drawableId = R.drawable.big_scorpio;
                             break;
                         case R.id.sagittariusButton:
-                            idOfInformationTableElement = 9;
+                            idOfHoroscopePredictionsByPeriodTableElement = 9;
+                            drawableId = R.drawable.big_sagittarius;
                             break;
                         case R.id.capricornButton:
-                            idOfInformationTableElement = 10;
+                            idOfHoroscopePredictionsByPeriodTableElement = 10;
+                            drawableId = R.drawable.big_capricorn;
                             break;
                         case R.id.aquariusButton:
-                            idOfInformationTableElement = 11;
+                            idOfHoroscopePredictionsByPeriodTableElement = 11;
+                            drawableId = R.drawable.big_aquarius;
                             break;
                         case R.id.piscesButton:
-                            idOfInformationTableElement = 12;
+                            idOfHoroscopePredictionsByPeriodTableElement = 12;
+                            drawableId = R.drawable.big_pisces;
                             break;
                     }
-
+                    Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
+                    bundle.putInt("signPictureDrawableId", drawableId);
+                    Fragment fragment = new FragmentHoroscopePage();
+                    fragment.setArguments(bundle);
+                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }
@@ -112,5 +138,51 @@ public class FragmentHoroscopeList extends Fragment {
         piscesButton = view.findViewById(R.id.piscesButton);
         piscesButton.setOnTouchListener(new ButtonOnTouchListener());
         return view;
+    }
+
+    @SuppressLint("Range")
+    private Bundle findAndGetHoroscopeSignDataFromDatabase(int signId) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        Cursor periodTableCursor = database.query(HoroscopePredictionsByPeriodTable.TABLE_NAME, null,
+                "_id = " + signId,
+                null, null, null, null);
+        periodTableCursor.moveToFirst();
+
+        String[][] predictions = new String[5][4];
+        int[] predictionIds = new int[5];
+        String signName = periodTableCursor.getString(periodTableCursor.getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_SIGN_NAME));
+        predictionIds[0] = periodTableCursor.getInt(periodTableCursor.
+                getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_TODAY_PREDICTION_ID));
+        predictionIds[1] = periodTableCursor.getInt(periodTableCursor.
+                getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_TOMORROW_PREDICTION_ID));
+        predictionIds[2] = periodTableCursor.getInt(periodTableCursor.
+                getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_WEEK_PREDICTION_ID));
+        predictionIds[3] = periodTableCursor.getInt(periodTableCursor.
+                getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_MONTH_PREDICTION_ID));
+        predictionIds[4] = periodTableCursor.getInt(periodTableCursor.
+                getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_YEAR_PREDICTION_ID));
+
+        for (int i = 0; i < 5; i++) {
+            Cursor predictionsCursor = database.query(HoroscopePredictionsTable.TABLE_NAME, null,
+                    "_id = " + predictionIds[i],
+                    null, null, null, null);
+            predictionsCursor.moveToFirst();
+            predictions[i][0] = predictionsCursor.getString(predictionsCursor.getColumnIndex(HoroscopePredictionsTable.COLUMN_COMMON));
+            predictions[i][1] = predictionsCursor.getString(predictionsCursor.getColumnIndex(HoroscopePredictionsTable.COLUMN_LOVE));
+            predictions[i][2] = predictionsCursor.getString(predictionsCursor.getColumnIndex(HoroscopePredictionsTable.COLUMN_HEALTH));
+            predictions[i][3] = predictionsCursor.getString(predictionsCursor.getColumnIndex(HoroscopePredictionsTable.COLUMN_BUSINESS));
+
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString("signName", signName);
+        bundle.putStringArray("todayPredictions", predictions[0]);
+        bundle.putStringArray("tomorrowPredictions", predictions[1]);
+        bundle.putStringArray("weekPredictions", predictions[2]);
+        bundle.putStringArray("monthPredictions", predictions[3]);
+        bundle.putStringArray("yearPredictions", predictions[4]);
+
+        return bundle;
     }
 }

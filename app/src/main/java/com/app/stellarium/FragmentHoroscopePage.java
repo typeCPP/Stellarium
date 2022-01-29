@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,10 +32,15 @@ public class FragmentHoroscopePage extends Fragment {
     private ImageButton infoAboutSignButton;
     private LinearLayout contentLayout, firstFreeSpace, secondFreeSpace, thirdFreeSpace, fourthFreeSpace;
     private TextView commonHoroscopeTextView;
+    private TextView signTitle;
+    private ImageView signImage;
     private TextView textCommonHoroscope, textLoveHoroscope, textHealthHoroscope, textBusinessHoroscope;
     boolean isClickCommonHoroscopeButton = false, isClickHealthHoroscopeButton = false,
             isClickLoveHoroscopeButton = false, isClickBusinessHoroscopeButton = false;
     private Animation scaleUp;
+
+    private Bundle bundle;
+    private String[][] predictions;
 
     public static FragmentHoroscopePage newInstance(String param1, String param2) {
         FragmentHoroscopePage fragment = new FragmentHoroscopePage();
@@ -78,6 +84,22 @@ public class FragmentHoroscopePage extends Fragment {
                         break;
                 }
             }
+        }
+
+        bundle = getArguments();
+
+        if (bundle != null) {
+            predictions = new String[5][4];
+            predictions[0] = bundle.getStringArray("todayPredictions");
+            predictions[1] = bundle.getStringArray("tomorrowPredictions");
+            predictions[2] = bundle.getStringArray("weekPredictions");
+            predictions[3] = bundle.getStringArray("monthPredictions");
+            predictions[4] = bundle.getStringArray("yearPredictions");
+            signTitle = view.findViewById(R.id.signTitle);
+            signTitle.setText(bundle.getString("signName"));
+
+            signImage = view.findViewById(R.id.signImage);
+            signImage.setImageResource(bundle.getInt("signPictureDrawableId"));
         }
 
         todayButton = view.findViewById(R.id.todayButton);
@@ -154,6 +176,7 @@ public class FragmentHoroscopePage extends Fragment {
         } else {
             numberOfActiveButton = 5;
         }
+        updateTextViews();
     }
 
     private void activeSwipe(View view) {
@@ -199,52 +222,52 @@ public class FragmentHoroscopePage extends Fragment {
             @Override
             public void onClick() {
                 view.startAnimation(scaleUp);
-                switch (view.getId()) {
-                    case R.id.commonHoroscopeButton:
-                        if (isClickCommonHoroscopeButton) {
-                            isClickCommonHoroscopeButton = false;
-                            firstFreeSpace.removeView(textCommonHoroscope);
-                            firstFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        } else {
-                            isClickCommonHoroscopeButton = true;
-                            textCommonHoroscope = new TextView(getActivity());
-                            setAttributesForTextView("Сегодняшний день станет для Водолеев периодом нестабильности, и в первую очередь эмоциональной и психологической. Все это время знаки будут находиться, словно, на вершине вулкана, который вот-вот может извергнуться неприятностями. Будьте к этому готовы. В любом сумасшествии сохраняйте спокойствие! Чем меньше вы будете суетиться, тем лучше справитесь с накопившимися проблемами.\n" +
-                                    "\n" +
-                                    "Под вечер высока вероятность ДТП и других чрезвычайных происшествий. Поэтому будьте максимально аккуратны и бдительны. Напряженная ситуация ударит не только по вашему душевному состоянию, но и по кошельку. Так что приготовьтесь к ответному удару судьбе.", textCommonHoroscope, firstFreeSpace);
-                        }
-                        break;
-                    case R.id.loveHoroscopeButton:
-                        if (isClickLoveHoroscopeButton) {
-                            isClickLoveHoroscopeButton = false;
-                            secondFreeSpace.removeView(textLoveHoroscope);
-                            secondFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        } else {
-                            isClickLoveHoroscopeButton = true;
-                            textLoveHoroscope = new TextView(getActivity());
-                            setAttributesForTextView("Какой-то текст2", textLoveHoroscope, secondFreeSpace);
-                        }
-                        break;
-                    case R.id.healthHoroscopeButton:
-                        if (isClickHealthHoroscopeButton) {
-                            isClickHealthHoroscopeButton = false;
-                            thirdFreeSpace.removeView(textHealthHoroscope);
-                            thirdFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        } else {
-                            isClickHealthHoroscopeButton = true;
-                            textHealthHoroscope = new TextView(getActivity());
-                            setAttributesForTextView("Текст3", textHealthHoroscope, thirdFreeSpace);
-                        }
-                        break;
-                    case R.id.businessHoroscopeButton:
-                        if (isClickBusinessHoroscopeButton) {
-                            isClickBusinessHoroscopeButton = false;
-                            fourthFreeSpace.removeView(textBusinessHoroscope);
-                            fourthFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        } else {
-                            isClickBusinessHoroscopeButton = true;
-                            textBusinessHoroscope = new TextView(getActivity());
-                            setAttributesForTextView("Текст4", textBusinessHoroscope, fourthFreeSpace);
-                        }
+                if (bundle != null) {
+                    switch (view.getId()) {
+                        case R.id.commonHoroscopeButton:
+                            if (isClickCommonHoroscopeButton) {
+                                isClickCommonHoroscopeButton = false;
+                                firstFreeSpace.removeView(textCommonHoroscope);
+                                firstFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            } else {
+                                isClickCommonHoroscopeButton = true;
+                                textCommonHoroscope = new TextView(getActivity());
+                                setAttributesForTextView(predictions[numberOfActiveButton - 1][0], textCommonHoroscope, firstFreeSpace);
+                            }
+                            break;
+                        case R.id.loveHoroscopeButton:
+                            if (isClickLoveHoroscopeButton) {
+                                isClickLoveHoroscopeButton = false;
+                                secondFreeSpace.removeView(textLoveHoroscope);
+                                secondFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            } else {
+                                isClickLoveHoroscopeButton = true;
+                                textLoveHoroscope = new TextView(getActivity());
+                                setAttributesForTextView(predictions[numberOfActiveButton - 1][1], textLoveHoroscope, secondFreeSpace);
+                            }
+                            break;
+                        case R.id.healthHoroscopeButton:
+                            if (isClickHealthHoroscopeButton) {
+                                isClickHealthHoroscopeButton = false;
+                                thirdFreeSpace.removeView(textHealthHoroscope);
+                                thirdFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            } else {
+                                isClickHealthHoroscopeButton = true;
+                                textHealthHoroscope = new TextView(getActivity());
+                                setAttributesForTextView(predictions[numberOfActiveButton - 1][2], textHealthHoroscope, thirdFreeSpace);
+                            }
+                            break;
+                        case R.id.businessHoroscopeButton:
+                            if (isClickBusinessHoroscopeButton) {
+                                isClickBusinessHoroscopeButton = false;
+                                fourthFreeSpace.removeView(textBusinessHoroscope);
+                                fourthFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            } else {
+                                isClickBusinessHoroscopeButton = true;
+                                textBusinessHoroscope = new TextView(getActivity());
+                                setAttributesForTextView(predictions[numberOfActiveButton - 1][3], textBusinessHoroscope, fourthFreeSpace);
+                            }
+                    }
                 }
             }
         });
@@ -262,6 +285,21 @@ public class FragmentHoroscopePage extends Fragment {
         layout.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.05f));
         layout.addView(textView, 1);
         layout.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.05f));
+    }
+
+    private void updateTextViews() {
+        if(textCommonHoroscope != null) {
+            textCommonHoroscope.setText(predictions[numberOfActiveButton - 1][0]);
+        }
+        if(textLoveHoroscope != null) {
+            textLoveHoroscope.setText(predictions[numberOfActiveButton - 1][1]);
+        }
+        if(textHealthHoroscope != null) {
+            textHealthHoroscope.setText(predictions[numberOfActiveButton - 1][2]);
+        }
+        if(textBusinessHoroscope != null) {
+            textBusinessHoroscope.setText(predictions[numberOfActiveButton - 1][3]);
+        }
     }
 
 }
