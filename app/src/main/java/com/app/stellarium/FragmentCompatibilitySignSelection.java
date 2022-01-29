@@ -3,6 +3,7 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -41,7 +42,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     private boolean isSelectedMan;
     private float deltaX;
     private float deltaY;
-
+    private PointF actionDownPoint = new PointF(0f, 0f);
+    private short touchMoveFactor = 10;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -118,141 +120,152 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    actionDownPoint.x = motionEvent.getX();
+                    actionDownPoint.y = motionEvent.getY();
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    spinner.onTouchEvent(motionEvent);
+                }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    int idOfSignsTableElement = 1;
-                    switch (view.getId()) {
-                        case R.id.compAriesButton:
-                            idOfSignsTableElement = 1;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_aries);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_aries);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compTaurusButton:
-                            idOfSignsTableElement = 2;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_taurus);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_taurus);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compGeminiButton:
-                            idOfSignsTableElement = 3;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_gemini);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_gemini);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compCancerButton:
-                            idOfSignsTableElement = 4;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_cancer);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_cancer);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compLeoButton:
-                            idOfSignsTableElement = 5;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_leo);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_leo);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compVirgoButton:
-                            idOfSignsTableElement = 6;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_virgo);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_virgo);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compLibraButton:
-                            idOfSignsTableElement = 7;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_libra);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_libra);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compScorpioButton:
-                            idOfSignsTableElement = 8;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_scorpio);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_scorpio);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compSagittariusButton:
-                            idOfSignsTableElement = 9;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_sagittarius);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_sagittarius);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compCapricornButton:
-                            idOfSignsTableElement = 10;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_capricorn);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_capricorn);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compAquariusButton:
-                            idOfSignsTableElement = 11;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_aquarius);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_aquarius);
-                                isSelectedMan = true;
-                            }
-                            break;
-                        case R.id.compPiscesButton:
-                            idOfSignsTableElement = 12;
-                            if (isWoman) {
-                                circleWoman.setImageResource(R.drawable.comp_pisces);
-                                isSelectedWoman = true;
-                            } else {
-                                circleMan.setImageResource(R.drawable.comp_pisces);
-                                isSelectedMan = true;
-                            }
-                            break;
-                    }
-                    spinner.animate().alpha(0f).setDuration(500).setListener(null);
-                    if (isSelectedWoman && isSelectedMan) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                layout_with_spinner.setVisibility(View.INVISIBLE);
-                            }
-                        }, 500);
+                    boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
+                            Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
+                    if (isTouchLength) {
+                        int idOfSignsTableElement = 1;
+                        switch (view.getId()) {
+                            case R.id.compAriesButton:
+                                idOfSignsTableElement = 1;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_aries);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_aries);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compTaurusButton:
+                                idOfSignsTableElement = 2;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_taurus);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_taurus);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compGeminiButton:
+                                idOfSignsTableElement = 3;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_gemini);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_gemini);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compCancerButton:
+                                idOfSignsTableElement = 4;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_cancer);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_cancer);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compLeoButton:
+                                idOfSignsTableElement = 5;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_leo);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_leo);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compVirgoButton:
+                                idOfSignsTableElement = 6;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_virgo);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_virgo);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compLibraButton:
+                                idOfSignsTableElement = 7;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_libra);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_libra);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compScorpioButton:
+                                idOfSignsTableElement = 8;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_scorpio);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_scorpio);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compSagittariusButton:
+                                idOfSignsTableElement = 9;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_sagittarius);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_sagittarius);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compCapricornButton:
+                                idOfSignsTableElement = 10;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_capricorn);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_capricorn);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compAquariusButton:
+                                idOfSignsTableElement = 11;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_aquarius);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_aquarius);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                            case R.id.compPiscesButton:
+                                idOfSignsTableElement = 12;
+                                if (isWoman) {
+                                    circleWoman.setImageResource(R.drawable.comp_pisces);
+                                    isSelectedWoman = true;
+                                } else {
+                                    circleMan.setImageResource(R.drawable.comp_pisces);
+                                    isSelectedMan = true;
+                                }
+                                break;
+                        }
+                        spinner.animate().alpha(0f).setDuration(500).setListener(null);
+                        if (isSelectedWoman && isSelectedMan) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    layout_with_spinner.setVisibility(View.INVISIBLE);
+                                }
+                            }, 500);
 
-                        nextButton.animate().alpha(1).setDuration(500).setListener(null);
+                            nextButton.animate().alpha(1).setDuration(500).setListener(null);
+                        }
                     }
                 }
                 return true;
