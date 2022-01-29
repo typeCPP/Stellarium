@@ -32,21 +32,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
                 android:background="@android:color/transparent"
-                android:src="@drawable/info_about_sign">
-
-            </ImageButton>
+                android:src="@drawable/info_about_sign" />
         </LinearLayout>
 
         <TextView
-            style="@style/style_sign_title"
             android:id="@+id/signTitle"
+            style="@style/style_sign_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="top|center"
-            android:text="@string/some_sign_and_date">
-
-        </TextView>
+            android:text="@string/some_sign_and_date" />
 
         <ImageView
             android:id="@+id/signImage"
@@ -69,9 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:background="@android:color/transparent"
-                android:text="@string/today">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:text="@string/today" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tomorrowButton"
@@ -80,9 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:background="@android:color/transparent"
-                android:text="@string/tomorrow">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:text="@string/tomorrow" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/weekButton"
@@ -91,9 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:background="@android:color/transparent"
-                android:text="@string/week">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:text="@string/week" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/monthButton"
@@ -102,9 +92,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:background="@android:color/transparent"
-                android:text="@string/month">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:text="@string/month" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/yearButton"
@@ -113,9 +101,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.17"
                 android:background="@android:color/transparent"
-                android:text="@string/year">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:text="@string/year" />
         </LinearLayout>
 
         <LinearLayout

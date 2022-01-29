@@ -1,12 +1,9 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.usage.UsageEvents;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -35,7 +32,7 @@ public class FragmentHoroscopePage extends Fragment {
     private TextView signTitle;
     private ImageView signImage;
     private TextView textCommonHoroscope, textLoveHoroscope, textHealthHoroscope, textBusinessHoroscope;
-    boolean isClickCommonHoroscopeButton = false, isClickHealthHoroscopeButton = false,
+    private boolean isClickCommonHoroscopeButton = false, isClickHealthHoroscopeButton = false,
             isClickLoveHoroscopeButton = false, isClickBusinessHoroscopeButton = false;
     private Animation scaleUp;
 
@@ -81,6 +78,8 @@ public class FragmentHoroscopePage extends Fragment {
                         updateStateButtons(yearButton);
                         break;
                     case R.id.infoAboutSignButton:
+                        Fragment fragment = new FragmentInformationAboutSign();
+                        getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                         break;
                 }
             }
@@ -288,16 +287,16 @@ public class FragmentHoroscopePage extends Fragment {
     }
 
     private void updateTextViews() {
-        if(textCommonHoroscope != null) {
+        if (textCommonHoroscope != null) {
             textCommonHoroscope.setText(predictions[numberOfActiveButton - 1][0]);
         }
-        if(textLoveHoroscope != null) {
+        if (textLoveHoroscope != null) {
             textLoveHoroscope.setText(predictions[numberOfActiveButton - 1][1]);
         }
-        if(textHealthHoroscope != null) {
+        if (textHealthHoroscope != null) {
             textHealthHoroscope.setText(predictions[numberOfActiveButton - 1][2]);
         }
-        if(textBusinessHoroscope != null) {
+        if (textBusinessHoroscope != null) {
             textBusinessHoroscope.setText(predictions[numberOfActiveButton - 1][3]);
         }
     }

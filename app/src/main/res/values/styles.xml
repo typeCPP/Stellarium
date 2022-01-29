@@ -260,5 +260,20 @@
         </item>
     </style>
 
+    <style name="style_types">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textSize">
+            15sp
+        </item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="maxLines">
+            1
+        </item>
+        <item name="fontFamily">
+        </item>
+    </style>
+
 </resources>
 

@@ -67,4 +67,8 @@
     <string name="loveHoroscope">Любовный гороскоп</string>
     <string name="healthHoroscope">Здоровье</string>
     <string name="business">Бизнес</string>
+    <string name="description">Описание</string>
+    <string name="character">Характер</string>
+    <string name="love">Любовь</string>
+    <string name="career">Карьера</string>
 </resources>
