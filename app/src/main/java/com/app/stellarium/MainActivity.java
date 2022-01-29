@@ -3,6 +3,7 @@ package com.app.stellarium;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -11,12 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
+import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -65,7 +70,25 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        databaseHelper.onUpgrade(database, 1, 1);
+        databaseHelper.onUpgrade(database, 2, 2);
+        createFillInformationTable(database);
+        createFillHoroscopePredictionsByPeriodTable(database);
+        createFillHoroscopePredictionsTable(database);
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
+
+    public static void createFillInformationTable(SQLiteDatabase database) {
         ContentValues values = new ContentValues();
         values.put(InformationTable.COLUMN_NAME, "АФФИРМАЦИЯ");
         values.put(InformationTable.COLUMN_DESCRIPTION, "Аффирмации это круто, это класс, кто не согласен тот...");
@@ -100,15 +123,49 @@ public class MainActivity extends AppCompatActivity {
         database.insert(InformationTable.TABLE_NAME, null, values);
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-        } else {
-            getSupportFragmentManager().popBackStack();
+    public static void createFillHoroscopePredictionsByPeriodTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        String[] names = {"Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы"};
+        for (int i = 0; i < 12; i++) {
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_SIGN_NAME, names[i]);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_TODAY_PREDICTION_ID, 5 * i + 1);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_TOMORROW_PREDICTION_ID, 5 * i + 2);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_WEEK_PREDICTION_ID, 5 * i + 3);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_MONTH_PREDICTION_ID, 5 * i + 4);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_YEAR_PREDICTION_ID, 5 * i + 5);
+            database.insert(HoroscopePredictionsByPeriodTable.TABLE_NAME, null, values);
         }
+    }
 
+    public static void createFillHoroscopePredictionsTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        String[] love = {"Sex будет.", "Sexa не будет."};
+        String[] common = {"Всё будет хорошо.", "Всё будет плохо."};
+        String[] health = {"Будете здоровы.", "Будете болеть."};
+        String[] business = {"Вас ждет куча бабла.", "Вас ждут убытки."};
+        for (int i = 0; i < 60; i++) {
+            Random random = new Random();
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopePredictionsTable.COLUMN_LOVE, love[0]);
+            } else {
+                values.put(HoroscopePredictionsTable.COLUMN_LOVE, love[1]);
+            }
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopePredictionsTable.COLUMN_COMMON, common[0]);
+            } else {
+                values.put(HoroscopePredictionsTable.COLUMN_COMMON, common[1]);
+            }
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopePredictionsTable.COLUMN_HEALTH, health[0]);
+            } else {
+                values.put(HoroscopePredictionsTable.COLUMN_HEALTH, health[1]);
+            }
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopePredictionsTable.COLUMN_BUSINESS, business[0]);
+            } else {
+                values.put(HoroscopePredictionsTable.COLUMN_BUSINESS, business[1]);
+            }
+            database.insert(HoroscopePredictionsTable.TABLE_NAME, null, values);
+        }
     }
 }
