@@ -85,8 +85,9 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="Женщина"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
 
                 <View
                     android:layout_width="0dp"
@@ -104,7 +105,56 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="Mужчина"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:weightSum="13">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:id="@+id/sign_text_woman"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeMinTextSize="2dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Близнецы"
+                    android:textColor="@color/compatibility_sign_text"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4" />
+
+                <TextView
+                    android:id="@+id/sign_text_man"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeMinTextSize="2dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Скорпион"
+                    android:textColor="@color/compatibility_sign_text"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -131,7 +181,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:background="@drawable/button_compatibility_sign"
-                    android:text="показать результаты"
+                    android:text="@string/show_results"
                     android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
@@ -139,7 +189,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/linear_with_spinner"
