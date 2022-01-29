@@ -38,8 +38,8 @@ public class FragmentRegistration extends Fragment {
      * @return A new instance of fragment FragmentInformation.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentInformation newInstance(String param1, String param2) {
-        FragmentInformation fragment = new FragmentInformation();
+    public static FragmentRegistration newInstance(String param1, String param2) {
+        FragmentRegistration fragment = new FragmentRegistration();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

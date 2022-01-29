@@ -6,8 +6,12 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,8 +28,11 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
     private int birthdayMonth;
     private int birthdayYear;
     private TextView editTextDate;
+    private Button nextButton;
+    private Bundle bundle;
     private LinearLayout layoutDate;
-
+    private boolean isSetDate;
+    Animation scaleUp;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,8 +77,28 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pythagorean_square_date_selection, container, false);
+        scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
+        isSetDate = false;
         editTextDate = view.findViewById(R.id.pythagorean_date_date_selection);
         layoutDate = view.findViewById(R.id.pythagorean_square_date_layout_1);
+        nextButton = view.findViewById(R.id.nextPythSquareButton);
+        nextButton.setAlpha(0f);
+        bundle = new Bundle();
+
+        class ButtonOnTouchListener implements View.OnTouchListener {
+            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.startAnimation(scaleUp);
+                    layoutDate.animate().alpha(0f).setDuration(250).setListener(null);
+                    Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
+                    fragmentHomePage.setArguments(bundle);
+                    getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentHomePage).commit();
+                }
+                return true;
+            }
+        }
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,11 +106,15 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int mothOfYear, int dayOfMonth) {
-                        Bundle bundle = new Bundle();
+                        //  Bundle bundle = new Bundle();
                         birthdayDay = dayOfMonth;
                         birthdayMonth = mothOfYear + 1;
                         birthdayYear = year;
-                        addTextToTextViewAndStartFragmentHomePage(birthdayDay, birthdayMonth, birthdayYear);
+                        addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
+                        if (!isSetDate) {
+                            nextButton.animate().alpha(1f).setDuration(500).setListener(null);
+                            isSetDate = true;
+                        }
                     }
                 };
                 Calendar calendar = Calendar.getInstance();
@@ -94,6 +125,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
 
             }
         });
+        nextButton.setOnTouchListener(new ButtonOnTouchListener());
         return view;
     }
 
@@ -107,7 +139,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                 birthdayDay = 18;
                 birthdayMonth = 7;
                 birthdayYear = 2002;
-                addTextToTextViewAndStartFragmentHomePage(birthdayDay, birthdayMonth, birthdayYear);
+                addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
                 datePickerDialog.dismiss();
             }
         });
@@ -126,8 +158,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private void addTextToTextViewAndStartFragmentHomePage(int birthdayDay, int birthdayMonth, int birthdayYear) {
-        Bundle bundle = new Bundle();
+    private void addTextToTextView(int birthdayDay, int birthdayMonth, int birthdayYear) {
         StringBuffer text = new StringBuffer(birthdayDay + "/" + birthdayMonth + "/" + birthdayYear);
         if (birthdayDay < 10) {
             text.insert(0, 0);
@@ -137,10 +168,5 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         }
         editTextDate.setText(text.toString());
         bundle.putString("Date", editTextDate.getText().toString());
-        layoutDate.animate().alpha(0f).setDuration(1000).setListener(null);
-
-        Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
-        fragmentHomePage.setArguments(bundle);
-        getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentHomePage).commit();
     }
 }

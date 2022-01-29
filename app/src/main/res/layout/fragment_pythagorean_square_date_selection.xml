@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".FragmentDateSelection">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/title_pyth_square_date_selection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:gravity="center|top"
-            android:text="@string/square_name"
-            android:textAppearance="@style/style_title" />
-    </FrameLayout>
     <LinearLayout
         android:id="@+id/fragment1_pythagorean_square"
         android:layout_width="match_parent"
@@ -29,96 +21,131 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5" />
 
-            <LinearLayout
-                android:id="@+id/pythagorean_square_date_layout_1"
+        <LinearLayout
+            android:id="@+id/pythagorean_square_date_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:orientation="vertical"
+            android:weightSum="12">
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:orientation="vertical"
+                android:layout_height="0dp"
+                android:layout_weight="4.5" />
+
+            <LinearLayout
+                android:id="@+id/layout_title_pyth_square"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:orientation="horizontal"
                 android:weightSum="12">
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="4.5" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.5"
-                    android:orientation="horizontal"
-                    android:weightSum="12">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5" />
-
-                    <TextView
-                        style="@style/birthday_day"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="9"
-                        android:autoSizeMinTextSize="15dp"
-                        android:autoSizeStepGranularity="2dp"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center|top"
-                        android:text="@string/enter_birthday_date"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.7" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:weightSum="12">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5" />
-
-                    <TextView
-                        android:id="@+id/pythagorean_date_date_selection"
-                        style="@style/date"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="9"
-                        android:autoSizeMaxTextSize="30dp"
-                        android:autoSizeMinTextSize="10dp"
-                        android:autoSizeStepGranularity="1dp"
-                        android:autoSizeTextType="uniform"
-                        android:background="@drawable/edit_date_pythagorean_square_date_selection"
-                        android:breakStrategy="balanced"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:onClick="onClick"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5" />
-                </LinearLayout>
+                <TextView
+                    style="@style/birthday_day"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:autoSizeMinTextSize="15dp"
+                    android:autoSizeStepGranularity="2dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center|top"
+                    android:text="@string/enter_birthday_date"
+                    android:textStyle="bold" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5" />
-
-
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.7" />
+
+            <LinearLayout
+                android:id="@+id/layout_date_pyth_square"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="12">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
+
+                <TextView
+                    android:id="@+id/pythagorean_date_date_selection"
+                    style="@style/date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:autoSizeMaxTextSize="30dp"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/edit_date_pythagorean_square_date_selection"
+                    android:breakStrategy="balanced"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:textColor="#D5FFFFFF"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="12">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/nextPythSquareButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/button_next_pythagorean_square"
+                    android:maxLines="1"
+                    android:text="@string/show_results"
+                    android:textColor="#D5FFFFFF"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <View
             android:layout_width="0dp"
