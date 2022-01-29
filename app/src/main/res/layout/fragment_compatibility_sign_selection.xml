@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="12">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.25"
+                android:orientation="horizontal"
+                android:weightSum="13">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <ImageSwitcher
+                    android:id="@+id/circle_woman"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.25" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:src="@drawable/heart" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.25" />
+
+                <ImageSwitcher
+                    android:id="@+id/circle_man"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:weightSum="13">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeMinTextSize="2dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Женщина"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeMinTextSize="2dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Mужчина"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.75"
+                android:orientation="horizontal"
+                android:weightSum="12">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compButtonNext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@drawable/button_compatibility_sign"
+                    android:text="показать результаты"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear_with_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.szugyi.circlemenu.view.CircleLayout
+                android:id="@+id/spinner_zodiac_sign"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@+id/img"
+
+                android:layout_weight="6"
+                android:foregroundGravity="left"
+                app:firstChildPosition="East"
+                app:isRotating="true"
+                app:radius="200dp"
+                app:speed="75"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="44dp">
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compAriesButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_aries"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/aries" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compTaurusButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_taurus"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/taurus" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compGeminiButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_gemini"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/gemini" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compCancerButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_cancer"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/cancer" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compLeoButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_leo"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/leo" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compVirgoButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_virgo"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/virgo" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compLibraButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_libra"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/libra" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compScorpioButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_scorpio"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/scorpio" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compSagittariusButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_sagittarius"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/sagittarius" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compCapricornButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_capricorn"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/capricorn" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compAquariusButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_aquarius"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/aquarius" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compPiscesButton"
+                    style="@style/compatibility_horoscope_title"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:drawableBottom="@drawable/comp_pisces"
+                    android:drawablePadding="5dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/pisces" />
+
+            </com.szugyi.circlemenu.view.CircleLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

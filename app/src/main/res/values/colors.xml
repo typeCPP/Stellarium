@@ -31,5 +31,6 @@
     <color name="button_pythagorean_square_start_color">#ADBDEA</color>
     <color name="button_pythagorean_square_stroke">#3F4E79</color>
     <color name="button_type_horoscope">#809088EA</color>
+    <color name="compatibility_button_start_color">#9490CC</color>
 
 </resources>

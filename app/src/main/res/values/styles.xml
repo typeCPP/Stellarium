@@ -212,6 +212,7 @@
         </item>
 
     </style>
+
     <style name="style_period">
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
@@ -224,6 +225,7 @@
             @android:color/transparent
         </item>
     </style>
+
     <style name="style_name_of_button_type_horoscope">
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
@@ -244,11 +246,19 @@
     </style>
 
     <style name="style_sign_title">
-    <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">#EEE7FF</item>
 
-    <item name="android:textSize">
-        20sp
-    </item>
+        <item name="android:textSize">
+            20sp
+        </item>
     </style>
+
+    <style name="compatibility_horoscope_title">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textSize">
+            12sp
+        </item>
+    </style>
+
 </resources>
 
