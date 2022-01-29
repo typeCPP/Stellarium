@@ -276,7 +276,7 @@
                             android:background="@drawable/button_for_horoscope_item"
                             android:drawableRight="@drawable/arrow_down_to_navigate"
                             android:paddingRight="20dp"
-                            android:text="@string/health" />
+                            android:text="@string/healthHoroscope" />
 
                         <View
                             android:layout_width="0dp"

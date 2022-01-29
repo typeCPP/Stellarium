@@ -57,5 +57,14 @@
     <string name="mind_memory_number">999</string>
     <string name="enter_birthday_date">Введите дату рождения</string>
     <string name="characteristic">ХАРАКТЕРИСТИКА</string>
-
+    <string name="some_sign_and_date">Водолей | 21 января - 19 февраля</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="week">Неделя</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
+    <string name="commonHoroscope">Общий гороскоп</string>
+    <string name="loveHoroscope">Любовный гороскоп</string>
+    <string name="healthHoroscope">Здоровье</string>
+    <string name="business">Бизнес</string>
 </resources>
