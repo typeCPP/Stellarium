@@ -3,27 +3,27 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
-import com.app.stellarium.database.tables.InformationTable;
-
-import java.util.Objects;
+import com.szugyi.circlemenu.view.CircleLayout;
 
 public class FragmentHoroscopeList extends Fragment {
     private Button ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
             libraButton, scorpioButton, sagittariusButton, capricornButton, aquariusButton, piscesButton;
+    private CircleLayout circleLayout;
+    private short touchMoveFactor = 10;
+    private PointF actionDownPoint = new PointF(0f, 0f);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class FragmentHoroscopeList extends Fragment {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,68 +40,81 @@ public class FragmentHoroscopeList extends Fragment {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    actionDownPoint.x = motionEvent.getX();
+                    actionDownPoint.y = motionEvent.getY();
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    circleLayout.onTouchEvent(motionEvent);
+                }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    int drawableId = R.drawable.big_aries;
-                    int idOfHoroscopePredictionsByPeriodTableElement = 1;
-                    switch (view.getId()) {
-                        case R.id.ariesButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 1;
-                            drawableId = R.drawable.big_aries;
-                            break;
-                        case R.id.taurusButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 2;
-                            drawableId = R.drawable.big_taurus;
-                            break;
-                        case R.id.geminiButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 3;
-                            drawableId = R.drawable.big_gemini;
-                            break;
-                        case R.id.cancerButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 4;
-                            drawableId = R.drawable.big_cancer;
-                            break;
-                        case R.id.leoButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 5;
-                            drawableId = R.drawable.big_leo;
-                            break;
-                        case R.id.virgoButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 6;
-                            drawableId = R.drawable.big_virgo;
-                            break;
-                        case R.id.libraButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 7;
-                            drawableId = R.drawable.big_libra;
-                            break;
-                        case R.id.scorpioButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 8;
-                            drawableId = R.drawable.big_scorpio;
-                            break;
-                        case R.id.sagittariusButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 9;
-                            drawableId = R.drawable.big_sagittarius;
-                            break;
-                        case R.id.capricornButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 10;
-                            drawableId = R.drawable.big_capricorn;
-                            break;
-                        case R.id.aquariusButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 11;
-                            drawableId = R.drawable.big_aquarius;
-                            break;
-                        case R.id.piscesButton:
-                            idOfHoroscopePredictionsByPeriodTableElement = 12;
-                            drawableId = R.drawable.big_pisces;
-                            break;
+                    boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
+                            Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
+                    if (isTouchLength) {
+                        int drawableId = R.drawable.big_aries;
+                        int idOfHoroscopePredictionsByPeriodTableElement = 1;
+                        switch (view.getId()) {
+                            case R.id.ariesButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 1;
+                                drawableId = R.drawable.big_aries;
+                                break;
+                            case R.id.taurusButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 2;
+                                drawableId = R.drawable.big_taurus;
+                                break;
+                            case R.id.geminiButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 3;
+                                drawableId = R.drawable.big_gemini;
+                                break;
+                            case R.id.cancerButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 4;
+                                drawableId = R.drawable.big_cancer;
+                                break;
+                            case R.id.leoButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 5;
+                                drawableId = R.drawable.big_leo;
+                                break;
+                            case R.id.virgoButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 6;
+                                drawableId = R.drawable.big_virgo;
+                                break;
+                            case R.id.libraButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 7;
+                                drawableId = R.drawable.big_libra;
+                                break;
+                            case R.id.scorpioButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 8;
+                                drawableId = R.drawable.big_scorpio;
+                                break;
+                            case R.id.sagittariusButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 9;
+                                drawableId = R.drawable.big_sagittarius;
+                                break;
+                            case R.id.capricornButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 10;
+                                drawableId = R.drawable.big_capricorn;
+                                break;
+                            case R.id.aquariusButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 11;
+                                drawableId = R.drawable.big_aquarius;
+                                break;
+                            case R.id.piscesButton:
+                                idOfHoroscopePredictionsByPeriodTableElement = 12;
+                                drawableId = R.drawable.big_pisces;
+                                break;
+                        }
+                        Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
+                        bundle.putInt("signPictureDrawableId", drawableId);
+                        Fragment fragment = new FragmentHoroscopePage();
+                        fragment.setArguments(bundle);
+                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                     }
-                    Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
-                    bundle.putInt("signPictureDrawableId", drawableId);
-                    Fragment fragment = new FragmentHoroscopePage();
-                    fragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }
         }
+
+        circleLayout = view.findViewById(R.id.circle_layout);
 
         ariesButton = view.findViewById(R.id.ariesButton);
         ariesButton.setOnTouchListener(new ButtonOnTouchListener());
