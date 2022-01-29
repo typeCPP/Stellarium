@@ -66,11 +66,12 @@ public class FragmentHome extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
                     Bundle bundle = new Bundle();
+                    Fragment fragment;
                     switch (view.getId()) {
                         case R.id.affirmationButton:
                             break;
                         case R.id.horoscopeButton:
-                            Fragment fragment = new FragmentHoroscopeList();
+                            fragment = new FragmentHoroscopeList();
                             getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.taroButton:
@@ -84,6 +85,8 @@ public class FragmentHome extends Fragment {
                         case R.id.squareOfPythagorasButton:
                             break;
                         case R.id.yesOrNoButton:
+                            fragment = new FragmentYesOrNo();
+                            getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                             break;
                     }
                 }

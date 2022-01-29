@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentYesOrNo">
+
+    <ImageView
+        android:id="@+id/ball_triangle_image_view"
+        android:layout_width="201dp"
+        android:layout_height="466dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="@+id/ball_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/ball_image_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ball_image_view"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ball_triangle" />
+
+    <TextView
+        android:id="@+id/ball_response_text_view"
+        android:layout_width="118dp"
+        android:layout_height="69dp"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:fontFamily="sans-serif"
+        app:layout_constraintBottom_toBottomOf="@+id/ball_triangle_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/ball_triangle_image_view"
+        app:layout_constraintStart_toStartOf="@+id/ball_triangle_image_view"
+        app:layout_constraintTop_toTopOf="@+id/ball_triangle_image_view"
+        app:layout_constraintVertical_bias="0.624" />
+
+    <ImageView
+        android:id="@+id/ball_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/ball_ask_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ball" />
+
+    <Button
+        android:id="@+id/ball_ask_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ball_ask_button"
+        app:layout_constraintBottom_toTopOf="@+id/ball_clear_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/ball_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/ball_clear_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
