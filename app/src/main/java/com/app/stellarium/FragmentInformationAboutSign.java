@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ public class FragmentInformationAboutSign extends Fragment {
     private Animation scaleUp;
     private int numberOfActiveButton = 1;
     private TextView textView;
+    private Animation rightAnim, leftAnim;
+    private boolean isStartPage = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,10 +80,16 @@ public class FragmentInformationAboutSign extends Fragment {
         textView = view.findViewById(R.id.textInfoAboutSign);
         activeSwipe(textView);
 
+        ScrollView scrollView = view.findViewById(R.id.scrollView);
+        activeSwipe(scrollView);
+
         View firstEmptyView = view.findViewById(R.id.firstEmptyView);
         View secondEmptyView = view.findViewById(R.id.secondEmptyView);
         activeSwipe(firstEmptyView);
         activeSwipe(secondEmptyView);
+
+        rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+        leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
 
         updateStateButtons(descriptionButton);
 
@@ -89,6 +98,7 @@ public class FragmentInformationAboutSign extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
+        int oldNumberOfActiveButton = numberOfActiveButton;
         button.setTextSize(20);
         if (button != descriptionButton) {
             descriptionButton.setTextSize(15);
@@ -110,7 +120,16 @@ public class FragmentInformationAboutSign extends Fragment {
         } else {
             numberOfActiveButton = 4;
         }
-        setAttributesForTextView("Андрей БОГ", textView);
+        if (!isStartPage) {
+            if (oldNumberOfActiveButton < numberOfActiveButton) {
+                textView.startAnimation(rightAnim);
+            } else {
+                textView.startAnimation(leftAnim);
+
+            }
+        }
+        isStartPage = false;
+        setAttributesForTextView("Предварительные выводы неутешительны: убеждённость некоторых оппонентов требует определения и уточнения существующих финансовых и административных условий. Следует отметить, что высококачественный прототип будущего проекта влечет за собой процесс внедрения и модернизации укрепления моральных ценностей. Каждый из нас понимает очевидную вещь: внедрение современных методик создаёт предпосылки для стандартных подходов.", textView);
     }
 
     private void activeSwipe(View view) {
@@ -150,10 +169,10 @@ public class FragmentInformationAboutSign extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "WrongConstant"})
     private void setAttributesForTextView(String text, TextView textView) {
         textView.setText(text);
-        textView.setPadding(50, 30, 50, 30);
+        textView.setPadding(10, 30, 10, 30);
         textView.setTextSize(17);
         textView.setTextAppearance(R.style.style_horoscope_title);
     }
