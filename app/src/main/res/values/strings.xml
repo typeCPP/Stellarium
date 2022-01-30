@@ -72,6 +72,7 @@
     <string name="love">Любовь</string>
     <string name="career">Карьера</string>
     <string name="show_results">показать результаты</string>
-    <string name="ball_ask_button">Ask</string>
-    <string name="ball_clear_button">Clear</string>
+    <string name="ball_ask_button">Спросить</string>
+    <string name="ball_clear_button">Очистить</string>
+    <string name="titlle_yes_or_no">Внимательно подумайте о своем вопросе и спросите шар...</string>
 </resources>
