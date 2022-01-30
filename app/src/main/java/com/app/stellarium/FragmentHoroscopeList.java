@@ -18,6 +18,9 @@ import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.szugyi.circlemenu.view.CircleLayout;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class FragmentHoroscopeList extends Fragment {
     private Button ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
             libraButton, scorpioButton, sagittariusButton, capricornButton, aquariusButton, piscesButton;
@@ -45,7 +48,14 @@ public class FragmentHoroscopeList extends Fragment {
                     actionDownPoint.y = motionEvent.getY();
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
-                    circleLayout.onTouchEvent(motionEvent);
+                    try {
+                        Method method = CircleLayout.class.getDeclaredMethod("rotateButtons", float.class);
+                        method.setAccessible(true);
+                        float p = 2.5f;
+                        method.invoke(circleLayout, p);
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
@@ -114,6 +124,7 @@ public class FragmentHoroscopeList extends Fragment {
                 return true;
             }
         }
+
 
         circleLayout = view.findViewById(R.id.circle_layout);
 
