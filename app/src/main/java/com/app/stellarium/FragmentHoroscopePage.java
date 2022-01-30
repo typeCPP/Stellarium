@@ -1,6 +1,8 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
+import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 
 
@@ -80,10 +85,14 @@ public class FragmentHoroscopePage extends Fragment {
                         updateStateButtons(yearButton);
                         break;
                     case R.id.infoAboutSignButton:
+                        Bundle newBundle = findAndGetHoroscopeSignDataCharacteristicFromDatabase(bundle.getInt("signId"));
+                        newBundle.putInt("signPictureDrawableId", bundle.getInt("signPictureDrawableId"));
                         Fragment fragment = new FragmentInformationAboutSign();
-                        getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+                        fragment.setArguments(newBundle);
+                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                         break;
                 }
+
             }
         }
 
@@ -97,7 +106,7 @@ public class FragmentHoroscopePage extends Fragment {
             predictions[3] = bundle.getStringArray("monthPredictions");
             predictions[4] = bundle.getStringArray("yearPredictions");
             signTitle = view.findViewById(R.id.signTitle);
-            signTitle.setText(bundle.getString("signName"));
+            signTitle.setText(bundle.getString("signName") + " | " + bundle.getString("signPeriod"));
 
             signImage = view.findViewById(R.id.signImage);
             signImage.setImageResource(bundle.getInt("signPictureDrawableId"));
@@ -145,6 +154,8 @@ public class FragmentHoroscopePage extends Fragment {
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
 
         updateStateButtons(todayButton);
+
+
         return view;
     }
 
@@ -316,6 +327,38 @@ public class FragmentHoroscopePage extends Fragment {
         if (textBusinessHoroscope != null) {
             textBusinessHoroscope.setText(predictions[numberOfActiveButton - 1][3]);
         }
+    }
+
+    @SuppressLint("Range")
+    private Bundle findAndGetHoroscopeSignDataCharacteristicFromDatabase(int signId) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        Cursor periodTableCursor = database.query(HoroscopePredictionsByPeriodTable.TABLE_NAME, null,
+                "_id = " + signId,
+                null, null, null, null);
+        periodTableCursor.moveToFirst();
+
+        String[] characteristics = new String[4];
+        String signName = periodTableCursor.getString(periodTableCursor.getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_SIGN_NAME));
+        String signPeriod = periodTableCursor.getString(periodTableCursor.getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_PERIOD_SIGN));
+        Cursor characteristicCursor = database.query(HoroscopeSignCharacteristicTable.TABLE_NAME, null,
+                "_id = " + signId,
+                null, null, null, null);
+        characteristicCursor.moveToFirst();
+        characteristics[0] = characteristicCursor.getString(characteristicCursor.getColumnIndex(HoroscopeSignCharacteristicTable.COLUMN_DESCRIPTION));
+        characteristics[1] = characteristicCursor.getString(characteristicCursor.getColumnIndex(HoroscopeSignCharacteristicTable.COLUMN_CHARACTER));
+        characteristics[2] = characteristicCursor.getString(characteristicCursor.getColumnIndex(HoroscopeSignCharacteristicTable.COLUMN_LOVE));
+        characteristics[3] = characteristicCursor.getString(characteristicCursor.getColumnIndex(HoroscopeSignCharacteristicTable.COLUMN_CAREER));
+
+        Bundle bundle = new Bundle();
+        bundle.putString("signName", signName);
+        bundle.putString("signPeriod", signPeriod);
+        bundle.putString("description", characteristics[0]);
+        bundle.putString("character", characteristics[1]);
+        bundle.putString("love", characteristics[2]);
+        bundle.putString("career", characteristics[3]);
+
+        return bundle;
     }
 
 }

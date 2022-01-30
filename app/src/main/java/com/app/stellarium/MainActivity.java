@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
+import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         createFillInformationTable(database);
         createFillHoroscopePredictionsByPeriodTable(database);
         createFillHoroscopePredictionsTable(database);
+        createFillHoroscopeSignCharacteristicTable(database);
         createFillPythagoreanSquareTable(database);
     }
 
@@ -127,8 +129,14 @@ public class MainActivity extends AppCompatActivity {
     public static void createFillHoroscopePredictionsByPeriodTable(SQLiteDatabase database) {
         ContentValues values = new ContentValues();
         String[] names = {"Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы"};
+        String[] periods = {"21 марта – 20 апреля", "21 апреля – 21 мая", "22 мая – 21 июня",
+                "22 июня – 22 июля", "23 июля – 23 августа", "24 августа – 22 сентября",
+                "23 сентября – 22 октября", "23 октября – 22 ноября", "22 ноября – 21 декабря",
+                "22 декабря – 20 января", "21 января – 19 февраля", "20 февраля – 20 марта"};
         for (int i = 0; i < 12; i++) {
             values.put(HoroscopePredictionsByPeriodTable.COLUMN_SIGN_NAME, names[i]);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_PERIOD_SIGN, periods[i]);
+            values.put(HoroscopePredictionsByPeriodTable.COLUMN_CHARACTERISTIC_ID, i);
             values.put(HoroscopePredictionsByPeriodTable.COLUMN_TODAY_PREDICTION_ID, 5 * i + 1);
             values.put(HoroscopePredictionsByPeriodTable.COLUMN_TOMORROW_PREDICTION_ID, 5 * i + 2);
             values.put(HoroscopePredictionsByPeriodTable.COLUMN_WEEK_PREDICTION_ID, 5 * i + 3);
@@ -167,6 +175,38 @@ public class MainActivity extends AppCompatActivity {
                 values.put(HoroscopePredictionsTable.COLUMN_BUSINESS, business[1]);
             }
             database.insert(HoroscopePredictionsTable.TABLE_NAME, null, values);
+        }
+    }
+
+    public static void createFillHoroscopeSignCharacteristicTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        String[] description = {"Вы ужасный человек.", "Вы прекрасный человек"};
+        String[] character = {"Характер у вас так себе.", "Отличный характер."};
+        String[] love = {"Вы будете любимы.", "Вас никто не полюит."};
+        String[] career = {"Вы станете президентом.", "Вас станете дворником."};
+        for (int i = 0; i < 12; i++) {
+            Random random = new Random();
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_LOVE, love[0]);
+            } else {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_LOVE, love[1]);
+            }
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_DESCRIPTION, description[0]);
+            } else {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_DESCRIPTION, description[1]);
+            }
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_CHARACTER, character[0]);
+            } else {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_CHARACTER, character[1]);
+            }
+            if (random.nextInt(100) < 50) {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_CAREER, career[0]);
+            } else {
+                values.put(HoroscopeSignCharacteristicTable.COLUMN_CAREER, career[1]);
+            }
+            database.insert(HoroscopeSignCharacteristicTable.TABLE_NAME, null, values);
         }
     }
 

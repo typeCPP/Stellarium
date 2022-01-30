@@ -105,6 +105,7 @@ public class FragmentHoroscopeList extends Fragment {
                         }
                         Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
                         bundle.putInt("signPictureDrawableId", drawableId);
+                        bundle.putInt("signId", idOfHoroscopePredictionsByPeriodTableElement);
                         Fragment fragment = new FragmentHoroscopePage();
                         fragment.setArguments(bundle);
                         getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
@@ -166,6 +167,7 @@ public class FragmentHoroscopeList extends Fragment {
         String[][] predictions = new String[5][4];
         int[] predictionIds = new int[5];
         String signName = periodTableCursor.getString(periodTableCursor.getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_SIGN_NAME));
+        String signPeriod = periodTableCursor.getString(periodTableCursor.getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_PERIOD_SIGN));
         predictionIds[0] = periodTableCursor.getInt(periodTableCursor.
                 getColumnIndex(HoroscopePredictionsByPeriodTable.COLUMN_TODAY_PREDICTION_ID));
         predictionIds[1] = periodTableCursor.getInt(periodTableCursor.
@@ -191,6 +193,7 @@ public class FragmentHoroscopeList extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putString("signName", signName);
+        bundle.putString("signPeriod", signPeriod);
         bundle.putStringArray("todayPredictions", predictions[0]);
         bundle.putStringArray("tomorrowPredictions", predictions[1]);
         bundle.putStringArray("weekPredictions", predictions[2]);

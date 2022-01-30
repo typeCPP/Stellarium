@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -23,9 +24,12 @@ public class FragmentInformationAboutSign extends Fragment {
     private Button descriptionButton, characterButton, loveButton, careerButton;
     private Animation scaleUp;
     private int numberOfActiveButton = 1;
-    private TextView textView;
+    private TextView textView, signTitle;
+    private ImageView signImage;
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
+    private Bundle bundle;
+    private String[] characteristics;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,21 @@ public class FragmentInformationAboutSign extends Fragment {
                         break;
                 }
             }
+        }
+
+        bundle = getArguments();
+
+        if (bundle != null) {
+            characteristics = new String[4];
+            characteristics[0] = bundle.getString("description");
+            characteristics[1] = bundle.getString("character");
+            characteristics[2] = bundle.getString("love");
+            characteristics[3] = bundle.getString("career");
+            signTitle = view.findViewById(R.id.signTitle);
+            signTitle.setText(bundle.getString("signName") + " | " + bundle.getString("signPeriod"));
+
+            signImage = view.findViewById(R.id.signImage);
+            signImage.setImageResource(bundle.getInt("signPictureDrawableId"));
         }
 
         descriptionButton = view.findViewById(R.id.descriptionButton);
@@ -125,11 +144,10 @@ public class FragmentInformationAboutSign extends Fragment {
                 textView.startAnimation(rightAnim);
             } else {
                 textView.startAnimation(leftAnim);
-
             }
         }
         isStartPage = false;
-        setAttributesForTextView("Предварительные выводы неутешительны: убеждённость некоторых оппонентов требует определения и уточнения существующих финансовых и административных условий. Следует отметить, что высококачественный прототип будущего проекта влечет за собой процесс внедрения и модернизации укрепления моральных ценностей. Каждый из нас понимает очевидную вещь: внедрение современных методик создаёт предпосылки для стандартных подходов.", textView);
+        setAttributesForTextView(characteristics[numberOfActiveButton - 1], textView);
     }
 
     private void activeSwipe(View view) {
@@ -176,4 +194,5 @@ public class FragmentInformationAboutSign extends Fragment {
         textView.setTextSize(17);
         textView.setTextAppearance(R.style.style_horoscope_title);
     }
+
 }
