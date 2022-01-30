@@ -36,5 +36,8 @@
     <color name="button_pythagorean_home_start_color">#BBB8ED</color>
     <color name="button_pythagorean_home_stroke">#7772C1</color>
     <color name="compatibility_sign_text">#9395B0</color>
+    <color name="progress_bar_background">#9787CAEF</color>
+    <color name="progress_bar_progress">#87CAEF</color>
+    <color name="zodiac_main_text">#8C877EEF</color>
 
 </resources>

@@ -44,6 +44,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     private float deltaY;
     private PointF actionDownPoint = new PointF(0f, 0f);
     private short touchMoveFactor = 10;
+    private FrameLayout mainLayout;
+    private Bundle bundle;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -128,8 +130,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                     spinner.onTouchEvent(motionEvent);
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
-                            Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
+                    boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) + Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
                     if (isTouchLength) {
                         int idOfSignsTableElement = 1;
                         switch (view.getId()) {
@@ -255,6 +256,11 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                                 break;
                         }
                         spinner.animate().alpha(0f).setDuration(500).setListener(null);
+                        if (isWoman) {
+                            bundle.putInt("WomanSign", idOfSignsTableElement);
+                        } else {
+                            bundle.putInt("ManSign", idOfSignsTableElement);
+                        }
                         if (isSelectedWoman && isSelectedMan) {
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -277,20 +283,23 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    mainLayout.animate().alpha(0f).setDuration(250).setListener(null);
+                    Fragment fragmentCompatibilityZodiac= new FragmentCompatibilityZodiac();
+                    fragmentCompatibilityZodiac.setArguments(bundle);
+                    getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
                 }
                 return true;
             }
         }
-
+        bundle = new Bundle();
         isSelectedMan = false;
         isSelectedWoman = false;
-
+        mainLayout = view.findViewById(R.id.main_layout_sign_selection);
         circleWoman = view.findViewById(R.id.circle_woman);
         circleMan = view.findViewById(R.id.circle_man);
         spinner = view.findViewById(R.id.spinner_zodiac_sign);
         nextButton = view.findViewById(R.id.compButtonNext);
         layout_with_spinner = view.findViewById(R.id.linear_with_spinner);
-
         circleWoman.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {

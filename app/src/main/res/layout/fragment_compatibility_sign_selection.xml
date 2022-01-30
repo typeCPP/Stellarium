@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout_sign_selection"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,7 +19,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,24 +42,29 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.25" />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:src="@drawable/heart" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.25" />
+                    android:layout_weight="1" />
 
                 <ImageSwitcher
                     android:id="@+id/circle_man"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
 
             </LinearLayout>
 
@@ -84,7 +90,7 @@
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Женщина"
+                    android:text="@string/woman"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:visibility="visible" />
@@ -104,7 +110,7 @@
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Mужчина"
+                    android:text="@string/man"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -119,42 +125,36 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2" />
+                    android:layout_weight="1.75" />
 
                 <TextView
                     android:id="@+id/sign_text_woman"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.5"
-                    android:autoSizeMaxTextSize="20sp"
-                    android:autoSizeMinTextSize="2dp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
+                    android:layout_weight="3"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Близнецы"
+                    android:text="близнецы"
                     android:textColor="@color/compatibility_sign_text"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:visibility="visible" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4" />
+                    android:layout_weight="3.5" />
 
                 <TextView
                     android:id="@+id/sign_text_man"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.5"
-                    android:autoSizeMaxTextSize="20sp"
-                    android:autoSizeMinTextSize="2dp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
+                    android:layout_weight="3"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Скорпион"
+                    android:text="скорпион"
                     android:textColor="@color/compatibility_sign_text"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -310,7 +310,9 @@
                     android:drawableBottom="@drawable/comp_sagittarius"
                     android:drawablePadding="5dp"
                     android:stateListAnimator="@animator/button_animation_shadow"
-                    android:text="@string/sagittarius" />
+                    android:text=
+
+                        "@string/sagittarius" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/compCapricornButton"

@@ -75,4 +75,6 @@
     <string name="ball_ask_button">Спросить</string>
     <string name="ball_clear_button">Очистить</string>
     <string name="titlle_yes_or_no">Внимательно подумайте о своем вопросе и спросите шар...</string>
+    <string name="man">Мужчина</string>
+    <string name="woman">Женщина</string>
 </resources>
