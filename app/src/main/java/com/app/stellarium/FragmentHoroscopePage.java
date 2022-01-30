@@ -35,6 +35,8 @@ public class FragmentHoroscopePage extends Fragment {
     private boolean isClickCommonHoroscopeButton = false, isClickHealthHoroscopeButton = false,
             isClickLoveHoroscopeButton = false, isClickBusinessHoroscopeButton = false;
     private Animation scaleUp;
+    private Animation rightAnim, leftAnim;
+    private boolean isStartPage = true;
 
     private Bundle bundle;
     private String[][] predictions;
@@ -138,6 +140,10 @@ public class FragmentHoroscopePage extends Fragment {
         secondFreeSpace = view.findViewById(R.id.secondFreeSpace);
         thirdFreeSpace = view.findViewById(R.id.thirdFreeSpace);
         fourthFreeSpace = view.findViewById(R.id.fourthFreeSpace);
+
+        rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+        leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+
         updateStateButtons(todayButton);
         return view;
     }
@@ -145,6 +151,7 @@ public class FragmentHoroscopePage extends Fragment {
     private void updateStateButtons(@NonNull Button button) {
         button.setScaleX(1.4f);
         button.setScaleY(1.4f);
+        int oldNumberOfActiveButton = numberOfActiveButton;
         if (button != todayButton) {
             todayButton.setScaleX(1);
             todayButton.setScaleY(1);
@@ -175,6 +182,16 @@ public class FragmentHoroscopePage extends Fragment {
         } else {
             numberOfActiveButton = 5;
         }
+
+        if (!isStartPage) {
+            if (oldNumberOfActiveButton < numberOfActiveButton) {
+                contentLayout.startAnimation(rightAnim);
+            } else {
+                contentLayout.startAnimation(leftAnim);
+
+            }
+        }
+        isStartPage = false;
         updateTextViews();
     }
 
