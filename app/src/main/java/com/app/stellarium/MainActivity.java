@@ -3,7 +3,6 @@ package com.app.stellarium;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -15,6 +14,7 @@ import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.InformationTable;
+import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.android.material.badge.BadgeDrawable;
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         createFillInformationTable(database);
         createFillHoroscopePredictionsByPeriodTable(database);
         createFillHoroscopePredictionsTable(database);
+        createFillPythagoreanSquareTable(database);
     }
 
     @Override
@@ -166,6 +167,23 @@ public class MainActivity extends AppCompatActivity {
                 values.put(HoroscopePredictionsTable.COLUMN_BUSINESS, business[1]);
             }
             database.insert(HoroscopePredictionsTable.TABLE_NAME, null, values);
+        }
+    }
+
+    public static void createFillPythagoreanSquareTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        String[] descriptions = {"Ну ты лох конечно в этом плане.", "Всё не очень хорошо.", "Ну на троечку.",
+                "Красавчик, гордый среднячок.", "У тебя всё отлично в этом плане.", "Богом одаренный.", "Ну это вообще неописуемый дар, лучше некуда."};
+        for (int i = 1; i <= 9; i++) {
+            values.put(PythagoreanSquareTable.COLUMN_NUMBER, i);
+            values.put(PythagoreanSquareTable.COLUMN_NO_NUMBER, descriptions[0]);
+            values.put(PythagoreanSquareTable.COLUMN_ONE_NUMBER, descriptions[1]);
+            values.put(PythagoreanSquareTable.COLUMN_TWO_NUMBERS, descriptions[2]);
+            values.put(PythagoreanSquareTable.COLUMN_THREE_NUMBERS, descriptions[3]);
+            values.put(PythagoreanSquareTable.COLUMN_FOUR_NUMBERS, descriptions[4]);
+            values.put(PythagoreanSquareTable.COLUMN_FIVE_NUMBERS, descriptions[5]);
+            values.put(PythagoreanSquareTable.COLUMN_SIX_NUMBERS, descriptions[6]);
+            database.insert(PythagoreanSquareTable.TABLE_NAME, null, values);
         }
     }
 }

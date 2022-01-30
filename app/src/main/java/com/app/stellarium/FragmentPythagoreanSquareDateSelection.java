@@ -94,7 +94,9 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     layoutDate.animate().alpha(0f).setDuration(250).setListener(null);
                     Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
                     fragmentHomePage.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentHomePage).commit();
+                    int[] matrixValues = calculatePythagoreanSquare(birthdayDay, birthdayMonth, birthdayYear);
+                    bundle.putIntArray("matrixValues", matrixValues);
+                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
                 }
                 return true;
             }
@@ -168,5 +170,28 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         }
         editTextDate.setText(text.toString());
         bundle.putString("Date", editTextDate.getText().toString());
+    }
+
+    private int[] calculatePythagoreanSquare(int birthdayDay, int birthdayMonth, int birthdayYear) {
+        //example date: 12.07.2002
+        int firstWorkNumber = birthdayDay / 10 + birthdayDay % 10 + birthdayMonth / 10
+                + birthdayMonth % 10 + birthdayYear / 1000 + birthdayYear / 100 % 10
+                + birthdayYear % 100 / 10 + birthdayYear % 10;
+        int secondWorkNumber = firstWorkNumber / 10 + firstWorkNumber % 10;
+        int thirdWorkNumber = firstWorkNumber - 2 * (birthdayDay / 10);
+        int fourthWorkNumber = thirdWorkNumber / 10 + thirdWorkNumber % 10;
+        String resultString = "" + birthdayDay + birthdayMonth
+                + birthdayYear + firstWorkNumber + secondWorkNumber + thirdWorkNumber + fourthWorkNumber;
+
+        int[] result = new int[10];
+        for(int i = 0;i<10;i++) {
+            result[i] = 0;
+        }
+
+        //calculating how much times a number appears
+        for (int i = 0; i < resultString.length(); i++) {
+            result[Integer.parseInt(String.valueOf(resultString.charAt(i)))]++;
+        }
+        return result;
     }
 }

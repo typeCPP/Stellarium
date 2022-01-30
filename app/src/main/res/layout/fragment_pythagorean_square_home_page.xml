@@ -129,6 +129,7 @@
                             android:text="@string/personality" />
 
                         <TextView
+                            android:id="@+id/characterNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/personality_number" />
                     </FrameLayout>
@@ -144,6 +145,7 @@
                             android:text="@string/health" />
 
                         <TextView
+                            android:id="@+id/healthNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/health_number" />
                     </FrameLayout>
@@ -159,6 +161,7 @@
                             android:text="@string/luck" />
 
                         <TextView
+                            android:id="@+id/luckNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/luck_number" />
                     </FrameLayout>
@@ -185,6 +188,7 @@
                             android:text="@string/energy" />
 
                         <TextView
+                            android:id="@+id/energyNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/energy_number" />
                     </FrameLayout>
@@ -200,6 +204,7 @@
                             android:text="@string/logic" />
 
                         <TextView
+                            android:id="@+id/logicNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/logic_number" />
                     </FrameLayout>
@@ -215,6 +220,7 @@
                             android:text="@string/duty" />
 
                         <TextView
+                            android:id="@+id/dutyNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/duty_number" />
                     </FrameLayout>
@@ -239,6 +245,7 @@
                             android:text="@string/interest" />
 
                         <TextView
+                            android:id="@+id/interestNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/interest_number" />
                     </FrameLayout>
@@ -254,6 +261,7 @@
                             android:text="@string/labor" />
 
                         <TextView
+                            android:id="@+id/laborNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/labor_number" />
                     </FrameLayout>
@@ -269,6 +277,7 @@
                             android:text="@string/mind_memory" />
 
                         <TextView
+                            android:id="@+id/mindNumberText"
                             style="@style/style_title_button_pythagorean_number"
                             android:text="@string/mind_memory_number" />
                     </FrameLayout>

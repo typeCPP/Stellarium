@@ -1,6 +1,8 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -13,6 +15,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
+import com.app.stellarium.database.tables.PythagoreanSquareTable;
+
 
 public class FragmentPythagoreanSquareHomePage extends Fragment {
 
@@ -21,6 +27,10 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
     private FrameLayout buttonPersonality, buttonHealth, buttonLuck,
             buttonEnergy, buttonLogic, buttonDuty, buttonInterest,
             buttonLabor, buttonMindMemory;
+    private TextView characterNumberTextView, energyNumberTextView, healthNumberTextView,
+            logicNumberTextView, interestNumberTextView, laborNumberTextView, luckNumberTextView,
+            dutyNumberTextView, mindNumberTextView;
+    private int[] matrixValues;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,6 +82,34 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
         String date = null;
         if (bundle != null) {
             date = bundle.getString("Date");
+            matrixValues = bundle.getIntArray("matrixValues");
+
+            characterNumberTextView = view.findViewById(R.id.characterNumberText);
+            characterNumberTextView.setText(getCharacteristicNumber(1, matrixValues[1]));
+
+            energyNumberTextView = view.findViewById(R.id.energyNumberText);
+            energyNumberTextView.setText(getCharacteristicNumber(2, matrixValues[2]));
+
+            interestNumberTextView = view.findViewById(R.id.interestNumberText);
+            interestNumberTextView.setText(getCharacteristicNumber(3, matrixValues[3]));
+
+            healthNumberTextView = view.findViewById(R.id.healthNumberText);
+            healthNumberTextView.setText(getCharacteristicNumber(4, matrixValues[4]));
+
+            logicNumberTextView = view.findViewById(R.id.logicNumberText);
+            logicNumberTextView.setText(getCharacteristicNumber(5, matrixValues[5]));
+
+            laborNumberTextView = view.findViewById(R.id.laborNumberText);
+            laborNumberTextView.setText(getCharacteristicNumber(6, matrixValues[6]));
+
+            luckNumberTextView = view.findViewById(R.id.luckNumberText);
+            luckNumberTextView.setText(getCharacteristicNumber(7, matrixValues[7]));
+
+            dutyNumberTextView = view.findViewById(R.id.dutyNumberText);
+            dutyNumberTextView.setText(getCharacteristicNumber(8, matrixValues[8]));
+
+            mindNumberTextView = view.findViewById(R.id.mindNumberText);
+            mindNumberTextView.setText(getCharacteristicNumber(9, matrixValues[9]));
         }
         if (date != null) {
             editTextDate.setText(date);
@@ -91,50 +129,42 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                         case R.id.ps_personality:
                             idOfPythagoreanSquareElement = 1;
                             title = "ХАРАКТЕР";
-                            description = "офигенный характер 10/10";
-                            break;
-                        case R.id.ps_health:
-                            idOfPythagoreanSquareElement = 2;
-                            title = "ЗДОРОВЬЕ";
-                            description = "сопьешься через 10 лет и сдохнешь";
-                            break;
-                        case R.id.ps_luck:
-                            idOfPythagoreanSquareElement = 3;
-                            title = "ВЕЗЕНИЕ";
-                            description = "везение как у алены когда ее спалили с наушником на экзамене";
                             break;
                         case R.id.ps_energy:
-                            idOfPythagoreanSquareElement = 4;
+                            idOfPythagoreanSquareElement = 2;
                             title = "ЭНЕРГИЯ";
-                            description = "заводной апельсин тын тын тыр ры ры ты пы";
+                            break;
+                        case R.id.ps_interest:
+                            idOfPythagoreanSquareElement = 3;
+                            title = "ИНТЕРЕС";
+                            break;
+                        case R.id.ps_health:
+                            idOfPythagoreanSquareElement = 4;
+                            title = "ЗДОРОВЬЕ";
                             break;
                         case R.id.ps_logic:
                             idOfPythagoreanSquareElement = 5;
                             title = "ЛОГИКА";
-                            description = "гении зачастую становятся отвергнутыми обществом";
-                            break;
-                        case R.id.ps_duty:
-                            idOfPythagoreanSquareElement = 6;
-                            title = "ДОЛГ";
-                            description = "ты никому не должен(нужен) помни это с дества";
-                            break;
-                        case R.id.ps_interest:
-                            idOfPythagoreanSquareElement = 7;
-                            title = "ИНТЕРЕС";
-                            description = "как у нас к вышмату";
                             break;
                         case R.id.ps_labor:
-                            idOfPythagoreanSquareElement = 8;
+                            idOfPythagoreanSquareElement = 6;
                             title = "ТРУД";
-                            description = "трудиться будешь на заводе";
+                            break;
+                        case R.id.ps_luck:
+                            idOfPythagoreanSquareElement = 7;
+                            title = "ВЕЗЕНИЕ";
+                            break;
+                        case R.id.ps_duty:
+                            idOfPythagoreanSquareElement = 8;
+                            title = "ДОЛГ";
                             break;
                         case R.id.ps_mind_memory:
                             idOfPythagoreanSquareElement = 9;
                             title = "УМ, ПАМЯТЬ";
-                            description = "какой сегодня день";
                             break;
 
                     }
+                    description = getDescriptionFromDatabaseByNumber(idOfPythagoreanSquareElement, matrixValues[idOfPythagoreanSquareElement]);
                     bundle.putString("Title", title);
                     bundle.putString("Description", description);
                     layoutDate.animate().alpha(0f).setDuration(200).setListener(null);
@@ -144,7 +174,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                         public void run() {
                             Fragment fragmentPythagoreanSquare = new FragmentPythagoreanSquare();
                             fragmentPythagoreanSquare.setArguments(bundle);
-                            getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
+                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
                         }
                     }, 200);
                 }
@@ -178,5 +208,50 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
         buttonMindMemory = view.findViewById(R.id.ps_mind_memory);
         buttonMindMemory.setOnTouchListener(new ButtonOnTouchListener());
         return view;
+    }
+
+    private String getCharacteristicNumber(int number, int count) {
+        if(count == 0) {
+            return "---";
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            stringBuilder.append(number);
+        }
+        return stringBuilder.toString();
+    }
+
+    @SuppressLint("Range")
+    private String getDescriptionFromDatabaseByNumber(int number, int count) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = database.query(PythagoreanSquareTable.TABLE_NAME, null,
+                "NUMBER = " + number,
+                null, null, null, null);
+        cursor.moveToFirst();
+        String description = "";
+        if(count == 0) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_NO_NUMBER));
+        }
+        if(count == 1) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_ONE_NUMBER));
+        }
+        if(count == 2) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_TWO_NUMBERS));
+        }
+        if(count == 3) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_THREE_NUMBERS));
+        }
+        if(count == 4) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_FOUR_NUMBERS));
+        }
+        if(count == 5) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_FIVE_NUMBERS));
+        }
+        if(count >= 6) {
+            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_SIX_NUMBERS));
+        }
+        return description;
     }
 }
