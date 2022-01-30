@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout_zodiac"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentCompatibilityZodiac">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="12">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.25"
+            android:orientation="horizontal"
+            android:weightSum="13">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <ImageSwitcher
+                android:id="@+id/circle_woman"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:src="@drawable/heart" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageSwitcher
+                android:id="@+id/circle_man"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:weightSum="13">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="2dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/woman"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="2dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/man"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:weightSum="13">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.75" />
+
+            <TextView
+                android:id="@+id/sign_text_woman"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="близнецы"
+                android:textColor="@color/compatibility_sign_text"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5" />
+
+            <TextView
+                android:id="@+id/sign_text_man"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="скорпион"
+                android:textColor="@color/compatibility_sign_text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.75"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            android:rowCount="2"
+            android:useDefaultMargins="true">
+
+            <RelativeLayout android:layout_gravity="fill">
+
+                <ProgressBar
+                    android:id="@+id/progressBarLove"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/progress_bar_background"
+                    android:progress="100"
+                    android:progressDrawable="@drawable/progress_bar_progress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textLoveProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="100%"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBarSex"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/progress_bar_background"
+                    android:progress="20"
+                    android:progressDrawable="@drawable/progress_bar_progress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textSexProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="100%"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBarMarriage"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/progress_bar_background"
+                    android:progress="99"
+                    android:progressDrawable="@drawable/progress_bar_progress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textMarriageProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="100%"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBarFriendship"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/progress_bar_background"
+                    android:progress="88"
+                    android:progressDrawable="@drawable/progress_bar_progress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textFriendshipProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="100%"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="любовь"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="секс"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="брак"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="дружба"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+
+        </GridLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.75"
+            android:orientation="horizontal"
+            android:weightSum="12">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@drawable/navigation_menu_zodiac"
+                android:orientation="horizontal"
+                android:weightSum="12.5">
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:id="@+id/loveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="любовь"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:id="@+id/sexButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="секс"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:id="@+id/marriageButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="брак"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:id="@+id/friendshipButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="дружба"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.5"
+            android:orientation="horizontal"
+            android:weightSum="12">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@drawable/zodiac_main_text"
+                android:overScrollMode="never"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/informationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:justificationMode="inter_word"
+                    android:text="@string/text_information"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp" />
+            </ScrollView>
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
