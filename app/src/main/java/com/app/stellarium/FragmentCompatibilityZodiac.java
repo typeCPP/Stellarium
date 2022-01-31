@@ -1,6 +1,8 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,6 +20,9 @@ import android.widget.ViewSwitcher;
 
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.CompatibilityZodiacTable;
+import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 
 
@@ -25,7 +30,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
     private FrameLayout mainLayout;
     private ProgressBar progressBarLove, progressBarMarriage, progressBarSex, progressBarFriendship;
     private TextView loveButton, marriageButton, sexButton, friendshipButton,
-            informationText, signTextWoman, signTextMan;
+            informationText, signTextWoman, signTextMan, textLoveProgressBar, textSexProgressBar, textMarriageProgressBar, textFriendshipProgressBar;
     private ImageSwitcher circleWoman, circleMan;
     private int numberOfButton; //1 - love, 2 - sex, 3 - marriage, 4 -friendship
 
@@ -73,11 +78,96 @@ public class FragmentCompatibilityZodiac extends Fragment {
         }
     }
 
+    @SuppressLint({"Range", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_compatibility_zodiac, container, false);
+
+        signTextMan = view.findViewById(R.id.sign_text_man);
+        signTextWoman = view.findViewById(R.id.sign_text_woman);
+        informationText = view.findViewById(R.id.informationText);
+        progressBarLove = view.findViewById(R.id.progressBarLove);
+        progressBarSex = view.findViewById(R.id.progressBarSex);
+        progressBarMarriage = view.findViewById(R.id.progressBarMarriage);
+        progressBarFriendship = view.findViewById(R.id.progressBarFriendship);
+        textLoveProgressBar = view.findViewById(R.id.textLoveProgressBar);
+        textSexProgressBar = view.findViewById(R.id.textSexProgressBar);
+        textMarriageProgressBar = view.findViewById(R.id.textMarriageProgressBar);
+        textFriendshipProgressBar = view.findViewById(R.id.textFriendshipProgressBar);
+        Bundle bundle = getArguments();
+
+        int numberWomanSign = 1, numberManSign = 1;
+        if (bundle != null) {
+            numberWomanSign = bundle.getInt("womanSign");
+            numberManSign = bundle.getInt("manSign");
+            signTextMan.setText(bundle.getString("signTextMan"));
+            signTextWoman.setText(bundle.getString("signTextWoman"));
+        }
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = database.query(CompatibilityZodiacTable.TABLE_NAME, null,
+                CompatibilityZodiacTable.COLUMN_FIRST_SIGN_ID + " = " + numberWomanSign + " and " +
+                        CompatibilityZodiacTable.COLUMN_SECOND_SIGN_ID + " = " + numberManSign,
+                null, null, null, null);
+        cursor.moveToFirst();
+        final String informationLove = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_LOVE_TEXT));
+        final String informationSex = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_SEX_TEXT));
+        final String informationMarriage = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_TEXT));
+        final String informationFriendship = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_TEXT));
+
+        final int loveValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_LOVE_VALUE));
+        final int sexValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_SEX_VALUE));
+        final int marriageValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_VALUE));
+        final int friendshipValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_VALUE));
+
+        progressBarLove.setProgress(loveValue);
+        progressBarSex.setProgress(sexValue);
+        progressBarMarriage.setProgress(marriageValue);
+        progressBarFriendship.setProgress(friendshipValue);
+
+        textLoveProgressBar.setText(loveValue + "%");
+        textSexProgressBar.setText(sexValue + "%");
+        textMarriageProgressBar.setText(marriageValue + "%");
+        textFriendshipProgressBar.setText(friendshipValue + "%");
+
+        informationText.setText(informationLove);
+
+        class SlideAnimationListener implements Animation.AnimationListener {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                updateInformationText();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            private void updateInformationText() {
+                switch (numberOfButton) {
+                    case 1:
+                        informationText.setText(informationLove);
+                        break;
+                    case 2:
+                        informationText.setText(informationSex);
+                        break;
+                    case 3:
+                        informationText.setText(informationMarriage);
+                        break;
+                    case 4:
+                        informationText.setText(informationFriendship);
+                        break;
+                }
+            }
+        }
+
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -120,7 +210,9 @@ public class FragmentCompatibilityZodiac extends Fragment {
         loveButton.setScaleY(1.2f);
 
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+        rightAnim.setAnimationListener(new SlideAnimationListener());
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+        leftAnim.setAnimationListener(new SlideAnimationListener());
 
         contentLayout = view.findViewById(R.id.contentLayout);
         activeSwipe(contentLayout);
@@ -137,12 +229,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
         circleWoman = view.findViewById(R.id.circle_woman);
         circleMan = view.findViewById(R.id.circle_man);
-        Bundle bundle = getArguments();
-        int numberWomanSign = 1, numberManSign = 1;
-        if (bundle != null) {
-            numberWomanSign = bundle.getInt("WomanSign");
-            numberManSign = bundle.getInt("ManSign");
-        }
+
         circleWoman.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -204,7 +291,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
             }
         }
-       isStartPage = false;
+        isStartPage = false;
     }
 
     private void addSign(ImageSwitcher circle, int numberSign) {
@@ -254,7 +341,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
             public void onSwipeRight() {
                 switch (numberOfButton) {
                     case 2:
-                       updateStateButtons(loveButton);
+                        updateStateButtons(loveButton);
                         break;
                     case 3:
                         updateStateButtons(sexButton);

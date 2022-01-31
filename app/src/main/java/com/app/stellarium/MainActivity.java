@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.CompatibilityZodiacTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
+import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.android.material.badge.BadgeDrawable;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                 return true;
             }
 
@@ -77,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         createFillHoroscopePredictionsTable(database);
         createFillHoroscopeSignCharacteristicTable(database);
         createFillPythagoreanSquareTable(database);
+        createFillZodiacSignsTable(database);
+        createFillCompatibilityZodiacTable(database);
     }
 
     @Override
@@ -226,4 +230,37 @@ public class MainActivity extends AppCompatActivity {
             database.insert(PythagoreanSquareTable.TABLE_NAME, null, values);
         }
     }
+
+    public static void createFillZodiacSignsTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        String[] signs = {"Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы"};
+        for (int i = 0; i < signs.length; i++) {
+            values.put(ZodiacSignsTable.COLUMN_NAME, signs[i]);
+            values.put(ZodiacSignsTable.COLUMN_SIGN_ID, i + 1);
+            database.insert(ZodiacSignsTable.TABLE_NAME, null, values);
+        }
+    }
+
+    public static void createFillCompatibilityZodiacTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        Random random = new Random();
+        for (int i = 1; i <= 12; i++) {
+            for (int j = 1; j <= 12; j++) {
+                values.put(CompatibilityZodiacTable.COLUMN_FIRST_SIGN_ID, i);
+                values.put(CompatibilityZodiacTable.COLUMN_SECOND_SIGN_ID, j);
+
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_LOVE_TEXT, "Любовь морковь будет всегда у вас.");
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_SEX_TEXT, "Sex будет всегда у вас.");
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_TEXT, "В браке всё будет отлично.");
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_TEXT, "Будете лучшими друзьями.");
+
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_LOVE_VALUE, random.nextInt(21) + 80);
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_SEX_VALUE, random.nextInt(21) + 80);
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_VALUE, random.nextInt(21) + 80);
+                values.put(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_VALUE, random.nextInt(21) + 80);
+                database.insert(CompatibilityZodiacTable.TABLE_NAME, null, values);
+            }
+        }
+    }
+
 }

@@ -75,7 +75,7 @@ public class FragmentCompatibilityMenu extends Fragment {
                             break;
 
                     }
-                    getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }
