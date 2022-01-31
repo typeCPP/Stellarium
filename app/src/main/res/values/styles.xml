@@ -10,10 +10,6 @@
             match_parent
         </item>
 
-        <item name="android:textStyle">
-            bold
-        </item>
-
         <item name="android:textColor">
             @color/textColorTitle
         </item>
@@ -25,7 +21,9 @@
         <item name="android:gravity">
             center|top
         </item>
-
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
         <item name="android:shadowDx">
             2
         </item>
@@ -42,7 +40,12 @@
 
 
     <style name="button_style_for_home_page">
-
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="android:textStyle">
+            bold
+        </item>
         <item name="android:textColor">
             @color/buttonTextBlackColor
         </item>
@@ -238,7 +241,7 @@
             left|center_vertical
         </item>
         <item name="fontFamily">
-            @font/font_for_horoscope
+            @font/source_serif4_18pt_light
         </item>
         <item name="android:paddingLeft">
             15dp
@@ -271,9 +274,9 @@
         <item name="maxLines">
             1
         </item>
-        <item name="fontFamily">
-        </item>
+        <item name="fontFamily"></item>
     </style>
+
     <style name="style_title_compatibility">
         <item name="android:textSize">
             20sp
