@@ -6,20 +6,21 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentCompatibilityZodiac#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.app.stellarium.utils.OnSwipeTouchListener;
+
+
 public class FragmentCompatibilityZodiac extends Fragment {
     private FrameLayout mainLayout;
     private ProgressBar progressBarLove, progressBarMarriage, progressBarSex, progressBarFriendship;
@@ -28,7 +29,10 @@ public class FragmentCompatibilityZodiac extends Fragment {
     private ImageSwitcher circleWoman, circleMan;
     private int numberOfButton; //1 - love, 2 - sex, 3 - marriage, 4 -friendship
 
-    
+    private Animation rightAnim, leftAnim;
+    private boolean isStartPage = true;
+    private LinearLayout contentLayout;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,16 +85,16 @@ public class FragmentCompatibilityZodiac extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     switch (view.getId()) {
                         case R.id.loveButton:
-                            setScaleForButton(loveButton);
+                            updateStateButtons(loveButton);
                             break;
                         case R.id.sexButton:
-                            setScaleForButton(sexButton);
+                            updateStateButtons(sexButton);
                             break;
                         case R.id.marriageButton:
-                            setScaleForButton(marriageButton);
+                            updateStateButtons(marriageButton);
                             break;
                         case R.id.friendshipButton:
-                            setScaleForButton(friendshipButton);
+                            updateStateButtons(friendshipButton);
                             break;
                     }
                 }
@@ -105,11 +109,21 @@ public class FragmentCompatibilityZodiac extends Fragment {
         progressBarFriendship = view.findViewById(R.id.progressBarFriendship);
 
         loveButton = view.findViewById(R.id.loveButton);
+        activeSwipe(loveButton);
         sexButton = view.findViewById(R.id.sexButton);
+        activeSwipe(sexButton);
         marriageButton = view.findViewById(R.id.marriageButton);
+        activeSwipe(marriageButton);
         friendshipButton = view.findViewById(R.id.friendshipButton);
+        activeSwipe(friendshipButton);
         loveButton.setScaleX(1.2f);
         loveButton.setScaleY(1.2f);
+
+        rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
+        leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+
+        contentLayout = view.findViewById(R.id.contentLayout);
+        activeSwipe(contentLayout);
 
         informationText = view.findViewById(R.id.informationText);
         signTextWoman = view.findViewById(R.id.sign_text_woman);
@@ -118,6 +132,8 @@ public class FragmentCompatibilityZodiac extends Fragment {
         mainLayout = view.findViewById(R.id.main_layout_zodiac);
         mainLayout.setAlpha(0f);
         mainLayout.animate().alpha(1f).setDuration(250).setListener(null);
+
+        updateStateButtons(loveButton);
 
         circleWoman = view.findViewById(R.id.circle_woman);
         circleMan = view.findViewById(R.id.circle_man);
@@ -152,29 +168,43 @@ public class FragmentCompatibilityZodiac extends Fragment {
         return view;
     }
 
-    private void setScaleForButton(TextView button) {
+    private void updateStateButtons(TextView button) {
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
+        int oldNumberOfActiveButton = numberOfButton;
         if (button != loveButton) {
             loveButton.setScaleX(1);
             loveButton.setScaleY(1);
+        } else {
             numberOfButton = 1;
         }
         if (button != sexButton) {
             sexButton.setScaleX(1);
             sexButton.setScaleY(1);
+        } else {
             numberOfButton = 2;
         }
         if (button != marriageButton) {
             marriageButton.setScaleX(1);
             marriageButton.setScaleY(1);
+        } else {
             numberOfButton = 3;
         }
         if (button != friendshipButton) {
             friendshipButton.setScaleX(1);
             friendshipButton.setScaleY(1);
+        } else {
             numberOfButton = 4;
         }
+        if (!isStartPage) {
+            if (oldNumberOfActiveButton < numberOfButton) {
+                contentLayout.startAnimation(rightAnim);
+            } else {
+                contentLayout.startAnimation(leftAnim);
+
+            }
+        }
+       isStartPage = false;
     }
 
     private void addSign(ImageSwitcher circle, int numberSign) {
@@ -216,5 +246,39 @@ public class FragmentCompatibilityZodiac extends Fragment {
                 circle.setImageResource(R.drawable.comp_pisces);
                 break;
         }
+    }
+
+    private void activeSwipe(View view) {
+        view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+            @SuppressLint("ClickableViewAccessibility")
+            public void onSwipeRight() {
+                switch (numberOfButton) {
+                    case 2:
+                       updateStateButtons(loveButton);
+                        break;
+                    case 3:
+                        updateStateButtons(sexButton);
+                        break;
+                    case 4:
+                        updateStateButtons(marriageButton);
+                        break;
+                }
+
+            }
+
+            public void onSwipeLeft() {
+                switch (numberOfButton) {
+                    case 1:
+                        updateStateButtons(sexButton);
+                        break;
+                    case 2:
+                        updateStateButtons(marriageButton);
+                        break;
+                    case 3:
+                        updateStateButtons(friendshipButton);
+                        break;
+                }
+            }
+        });
     }
 }

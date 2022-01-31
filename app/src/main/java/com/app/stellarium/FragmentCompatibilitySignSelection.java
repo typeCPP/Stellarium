@@ -30,11 +30,7 @@ import com.szugyi.circlemenu.view.CircleLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentCompatibilitySignSelection#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentCompatibilitySignSelection extends Fragment {
     private ImageSwitcher circleWoman, circleMan;
     private LinearLayout layout_with_spinner;

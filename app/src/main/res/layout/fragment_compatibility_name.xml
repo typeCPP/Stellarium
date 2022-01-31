@@ -184,7 +184,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="0.25"/>
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -417,21 +418,22 @@
             android:layout_weight="0.25" />
 
         <LinearLayout
+            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.5"
+            android:layout_weight="4.25"
             android:orientation="horizontal"
             android:weightSum="12">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1.25" />
 
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10"
+                android:layout_weight="9.5"
                 android:background="@drawable/zodiac_main_text"
                 android:overScrollMode="never"
                 android:paddingLeft="10dp"
