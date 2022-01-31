@@ -274,6 +274,43 @@
         <item name="fontFamily">
         </item>
     </style>
+    <style name="style_title_compatibility">
+        <item name="android:textSize">
+            20sp
+        </item>
 
+        <item name="android:layout_width">
+            match_parent
+        </item>
+
+        <item name="android:textStyle">
+            bold
+        </item>
+
+        <item name="android:textColor">
+            @color/textColorTitle
+        </item>
+
+        <item name="android:shadowColor">
+            @color/shadowColorTitle
+        </item>
+
+        <item name="android:gravity">
+            center|top
+        </item>
+
+        <item name="android:shadowDx">
+            2
+        </item>
+
+        <item name="android:shadowDy">
+            10
+        </item>
+
+        <item name="android:shadowRadius">
+            12
+        </item>
+
+    </style>
 </resources>
 

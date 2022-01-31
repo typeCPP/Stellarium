@@ -82,4 +82,8 @@
     <string name="sex">секс</string>
     <string name="friendship">дружба</string>
     <string name="work">работа</string>
+    <string name="choose_zodiac_signs">Выберите знаки зодиака</string>
+    <string name="enter_names">Введите имена</string>
+    <string name="compatibilityByName">совместимость по именам</string>
+    <string name="compatibility_by_zodiac_signs">совместимость по знакам зодиака</string>
 </resources>

@@ -77,6 +77,8 @@ public class FragmentHome extends Fragment {
                         case R.id.taroButton:
                             break;
                         case R.id.compatibilityButton:
+                            fragment=new FragmentCompatibilityMenu();
+                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.moonCalendarButton:
                             break;
