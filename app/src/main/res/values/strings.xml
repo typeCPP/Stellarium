@@ -77,4 +77,9 @@
     <string name="titlle_yes_or_no">Внимательно подумайте о своем вопросе и спросите шар...</string>
     <string name="man">Мужчина</string>
     <string name="woman">Женщина</string>
+    <string name="love_lowercase">любовь</string>
+    <string name="marriage">брак</string>
+    <string name="sex">секс</string>
+    <string name="friendship">дружба</string>
+    <string name="work">работа</string>
 </resources>
