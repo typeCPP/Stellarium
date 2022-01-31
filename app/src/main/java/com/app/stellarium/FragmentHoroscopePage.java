@@ -33,7 +33,6 @@ public class FragmentHoroscopePage extends Fragment {
             businessHoroscopeButton;
     private ImageButton infoAboutSignButton;
     private LinearLayout contentLayout, firstFreeSpace, secondFreeSpace, thirdFreeSpace, fourthFreeSpace;
-    private TextView commonHoroscopeTextView;
     private TextView signTitle;
     private ImageView signImage;
     private TextView textCommonHoroscope, textLoveHoroscope, textHealthHoroscope, textBusinessHoroscope;
@@ -160,6 +159,7 @@ public class FragmentHoroscopePage extends Fragment {
     }
 
     private void updateStateButtons(@NonNull Button button) {
+        checkAndCloseOpenTextView();
         button.setScaleX(1.4f);
         button.setScaleY(1.4f);
         int oldNumberOfActiveButton = numberOfActiveButton;
@@ -361,4 +361,29 @@ public class FragmentHoroscopePage extends Fragment {
         return bundle;
     }
 
+    private void checkAndCloseOpenTextView() {
+        if (isClickCommonHoroscopeButton) {
+            isClickCommonHoroscopeButton = false;
+            firstFreeSpace.removeView(textCommonHoroscope);
+            firstFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        if (isClickLoveHoroscopeButton) {
+            isClickLoveHoroscopeButton = false;
+            secondFreeSpace.removeView(textLoveHoroscope);
+            secondFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        if (isClickBusinessHoroscopeButton) {
+            isClickBusinessHoroscopeButton = false;
+            fourthFreeSpace.removeView(textBusinessHoroscope);
+            fourthFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        }
+        if (isClickHealthHoroscopeButton) {
+            isClickHealthHoroscopeButton = false;
+            thirdFreeSpace.removeView(textHealthHoroscope);
+            thirdFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        }
+
+    }
 }
