@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
@@ -25,6 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.ViewSwitcher;
 
 import com.szugyi.circlemenu.view.CircleLayout;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +50,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     private short touchMoveFactor = 10;
     private FrameLayout mainLayout;
     private Bundle bundle;
+    private Animation scaleUp;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,15 +65,6 @@ public class FragmentCompatibilitySignSelection extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentCompatibilityZodiacSigns.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentCompatibilitySignSelection newInstance(String param1, String param2) {
         FragmentCompatibilitySignSelection fragment = new FragmentCompatibilitySignSelection();
         Bundle args = new Bundle();
@@ -91,8 +87,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compatibility_sign_selection, container, false);
-
-
+        scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         class ButtonOnTouchListenerSexSelection implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -122,15 +117,24 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.startAnimation(scaleUp);
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     actionDownPoint.x = motionEvent.getX();
                     actionDownPoint.y = motionEvent.getY();
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
-                    spinner.onTouchEvent(motionEvent);
+                    try {
+                        Method method = CircleLayout.class.getDeclaredMethod("rotateButtons", float.class);
+                        method.setAccessible(true);
+                        float p = 2.5f;
+                        method.invoke(spinner, p);
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) + Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
+                    boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
+                            Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
                     if (isTouchLength) {
                         int idOfSignsTableElement = 1;
                         switch (view.getId()) {
@@ -284,7 +288,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     mainLayout.animate().alpha(0f).setDuration(250).setListener(null);
-                    Fragment fragmentCompatibilityZodiac= new FragmentCompatibilityZodiac();
+                    Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
                     fragmentCompatibilityZodiac.setArguments(bundle);
                     getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
                 }

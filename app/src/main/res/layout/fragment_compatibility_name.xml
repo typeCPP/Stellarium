@@ -5,7 +5,7 @@
     android:id="@+id/main_layout_zodiac"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentCompatibilityZodiac">
+    tools:context=".FragmentCompatibilityName">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,8 +30,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
 
-            <ImageSwitcher
-                android:id="@+id/circle_woman"
+            <ImageView
+                android:src="@drawable/comp_woman"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5" />
@@ -52,8 +52,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <ImageSwitcher
-                android:id="@+id/circle_man"
+            <ImageView
+                android:src="@drawable/comp_man"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5" />
@@ -112,65 +112,91 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.75"
             android:orientation="horizontal"
             android:weightSum="13">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.75" />
+                android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/sign_text_woman"
+            <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="близнецы"
-                android:textColor="@color/compatibility_sign_text"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4.5"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:background="@drawable/name_selection_background">
+
+                <TextView
+                    android:id="@+id/nameWoman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:autoSizeMinTextSize="18dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/white" />
+            </ScrollView>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3.5" />
+                android:layout_weight="2" />
 
-            <TextView
-                android:id="@+id/sign_text_man"
+            <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="скорпион"
-                android:textColor="@color/compatibility_sign_text"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4.5"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:background="@drawable/name_selection_background">
+
+                <TextView
+                    android:id="@+id/nameMan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:autoSizeMinTextSize="18dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/white" />
+            </ScrollView>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_height="0dp" />
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1.75"
-            android:columnCount="4"
+            android:columnCount="3"
             android:orientation="horizontal"
             android:rowCount="2"
             android:useDefaultMargins="true">
 
-            <RelativeLayout android:layout_gravity="fill">
+            <RelativeLayout>
 
                 <ProgressBar
                     android:id="@+id/progressBarLove"
@@ -179,7 +205,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:background="@drawable/progress_bar_background"
-                    android:progress="100"
+                    android:progress="20"
                     android:progressDrawable="@drawable/progress_bar_progress"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -198,40 +224,12 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <RelativeLayout>
-
-                <ProgressBar
-                    android:id="@+id/progressBarSex"
-                    style="?android:progressBarStyleHorizontal"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/progress_bar_background"
-                    android:progress="20"
-                    android:progressDrawable="@drawable/progress_bar_progress"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textSexProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:text="100%"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ProgressBar
-                    android:id="@+id/progressBarMarriage"
+                    android:id="@+id/progressBarFriendship"
                     style="?android:progressBarStyleHorizontal"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -245,7 +243,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textMarriageProgressBar"
+                    android:id="@+id/textFriendshipProgressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -262,7 +260,7 @@
                 android:layout_height="wrap_content">
 
                 <ProgressBar
-                    android:id="@+id/progressBarFriendship"
+                    android:id="@+id/progressBarWork"
                     style="?android:progressBarStyleHorizontal"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -276,7 +274,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textFriendshipProgressBar"
+                    android:id="@+id/textWorkProgressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -296,14 +294,14 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:text="секс"
+                android:text="дружба"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="брак"
+                android:text="работа"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -340,63 +338,25 @@
                 android:layout_weight="10"
                 android:background="@drawable/navigation_menu_zodiac"
                 android:orientation="horizontal"
-                android:weightSum="12.5">
+                android:weightSum="12">
 
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.75" />
 
                 <TextView
                     android:id="@+id/loveButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.5"
+                    android:layout_weight="3"
                     android:autoSizeMaxTextSize="15sp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/love_lowercase"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
-
-                <TextView
-                    android:id="@+id/sexButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.5"
-                    android:autoSizeMaxTextSize="15sp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/sex"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
-
-                <TextView
-                    android:id="@+id/marriageButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.5"
-                    android:autoSizeMaxTextSize="15sp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/marriage"
+                    android:text="@string/love"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
 
@@ -409,7 +369,7 @@
                     android:id="@+id/friendshipButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.5"
+                    android:layout_weight="3"
                     android:autoSizeMaxTextSize="15sp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
@@ -423,6 +383,30 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:id="@+id/workButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/work"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75" />
 
             </LinearLayout>
         </LinearLayout>
@@ -459,6 +443,7 @@
                     android:id="@+id/informationText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:justificationMode="inter_word"
                     android:paddingBottom="15dp"
                     android:text="@string/text_information"
