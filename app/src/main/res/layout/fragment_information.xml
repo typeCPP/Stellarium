@@ -21,7 +21,7 @@
                 android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="75dp"
                 android:gravity="center|top"
                 android:text="@string/title_information"
                 android:textAppearance="@style/style_title" />
@@ -50,7 +50,8 @@
                     android:justificationMode="inter_word"
                     android:text="@string/text_information"
                     android:textColor="@color/informationTextColor"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/theano_modern_regular"
+                    android:textSize="20sp"
                     tools:targetApi="o" />
 
                 <View
