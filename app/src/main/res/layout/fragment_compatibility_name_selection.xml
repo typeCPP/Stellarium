@@ -20,13 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/gabriela_regular"
                 android:gravity="center|top"
                 android:text="@string/enter_names"
-                android:textAppearance="@style/style_title_compatibility"/>
+                android:textAppearance="@style/style_title_compatibility" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,8 +45,8 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/comp_woman"
-                    android:layout_weight="2.5" />
+                    android:layout_weight="2.5"
+                    android:src="@drawable/comp_woman" />
 
                 <View
                     android:layout_width="0dp"
@@ -66,7 +68,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
-                    android:src="@drawable/comp_man"/>
+                    android:src="@drawable/comp_man" />
 
                 <View
                     android:layout_width="0dp"
@@ -95,6 +97,7 @@
                     android:autoSizeMinTextSize="2dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/woman"
@@ -115,6 +118,7 @@
                     android:autoSizeMinTextSize="2dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/man"
@@ -144,9 +148,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="4.5"
+                    android:background="@drawable/name_selection_background"
                     android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:background="@drawable/name_selection_background">
+                    android:scrollbars="none">
 
                     <EditText
                         android:id="@+id/editTextWoman"
@@ -158,6 +162,7 @@
                         android:autoSizeMinTextSize="18dp"
                         android:autoSizeStepGranularity="1dp"
                         android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/gabriela_regular"
                         android:gravity="center"
                         android:inputType="textPersonName"
                         android:textColor="@color/white" />
@@ -173,9 +178,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="4.5"
+                    android:background="@drawable/name_selection_background"
                     android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:background="@drawable/name_selection_background">
+                    android:scrollbars="none">
 
                     <EditText
                         android:id="@+id/editTextMan"
@@ -187,6 +192,7 @@
                         android:autoSizeMinTextSize="18dp"
                         android:autoSizeStepGranularity="1dp"
                         android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/gabriela_regular"
                         android:gravity="center"
                         android:inputType="textPersonName"
                         android:textColor="@color/white" />
@@ -216,6 +222,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:background="@drawable/button_compatibility_sign"
+                    android:fontFamily="@font/gabriela_regular"
                     android:text="@string/show_results"
                     android:textColor="@android:color/black" />
             </LinearLayout>

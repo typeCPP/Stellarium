@@ -47,10 +47,12 @@
             android:autoSizeTextType="uniform"
             android:background="@drawable/button_compatibility_sign"
             android:elevation="5dp"
+            android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/compatibility_by_zodiac_signs"
             android:textColor="@color/white" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -79,6 +81,7 @@
             android:autoSizeTextType="uniform"
             android:background="@drawable/button_compatibility_sign"
             android:elevation="5dp"
+            android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/compatibilityByName"
             android:textColor="@color/white" />

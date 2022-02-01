@@ -85,6 +85,7 @@
                 android:autoSizeMinTextSize="2dp"
                 android:autoSizeStepGranularity="1dp"
                 android:autoSizeTextType="uniform"
+                android:fontFamily="@font/gabriela_regular"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/woman"
@@ -101,6 +102,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
+                android:fontFamily="@font/gabriela_regular"
                 android:autoSizeMaxTextSize="20sp"
                 android:autoSizeMinTextSize="2dp"
                 android:autoSizeStepGranularity="1dp"
@@ -144,6 +146,7 @@
                     android:layout_gravity="center|center_vertical"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
+                    android:fontFamily="@font/gabriela_regular"
                     android:autoSizeMinTextSize="18dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
@@ -173,6 +176,7 @@
                     android:layout_gravity="center|center_vertical"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
+                    android:fontFamily="@font/gabriela_regular"
                     android:autoSizeMinTextSize="18dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
@@ -220,6 +224,7 @@
                     android:layout_centerInParent="true"
                     android:background="@android:color/transparent"
                     android:gravity="center"
+                    android:fontFamily="@font/gabriela_regular"
                     android:text="100%"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -250,6 +255,7 @@
                     android:layout_centerInParent="true"
                     android:background="@android:color/transparent"
                     android:gravity="center"
+                    android:fontFamily="@font/gabriela_regular"
                     android:text="100%"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -281,6 +287,7 @@
                     android:layout_centerInParent="true"
                     android:background="@android:color/transparent"
                     android:gravity="center"
+                    android:fontFamily="@font/gabriela_regular"
                     android:text="100%"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -296,6 +303,7 @@
             <TextView
                 android:layout_gravity="center"
                 android:text="дружба"
+                android:fontFamily="@font/gabriela_regular"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -304,12 +312,14 @@
                 android:gravity="center"
                 android:text="работа"
                 android:textColor="@color/white"
+                android:fontFamily="@font/gabriela_regular"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="дружба"
+                android:fontFamily="@font/gabriela_regular"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
@@ -355,6 +365,7 @@
                     android:autoSizeMaxTextSize="15sp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/love"
@@ -371,6 +382,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:fontFamily="@font/gabriela_regular"
                     android:autoSizeMaxTextSize="15sp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
@@ -395,6 +407,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:fontFamily="@font/gabriela_regular"
                     android:autoSizeMaxTextSize="15sp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
@@ -446,6 +459,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/gabriela_regular"
                     android:justificationMode="inter_word"
                     android:paddingBottom="15dp"
                     android:text="@string/text_information"
