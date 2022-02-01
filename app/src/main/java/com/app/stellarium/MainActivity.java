@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     BadgeDrawable badgeDrawable;
+
 
     private KenBurnsView kbv;
 
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         createFillPythagoreanSquareTable(database);
         createFillZodiacSignsTable(database);
         createFillCompatibilityZodiacTable(database);
+        hideBottomBar(false);
     }
 
     @Override
@@ -263,4 +266,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void hideBottomBar(boolean isHidden){
+        bottomNavigationView.setVisibility(isHidden ? View.GONE : View.VISIBLE);
+    }
 }

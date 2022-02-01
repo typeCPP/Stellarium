@@ -69,6 +69,8 @@ public class FragmentHome extends Fragment {
                     Fragment fragment;
                     switch (view.getId()) {
                         case R.id.affirmationButton:
+                            fragment = new FragmentAffirmation();
+                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.horoscopeButton:
                             fragment = new FragmentHoroscopeList();

@@ -352,5 +352,17 @@
         </item>
 
     </style>
+    <style name="style_affirmation_text">
+        <item name="android:textColor">#9A000000</item>
+        <item name="android:textSize">
+            32sp
+        </item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="fontFamily">
+            @font/font_for_horoscope
+        </item>
+    </style>
 </resources>
 

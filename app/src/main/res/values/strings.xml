@@ -86,4 +86,6 @@
     <string name="enter_names">Введите имена</string>
     <string name="compatibilityByName">совместимость по именам</string>
     <string name="compatibility_by_zodiac_signs">совместимость по знакам зодиака</string>
+    <string name="affirmation_title">Следующая аффирмация будет завтра</string>
+    <string name="affirmation_text">Андрей соснул хуйца, но ничего страшного, такое случается</string>
 </resources>
