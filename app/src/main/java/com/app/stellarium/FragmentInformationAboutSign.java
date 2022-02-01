@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -30,6 +31,7 @@ public class FragmentInformationAboutSign extends Fragment {
     private boolean isStartPage = true;
     private Bundle bundle;
     private String[] characteristics;
+    private HorizontalScrollView scrollView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,8 +101,8 @@ public class FragmentInformationAboutSign extends Fragment {
         textView = view.findViewById(R.id.textInfoAboutSign);
         activeSwipe(textView);
 
-        ScrollView scrollView = view.findViewById(R.id.scrollView);
-        activeSwipe(scrollView);
+        ScrollView scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
+        activeSwipe(scrollViewVertical);
 
         View firstEmptyView = view.findViewById(R.id.firstEmptyView);
         View secondEmptyView = view.findViewById(R.id.secondEmptyView);
@@ -110,6 +112,8 @@ public class FragmentInformationAboutSign extends Fragment {
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
 
+        scrollView = view.findViewById(R.id.scrollView);
+
         updateStateButtons(descriptionButton);
 
         return view;
@@ -118,31 +122,35 @@ public class FragmentInformationAboutSign extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
         int oldNumberOfActiveButton = numberOfActiveButton;
-        button.setTextSize(20);
+        button.setTextSize(17);
         if (button != descriptionButton) {
-            descriptionButton.setTextSize(15);
+            descriptionButton.setTextSize(14);
         } else {
             numberOfActiveButton = 1;
+            scrollView.scrollTo(0, 0);
         }
         if (button != characterButton) {
-            characterButton.setTextSize(15);
+            characterButton.setTextSize(14);
         } else {
             numberOfActiveButton = 2;
+            scrollView.scrollTo(R.id.characterButton, 0);
         }
         if (button != loveButton) {
-            loveButton.setTextSize(15);
+            loveButton.setTextSize(14);
         } else {
             numberOfActiveButton = 3;
+            scrollView.scrollTo(R.id.loveButton, 0);
         }
         if (button != careerButton) {
-            careerButton.setTextSize(15);
+            careerButton.setTextSize(14);
         } else {
             numberOfActiveButton = 4;
+            scrollView.scrollTo(R.id.careerButton, 0);
         }
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfActiveButton) {
                 textView.startAnimation(rightAnim);
-            } else {
+            } else if(oldNumberOfActiveButton > numberOfActiveButton){
                 textView.startAnimation(leftAnim);
             }
         }
@@ -189,10 +197,9 @@ public class FragmentInformationAboutSign extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"ResourceAsColor", "WrongConstant"})
     private void setAttributesForTextView(String text, TextView textView) {
+        textView.setMaxLines(1);
         textView.setText(text);
         textView.setPadding(10, 30, 10, 30);
-        textView.setTextSize(17);
-        textView.setTextAppearance(R.style.style_horoscope_title);
     }
 
 }

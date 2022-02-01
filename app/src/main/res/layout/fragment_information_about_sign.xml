@@ -40,43 +40,65 @@
             android:layout_weight="1.4"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/descriptionButton"
-                style="@style/style_types"
+            <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/description"
-                tools:ignore="NestedWeights" />
+                android:layout_weight="0.05" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/characterButton"
-                style="@style/style_types"
+            <HorizontalScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/character" />
+                android:layout_weight="0.9">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/loveButton"
-                style="@style/style_types"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/descriptionButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/description"
+                        tools:ignore="NestedWeights" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/characterButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/character" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/loveButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/love" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/careerButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/career" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/love" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/careerButton"
-                style="@style/style_types"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/career" />
-
+                android:layout_weight="0.05" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,7 +109,7 @@
             android:orientation="horizontal">
 
             <ScrollView
-                android:id="@+id/scrollView"
+                android:id="@+id/scrollViewVertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true">
@@ -105,6 +127,7 @@
 
                     <TextView
                         android:id="@+id/textInfoAboutSign"
+                        style="@style/style_text_horoscope"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.9" />

@@ -58,50 +58,73 @@
             android:layout_weight="1.4"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/todayButton"
-                style="@style/style_period"
+            <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/today" />
+                android:layout_weight="0.05" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/tomorrowButton"
-                style="@style/style_period"
+            <HorizontalScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/tomorrow" />
+                android:layout_weight="0.9">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/weekButton"
-                style="@style/style_period"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/week" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/monthButton"
-                style="@style/style_period"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@android:color/transparent"
-                android:text="@string/month" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/todayButton"
+                        style="@style/style_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/today" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/yearButton"
-                style="@style/style_period"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tomorrowButton"
+                        style="@style/style_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/tomorrow" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/weekButton"
+                        style="@style/style_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/week" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/monthButton"
+                        style="@style/style_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:text="@string/month" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/yearButton"
+                        style="@style/style_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.17"
+                        android:background="@android:color/transparent"
+                        android:text="@string/year" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.17"
-                android:background="@android:color/transparent"
-                android:text="@string/year" />
+                android:layout_weight="0.05" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,13 +136,14 @@
             android:orientation="vertical">
 
             <ScrollView
+                android:id="@+id/scrollViewVertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <View

@@ -80,6 +80,9 @@
     </style>
 
     <style name="style_horoscope_title">
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
             17sp
@@ -228,13 +231,16 @@
     <style name="style_period">
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
-            15sp
+            14sp
         </item>
         <item name="textAllCaps">
             false
         </item>
         <item name="backgroundTint">
             @android:color/transparent
+        </item>
+        <item name="android:fontFamily">
+            @font/gabriela_regular
         </item>
     </style>
 
@@ -259,7 +265,9 @@
 
     <style name="style_sign_title">
         <item name="android:textColor">#EEE7FF</item>
-
+        <item name="fontFamily">
+            @font/gabriela_regular
+        </item>
         <item name="android:textSize">
             20sp
         </item>
@@ -278,7 +286,10 @@
     <style name="style_types">
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
-            15sp
+            14sp
+        </item>
+        <item name="fontFamily">
+            @font/gabriela_regular
         </item>
         <item name="textAllCaps">
             false
@@ -286,7 +297,18 @@
         <item name="maxLines">
             1
         </item>
-        <item name="fontFamily"></item>
+    </style>
+    <style name="style_text_horoscope">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textSize">
+            17sp
+        </item>
+        <item name="fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="textAllCaps">
+            false
+        </item>
     </style>
 
     <style name="style_title_compatibility">

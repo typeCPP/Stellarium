@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,7 +42,7 @@ public class FragmentHoroscopePage extends Fragment {
     private Animation scaleUp;
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
-
+    private HorizontalScrollView scrollView;
     private Bundle bundle;
     private String[][] predictions;
 
@@ -152,6 +153,8 @@ public class FragmentHoroscopePage extends Fragment {
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
 
+        scrollView = view.findViewById(R.id.scrollView);
+
         updateStateButtons(todayButton);
 
 
@@ -168,38 +171,42 @@ public class FragmentHoroscopePage extends Fragment {
             todayButton.setScaleY(1);
         } else {
             numberOfActiveButton = 1;
+            scrollView.scrollTo(0, 0);
         }
         if (button != tomorrowButton) {
             tomorrowButton.setScaleX(1);
             tomorrowButton.setScaleY(1);
         } else {
             numberOfActiveButton = 2;
+            scrollView.scrollTo(R.id.tomorrowButton, 0);
         }
         if (button != weekButton) {
             weekButton.setScaleX(1);
             weekButton.setScaleY(1);
         } else {
             numberOfActiveButton = 3;
+            scrollView.scrollTo(R.id.weekButton, 0);
         }
         if (button != monthButton) {
             monthButton.setScaleX(1);
             monthButton.setScaleY(1);
         } else {
             numberOfActiveButton = 4;
+            scrollView.scrollTo(R.id.monthButton, 0);
         }
         if (button != yearButton) {
             yearButton.setScaleX(1);
             yearButton.setScaleY(1);
         } else {
             numberOfActiveButton = 5;
+            scrollView.scrollTo(R.id.yearButton, 0);
         }
 
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfActiveButton) {
                 contentLayout.startAnimation(rightAnim);
-            } else {
+            } else if(oldNumberOfActiveButton > numberOfActiveButton){
                 contentLayout.startAnimation(leftAnim);
-
             }
         }
         isStartPage = false;
@@ -382,7 +389,6 @@ public class FragmentHoroscopePage extends Fragment {
             isClickHealthHoroscopeButton = false;
             thirdFreeSpace.removeView(textHealthHoroscope);
             thirdFreeSpace.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
         }
 
     }
