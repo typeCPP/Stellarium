@@ -50,11 +50,9 @@
                 android:layout_marginBottom="80dp"
                 android:gravity="center|center_vertical"
                 android:lineSpacingExtra="8sp"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                style="@style/style_yes_or_no_ball"
                 android:typeface="normal"
-                android:background="@drawable/smoke"
-                app:fontFamily="sans-serif" />
+                android:background="@drawable/smoke" />
         </RelativeLayout>
 
         <View

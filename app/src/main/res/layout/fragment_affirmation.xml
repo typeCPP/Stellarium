@@ -38,15 +38,16 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.081" />
+                android:layout_weight="0.077" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.55"
+                android:layout_weight="0.6"
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
-                android:textColor="#6B000000" />
+                android:textColor="#6B000000"
+                style="@style/style_affirmation_title"/>
 
         </LinearLayout>
 

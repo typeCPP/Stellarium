@@ -360,8 +360,34 @@
         <item name="textAllCaps">
             false
         </item>
-        <item name="fontFamily">
-            @font/font_for_horoscope
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
+    </style>
+
+    <style name="style_affirmation_title">
+        <item name="android:textColor">#6B000000</item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
+    </style>
+
+    <style name="style_yes_or_no_ball">
+        <item name="android:textColor">#6B000000</item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="android:textStyle">
+            bold
+        </item>
+        <item name="android:textSize">
+            18sp
         </item>
     </style>
 </resources>
