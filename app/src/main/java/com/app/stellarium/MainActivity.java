@@ -10,6 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityZodiacTable;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FragmentListOfInformation();
                         break;
                 }
-
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                 return true;
             }
