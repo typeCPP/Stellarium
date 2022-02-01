@@ -12,12 +12,12 @@
 
     <string name="affirmation_name">Аффирмация</string>
     <string name="horoscope_name">Гороскоп</string>
-    <string name="taro_name">Таро</string>
+    <string name="taro_name">Карты Таро</string>
     <string name="compatibility_name">Совместимость</string>
     <string name="moon_name">Лунный календарь</string>
     <string name="numerologic_name">Нумерология</string>
     <string name="square_name">Квадрат Пифагора</string>
-    <string name="yes_no_name">Да-Нет</string>
+    <string name="yes_no_name">Шар Да-Нет</string>
     <string name="hello">Добрый день, Андрей!</string>
     <string name="title_registration">Добро пожаловать!</string>
     <string name="name">имя</string>

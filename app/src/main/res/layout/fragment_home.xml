@@ -8,344 +8,346 @@
     tools:context=".FragmentHome">
 
     <LinearLayout
-        android:id="@+id/vertical_only"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/hello_text"
+            android:id="@+id/title_text"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.35"
-            android:gravity="center|bottom"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="85dp"
+            android:gravity="center|top"
             android:text="@string/hello"
             android:textAppearance="@style/style_title" />
 
-        <LinearLayout
-            android:id="@+id/top_space"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:orientation="horizontal"
-            android:weightSum="1" />
+            android:layout_height="40dp" />
 
         <LinearLayout
-            android:id="@+id/first_line_with_buttons"
+            android:id="@+id/vertical_only"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:minHeight="500dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/affirmationButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/affirmation"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-
-                android:maxWidth="300dp"
-                android:maxHeight="300dp"
-                android:maxLines="1"
-                android:minWidth="300dp"
-
+            <LinearLayout
+                android:id="@+id/first_line_with_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
                 android:minHeight="300dp"
-                android:onClick="onClick"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/affirmation_name"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/affirmationButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/affirmation"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/horoscopeButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/horoscope"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:layerType="software"
-                android:maxLines="1"
-                android:onClick="onClick"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/horoscope_name"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+                    android:maxWidth="300dp"
+                    android:maxHeight="100dp"
+                    android:maxLines="1"
+                    android:minWidth="300dp"
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
-        </LinearLayout>
+                    android:minHeight="100dp"
+                    android:onClick="onClick"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/affirmation_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
 
-        <LinearLayout
-            android:id="@+id/first_space"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.05"
-            android:orientation="horizontal"
-            android:weightSum="1" />
 
-        <LinearLayout
-            android:id="@+id/second_line_with_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="1">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/horoscopeButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/horoscope"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:layerType="software"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/horoscope_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taroButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/taro"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:layerType="software"
-                android:layoutDirection="inherit"
-                android:maxLines="1"
-                android:onClick="onClick"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/taro_name"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+            </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+            <LinearLayout
+                android:id="@+id/first_space"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"
+                android:orientation="horizontal"
+                android:weightSum="1" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/compatibilityButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/compatibility"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:maxLines="1"
-                android:onClick="onClick"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/compatibility_name"
-                android:textSize="11sp"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+            <LinearLayout
+                android:id="@+id/second_line_with_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
-        </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
-        <LinearLayout
-            android:id="@+id/second_space"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.05"
-            android:orientation="horizontal"
-            android:weightSum="1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/taroButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/taro"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:layerType="software"
+                    android:layoutDirection="inherit"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/taro_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
 
-        <LinearLayout
-            android:id="@+id/third_line_with_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="1">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/compatibilityButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/compatibility"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/compatibility_name"
+                    android:textSize="11sp"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/moonCalendarButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="simple"
-                android:drawableBottom="@drawable/moon_calendar"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:maxLines="2"
-                android:onClick="onClick"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/moon_name"
-                android:textSize="10sp"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+            </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+            <LinearLayout
+                android:id="@+id/second_space"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"
+                android:orientation="horizontal"
+                android:weightSum="1" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/numerologicButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/numerologic"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:maxLines="1"
-                android:onClick="onClick"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/numerologic_name"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+            <LinearLayout
+                android:id="@+id/third_line_with_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
-        </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
-        <LinearLayout
-            android:id="@+id/third_space"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.05"
-            android:orientation="horizontal"
-            android:weightSum="1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/moonCalendarButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="simple"
+                    android:drawableBottom="@drawable/moon_calendar"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="2"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/moon_name"
+                    android:textSize="10sp"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
 
-        <LinearLayout
-            android:id="@+id/fourth_line_with_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="1">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/numerologicButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/numerologic"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/numerologic_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/squareOfPythagorasButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/square_by_pythagoras"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:maxLines="2"
-                android:onClick="onClick"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/square_name"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+            </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+            <LinearLayout
+                android:id="@+id/third_space"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"
+                android:orientation="horizontal"
+                android:weightSum="1" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/yesOrNoButton"
-                style="@style/button_style_for_home_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/rectangle_button_home"
-                android:breakStrategy="balanced"
-                android:drawableBottom="@drawable/divination_yes_no"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center"
-                android:maxLines="1"
-                android:onClick="onClick"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/yes_no_name"
-                android:translationZ="4dp"
-                tools:targetApi="o" />
+            <LinearLayout
+                android:id="@+id/fourth_line_with_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/squareOfPythagorasButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/square_by_pythagoras"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="2"
+                    android:onClick="onClick"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/square_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/yesOrNoButton"
+                    style="@style/button_style_for_home_page"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/rectangle_button_home"
+                    android:breakStrategy="balanced"
+                    android:drawableBottom="@drawable/divination_yes_no"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center"
+                    android:maxLines="1"
+                    android:onClick="onClick"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:stateListAnimator="@animator/button_animation_shadow"
+                    android:text="@string/yes_no_name"
+                    android:translationZ="4dp"
+                    tools:targetApi="o" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
