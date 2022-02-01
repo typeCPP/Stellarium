@@ -94,8 +94,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
         signTextMan = view.findViewById(R.id.sign_text_man);
         signTextWoman = view.findViewById(R.id.sign_text_woman);
 
-        signTextWoman.setText("Не выбрано.");
-        signTextMan.setText("Не выбрано.");
+        signTextWoman.setText("Не выбрано");
+        signTextMan.setText("Не выбрано");
         class ButtonOnTouchListenerSexSelection implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -358,8 +358,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                 return imageView;
             }
         });
-        circleWoman.setImageResource(R.drawable.comp_first_circle);
-        circleMan.setImageResource(R.drawable.comp_first_circle);
+        circleWoman.setImageResource(R.drawable.comp_main_circle);
+        circleMan.setImageResource(R.drawable.comp_main_circle);
         Animation inAnimation = new AlphaAnimation(0, 1);
         inAnimation.setDuration(500);
         Animation outAnimation = new AlphaAnimation(1, 0);

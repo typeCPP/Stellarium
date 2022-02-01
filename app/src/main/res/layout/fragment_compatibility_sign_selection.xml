@@ -20,13 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/gabriela_regular"
                 android:gravity="center|top"
                 android:text="@string/choose_zodiac_signs"
-                android:textAppearance="@style/style_title_compatibility"/>
+                android:textAppearance="@style/style_title_compatibility" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,6 +97,7 @@
                     android:autoSizeMinTextSize="2dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/woman"
@@ -115,6 +118,7 @@
                     android:autoSizeMinTextSize="2dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/man"
@@ -139,11 +143,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="близнецы"
+                    android:text="не выбрано"
                     android:textColor="@color/compatibility_sign_text"
-                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:visibility="visible" />
 
@@ -157,11 +164,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="скорпион"
+                    android:text="не выбрано"
                     android:textColor="@color/compatibility_sign_text"
-                    android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -188,6 +198,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:background="@drawable/button_compatibility_sign"
+                    android:fontFamily="@font/gabriela_regular"
                     android:text="@string/show_results"
                     android:textColor="@android:color/black" />
             </LinearLayout>
@@ -209,7 +220,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_above="@+id/img"
-
                 android:layout_weight="6"
                 android:foregroundGravity="left"
                 app:firstChildPosition="East"

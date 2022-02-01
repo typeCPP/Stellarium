@@ -7,7 +7,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/fragment1_pythagorean_square"
@@ -55,6 +55,7 @@
                     android:autoSizeMinTextSize="15dp"
                     android:autoSizeStepGranularity="2dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center|top"
                     android:text="@string/enter_birthday_date"
                     android:textStyle="bold" />
@@ -95,6 +96,7 @@
                     android:autoSizeTextType="uniform"
                     android:background="@drawable/edit_date_pythagorean_square_date_selection"
                     android:breakStrategy="balanced"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
                     android:onClick="onClick"
@@ -134,6 +136,7 @@
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
                     android:background="@drawable/button_next_pythagorean_square"
+                    android:fontFamily="@font/gabriela_regular"
                     android:maxLines="1"
                     android:text="@string/show_results"
                     android:textColor="#D5FFFFFF"

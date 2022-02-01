@@ -21,7 +21,7 @@
                 android:id="@+id/title_pyth_square"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="85dp"
                 android:gravity="center|top"
                 android:text="@string/characteristic"
                 android:textAppearance="@style/style_title" />
@@ -44,13 +44,14 @@
                 <TextView
                     android:id="@+id/description_pyth_square"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="11"
+                    android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:justificationMode="inter_word"
+                    android:text="@string/text_information"
                     android:textColor="@color/informationTextColor"
-                    android:textSize="18sp"
-                    tools:targetApi="o" />
+                    android:textSize="20sp" />
 
                 <View
                     android:layout_width="0dp"

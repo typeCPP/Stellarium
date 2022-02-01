@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +10,7 @@
         android:id="@+id/title_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="85dp"
         android:gravity="center|top"
         android:text="@string/title_registration"
         android:textAppearance="@style/style_title" />
@@ -50,6 +51,7 @@
                 android:breakStrategy="balanced"
                 android:elegantTextHeight="true"
                 android:ems="10"
+                android:fontFamily="@font/gabriela_regular"
                 android:hint="@string/name"
                 android:inputType="textPersonName"
                 android:maxHeight="1000dp"
@@ -109,6 +111,7 @@
             android:background="@drawable/edit_text_registration"
             android:breakStrategy="balanced"
             android:ems="10"
+            android:fontFamily="@font/gabriela_regular"
             android:gravity="center_vertical"
             android:hint="@string/birthday_day"
             android:maxHeight="1000dp"
@@ -199,10 +202,15 @@
             android:layout_weight="1.5" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:minHeight="300dp"
         android:orientation="horizontal"
         android:weightSum="12">
@@ -216,16 +224,16 @@
             android:id="@+id/button_end_registration"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
             android:layout_weight="9"
             android:autoSizeMaxTextSize="20dp"
             android:autoSizeMinTextSize="8dp"
             android:autoSizeStepGranularity="2dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/button_registration_bottom_style"
-            android:breakStrategy="balanced"
             android:elevation="10dp"
+            android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
+            android:minHeight="900dp"
             android:onClick="onClick"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
