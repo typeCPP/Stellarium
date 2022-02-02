@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.CompatibilityZodiacTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         createFillPythagoreanSquareTable(database);
         createFillZodiacSignsTable(database);
         createFillCompatibilityZodiacTable(database);
+        createFillCompatibilityNamesTable(database);
         hideBottomBar(false);
     }
 
@@ -264,6 +266,23 @@ public class MainActivity extends AppCompatActivity {
                 values.put(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_VALUE, random.nextInt(21) + 80);
                 database.insert(CompatibilityZodiacTable.TABLE_NAME, null, values);
             }
+        }
+    }
+
+    public static void createFillCompatibilityNamesTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        Random random = new Random();
+        for (int i = 1; i <= 32; i++) {
+            values.put(CompatibilityNamesTable.COLUMN_HASHED_ID, i);
+
+            values.put(CompatibilityNamesTable.COLUMN_COMP_LOVE_TEXT, "Любовь морковь будет всегда у вас.");
+            values.put(CompatibilityNamesTable.COLUMN_COMP_FRIENDSHIP_TEXT, "Дружба - это чудо.");
+            values.put(CompatibilityNamesTable.COLUMN_COMP_JOB_TEXT, "На работе будет работа.");
+
+            values.put(CompatibilityNamesTable.COLUMN_COMP_LOVE_VALUE, random.nextInt(21) + 80);
+            values.put(CompatibilityNamesTable.COLUMN_COMP_FRIENDSHIP_VALUE, random.nextInt(21) + 80);
+            values.put(CompatibilityNamesTable.COLUMN_COMP_JOB_VALUE, random.nextInt(21) + 80);
+            database.insert(CompatibilityNamesTable.TABLE_NAME, null, values);
         }
     }
 

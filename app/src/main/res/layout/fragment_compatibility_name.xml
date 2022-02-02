@@ -316,13 +316,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/gabriela_regular"
-                android:text="дружба"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+
 
 
         </GridLayout>

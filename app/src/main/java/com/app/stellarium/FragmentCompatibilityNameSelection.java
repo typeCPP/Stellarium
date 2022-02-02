@@ -54,9 +54,10 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                     } else {
                         bundle.putString("NameWoman", woman.replaceAll("\\s+", ""));
                         bundle.putString("NameMan", man.replaceAll("\\s+", ""));
+                        bundle.putInt("hashedId", hashNames(woman, man));
                         Fragment fragmentCompatibilityName = new FragmentCompatibilityName();
                         fragmentCompatibilityName.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentCompatibilityName).commit();
+                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
                     }
                 }
                 return true;
@@ -69,5 +70,16 @@ public class FragmentCompatibilityNameSelection extends Fragment {
 
         nextButton.setOnTouchListener(new ButtonOnTouchListenerNext());
         return view;
+    }
+
+    private int hashNames(String firstName, String secondName) {
+        int hashed = firstName.length() + secondName.length();
+        if (hashed > 32) {
+            hashed = 32;
+        }
+        else if(hashed == 0) {
+            hashed = 1;
+        }
+        return hashed;
     }
 }
