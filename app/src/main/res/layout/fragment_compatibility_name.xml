@@ -143,8 +143,8 @@
                 <TextView
                     android:id="@+id/nameWoman"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:autoSizeMinTextSize="18dp"
@@ -153,7 +153,9 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:textColor="@color/white" />
+                    android:text="Андрей"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </ScrollView>
 
             <View
@@ -173,8 +175,8 @@
                 <TextView
                     android:id="@+id/nameMan"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:autoSizeMinTextSize="18dp"
@@ -183,7 +185,8 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </ScrollView>
         </LinearLayout>
 
