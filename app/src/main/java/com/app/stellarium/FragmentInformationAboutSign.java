@@ -150,7 +150,7 @@ public class FragmentInformationAboutSign extends Fragment {
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfActiveButton) {
                 textView.startAnimation(rightAnim);
-            } else if(oldNumberOfActiveButton > numberOfActiveButton){
+            } else if (oldNumberOfActiveButton > numberOfActiveButton) {
                 textView.startAnimation(leftAnim);
             }
         }

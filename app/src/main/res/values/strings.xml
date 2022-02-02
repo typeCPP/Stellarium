@@ -71,7 +71,7 @@
     <string name="character">Характер</string>
     <string name="love">Любовь</string>
     <string name="career">Карьера</string>
-    <string name="show_results">показать результаты</string>
+    <string name="show_results">Показать результаты</string>
     <string name="ball_ask_button">Спросить</string>
     <string name="ball_clear_button">Очистить</string>
     <string name="titlle_yes_or_no">Внимательно подумайте о своем вопросе и спросите шар...</string>
@@ -87,5 +87,7 @@
     <string name="compatibilityByName">совместимость по именам</string>
     <string name="compatibility_by_zodiac_signs">совместимость по знакам зодиака</string>
     <string name="affirmation_title">Следующая аффирмация будет завтра</string>
-    <string name="affirmation_text">Андрей соснул хуйца, но ничего страшного, такое случается</string>
+    <string name="affirmation_text">Андрей добрый человек, но ничего страшного, такое случается</string>
+    <string name="some_date">2 февраля</string>
+    <string name="enter_date_numerologic">Введите свою дату рождения, чтобы узнать число судьбы:</string>
 </resources>

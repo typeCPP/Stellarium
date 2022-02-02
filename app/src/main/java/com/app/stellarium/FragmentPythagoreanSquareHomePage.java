@@ -16,7 +16,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 
 
@@ -32,35 +31,9 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
             dutyNumberTextView, mindNumberTextView;
     private int[] matrixValues;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
-    public FragmentPythagoreanSquareHomePage() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PersonalAccount.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentPythagoreanSquareHomePage newInstance(String param1, String param2) {
         FragmentPythagoreanSquareHomePage fragment = new FragmentPythagoreanSquareHomePage();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -72,7 +45,6 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pythagorean_square_home_page, container, false);
         layoutDate = view.findViewById(R.id.date_layout_second);
         editTextDate = view.findViewById(R.id.pythagorean_date_home_page);
@@ -211,7 +183,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
     }
 
     private String getCharacteristicNumber(int number, int count) {
-        if(count == 0) {
+        if (count == 0) {
             return "---";
         }
         StringBuilder stringBuilder = new StringBuilder();
@@ -231,25 +203,25 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                 null, null, null, null);
         cursor.moveToFirst();
         String description = "";
-        if(count == 0) {
+        if (count == 0) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_NO_NUMBER));
         }
-        if(count == 1) {
+        if (count == 1) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_ONE_NUMBER));
         }
-        if(count == 2) {
+        if (count == 2) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_TWO_NUMBERS));
         }
-        if(count == 3) {
+        if (count == 3) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_THREE_NUMBERS));
         }
-        if(count == 4) {
+        if (count == 4) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_FOUR_NUMBERS));
         }
-        if(count == 5) {
+        if (count == 5) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_FIVE_NUMBERS));
         }
-        if(count >= 6) {
+        if (count >= 6) {
             description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_SIX_NUMBERS));
         }
         return description;

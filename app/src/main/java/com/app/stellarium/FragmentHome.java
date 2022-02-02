@@ -77,14 +77,20 @@ public class FragmentHome extends Fragment {
                             getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.taroButton:
+                            fragment = new FragmentTaroCards();
+                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.compatibilityButton:
-                            fragment=new FragmentCompatibilityMenu();
+                            fragment = new FragmentCompatibilityMenu();
                             getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.moonCalendarButton:
+                            fragment = new FragmentMoonCalendar();
+                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.numerologicButton:
+                            fragment = new FragmentNumerologicDateSelection();
+                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.squareOfPythagorasButton:
                             fragment = new FragmentPythagoreanSquareDateSelection();
@@ -95,6 +101,7 @@ public class FragmentHome extends Fragment {
                             getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                     }
+
                 }
                 return true;
             }

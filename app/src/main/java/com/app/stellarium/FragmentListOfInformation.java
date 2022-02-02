@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.InformationTable;
@@ -26,29 +25,16 @@ public class FragmentListOfInformation extends Fragment {
     private Button affirmationButton, horoscopeButton, taroButton, compatibilityButton,
             moonCalendarButton, numerologicButton, squareOfPythagorasButton, yesOrNoButton;
     private Animation scaleUp;
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentListOfInformation() {
-        // Required empty public constructor
-    }
 
     public static FragmentListOfInformation newInstance(String param1, String param2) {
         FragmentListOfInformation fragment = new FragmentListOfInformation();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
 

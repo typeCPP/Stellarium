@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class FragmentPersonalAccount extends Fragment {
 
-    public static FragmentPersonalAccount newInstance(String param1, String param2) {
-        FragmentPersonalAccount fragment = new FragmentPersonalAccount();
+public class FragmentTaroCards extends Fragment {
+
+    public static FragmentTaroCards newInstance(String param1, String param2) {
+        FragmentTaroCards fragment = new FragmentTaroCards();
         Bundle args = new Bundle();
         return fragment;
     }
@@ -23,6 +24,6 @@ public class FragmentPersonalAccount extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_personal_account, container, false);
+        return inflater.inflate(R.layout.fragment_taro_cards, container, false);
     }
 }

@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class FragmentPersonalAccount extends Fragment {
+public class FragmentMoonCalendar extends Fragment {
 
-    public static FragmentPersonalAccount newInstance(String param1, String param2) {
-        FragmentPersonalAccount fragment = new FragmentPersonalAccount();
-        Bundle args = new Bundle();
+    public static FragmentMoonCalendar newInstance(String param1, String param2) {
+        FragmentMoonCalendar fragment = new FragmentMoonCalendar();
         return fragment;
     }
 
@@ -23,6 +22,6 @@ public class FragmentPersonalAccount extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_personal_account, container, false);
+        return inflater.inflate(R.layout.fragment_moon_calendar, container, false);
     }
 }

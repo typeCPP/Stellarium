@@ -205,7 +205,7 @@ public class FragmentHoroscopePage extends Fragment {
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfActiveButton) {
                 contentLayout.startAnimation(rightAnim);
-            } else if(oldNumberOfActiveButton > numberOfActiveButton){
+            } else if (oldNumberOfActiveButton > numberOfActiveButton) {
                 contentLayout.startAnimation(leftAnim);
             }
         }

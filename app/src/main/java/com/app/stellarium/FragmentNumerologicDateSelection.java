@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
-public class FragmentPythagoreanSquareDateSelection extends Fragment {
+public class FragmentNumerologicDateSelection extends Fragment {
 
     private DatePickerDialog datePickerDialog;
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -48,12 +48,12 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pythagorean_square_date_selection, container, false);
+        View view = inflater.inflate(R.layout.fragment_numerologic_date_selection, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         isSetDate = false;
-        editTextDate = view.findViewById(R.id.pythagorean_date_date_selection);
-        layoutDate = view.findViewById(R.id.pythagorean_square_date_layout_1);
-        nextButton = view.findViewById(R.id.nextPythSquareButton);
+        editTextDate = view.findViewById(R.id.numerologic_date_selection);
+        layoutDate = view.findViewById(R.id.numerologic_date_layout_1);
+        nextButton = view.findViewById(R.id.nextNumerologicButton);
         nextButton.setAlpha(0f);
         bundle = new Bundle();
 
@@ -64,11 +64,9 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
                     layoutDate.animate().alpha(0f).setDuration(250).setListener(null);
-                    Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
-                    fragmentHomePage.setArguments(bundle);
-                    int[] matrixValues = calculatePythagoreanSquare(birthdayDay, birthdayMonth, birthdayYear);
-                    bundle.putIntArray("matrixValues", matrixValues);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
+                    Fragment fragment = new FragmentNumerologic();
+                    fragment.setArguments(bundle);
+                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }
@@ -80,7 +78,6 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int mothOfYear, int dayOfMonth) {
-                        //  Bundle bundle = new Bundle();
                         birthdayDay = dayOfMonth;
                         birthdayMonth = mothOfYear + 1;
                         birthdayYear = year;
@@ -144,26 +141,4 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         bundle.putString("Date", editTextDate.getText().toString());
     }
 
-    private int[] calculatePythagoreanSquare(int birthdayDay, int birthdayMonth, int birthdayYear) {
-        //example date: 12.07.2002
-        int firstWorkNumber = birthdayDay / 10 + birthdayDay % 10 + birthdayMonth / 10
-                + birthdayMonth % 10 + birthdayYear / 1000 + birthdayYear / 100 % 10
-                + birthdayYear % 100 / 10 + birthdayYear % 10;
-        int secondWorkNumber = firstWorkNumber / 10 + firstWorkNumber % 10;
-        int thirdWorkNumber = firstWorkNumber - 2 * (birthdayDay / 10);
-        int fourthWorkNumber = thirdWorkNumber / 10 + thirdWorkNumber % 10;
-        String resultString = "" + birthdayDay + birthdayMonth
-                + birthdayYear + firstWorkNumber + secondWorkNumber + thirdWorkNumber + fourthWorkNumber;
-
-        int[] result = new int[10];
-        for (int i = 0; i < 10; i++) {
-            result[i] = 0;
-        }
-
-        //calculating how much times a number appears
-        for (int i = 0; i < resultString.length(); i++) {
-            result[Integer.parseInt(String.valueOf(resultString.charAt(i)))]++;
-        }
-        return result;
-    }
 }

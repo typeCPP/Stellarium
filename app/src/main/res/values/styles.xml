@@ -298,6 +298,7 @@
             1
         </item>
     </style>
+
     <style name="style_text_horoscope">
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
@@ -352,6 +353,7 @@
         </item>
 
     </style>
+
     <style name="style_affirmation_text">
         <item name="android:textColor">#9A000000</item>
         <item name="android:textSize">
@@ -388,6 +390,44 @@
         </item>
         <item name="android:textSize">
             18sp
+        </item>
+    </style>
+
+    <style name="style_moon_calendar_title">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="android:textSize">
+            25sp
+        </item>
+    </style>
+
+    <style name="date_numerologic">
+
+        <item name="android:textSize">
+            18sp
+        </item>
+
+        <item name="android:textColor">#E6020202</item>
+
+        <item name="android:shadowColor">
+            #4BACB1EA
+        </item>
+
+        <item name="android:shadowDx">
+            0
+        </item>
+
+        <item name="android:shadowDy">
+            2
+        </item>
+
+        <item name="android:shadowRadius">
+            4
+        </item>
+        <item name="android:fontFamily">
+            @font/gabriela_regular
         </item>
     </style>
 </resources>

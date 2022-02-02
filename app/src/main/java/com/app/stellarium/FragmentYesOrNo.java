@@ -93,6 +93,7 @@ public class FragmentYesOrNo extends Fragment {
                     flipped = false;
                 }
             }
+
             @Override
             public void onAccuracyChanged(Sensor sensor, int i) {
             }

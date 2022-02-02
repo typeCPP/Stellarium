@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void hideBottomBar(boolean isHidden){
+    public void hideBottomBar(boolean isHidden) {
         bottomNavigationView.setVisibility(isHidden ? View.GONE : View.VISIBLE);
     }
 }

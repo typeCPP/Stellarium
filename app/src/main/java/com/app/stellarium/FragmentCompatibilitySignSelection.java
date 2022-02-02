@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -28,8 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import androidx.fragment.app.Fragment;
+
 import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.szugyi.circlemenu.view.CircleLayout;
 
@@ -55,35 +53,15 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     private Animation scaleUp;
     private TextView signTextWoman, signTextMan;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentCompatibilitySignSelection() {
-        // Required empty public constructor
-    }
-
     public static FragmentCompatibilitySignSelection newInstance(String param1, String param2) {
         FragmentCompatibilitySignSelection fragment = new FragmentCompatibilitySignSelection();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -151,132 +129,132 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_aries);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=1;
+                                    idOfWomanSign = 1;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_aries);
                                     isSelectedMan = true;
-                                    idOfManSign=1;
+                                    idOfManSign = 1;
                                 }
                                 break;
                             case R.id.compTaurusButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_taurus);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=2;
+                                    idOfWomanSign = 2;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_taurus);
                                     isSelectedMan = true;
-                                    idOfManSign=2;
+                                    idOfManSign = 2;
                                 }
                                 break;
                             case R.id.compGeminiButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_gemini);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=3;
+                                    idOfWomanSign = 3;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_gemini);
                                     isSelectedMan = true;
-                                    idOfManSign=3;
+                                    idOfManSign = 3;
                                 }
                                 break;
                             case R.id.compCancerButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_cancer);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=4;
+                                    idOfWomanSign = 4;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_cancer);
                                     isSelectedMan = true;
-                                    idOfManSign=4;
+                                    idOfManSign = 4;
                                 }
                                 break;
                             case R.id.compLeoButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_leo);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=5;
+                                    idOfWomanSign = 5;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_leo);
                                     isSelectedMan = true;
-                                    idOfManSign=5;
+                                    idOfManSign = 5;
                                 }
                                 break;
                             case R.id.compVirgoButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_virgo);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=6;
+                                    idOfWomanSign = 6;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_virgo);
                                     isSelectedMan = true;
-                                    idOfManSign=6;
+                                    idOfManSign = 6;
                                 }
                                 break;
                             case R.id.compLibraButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_libra);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=7;
+                                    idOfWomanSign = 7;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_libra);
                                     isSelectedMan = true;
-                                    idOfManSign=7;
+                                    idOfManSign = 7;
                                 }
                                 break;
                             case R.id.compScorpioButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_scorpio);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=8;
+                                    idOfWomanSign = 8;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_scorpio);
                                     isSelectedMan = true;
-                                    idOfManSign=8;
+                                    idOfManSign = 8;
                                 }
                                 break;
                             case R.id.compSagittariusButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_sagittarius);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=9;
+                                    idOfWomanSign = 9;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_sagittarius);
                                     isSelectedMan = true;
-                                    idOfManSign=9;
+                                    idOfManSign = 9;
                                 }
                                 break;
                             case R.id.compCapricornButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_capricorn);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=10;
+                                    idOfWomanSign = 10;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_capricorn);
                                     isSelectedMan = true;
-                                    idOfManSign=10;
+                                    idOfManSign = 10;
                                 }
                                 break;
                             case R.id.compAquariusButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_aquarius);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=11;
+                                    idOfWomanSign = 11;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_aquarius);
                                     isSelectedMan = true;
-                                    idOfManSign=11;
+                                    idOfManSign = 11;
                                 }
                                 break;
                             case R.id.compPiscesButton:
                                 if (isWoman) {
                                     circleWoman.setImageResource(R.drawable.comp_pisces);
                                     isSelectedWoman = true;
-                                    idOfWomanSign=12;
+                                    idOfWomanSign = 12;
                                 } else {
                                     circleMan.setImageResource(R.drawable.comp_pisces);
                                     isSelectedMan = true;
-                                    idOfManSign=12;
+                                    idOfManSign = 12;
                                 }
                                 break;
                         }
