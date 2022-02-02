@@ -55,7 +55,7 @@
     <string name="labor_number">888</string>
     <string name="mind_memory">ум, память</string>
     <string name="mind_memory_number">999</string>
-    <string name="enter_birthday_date">Введите дату рождения</string>
+    <string name="enter_birthday_date">Введите свою дату рождения, чтобы составить Квадрат Пифагора</string>
     <string name="characteristic">ХАРАКТЕРИСТИКА</string>
     <string name="some_sign_and_date">Водолей | 21 января - 19 февраля</string>
     <string name="today">Сегодня</string>

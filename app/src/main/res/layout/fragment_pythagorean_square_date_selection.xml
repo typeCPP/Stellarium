@@ -32,7 +32,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4.5" />
+                android:layout_weight="1" />
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:src="@drawable/cube"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:id="@+id/layout_title_pyth_square"
@@ -57,8 +66,7 @@
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center|top"
-                    android:text="@string/enter_birthday_date"
-                    android:textStyle="bold" />
+                    android:text="@string/enter_birthday_date" />
 
                 <View
                     android:layout_width="0dp"
@@ -86,11 +94,11 @@
 
                 <TextView
                     android:id="@+id/pythagorean_date_date_selection"
-                    style="@style/date"
+                    style="@style/date_numerologic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="9"
-                    android:autoSizeMaxTextSize="30dp"
+                    android:autoSizeMaxTextSize="20dp"
                     android:autoSizeMinTextSize="10dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
@@ -99,9 +107,7 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:onClick="onClick"
-                    android:textColor="#D5FFFFFF"
-                    android:textStyle="bold" />
+                    android:onClick="onClick" />
 
                 <View
                     android:layout_width="0dp"
@@ -128,19 +134,19 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/nextPythSquareButton"
+                    style="@style/date_numerologic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="9"
-                    android:autoSizeMaxTextSize="15sp"
-                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="20dp"
+                    android:autoSizeMinTextSize="10dp"
                     android:autoSizeStepGranularity="1dp"
                     android:autoSizeTextType="uniform"
                     android:background="@drawable/button_next_pythagorean_square"
                     android:fontFamily="@font/gabriela_regular"
                     android:maxLines="1"
                     android:text="@string/show_results"
-                    android:textColor="#D5FFFFFF"
-                    android:textStyle="bold" />
+                    android:textAllCaps="false"/>
 
                 <View
                     android:layout_width="0dp"
