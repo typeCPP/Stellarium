@@ -1,13 +1,16 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageSwitcher;
@@ -68,9 +71,17 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int mothOfYear, int dayOfMonth) {
                 birthdayDay = dayOfMonth;
-                birthdayMonth = mothOfYear;
+                birthdayMonth = mothOfYear + 1;
                 birthdayYear = year;
-                editTextDate.setText(dayOfMonth + "/" + (mothOfYear + 1) + "/" + year);
+                StringBuffer text = new StringBuffer(birthdayDay + "/" + birthdayMonth + "/" + birthdayYear);
+                if (birthdayDay < 10) {
+                    text.insert(0, 0);
+                }
+                if (birthdayMonth < 10) {
+                    text.insert(3, 0);
+                }
+                editTextDate.setTextColor(getResources().getColor(R.color.text_registration));
+                editTextDate.setText(text.toString());
                 isSelected = true;
             }
         };
