@@ -28,11 +28,19 @@
             android:layout_weight="9"
             android:orientation="vertical"
             android:weightSum="12">
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2" />
+                android:layout_weight="0.5" />
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5"
+                android:src="@drawable/star"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
 
             <LinearLayout
                 android:id="@+id/layout_title_numerologic"
