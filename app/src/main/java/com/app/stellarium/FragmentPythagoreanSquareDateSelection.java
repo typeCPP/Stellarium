@@ -63,12 +63,12 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    layoutDate.animate().alpha(0f).setDuration(250).setListener(null);
                     Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
                     fragmentHomePage.setArguments(bundle);
                     int[] matrixValues = calculatePythagoreanSquare(birthdayDay, birthdayMonth, birthdayYear);
                     bundle.putIntArray("matrixValues", matrixValues);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
                 }
                 return true;
             }

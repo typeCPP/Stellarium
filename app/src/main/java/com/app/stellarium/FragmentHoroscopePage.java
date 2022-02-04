@@ -89,7 +89,8 @@ public class FragmentHoroscopePage extends Fragment {
                         newBundle.putInt("signPictureDrawableId", bundle.getInt("signPictureDrawableId"));
                         Fragment fragment = new FragmentInformationAboutSign();
                         fragment.setArguments(newBundle);
-                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                         break;
                 }
 

@@ -63,10 +63,10 @@ public class FragmentNumerologicDateSelection extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    layoutDate.animate().alpha(0f).setDuration(250).setListener(null);
                     Fragment fragment = new FragmentNumerologic();
                     fragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }

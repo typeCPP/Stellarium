@@ -304,10 +304,10 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    mainLayout.animate().alpha(0f).setDuration(250).setListener(null);
                     Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
                     fragmentCompatibilityZodiac.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
                 }
                 return true;
             }

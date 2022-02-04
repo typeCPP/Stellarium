@@ -57,7 +57,8 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                         bundle.putInt("hashedId", hashNames(woman, man));
                         Fragment fragmentCompatibilityName = new FragmentCompatibilityName();
                         fragmentCompatibilityName.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
                     }
                 }
                 return true;
@@ -76,8 +77,7 @@ public class FragmentCompatibilityNameSelection extends Fragment {
         int hashed = firstName.length() + secondName.length();
         if (hashed > 32) {
             hashed = 32;
-        }
-        else if(hashed == 0) {
+        } else if (hashed == 0) {
             hashed = 1;
         }
         return hashed;
