@@ -28,6 +28,11 @@ public class FragmentInformation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_information, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         titleText = view.findViewById(R.id.title_text);
         textInformation = view.findViewById(R.id.text_information);
 

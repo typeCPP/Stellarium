@@ -27,6 +27,11 @@ public class FragmentPythagoreanSquare extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pythagorean_square, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         titleTextView = view.findViewById(R.id.title_pyth_square);
         descriptionTextView = view.findViewById(R.id.description_pyth_square);
         Bundle bundle = getArguments();

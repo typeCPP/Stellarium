@@ -62,6 +62,11 @@ public class FragmentHoroscopePage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_horoscope_page, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "ResourceType"})

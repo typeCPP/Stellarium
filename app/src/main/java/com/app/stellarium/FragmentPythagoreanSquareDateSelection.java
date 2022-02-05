@@ -49,6 +49,11 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pythagorean_square_date_selection, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         isSetDate = false;
         editTextDate = view.findViewById(R.id.pythagorean_date_date_selection);
