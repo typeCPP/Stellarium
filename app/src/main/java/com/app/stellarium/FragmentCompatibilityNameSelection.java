@@ -38,6 +38,10 @@ public class FragmentCompatibilityNameSelection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_compatibility_name_selection, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
 
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         class ButtonOnTouchListenerNext implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override

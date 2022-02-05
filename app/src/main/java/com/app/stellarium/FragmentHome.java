@@ -7,7 +7,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
@@ -58,7 +60,6 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
-
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -70,35 +71,43 @@ public class FragmentHome extends Fragment {
                     switch (view.getId()) {
                         case R.id.affirmationButton:
                             fragment = new FragmentAffirmation();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.horoscopeButton:
                             fragment = new FragmentHoroscopeList();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.taroButton:
                             fragment = new FragmentTaroCards();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.compatibilityButton:
                             fragment = new FragmentCompatibilityMenu();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.moonCalendarButton:
                             fragment = new FragmentMoonCalendar();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.numerologicButton:
                             fragment = new FragmentNumerologicDateSelection();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.squareOfPythagorasButton:
                             fragment = new FragmentPythagoreanSquareDateSelection();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.yesOrNoButton:
                             fragment = new FragmentYesOrNo();
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                     }
 

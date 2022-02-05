@@ -32,15 +32,13 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     BadgeDrawable badgeDrawable;
-
-
     private KenBurnsView kbv;
+    private int numberOfPrevFragment = 2; //1 - personalAccount, 2 - Home, 3 - Information
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         bottomNavigationView = findViewById(R.id.bottomNav);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentHome()).commit();
         bottomNavigationView.findViewById(R.id.ic_home).performClick();
@@ -53,21 +51,51 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Fragment fragment = null;
                 switch (item.getItemId()) {
+
                     case R.id.ic_personalAccount:
                         fragment = new FragmentPersonalAccount();
+                        if (numberOfPrevFragment == 0) {
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        } else if (numberOfPrevFragment > 1) {
+                            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        }
+                        numberOfPrevFragment = 1;
                         break;
                     case R.id.ic_home:
                         fragment = new FragmentHome();
+                        System.out.println(numberOfPrevFragment);
+                        if (numberOfPrevFragment == 0) {
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        } else if (numberOfPrevFragment == 1) {
+                            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        } else if (numberOfPrevFragment == 3) {
+                            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        }
+                        numberOfPrevFragment = 2;
                         break;
                     case R.id.ic_information:
                         fragment = new FragmentListOfInformation();
+                        if (numberOfPrevFragment == 0) {
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        } else if (numberOfPrevFragment < 3) {
+                            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
+                                    .replace(R.id.frameLayout, fragment).commit();
+                        }
+                        numberOfPrevFragment = 3;
                         break;
                 }
-                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
                 return true;
             }
-
         });
         kbv = findViewById(R.id.image11);
         AccelerateDecelerateInterpolator adi = new AccelerateDecelerateInterpolator();
@@ -288,5 +316,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideBottomBar(boolean isHidden) {
         bottomNavigationView.setVisibility(isHidden ? View.GONE : View.VISIBLE);
+    }
+
+    public void setNumberOfPrevFragment() {
+        numberOfPrevFragment = 0;
     }
 }

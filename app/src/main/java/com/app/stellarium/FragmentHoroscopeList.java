@@ -118,14 +118,16 @@ public class FragmentHoroscopeList extends Fragment {
                         bundle.putInt("signId", idOfHoroscopePredictionsByPeriodTableElement);
                         Fragment fragment = new FragmentHoroscopePage();
                         fragment.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                 .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                     }
                 }
                 return true;
             }
         }
-
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
 
         circleLayout = view.findViewById(R.id.circle_layout);
 

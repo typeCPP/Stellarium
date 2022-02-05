@@ -46,6 +46,11 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pythagorean_square_home_page, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         layoutDate = view.findViewById(R.id.date_layout_second);
         editTextDate = view.findViewById(R.id.pythagorean_date_home_page);
         layoutDate.setAlpha(0f);

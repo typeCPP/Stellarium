@@ -55,6 +55,11 @@ public class FragmentYesOrNo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_yes_or_no, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
