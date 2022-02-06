@@ -150,7 +150,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                         public void run() {
                             Fragment fragmentPythagoreanSquare = new FragmentPythagoreanSquare();
                             fragmentPythagoreanSquare.setArguments(bundle);
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
                         }
                     }, 200);

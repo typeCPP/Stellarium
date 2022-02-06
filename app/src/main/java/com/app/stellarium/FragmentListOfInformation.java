@@ -94,7 +94,7 @@ public class FragmentListOfInformation extends Fragment {
                     Fragment fragment = new FragmentInformation();
                     fragment.setArguments(bundle);
 
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;

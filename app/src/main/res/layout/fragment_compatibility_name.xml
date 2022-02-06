@@ -81,7 +81,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="2dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center"
                 android:maxLines="1"
@@ -99,7 +102,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="2dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center"
                 android:maxLines="1"
@@ -148,7 +154,7 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </ScrollView>
 
             <View
@@ -179,7 +185,7 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </ScrollView>
         </LinearLayout>
 

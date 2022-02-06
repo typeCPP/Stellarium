@@ -61,7 +61,7 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                         bundle.putInt("hashedId", hashNames(woman, man));
                         Fragment fragmentCompatibilityName = new FragmentCompatibilityName();
                         fragmentCompatibilityName.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                 .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
                     }
                 }

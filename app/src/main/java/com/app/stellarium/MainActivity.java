@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ic_personalAccount:
                         fragment = new FragmentPersonalAccount();
                         if (numberOfPrevFragment == 0) {
-                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .replace(R.id.frameLayout, fragment).commit();
                         } else if (numberOfPrevFragment > 1) {
                             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -66,13 +66,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.ic_home:
                         fragment = new FragmentHome();
-                        System.out.println(numberOfPrevFragment);
                         if (numberOfPrevFragment == 0) {
-                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .replace(R.id.frameLayout, fragment).commit();
                         } else if (numberOfPrevFragment == 1) {
                             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .replace(R.id.frameLayout, fragment).commit();
                         } else if (numberOfPrevFragment == 3) {
                             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ic_information:
                         fragment = new FragmentListOfInformation();
                         if (numberOfPrevFragment == 0) {
-                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .replace(R.id.frameLayout, fragment).commit();
                         } else if (numberOfPrevFragment < 3) {
                             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
-
         if (count == 0) {
             super.onBackPressed();
         } else {
