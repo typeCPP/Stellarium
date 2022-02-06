@@ -72,7 +72,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     fragmentHomePage.setArguments(bundle);
                     int[] matrixValues = calculatePythagoreanSquare(birthdayDay, birthdayMonth, birthdayYear);
                     bundle.putIntArray("matrixValues", matrixValues);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
                 }
                 return true;
