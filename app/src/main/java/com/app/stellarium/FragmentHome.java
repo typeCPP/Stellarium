@@ -71,42 +71,42 @@ public class FragmentHome extends Fragment {
                     switch (view.getId()) {
                         case R.id.affirmationButton:
                             fragment = new FragmentAffirmation();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.horoscopeButton:
                             fragment = new FragmentHoroscopeList();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.taroButton:
                             fragment = new FragmentTaroCards();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.compatibilityButton:
                             fragment = new FragmentCompatibilityMenu();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.moonCalendarButton:
                             fragment = new FragmentMoonCalendar();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.numerologicButton:
                             fragment = new FragmentNumerologicDateSelection();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.squareOfPythagorasButton:
                             fragment = new FragmentPythagoreanSquareDateSelection();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.yesOrNoButton:
                             fragment = new FragmentYesOrNo();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                     }

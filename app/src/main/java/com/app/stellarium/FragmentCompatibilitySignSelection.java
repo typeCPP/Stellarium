@@ -311,7 +311,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
                     fragmentCompatibilityZodiac.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
                 }
                 return true;

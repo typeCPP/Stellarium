@@ -65,7 +65,7 @@ public class FragmentNumerologicDateSelection extends Fragment {
                     view.startAnimation(scaleUp);
                     Fragment fragment = new FragmentNumerologic();
                     fragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
