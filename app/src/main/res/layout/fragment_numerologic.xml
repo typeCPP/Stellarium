@@ -116,8 +116,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.9"
                         android:background="@drawable/numerologic_background"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:text="@string/numerologic_information" />
