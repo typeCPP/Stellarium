@@ -38,8 +38,10 @@ public class FragmentAffirmation extends Fragment {
                              Bundle savedInstanceState) {
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
+        if (activity != null) {
+            activity.setNumberOfPrevFragment();
             activity.hideBottomBar(true);
+        }
 
         View view = inflater.inflate(R.layout.fragment_affirmation, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
@@ -50,7 +52,8 @@ public class FragmentAffirmation extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
                     Fragment fragment = new FragmentHome();
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }
@@ -65,7 +68,9 @@ public class FragmentAffirmation extends Fragment {
         super.onDestroyView();
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
+
+        if (activity != null) {
             activity.hideBottomBar(false);
+        }
     }
 }

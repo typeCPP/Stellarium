@@ -34,6 +34,11 @@ public class FragmentRegistration extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         buttonEndRegistration = view.findViewById(R.id.button_end_registration);
         buttonEndRegistration.setOnTouchListener(new View.OnTouchListener() {

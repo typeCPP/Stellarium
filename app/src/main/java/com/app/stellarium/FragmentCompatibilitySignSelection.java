@@ -68,6 +68,11 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compatibility_sign_selection, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         signTextMan = view.findViewById(R.id.sign_text_man);
         signTextWoman = view.findViewById(R.id.sign_text_woman);
@@ -304,10 +309,10 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    mainLayout.animate().alpha(0f).setDuration(250).setListener(null);
                     Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
                     fragmentCompatibilityZodiac.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
                 }
                 return true;
             }

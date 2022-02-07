@@ -46,6 +46,11 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pythagorean_square_home_page, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         layoutDate = view.findViewById(R.id.date_layout_second);
         editTextDate = view.findViewById(R.id.pythagorean_date_home_page);
         layoutDate.setAlpha(0f);
@@ -139,14 +144,14 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                     description = getDescriptionFromDatabaseByNumber(idOfPythagoreanSquareElement, matrixValues[idOfPythagoreanSquareElement]);
                     bundle.putString("Title", title);
                     bundle.putString("Description", description);
-                    layoutDate.animate().alpha(0f).setDuration(200).setListener(null);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             Fragment fragmentPythagoreanSquare = new FragmentPythagoreanSquare();
                             fragmentPythagoreanSquare.setArguments(bundle);
-                            getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
                         }
                     }, 200);
                 }

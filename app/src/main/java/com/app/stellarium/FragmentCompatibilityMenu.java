@@ -36,6 +36,11 @@ public class FragmentCompatibilityMenu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compatibility_menu, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -52,7 +57,8 @@ public class FragmentCompatibilityMenu extends Fragment {
                             break;
 
                     }
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }

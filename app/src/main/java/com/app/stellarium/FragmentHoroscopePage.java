@@ -62,6 +62,11 @@ public class FragmentHoroscopePage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_horoscope_page, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "ResourceType"})
@@ -89,7 +94,8 @@ public class FragmentHoroscopePage extends Fragment {
                         newBundle.putInt("signPictureDrawableId", bundle.getInt("signPictureDrawableId"));
                         Fragment fragment = new FragmentInformationAboutSign();
                         fragment.setArguments(newBundle);
-                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                         break;
                 }
 

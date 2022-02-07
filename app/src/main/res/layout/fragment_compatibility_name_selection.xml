@@ -19,7 +19,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2" />
+                android:layout_weight="1" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -159,9 +159,7 @@
                         android:layout_gravity="center|center_vertical"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="3dp"
-                        android:autoSizeMinTextSize="18dp"
-                        android:autoSizeStepGranularity="1dp"
-                        android:autoSizeTextType="uniform"
+                        android:textSize="18sp"
                         android:fontFamily="@font/gabriela_regular"
                         android:gravity="center"
                         android:inputType="textPersonName"
@@ -189,9 +187,7 @@
                         android:layout_gravity="center|center_vertical"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="3dp"
-                        android:autoSizeMinTextSize="18dp"
-                        android:autoSizeStepGranularity="1dp"
-                        android:autoSizeTextType="uniform"
+                        android:textSize="18sp"
                         android:fontFamily="@font/gabriela_regular"
                         android:gravity="center"
                         android:inputType="textPersonName"
@@ -221,10 +217,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="8"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="8sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
                     android:background="@drawable/button_compatibility_sign"
                     android:fontFamily="@font/gabriela_regular"
                     android:text="@string/show_results"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

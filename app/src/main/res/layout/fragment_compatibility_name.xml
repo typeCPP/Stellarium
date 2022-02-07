@@ -153,9 +153,8 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="Андрей"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </ScrollView>
 
             <View
@@ -186,7 +185,7 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </ScrollView>
         </LinearLayout>
 

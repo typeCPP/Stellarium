@@ -54,6 +54,10 @@ public class FragmentCompatibilityZodiac extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compatibility_zodiac, container, false);
 
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         signTextMan = view.findViewById(R.id.sign_text_man);
         signTextWoman = view.findViewById(R.id.sign_text_woman);
         informationText = view.findViewById(R.id.informationText);

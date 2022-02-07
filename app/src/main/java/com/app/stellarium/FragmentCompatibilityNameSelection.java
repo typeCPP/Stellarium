@@ -38,6 +38,10 @@ public class FragmentCompatibilityNameSelection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_compatibility_name_selection, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
 
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         class ButtonOnTouchListenerNext implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -57,7 +61,8 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                         bundle.putInt("hashedId", hashNames(woman, man));
                         Fragment fragmentCompatibilityName = new FragmentCompatibilityName();
                         fragmentCompatibilityName.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
                     }
                 }
                 return true;
@@ -76,8 +81,7 @@ public class FragmentCompatibilityNameSelection extends Fragment {
         int hashed = firstName.length() + secondName.length();
         if (hashed > 32) {
             hashed = 32;
-        }
-        else if(hashed == 0) {
+        } else if (hashed == 0) {
             hashed = 1;
         }
         return hashed;
