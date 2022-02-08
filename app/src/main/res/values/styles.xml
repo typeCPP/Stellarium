@@ -449,5 +449,16 @@
             15dp
         </item>
     </style>
+
+    <style name="description_guess">
+        <item name="android:textColor">#EEE7FF</item>
+        <item name="fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>
 

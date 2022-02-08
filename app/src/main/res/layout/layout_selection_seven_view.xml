@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/first_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="75dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/second_open_image"
+        app:layout_constraintRight_toLeftOf="@+id/second_open_image" />
+
+    <ImageView
+        android:id="@+id/second_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="150dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/third_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="75dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/second_open_image"
+        app:layout_constraintLeft_toRightOf="@+id/second_open_image" />
+
+    <ImageView
+        android:id="@+id/fourth_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/second_open_image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/fifth_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_open_image" />
+
+    <ImageView
+        android:id="@+id/sixth_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/first_open_image"
+        app:layout_constraintTop_toBottomOf="@+id/first_open_image" />
+
+    <ImageView
+        android:id="@+id/seventh_open_image"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/third_open_image"
+        app:layout_constraintTop_toBottomOf="@+id/third_open_image" />
+
+
+    <com.app.stellarium.utils.SlideScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="100dp"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.app.stellarium.utils.SlideScrollView>
+
+    <ImageView
+        android:id="@+id/iv_translate"
+        android:layout_width="70dp"
+        android:layout_height="130dp"
+        android:src="@drawable/tarot"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/style_sign_title"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:text="@string/description_seven_stars"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
