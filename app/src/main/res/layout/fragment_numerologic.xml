@@ -5,10 +5,125 @@
     android:layout_height="match_parent"
     tools:context=".FragmentNumerologic">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:weightSum="12">
 
+        <TextView
+            style="@style/style_fate_number_numerologic"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical|center"
+            android:text="@string/fate_number" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.4"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.001"
+                tools:ignore="NestedWeights" />
+
+            <HorizontalScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/generalCharacteristicButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.22"
+                        android:background="@android:color/transparent"
+                        android:text="@string/numerologic_button_generalCharacter" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/advantagesButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:background="@android:color/transparent"
+                        android:text="@string/numerologic_button_advantages" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/disadvantagesButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:text="@string/numerologic_button_disadvantages" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/purposeButton"
+                        style="@style/style_types"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25"
+                        android:background="@android:color/transparent"
+                        android:text="@string/numerologic_button_purpose" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6.3"
+            android:orientation="horizontal">
+
+            <ScrollView
+                android:id="@+id/scrollViewVertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/typesOfPredictionsNumerology"
+                        style="@style/style_text_horoscope"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:background="@drawable/numerologic_background"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/numerologic_information" />
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

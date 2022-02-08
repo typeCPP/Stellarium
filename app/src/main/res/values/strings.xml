@@ -17,7 +17,7 @@
     <string name="moon_name">Лунный календарь</string>
     <string name="numerologic_name">Нумерология</string>
     <string name="square_name">Квадрат Пифагора</string>
-    <string name="yes_no_name">Шар Да-Нет</string>
+    <string name="yes_no_name">Шар судьбы</string>
     <string name="hello">Добрый день, Андрей!</string>
     <string name="title_registration">Добро пожаловать!</string>
     <string name="name">имя</string>
@@ -90,4 +90,10 @@
     <string name="affirmation_text">Андрей добрый человек, но ничего страшного, такое случается</string>
     <string name="some_date">2 февраля</string>
     <string name="enter_date_numerologic">Введите свою дату рождения, чтобы узнать число судьбы:</string>
+    <string name="fate_number">Число судьбы - 8</string>
+    <string name="numerologic_information">Какая-то инфа</string>
+    <string name="numerologic_button_generalCharacter">Общее</string>
+    <string name="numerologic_button_advantages">Достоинства</string>
+    <string name="numerologic_button_disadvantages">Недостатки</string>
+    <string name="numerologic_button_purpose">Судьба</string>
 </resources>
