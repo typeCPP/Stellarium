@@ -97,7 +97,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameFirstPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_SEVEN_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + secondCardId,
@@ -105,7 +105,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameSecondPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SEVENTH_OF_SEVEN_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + thirdCardId,
@@ -113,7 +113,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameThirdPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_SEVEN_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + fourthCardId,
@@ -121,7 +121,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameFourthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_SEVEN_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + fifthCardId,
@@ -129,7 +129,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameFifthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameFifthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFifthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionFifthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FIFTH_OF_SEVEN_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + sixthCardId,
@@ -137,7 +137,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameSixthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameSixthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSixthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionSixthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SIXTH_OF_SEVEN_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + seventhCardId,
@@ -145,7 +145,7 @@ public class FragmentSevenStars extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameSeventhPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameSeventhCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSeventhCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionSeventhCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SEVENTH_OF_SEVEN_CARDS));
 
         ArrayList<ImageView> pictures = new ArrayList<>();
         ImageView first = view.findViewById(R.id.first_open_image);

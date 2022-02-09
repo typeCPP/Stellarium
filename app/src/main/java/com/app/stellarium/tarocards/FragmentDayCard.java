@@ -74,7 +74,7 @@ public class FragmentDayCard extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameFirstPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_DAY_CARD));
         ArrayList<ImageView> pictures = new ArrayList<>();
         first.setImageURI(Uri.parse(path + nameFirstPicture));
         pictures.add(first);

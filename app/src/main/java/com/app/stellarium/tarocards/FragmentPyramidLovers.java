@@ -86,7 +86,7 @@ public class FragmentPyramidLovers extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameFirstPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_FOUR_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + secondCardId,
@@ -94,7 +94,7 @@ public class FragmentPyramidLovers extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameSecondPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_FOUR_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + thirdCardId,
@@ -102,7 +102,7 @@ public class FragmentPyramidLovers extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameThirdPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_THREE_CARDS));
 
         cursor = database.query(TaroCardsTable.TABLE_NAME, null,
                 CompatibilityNamesTable.COLUMN_ID + " = " + fourthCardId,
@@ -110,7 +110,7 @@ public class FragmentPyramidLovers extends Fragment {
         cursor.moveToFirst();
         @SuppressLint("Range") final String nameFourthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
         @SuppressLint("Range") final String nameFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION));
+        @SuppressLint("Range") final String descriptionFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_FOUR_CARDS));
 
         ArrayList<ImageView> pictures = new ArrayList<>();
         ImageView first = view.findViewById(R.id.first_open_image);

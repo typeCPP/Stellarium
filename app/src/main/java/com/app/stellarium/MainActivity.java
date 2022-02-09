@@ -331,11 +331,24 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         for (int i = 0; i < 78; i++) {
             values.put(TaroCardsTable.COLUMN_ID, i);
-
             values.put(TaroCardsTable.COLUMN_NAME, "Карта");
             values.put(TaroCardsTable.COLUMN_PICTURE_NAME, namesOfPictures[i]);
-            values.put(TaroCardsTable.COLUMN_DESCRIPTION, "Описание");
-
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_ONE_CARD, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_DAY_CARD, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_THREE_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_THREE_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_THREE_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIFTH_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SIXTH_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SEVENTH_OF_SEVEN_CARDS, "Описание");
             database.insert(TaroCardsTable.TABLE_NAME, null, values);
         }
     }
