@@ -3,8 +3,9 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
@@ -30,6 +32,9 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
             logicNumberTextView, interestNumberTextView, laborNumberTextView, luckNumberTextView,
             dutyNumberTextView, mindNumberTextView;
     private int[] matrixValues;
+
+    private TextView titleTextView;
+    private TextView descriptionTextView;
 
     public static FragmentPythagoreanSquareHomePage newInstance(String param1, String param2) {
         FragmentPythagoreanSquareHomePage fragment = new FragmentPythagoreanSquareHomePage();
@@ -93,7 +98,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
         }
 
         class ButtonOnTouchListener implements View.OnTouchListener {
-            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
+            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "RestrictedApi"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -142,18 +147,19 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
 
                     }
                     description = getDescriptionFromDatabaseByNumber(idOfPythagoreanSquareElement, matrixValues[idOfPythagoreanSquareElement]);
-                    bundle.putString("Title", title);
-                    bundle.putString("Description", description);
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Fragment fragmentPythagoreanSquare = new FragmentPythagoreanSquare();
-                            fragmentPythagoreanSquare.setArguments(bundle);
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                    .addToBackStack(null).replace(R.id.frameLayout, fragmentPythagoreanSquare).commit();
-                        }
-                    }, 200);
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                    LayoutInflater layoutInflater = getLayoutInflater();
+                    View dialogView = layoutInflater.inflate(R.layout.fragment_pythagorean_square_characteristic, null);
+                    dialogBuilder.setView(dialogView, 25, 200, 25, 200);
+
+                    titleTextView = dialogView.findViewById(R.id.title_pyth_square);
+                    titleTextView.setText(title);
+                    descriptionTextView = dialogView.findViewById(R.id.description_pyth_square);
+                    descriptionTextView.setText(description);
+
+                    final AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.show();
                 }
                 return true;
             }
