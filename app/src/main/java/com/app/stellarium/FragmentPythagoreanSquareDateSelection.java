@@ -60,6 +60,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         layoutDate = view.findViewById(R.id.pythagorean_square_date_layout_1);
         nextButton = view.findViewById(R.id.nextPythSquareButton);
         nextButton.setAlpha(0f);
+        nextButton.setVisibility(View.INVISIBLE);
         bundle = new Bundle();
 
         class ButtonOnTouchListener implements View.OnTouchListener {
@@ -72,7 +73,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     fragmentHomePage.setArguments(bundle);
                     int[] matrixValues = calculatePythagoreanSquare(birthdayDay, birthdayMonth, birthdayYear);
                     bundle.putIntArray("matrixValues", matrixValues);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in,R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
                 }
                 return true;
@@ -91,6 +92,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                         birthdayYear = year;
                         addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
                         if (!isSetDate) {
+                            nextButton.setVisibility(View.VISIBLE);
                             nextButton.animate().alpha(1f).setDuration(500).setListener(null);
                             isSetDate = true;
                         }

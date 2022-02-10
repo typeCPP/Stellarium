@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentPythagoreanSquare">
+    android:background="@drawable/alert_dialog_background"
+    tools:context=".FragmentPythagoreanSquareCharacteristic">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,10 +22,10 @@
                 android:id="@+id/title_pyth_square"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="85dp"
+                android:layout_marginTop="40dp"
                 android:gravity="center|top"
                 android:text="@string/characteristic"
-                android:textAppearance="@style/style_title" />
+                android:textAppearance="@style/style_title_pythagorean_square" />
 
             <View
                 android:layout_width="match_parent"
@@ -51,7 +52,7 @@
                     android:justificationMode="inter_word"
                     android:text="@string/text_information"
                     android:textColor="@color/informationTextColor"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="0dp"
