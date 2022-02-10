@@ -40,5 +40,11 @@
     <color name="progress_bar_background">#9787CAEF</color>
     <color name="progress_bar_progress">#87CAEF</color>
     <color name="zodiac_main_text">#8C877EEF</color>
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorPrimaryTrans">#33673AB7</color>
+    <color name="colorAccentTrans">#33009688</color>
+    <color name="colorBlackTrans">#a0000000</color>
 
 </resources>
