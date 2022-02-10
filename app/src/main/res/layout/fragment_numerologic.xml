@@ -100,7 +100,9 @@
                 android:id="@+id/scrollViewVertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -117,8 +119,8 @@
                         android:layout_weight="0.9"
                         android:background="@drawable/numerologic_background"
                         android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
                         android:paddingTop="10dp"
+                        android:paddingRight="20dp"
                         android:paddingBottom="10dp"
                         android:text="@string/numerologic_information" />
 

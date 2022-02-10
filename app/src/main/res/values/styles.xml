@@ -473,6 +473,8 @@
         <item name="android:textSize">
             17sp
         </item>
+    <style name="description_guess">
+        <item name="android:textColor">#EEE7FF</item>
         <item name="fontFamily">
             @font/gabriela_regular
         </item>
@@ -493,5 +495,45 @@
             false
         </item>
     </style>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="style_title_pythagorean_square">
+        <item name="android:textSize">
+            25sp
+        </item>
+
+        <item name="android:layout_width">
+            match_parent
+        </item>
+
+        <item name="android:textColor">
+            @color/textColorTitle
+        </item>
+
+        <item name="android:shadowColor">
+            @color/shadowColorTitle
+        </item>
+
+        <item name="android:gravity">
+            center|top
+        </item>
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="android:shadowDx">
+            2
+        </item>
+
+        <item name="android:shadowDy">
+            10
+        </item>
+
+        <item name="android:shadowRadius">
+            12
+        </item>
+
+    </style>
+
 </resources>
 

@@ -46,5 +46,9 @@
     <color name="colorPrimaryTrans">#33673AB7</color>
     <color name="colorAccentTrans">#33009688</color>
     <color name="colorBlackTrans">#a0000000</color>
+    <color name="alert_dialog_background_end_color">#615AC1</color>
+    <color name="alert_dialog_background_start_color">#8C86E4</color>
+    <color name="alert_dialog_background_stroke">#403A8C</color>
+
 
 </resources>

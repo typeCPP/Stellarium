@@ -49,12 +49,19 @@ public class FragmentNumerologicDateSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_numerologic_date_selection, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         isSetDate = false;
         editTextDate = view.findViewById(R.id.numerologic_date_selection);
         layoutDate = view.findViewById(R.id.numerologic_date_layout_1);
         nextButton = view.findViewById(R.id.nextNumerologicButton);
         nextButton.setAlpha(0f);
+        nextButton.setVisibility(View.INVISIBLE);
         bundle = new Bundle();
 
         class ButtonOnTouchListener implements View.OnTouchListener {
@@ -83,6 +90,7 @@ public class FragmentNumerologicDateSelection extends Fragment {
                         birthdayYear = year;
                         addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
                         if (!isSetDate) {
+                            nextButton.setVisibility(View.VISIBLE);
                             nextButton.animate().alpha(1f).setDuration(500).setListener(null);
                             isSetDate = true;
                         }

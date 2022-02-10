@@ -20,6 +20,7 @@ import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
+import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         createFillZodiacSignsTable(database);
         createFillCompatibilityZodiacTable(database);
         createFillCompatibilityNamesTable(database);
+        createFillTaroCardsTable(database);
         hideBottomBar(false);
     }
 
@@ -309,6 +311,45 @@ public class MainActivity extends AppCompatActivity {
             values.put(CompatibilityNamesTable.COLUMN_COMP_FRIENDSHIP_VALUE, random.nextInt(21) + 80);
             values.put(CompatibilityNamesTable.COLUMN_COMP_JOB_VALUE, random.nextInt(21) + 80);
             database.insert(CompatibilityNamesTable.TABLE_NAME, null, values);
+        }
+    }
+
+    public static void createFillTaroCardsTable(SQLiteDatabase database) {
+        String[] namesOfPictures = {"rwpagepentacles", "rwpagecups", "rwmoon", "rwmagician",
+                "rwlovers", "rwknightwands", "rwknightswords", "rwknightpentacles", "rwknightcups",
+                "rwkingwands", "rwkingswords", "rwkingpentacles", "rwkingcups", "rwjustice", "rwjudgement",
+                "rwhighpriestess", "rwhierophant", "rwhermit", "rwhangedman", "rwfool", "rwempress", "rwemperor",
+                "rwdevil", "rwdeath", "rwchariot", "rwacewands", "rwaceswords", "rwacepentacles", "rwacepentacles",
+                "rwacecups", "rw10wands", "rw10swords", "rw10pentacles", "rw10cups", "rw09wands", "rw09swords",
+                "rw09pentacles", "rw09cups", "rw08wands", "rw08swords", "rw08pentacles", "rw08cups",
+                "rw07wands", "rw07swords", "rw07pentacles", "rw07cups", "rw06wands", "rw06swords", "rw06pentacles",
+                "rw06cups", "rw05wands", "rw05swords", "rw05pentacles", "rw05cups", "rw04wands", "rw04swords",
+                "rw04pentacles", "rw04cups", "rw03wands", "rw03swords", "rw03pentacles", "rw03cups", "rw02wands",
+                "rw02swords", "rw02pentacles", "rw02cups", "rwworld", "rwwheelfortune", "rwtower",
+                "rwtemperance", "rwsun", "rwstrength", "rwstar", "rwqueenwands", "rwqueenswords", "rwqueenpentacles", "rwqueencups", "rwpagewands", "rwpageswords"};
+        ContentValues values = new ContentValues();
+        Random random = new Random();
+        for (int i = 0; i < 78; i++) {
+            values.put(TaroCardsTable.COLUMN_ID, i);
+            values.put(TaroCardsTable.COLUMN_NAME, "Карта");
+            values.put(TaroCardsTable.COLUMN_PICTURE_NAME, namesOfPictures[i]);
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_ONE_CARD, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_DAY_CARD, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_THREE_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_THREE_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_THREE_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_FOUR_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_FIFTH_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SIXTH_OF_SEVEN_CARDS, "Описание");
+            values.put(TaroCardsTable.COLUMN_DESCRIPTION_SEVENTH_OF_SEVEN_CARDS, "Описание");
+            database.insert(TaroCardsTable.TABLE_NAME, null, values);
         }
     }
 

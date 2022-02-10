@@ -40,6 +40,11 @@ public class FragmentNumerologic extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_numerologic, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null)
+            activity.setNumberOfPrevFragment();
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
