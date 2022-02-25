@@ -6,6 +6,7 @@
     tools:context=".FragmentMoonCalendar">
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -27,17 +28,34 @@
                 android:layout_weight="8" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/signTitle"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/date"
             style="@style/style_moon_calendar_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
             android:gravity="top|center"
-            android:text="@string/some_date" />
+            android:text="@string/some_date"
+            android:textAllCaps="false" />
+
+        <LinearLayout
+            android:id="@+id/layout_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                android:theme="@style/CalenderViewCustom"
+                android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/signImage"
+            android:id="@+id/moon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -50,7 +68,7 @@
             android:layout_weight="11.4"
             android:orientation="horizontal">
 
-
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
+

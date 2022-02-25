@@ -10,6 +10,7 @@ import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
+import com.app.stellarium.database.tables.MoonCalendarTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
@@ -34,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(ZodiacSignsTable.CREATE_TABLE);
             sqLiteDatabase.execSQL(CompatibilityNamesTable.CREATE_TABLE);
             sqLiteDatabase.execSQL(TaroCardsTable.CREATE_TABLE);
+            sqLiteDatabase.execSQL(MoonCalendarTable.CREATE_TABLE);
         } catch (Exception ignored) {
         }
     }
@@ -49,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ZodiacSignsTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CompatibilityNamesTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TaroCardsTable.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoonCalendarTable.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }
