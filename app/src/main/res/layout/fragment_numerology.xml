@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentNumerologic">
+    tools:context=".FragmentNumerology">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +12,7 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/numerology_title"
             style="@style/style_fate_number_numerologic"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -19,6 +19,7 @@ import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
+import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         createFillCompatibilityZodiacTable(database);
         createFillCompatibilityNamesTable(database);
         createFillTaroCardsTable(database);
+        createFillNumerologyTable(database);
         hideBottomBar(false);
     }
 
@@ -350,6 +352,18 @@ public class MainActivity extends AppCompatActivity {
             values.put(TaroCardsTable.COLUMN_DESCRIPTION_SIXTH_OF_SEVEN_CARDS, "Описание");
             values.put(TaroCardsTable.COLUMN_DESCRIPTION_SEVENTH_OF_SEVEN_CARDS, "Описание");
             database.insert(TaroCardsTable.TABLE_NAME, null, values);
+        }
+    }
+
+    public static void createFillNumerologyTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        for (int i = 1; i <= 9; i++) {
+            values.put(NumerologyTable.COLUMN_NUMBER, i);
+            values.put(NumerologyTable.COLUMN_GENERAL, "общее описание");
+            values.put(NumerologyTable.COLUMN_DIGNITIES, "плюсы");
+            values.put(NumerologyTable.COLUMN_DISADVANTAGES, "минусы");
+            values.put(NumerologyTable.COLUMN_FATE, "судьба");
+            database.insert(NumerologyTable.TABLE_NAME, null, values);
         }
     }
 

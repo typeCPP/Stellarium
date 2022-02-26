@@ -93,7 +93,7 @@ public class FragmentHome extends Fragment {
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.numerologicButton:
-                            fragment = new FragmentNumerologicDateSelection();
+                            fragment = new FragmentNumerologyDateSelection();
                             getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;

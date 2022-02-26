@@ -121,6 +121,11 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                 birthdayMonth = 7;
                 birthdayYear = 2002;
                 addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
+                if (!isSetDate) {
+                    nextButton.setVisibility(View.VISIBLE);
+                    nextButton.animate().alpha(1f).setDuration(500).setListener(null);
+                    isSetDate = true;
+                }
                 datePickerDialog.dismiss();
             }
         });
