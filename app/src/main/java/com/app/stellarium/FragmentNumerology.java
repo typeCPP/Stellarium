@@ -1,8 +1,11 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +20,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 
 
-public class FragmentNumerologic extends Fragment {
+public class FragmentNumerology extends Fragment {
 
     private Button generalCharacteristicButton, advantagesButton, disadvantagesButton, purposeButton;
     private Animation rightAnim, leftAnim;
     private Animation scaleUp;
     private int numberOfActiveButton = 1;
-    private TextView textView;
+    private TextView textView, numerologyTitle;
     private boolean isStartPage = true;
     private HorizontalScrollView scrollView;
+    private int numerologyNumber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,13 +45,20 @@ public class FragmentNumerologic extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_numerologic, container, false);
+        View view = inflater.inflate(R.layout.fragment_numerology, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
             activity.setNumberOfPrevFragment();
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
+        numerologyTitle = view.findViewById(R.id.numerology_title);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            numerologyNumber = bundle.getInt("numerologyNumber");
+            numerologyTitle.setText("Число судьбы - " + numerologyNumber);
+
+        }
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "ResourceType"})
@@ -86,6 +99,7 @@ public class FragmentNumerologic extends Fragment {
         activeSwipe(scrollViewVertical);
 
         textView = view.findViewById(R.id.typesOfPredictionsNumerology);
+        textView.setText(getDescriptionFromDatabaseByNumber(numerologyNumber, 1));
         activeSwipe(textView);
 
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
@@ -133,6 +147,14 @@ public class FragmentNumerologic extends Fragment {
                 textView.startAnimation(leftAnim);
             }
         }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText(getDescriptionFromDatabaseByNumber(numerologyNumber, numberOfActiveButton));
+            }
+        }, getResources().getInteger(android.R.integer.config_longAnimTime));
+
         isStartPage = false;
         //  setAttributesForTextView(characteristics[numberOfActiveButton - 1], textView);
     }
@@ -179,5 +201,30 @@ public class FragmentNumerologic extends Fragment {
                 }
             }
         });
+    }
+
+    @SuppressLint("Range")
+    private String getDescriptionFromDatabaseByNumber(int number, int numberOfButton) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = database.query(NumerologyTable.TABLE_NAME, null,
+                "NUMBER = " + number,
+                null, null, null, null);
+        cursor.moveToFirst();
+        String description = "";
+        if (numberOfButton == 1) {
+            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_GENERAL));
+        }
+        if (numberOfButton == 2) {
+            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_DIGNITIES));
+        }
+        if (numberOfButton == 3) {
+            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_DISADVANTAGES));
+        }
+        if (numberOfButton == 4) {
+            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_FATE));
+        }
+        return description;
     }
 }

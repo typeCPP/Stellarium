@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
-public class FragmentNumerologicDateSelection extends Fragment {
+public class FragmentNumerologyDateSelection extends Fragment {
 
     private DatePickerDialog datePickerDialog;
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -48,7 +48,7 @@ public class FragmentNumerologicDateSelection extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_numerologic_date_selection, container, false);
+        View view = inflater.inflate(R.layout.fragment_numerology_date_selection, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
@@ -70,7 +70,9 @@ public class FragmentNumerologicDateSelection extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    Fragment fragment = new FragmentNumerologic();
+                    Fragment fragment = new FragmentNumerology();
+                    int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
+                    bundle.putInt("numerologyNumber", numerologyNumber);
                     fragment.setArguments(bundle);
                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
@@ -119,6 +121,11 @@ public class FragmentNumerologicDateSelection extends Fragment {
                 birthdayMonth = 7;
                 birthdayYear = 2002;
                 addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
+                if (!isSetDate) {
+                    nextButton.setVisibility(View.VISIBLE);
+                    nextButton.animate().alpha(1f).setDuration(500).setListener(null);
+                    isSetDate = true;
+                }
                 datePickerDialog.dismiss();
             }
         });
@@ -149,4 +156,10 @@ public class FragmentNumerologicDateSelection extends Fragment {
         bundle.putString("Date", editTextDate.getText().toString());
     }
 
+    private int calculateNumber(int birthdayDay, int birthdayMonth, int birthdayYear) {
+        //example date: 12.07.2002
+        int result = birthdayDay % 10 + birthdayDay / 10 + birthdayMonth % 10 + birthdayMonth / 10
+                + birthdayYear % 10 + (birthdayYear / 10) % 10 + (birthdayYear / 100) % 10 + birthdayYear / 1000;
+        return result % 10 + result / 10;
+    }
 }
