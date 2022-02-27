@@ -19,6 +19,7 @@ import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
+import com.app.stellarium.database.tables.MoonCalendarTable;
 import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
@@ -29,6 +30,7 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         createFillCompatibilityNamesTable(database);
         createFillTaroCardsTable(database);
         createFillNumerologyTable(database);
+        createFillMoonCalendarTable(database);
         hideBottomBar(false);
     }
 
@@ -330,7 +333,6 @@ public class MainActivity extends AppCompatActivity {
                 "rw02swords", "rw02pentacles", "rw02cups", "rwworld", "rwwheelfortune", "rwtower",
                 "rwtemperance", "rwsun", "rwstrength", "rwstar", "rwqueenwands", "rwqueenswords", "rwqueenpentacles", "rwqueencups", "rwpagewands", "rwpageswords"};
         ContentValues values = new ContentValues();
-        Random random = new Random();
         for (int i = 0; i < 78; i++) {
             values.put(TaroCardsTable.COLUMN_ID, i);
             values.put(TaroCardsTable.COLUMN_NAME, "Карта");
@@ -364,6 +366,37 @@ public class MainActivity extends AppCompatActivity {
             values.put(NumerologyTable.COLUMN_DISADVANTAGES, "минусы");
             values.put(NumerologyTable.COLUMN_FATE, "судьба");
             database.insert(NumerologyTable.TABLE_NAME, null, values);
+        }
+    }
+
+    public static void createFillMoonCalendarTable(SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int countOfDaysFebruary = 28;
+        if (year % 4 == 0) {
+            countOfDaysFebruary = 29;
+        }
+        for (int j = 1; j <= 12; j++) {
+            if (j == 1 || j == 3 || j == 5 || j == 7 || j == 8 || j == 10 || j == 12) {
+                for (int i = j * 100 + 1; i <= j * 100 + 31; i++) {
+                    values.put(MoonCalendarTable.COLUMN_DATE, i);
+                    values.put(MoonCalendarTable.COLUMN_DESCRIPTION, "Вот вам яркий пример современных тенденций - постоянный количественный рост и сфера нашей активности говорит о возможностях новых предложений. Приятно, граждане, наблюдать, как многие известные личности будут объявлены нарушающими общечеловеческие нормы этики и морали. Высокий уровень вовлечения представителей целевой аудитории является четким доказательством простого факта: постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение первоочередных требований. Имеется спорная точка зрения, гласящая примерно следующее: непосредственные участники технического прогресса и по сей день остаются уделом либералов, которые жаждут быть объединены в целые кластеры себе подобных. Ясность нашей позиции очевидна: выбранный нами инновационный путь говорит о возможностях модели развития.");
+                    database.insert(MoonCalendarTable.TABLE_NAME, null, values);
+                }
+            } else if (j == 4 || j == 6 || j == 9 || j == 11) {
+                for (int i = j * 100 + 1; i <= j * 100 + 30; i++) {
+                    values.put(MoonCalendarTable.COLUMN_DATE, i);
+                    values.put(MoonCalendarTable.COLUMN_DESCRIPTION, "В этом месяце 30 дней. Вот вам яркий пример современных тенденций - постоянный количественный рост и сфера нашей активности говорит о возможностях новых предложений. Приятно, граждане, наблюдать, как многие известные личности будут объявлены нарушающими общечеловеческие нормы этики и морали. Высокий уровень вовлечения представителей целевой аудитории является четким доказательством простого факта: постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение первоочередных требований. Имеется спорная точка зрения, гласящая примерно следующее: непосредственные участники технического прогресса и по сей день остаются уделом либералов, которые жаждут быть объединены в целые кластеры себе подобных. Ясность нашей позиции очевидна: выбранный нами инновационный путь говорит о возможностях модели развития.");
+                    database.insert(MoonCalendarTable.TABLE_NAME, null, values);
+                }
+            } else {
+                for (int i = j * 100 + 1; i <= j * 100 + countOfDaysFebruary; i++) {
+                    values.put(MoonCalendarTable.COLUMN_DATE, i);
+                    values.put(MoonCalendarTable.COLUMN_DESCRIPTION, "Ну это февраль. Вот вам яркий пример современных тенденций - постоянный количественный рост и сфера нашей активности говорит о возможностях новых предложений. Приятно, граждане, наблюдать, как многие известные личности будут объявлены нарушающими общечеловеческие нормы этики и морали. Высокий уровень вовлечения представителей целевой аудитории является четким доказательством простого факта: постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение первоочередных требований. Имеется спорная точка зрения, гласящая примерно следующее: непосредственные участники технического прогресса и по сей день остаются уделом либералов, которые жаждут быть объединены в целые кластеры себе подобных. Ясность нашей позиции очевидна: выбранный нами инновационный путь говорит о возможностях модели развития.");
+                    database.insert(MoonCalendarTable.TABLE_NAME, null, values);
+                }
+            }
         }
     }
 

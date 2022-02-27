@@ -160,6 +160,9 @@ public class FragmentNumerologyDateSelection extends Fragment {
         //example date: 12.07.2002
         int result = birthdayDay % 10 + birthdayDay / 10 + birthdayMonth % 10 + birthdayMonth / 10
                 + birthdayYear % 10 + (birthdayYear / 10) % 10 + (birthdayYear / 100) % 10 + birthdayYear / 1000;
-        return result % 10 + result / 10;
+        while (result > 9) {
+            result = result % 10 + result / 10;
+        }
+        return result;
     }
 }

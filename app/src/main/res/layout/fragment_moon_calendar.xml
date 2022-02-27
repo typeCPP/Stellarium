@@ -26,6 +26,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8" />
+
+            <ImageView
+                android:id="@+id/calendarImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/white_calendar" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -68,6 +75,37 @@
             android:layout_weight="11.4"
             android:orientation="horizontal">
 
+            <ScrollView
+                android:id="@+id/scrollViewVertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/firstEmptyView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.05" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/style_text_horoscope"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9" />
+
+                    <View
+                        android:id="@+id/secondEmptyView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.05" />
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
