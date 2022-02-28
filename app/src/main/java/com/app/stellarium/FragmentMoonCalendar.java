@@ -55,6 +55,11 @@ public class FragmentMoonCalendar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_moon_calendar, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment();
+        }
         imageViewMoon = view.findViewById(R.id.moon);
         imageViewCalendar = view.findViewById(R.id.calendarImage);
         textViewDate = view.findViewById(R.id.date);

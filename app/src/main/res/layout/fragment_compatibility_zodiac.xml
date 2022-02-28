@@ -132,11 +132,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:fontFamily="@font/gabriela_regular"
-                android:gravity="center"
+                android:gravity="center|center_horizontal|top"
                 android:maxLines="1"
                 android:text="близнецы"
                 android:textColor="@color/compatibility_sign_text"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
@@ -151,24 +151,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:fontFamily="@font/gabriela_regular"
-                android:gravity="center"
+                android:gravity="center_horizontal|top"
                 android:maxLines="1"
                 android:text="скорпион"
                 android:textColor="@color/compatibility_sign_text"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.25" />
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_weight="1.75"
+            android:layout_weight="2.25"
             android:columnCount="4"
             android:orientation="horizontal"
             android:rowCount="2"
@@ -296,43 +296,40 @@
             </RelativeLayout>
 
             <TextView
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal|top"
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center"
-                android:text="любовь"
+                android:text="@string/love_lowercase"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal|top"
                 android:fontFamily="@font/gabriela_regular"
-                android:text="секс"
+                android:gravity="center"
+                android:text="@string/sex"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal|top"
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center"
-                android:text="брак"
+                android:text="@string/marriage"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal|top"
                 android:fontFamily="@font/gabriela_regular"
-                android:text="дружба"
+                android:gravity="center"
+                android:text="@string/friendship"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
 
         </GridLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25" />
 
         <LinearLayout
             android:layout_width="match_parent"

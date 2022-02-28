@@ -1,5 +1,6 @@
 package com.app.stellarium;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,6 +53,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     private Animation scaleUp;
     private TextView signTextWoman, signTextMan;
 
+
     public static FragmentCompatibilitySignSelection newInstance(String param1, String param2) {
         FragmentCompatibilitySignSelection fragment = new FragmentCompatibilitySignSelection();
         Bundle args = new Bundle();
@@ -87,13 +88,13 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                     switch (view.getId()) {
                         case R.id.circle_woman:
                             isWoman = true;
-
                             break;
                         case R.id.circle_man:
                             isWoman = false;
                             break;
                     }
                     if (isSelectedWoman && isSelectedMan) {
+                        //nextButton.startAnimation(animVisibility);
                         nextButton.animate().alpha(0).setDuration(500).setListener(null);
                         layout_with_spinner.setVisibility(View.VISIBLE);
                     }
@@ -287,16 +288,30 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                             bundle.putInt("manSign", idOfManSign);
                             bundle.putString("signTextMan", signText);
                         }
-                        if (isSelectedWoman && isSelectedMan) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    layout_with_spinner.setVisibility(View.INVISIBLE);
-                                }
-                            }, 500);
 
-                            nextButton.animate().alpha(1).setDuration(500).setListener(null);
+                        if (isSelectedWoman && isSelectedMan) {
+
+                             nextButton.animate().alpha(1).setDuration(500).setListener(new Animator.AnimatorListener() {
+                                 @Override
+                                 public void onAnimationStart(Animator animator) {
+
+                                 }
+
+                                 @Override
+                                 public void onAnimationEnd(Animator animator) {
+                                     layout_with_spinner.setVisibility(View.INVISIBLE);
+                                 }
+
+                                 @Override
+                                 public void onAnimationCancel(Animator animator) {
+
+                                 }
+
+                                 @Override
+                                 public void onAnimationRepeat(Animator animator) {
+
+                                 }
+                             });
                         }
                     }
                 }
