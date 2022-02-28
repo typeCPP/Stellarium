@@ -82,6 +82,22 @@ public class FragmentNumerology extends Fragment {
             }
         }
 
+        class SlideAnimationListener implements Animation.AnimationListener {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                textView.setText(getDescriptionFromDatabaseByNumber(numerologyNumber, numberOfActiveButton));
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        }
+
         generalCharacteristicButton = view.findViewById(R.id.generalCharacteristicButton);
         generalCharacteristicButton.setOnClickListener(new ButtonOnClickListener());
 
@@ -104,6 +120,8 @@ public class FragmentNumerology extends Fragment {
 
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+        leftAnim.setAnimationListener(new SlideAnimationListener());
+        rightAnim.setAnimationListener(new SlideAnimationListener());
 
         scrollView = view.findViewById(R.id.scrollView);
 
@@ -147,16 +165,7 @@ public class FragmentNumerology extends Fragment {
                 textView.startAnimation(leftAnim);
             }
         }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                textView.setText(getDescriptionFromDatabaseByNumber(numerologyNumber, numberOfActiveButton));
-            }
-        }, getResources().getInteger(android.R.integer.config_longAnimTime));
-
         isStartPage = false;
-        //  setAttributesForTextView(characteristics[numberOfActiveButton - 1], textView);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

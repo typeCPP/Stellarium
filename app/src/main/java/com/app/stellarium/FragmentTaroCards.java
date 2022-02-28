@@ -36,6 +36,10 @@ public class FragmentTaroCards extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_taro_cards, container, false);
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment();
+        }
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -67,7 +71,8 @@ public class FragmentTaroCards extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putInt("countOfCards", countOfCards);
                     fragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                 }
                 return true;
             }
