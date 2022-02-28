@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentMoonCalendar">
@@ -35,15 +36,42 @@
                 android:src="@drawable/white_calendar" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/date"
-            style="@style/style_moon_calendar_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:gravity="top|center"
-            android:text="@string/some_date"
-            android:textAllCaps="false" />
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/datePrevDay"
+                style="@style/little_style_moon_calendar_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:textAllCaps="false" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/date"
+                style="@style/style_moon_calendar_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/some_date"
+                android:textAllCaps="false" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/dateNextDay"
+                style="@style/little_style_moon_calendar_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:textAllCaps="false" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_calendar"
@@ -70,6 +98,7 @@
             android:src="@drawable/moon" />
 
         <LinearLayout
+            android:id="@+id/textLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="11.4"

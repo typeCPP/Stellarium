@@ -402,6 +402,15 @@
             25sp
         </item>
     </style>
+    <style name="little_style_moon_calendar_title">
+        <item name="android:textColor">#A4EEE7FF</item>
+        <item name="fontFamily">
+            @font/gabriela_regular
+        </item>
+        <item name="android:textSize">
+            18sp
+        </item>
+    </style>
 
     <style name="date_numerologic">
 

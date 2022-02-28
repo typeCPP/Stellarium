@@ -60,6 +60,7 @@
     <string name="some_sign_and_date">Водолей | 21 января - 19 февраля</string>
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
+    <string name="yesterday">Вчера</string>
     <string name="week">Неделя</string>
     <string name="month">Месяц</string>
     <string name="year">Год</string>
