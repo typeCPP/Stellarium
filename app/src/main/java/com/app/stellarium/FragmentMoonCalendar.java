@@ -81,7 +81,6 @@ public class FragmentMoonCalendar extends Fragment {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "ResourceType", "SetTextI18n", "NewApi"})
             @Override
             public void onClick(View clickView) {
-                Time time;
                 switch (clickView.getId()) {
                     case R.id.calendarImage:
                         layoutCalendar.setVisibility(View.VISIBLE);
@@ -94,22 +93,10 @@ public class FragmentMoonCalendar extends Fragment {
                     case R.id.datePrevDay:
                         clickView.startAnimation(scaleUp);
                         textLayout.startAnimation(leftAnim);
-                        textViewDate.setText(leftTitle.substring(0, 2) + monthToString(Integer.parseInt(leftTitle.substring(3, 5)) - 1));
-                        textViewDescription.setText(getDescriptionFromDatabaseByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2))));
-                        changeDateViews(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)) - 1);
-                        time = new Time();
-                        time.set(Integer.parseInt(leftTitle.substring(0, 2)) + 1, Integer.parseInt(leftTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
-                        calendarView.setDate(time.toMillis(true));
                         break;
                     case R.id.dateNextDay:
                         clickView.startAnimation(scaleUp);
                         textLayout.startAnimation(rightAnim);
-                        textViewDate.setText(rightTitle.substring(0, 2) + monthToString(Integer.parseInt(rightTitle.substring(3, 5)) - 1));
-                        textViewDescription.setText(getDescriptionFromDatabaseByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2))));
-                        changeDateViews(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)) - 1);
-                        time = new Time();
-                        time.set(Integer.parseInt(rightTitle.substring(0, 2)) - 1, Integer.parseInt(rightTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
-                        calendarView.setDate(time.toMillis(true));
                         break;
                 }
             }
@@ -129,8 +116,45 @@ public class FragmentMoonCalendar extends Fragment {
 
         changeDateViews(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH));
 
+        class SlideAnimationListener implements Animation.AnimationListener {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                updateInformationText(animation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            private void updateInformationText(Animation animation) {
+                Time time;
+                if (leftAnim == animation) {
+                    textViewDate.setText(leftTitle.substring(0, 2) + monthToString(Integer.parseInt(leftTitle.substring(3, 5)) - 1));
+                    textViewDescription.setText(getDescriptionFromDatabaseByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2))));
+                    changeDateViews(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)) - 1);
+                    time = new Time();
+                    time.set(Integer.parseInt(leftTitle.substring(0, 2)) + 1, Integer.parseInt(leftTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
+                    calendarView.setDate(time.toMillis(true));
+                } else if (rightAnim == animation) {
+                    textViewDate.setText(rightTitle.substring(0, 2) + monthToString(Integer.parseInt(rightTitle.substring(3, 5)) - 1));
+                    textViewDescription.setText(getDescriptionFromDatabaseByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2))));
+                    changeDateViews(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)) - 1);
+                    time = new Time();
+                    time.set(Integer.parseInt(rightTitle.substring(0, 2)) - 1, Integer.parseInt(rightTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
+                    calendarView.setDate(time.toMillis(true));
+                }
+            }
+        }
+
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+        rightAnim.setAnimationListener(new SlideAnimationListener());
+        leftAnim.setAnimationListener(new SlideAnimationListener());
 
         frameLayout = view.findViewById(R.id.mainFrame);
         textLayout = view.findViewById(R.id.textLayout);
@@ -203,24 +227,11 @@ public class FragmentMoonCalendar extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             public void onSwipeRight() {
                 textLayout.startAnimation(leftAnim);
-                textViewDate.setText(leftTitle.substring(0, 2) + monthToString(Integer.parseInt(leftTitle.substring(3, 5)) - 1));
-                textViewDescription.setText(getDescriptionFromDatabaseByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2))));
-                changeDateViews(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)) - 1);
-                Time time = new Time();
-                time.set(Integer.parseInt(leftTitle.substring(0, 2)) + 1, Integer.parseInt(leftTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
-                calendarView.setDate(time.toMillis(true));
             }
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             public void onSwipeLeft() {
                 textLayout.startAnimation(rightAnim);
-                textViewDate.setText(rightTitle.substring(0, 2) + monthToString(Integer.parseInt(rightTitle.substring(3, 5)) - 1));
-                textViewDescription.setText(getDescriptionFromDatabaseByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2))));
-                changeDateViews(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)) - 1);
-                Time time = new Time();
-                time.set(Integer.parseInt(rightTitle.substring(0, 2)) - 1, Integer.parseInt(rightTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
-                calendarView.setDate(time.toMillis(true));
-
             }
         });
     }
