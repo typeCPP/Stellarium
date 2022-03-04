@@ -75,7 +75,7 @@
     <string name="show_results">Показать результаты</string>
     <string name="ball_ask_button">Спросить</string>
     <string name="ball_clear_button">Очистить</string>
-    <string name="titlle_yes_or_no">Внимательно подумайте о своем вопросе и спросите шар...</string>
+    <string name="title_yes_or_no">Внимательно подумайте о своем вопросе и спросите шар...</string>
     <string name="man">Мужчина</string>
     <string name="woman">Женщина</string>
     <string name="love_lowercase">любовь</string>
@@ -123,4 +123,9 @@
     <string name="description_three_cards">Гадание таро «Три карты» - с помощью этого раклада вы получите ответ на развитие текущей ситуации. Первая карта расскажет о прошлом, вторая - о настоящем, третья - о возможном будущем.</string>
     <string name="ok">Готово</string>
     <string name="facebook_app_id">1292672574576885</string> <string name="fb_login_protocol_scheme">fb1292672574576885</string>
+    <string name="title_phase">Фаза Луны</string>
+    <string name="title_characteristic">Характеристика дня</string>
+    <string name="title_health">Здоровье</string>
+    <string name="title_relations">Отношения и любовь</string>
+    <string name="title_business">Работа и бизнес</string>
 </resources>

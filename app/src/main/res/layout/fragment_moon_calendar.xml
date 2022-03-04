@@ -123,12 +123,83 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.05" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        style="@style/style_text_horoscope"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.9" />
+                        android:layout_weight="0.9"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/title_phase"
+                            style="@style/style_text_bold_moon_calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_phase"/>
+
+                        <TextView
+                            android:id="@+id/phase"
+                            style="@style/style_text_horoscope"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:id="@+id/title_characteristic"
+                            style="@style/style_text_bold_moon_calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_characteristic"/>
+
+                        <TextView
+                            android:id="@+id/characteristic"
+                            style="@style/style_text_horoscope"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:id="@+id/title_health"
+                            style="@style/style_text_bold_moon_calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_health"/>
+
+                        <TextView
+                            android:id="@+id/health"
+                            style="@style/style_text_horoscope"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:id="@+id/title_relations"
+                            style="@style/style_text_bold_moon_calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_relations"/>
+
+                        <TextView
+                            android:id="@+id/relations"
+                            style="@style/style_text_horoscope"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:id="@+id/title_business"
+                            style="@style/style_text_bold_moon_calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_business"/>
+
+                        <TextView
+                            android:id="@+id/business"
+                            style="@style/style_text_horoscope"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="7dp"/>
+
+                    </LinearLayout>
 
                     <View
                         android:id="@+id/secondEmptyView"
