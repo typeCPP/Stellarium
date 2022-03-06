@@ -6,7 +6,7 @@ public class NumerologyTable {
     public final static String COLUMN_ID = "_ID";
     public final static String COLUMN_NUMBER = "NUMBER";
     public final static String COLUMN_GENERAL = "GENERAL";
-    public final static String COLUMN_DIGNITIES = "NO_NUMBER";
+    public final static String COLUMN_DIGNITIES = "DIGNITIES";
     public final static String COLUMN_DISADVANTAGES = "DISADVANTAGES";
     public final static String COLUMN_FATE = "FATE";
 
