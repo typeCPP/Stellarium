@@ -31,7 +31,7 @@ public class FragmentHoroscopeList extends Fragment {
             libraButton, scorpioButton, sagittariusButton, capricornButton, aquariusButton, piscesButton;
     private CircleLayout circleLayout;
     private short touchMoveFactor = 10;
-    private PointF actionDownPoint = new PointF(0f, 0f), actionUpPoint = new PointF(0f, 0f);
+    private PointF actionDownPoint = new PointF(0f, 0f);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +73,6 @@ public class FragmentHoroscopeList extends Fragment {
                     }
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    actionUpPoint.x = motionEvent.getX();
-                    actionUpPoint.y = motionEvent.getY();
                     boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
                             Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
                     if (isTouchLength) {
