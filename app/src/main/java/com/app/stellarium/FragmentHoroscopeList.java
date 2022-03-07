@@ -5,11 +5,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,11 +27,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class FragmentHoroscopeList extends Fragment {
-    private Button ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
+    private LinearLayout ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
             libraButton, scorpioButton, sagittariusButton, capricornButton, aquariusButton, piscesButton;
     private CircleLayout circleLayout;
     private short touchMoveFactor = 10;
-    private PointF actionDownPoint = new PointF(0f, 0f);
+    private PointF actionDownPoint = new PointF(0f, 0f), actionUpPoint = new PointF(0f, 0f);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,9 @@ public class FragmentHoroscopeList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_horoscope_list, container, false);
+        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        int MIN_DISTANCE = (int) (120.0f * dm.densityDpi / 300.0f + 0.5);
+
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -51,13 +59,22 @@ public class FragmentHoroscopeList extends Fragment {
                     try {
                         Method method = CircleLayout.class.getDeclaredMethod("rotateButtons", float.class);
                         method.setAccessible(true);
-                        float p = 2.5f;
+                        float p = 0;
+                        float deltaY = actionDownPoint.y - motionEvent.getY();
+                        if (Math.abs(deltaY) > MIN_DISTANCE) {
+                            if (deltaY < 0)
+                                p = 3f;
+                            else if (deltaY > 0)
+                                p = -3f;
+                        }
                         method.invoke(circleLayout, p);
                     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    actionUpPoint.x = motionEvent.getX();
+                    actionUpPoint.y = motionEvent.getY();
                     boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
                             Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
                     if (isTouchLength) {
@@ -129,43 +146,65 @@ public class FragmentHoroscopeList extends Fragment {
         if (activity != null)
             activity.setNumberOfPrevFragment();
 
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         circleLayout = view.findViewById(R.id.circle_layout);
-
+        circleLayout.setRadius(dpHeight - 20);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         ariesButton = view.findViewById(R.id.ariesButton);
         ariesButton.setOnTouchListener(new ButtonOnTouchListener());
+        ariesButton.setPadding(20, 20, 20, 20);
+        if (dpHeight < 620)
+            layoutParams.setMargins((int) (circleLayout.getRadius() * -2 - 190), 0, 0, 0);
+        else
+            layoutParams.setMargins((int) (circleLayout.getRadius() * -2), 0, 0, 0);
+        circleLayout.setLayoutParams(layoutParams);
 
         taurusButton = view.findViewById(R.id.taurusButton);
         taurusButton.setOnTouchListener(new ButtonOnTouchListener());
+        taurusButton.setPadding(20, 20, 20, 20);
 
         geminiButton = view.findViewById(R.id.geminiButton);
         geminiButton.setOnTouchListener(new ButtonOnTouchListener());
+        geminiButton.setPadding(20, 20, 20, 20);
 
         cancerButton = view.findViewById(R.id.cancerButton);
         cancerButton.setOnTouchListener(new ButtonOnTouchListener());
+        cancerButton.setPadding(20, 20, 20, 20);
 
         leoButton = view.findViewById(R.id.leoButton);
         leoButton.setOnTouchListener(new ButtonOnTouchListener());
+        leoButton.setPadding(20, 20, 20, 20);
 
         virgoButton = view.findViewById(R.id.virgoButton);
         virgoButton.setOnTouchListener(new ButtonOnTouchListener());
+        virgoButton.setPadding(20, 20, 20, 20);
 
         libraButton = view.findViewById(R.id.libraButton);
         libraButton.setOnTouchListener(new ButtonOnTouchListener());
+        libraButton.setPadding(20, 20, 20, 20);
 
         scorpioButton = view.findViewById(R.id.scorpioButton);
         scorpioButton.setOnTouchListener(new ButtonOnTouchListener());
+        scorpioButton.setPadding(20, 20, 20, 20);
 
         sagittariusButton = view.findViewById(R.id.sagittariusButton);
         sagittariusButton.setOnTouchListener(new ButtonOnTouchListener());
+        sagittariusButton.setPadding(20, 20, 20, 20);
 
         capricornButton = view.findViewById(R.id.capricornButton);
         capricornButton.setOnTouchListener(new ButtonOnTouchListener());
+        capricornButton.setPadding(20, 20, 20, 20);
 
         aquariusButton = view.findViewById(R.id.aquariusButton);
         aquariusButton.setOnTouchListener(new ButtonOnTouchListener());
+        aquariusButton.setPadding(20, 20, 20, 20);
 
         piscesButton = view.findViewById(R.id.piscesButton);
         piscesButton.setOnTouchListener(new ButtonOnTouchListener());
+        piscesButton.setPadding(20, 20, 20, 20);
         return view;
     }
 

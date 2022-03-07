@@ -14,134 +14,286 @@
             android:id="@+id/circle_layout"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="-505dp"
+            android:layout_marginLeft="-500dp"
             android:persistentDrawingCache="animation"
             app:firstChildPosition="East"
             app:isRotating="true"
-            app:radius="260dp"
+            app:radius="250dp"
             app:speed="75">
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <LinearLayout
                 android:id="@+id/ariesButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/aries"
-                android:drawablePadding="5dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/aries" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/aries"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/aries"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/taurusButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/taurus"
-                android:drawablePadding="5dp"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:text="@string/taurus" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/taurus"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/taurus"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/geminiButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/gemini"
-                android:drawablePadding="5dp"
-                android:text="@string/gemini" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/gemini"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/gemini"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/cancerButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/cancer"
-                android:drawablePadding="5dp"
-                android:text="@string/cancer" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/cancer"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/cancer"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/leoButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/leo"
-                android:drawablePadding="5dp"
-                android:text="@string/leo" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/leo"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/leo"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/virgoButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/virgo"
-                android:drawablePadding="5dp"
-                android:text="@string/virgo" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/virgo"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/virgo"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/libraButton"
-                style="@style/style_horoscope_title"
-                android:layout_width="120dp"
-                android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/libra"
-                android:drawablePadding="5dp"
-                android:text="@string/libra" />
+                android:layout_width="100dp"
+                android:layout_height="90dp"
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/libra"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/libra"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/scorpioButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/scorpio"
-                android:drawablePadding="5dp"
-                android:text="@string/scorpio" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/scorpio"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/scorpio"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/sagittariusButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/sagittarius"
-                android:drawablePadding="5dp"
-                android:text="@string/sagittarius" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/sagittarius"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/sagittarius"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/capricornButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/capricorn"
-                android:drawablePadding="5dp"
-                android:text="@string/capricorn" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/capricorn"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/capricorn"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/aquariusButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/aquarius"
-                android:text="@string/aquarius" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/aquarius"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/aquarius"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/piscesButton"
-                style="@style/style_horoscope_title"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:drawableBottom="@drawable/pisces"
-                android:drawablePadding="5dp"
-                android:text="@string/pisces" />
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_horoscope_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:text="@string/pisces"
+                    android:textAllCaps="true" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/pisces"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
 
         </com.szugyi.circlemenu.view.CircleLayout>
 

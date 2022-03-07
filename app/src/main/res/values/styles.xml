@@ -85,7 +85,7 @@
         </item>
         <item name="android:textColor">#EEE7FF</item>
         <item name="android:textSize">
-            17sp
+            16sp
         </item>
     </style>
 
