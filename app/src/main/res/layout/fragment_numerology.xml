@@ -39,7 +39,7 @@
                 android:layout_weight="4"
                 android:fillViewport="true">
 
-                <LinearLayout
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -49,7 +49,7 @@
                         style="@style/style_types"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.22"
+                        android:layout_weight="0.25"
                         android:background="@android:color/transparent"
                         android:text="@string/numerologic_button_generalCharacter" />
 
@@ -58,7 +58,7 @@
                         style="@style/style_types"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.4"
+                        android:layout_weight="0.35"
                         android:background="@android:color/transparent"
                         android:text="@string/numerologic_button_advantages" />
 
@@ -67,7 +67,7 @@
                         style="@style/style_types"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.33"
                         android:background="@android:color/transparent"
                         android:text="@string/numerologic_button_disadvantages" />
 
