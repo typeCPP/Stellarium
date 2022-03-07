@@ -23,7 +23,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private Button btnSignup;
     private Button btnSignin;
     private Animation scaleUp;
-    Button twitterButton, facebookButton, googleButton;
+    Button facebookButton, googleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
         btnSignup = findViewById(R.id.btnSignup);
         btnSignin = findViewById(R.id.btnSignin);
 
-        twitterButton = findViewById(R.id.buttonTwitter);
         googleButton = findViewById(R.id.buttonGoggle);
         facebookButton = findViewById(R.id.buttonFacebook);
 
@@ -49,9 +48,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
                 switch (view.getId()) {
                     case (R.id.buttonFacebook):
-                        view.startAnimation(scaleUp);
-                        break;
-                    case (R.id.buttonTwitter):
                         view.startAnimation(scaleUp);
                         break;
                     case (R.id.buttonGoggle):
@@ -69,7 +65,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
         }
 
         facebookButton.setOnClickListener(new ButtonClickListener());
-        twitterButton.setOnClickListener(new ButtonClickListener());
         googleButton.setOnClickListener(new ButtonClickListener());
         btnSignin.setOnClickListener(new ButtonClickListener());
         btnSignup.setOnClickListener(new ButtonClickListener());

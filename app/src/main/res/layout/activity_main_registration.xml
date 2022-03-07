@@ -96,14 +96,6 @@
             android:stateListAnimator="@animator/button_animation_shadow"
             android:drawableBottom="@drawable/facebook" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonTwitter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:stateListAnimator="@animator/button_animation_shadow"
-            android:drawableBottom="@drawable/twitter" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonGoggle"
