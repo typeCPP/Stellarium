@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".FragmentAffirmation"
     android:orientation="vertical"
-    android:background="@drawable/test_picture_background_affirmation">
+    android:background="@drawable/affirmation_background2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,25 +25,15 @@
             android:weightSum="1">
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/back_affirmation_button"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="start"
-                android:background="?android:selectableItemBackground"
-                android:drawableBottom="@drawable/back_affirmation"
-                android:stateListAnimator="@animator/button_animation_shadow"
-                android:paddingBottom="6dp"/>
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.077" />
+                android:layout_weight="0.25" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
+                android:layout_weight="0.5"
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
                 android:textColor="#6B000000"
