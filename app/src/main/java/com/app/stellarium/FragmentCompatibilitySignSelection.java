@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -69,7 +70,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compatibility_sign_selection, container, false);
-
+        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        int MIN_DISTANCE = (int) (120.0f * dm.densityDpi / 300.0f + 0.5);
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
             activity.setNumberOfPrevFragment();
@@ -94,7 +96,6 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                             break;
                     }
                     if (isSelectedWoman && isSelectedMan) {
-                        //nextButton.startAnimation(animVisibility);
                         nextButton.animate().alpha(0).setDuration(500).setListener(null);
                         layout_with_spinner.setVisibility(View.VISIBLE);
                     }
@@ -118,7 +119,14 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                     try {
                         Method method = CircleLayout.class.getDeclaredMethod("rotateButtons", float.class);
                         method.setAccessible(true);
-                        float p = 2.5f;
+                        float p = 0;
+                        float deltaXSpinner = actionDownPoint.x - motionEvent.getX();
+                        if (Math.abs(deltaXSpinner) > MIN_DISTANCE) {
+                            if (deltaXSpinner < 0)
+                                p = 3f;
+                            else if (deltaXSpinner > 0)
+                                p = -3f;
+                        }
                         method.invoke(spinner, p);
                     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();

@@ -138,9 +138,9 @@ public class FragmentYesOrNo extends Fragment {
             ballResponseTextView.startAnimation(fadeInAnimation);
             ballResponseTextView.setText(ball.shake());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                vibrator.vibrate(VibrationEffect.createOneShot(300, 100));
             } else {
-                vibrator.vibrate(500);
+                vibrator.vibrate(300);
             }
         }
     }
