@@ -1,20 +1,14 @@
 package com.app.stellarium;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
 
 public class FragmentAffirmation extends Fragment {
-
 
 
     public FragmentAffirmation() {
@@ -44,9 +38,8 @@ public class FragmentAffirmation extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
+    public void onStop() {
+        super.onStop();
         MainActivity activity = (MainActivity) getActivity();
 
         if (activity != null) {
