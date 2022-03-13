@@ -1,11 +1,15 @@
 package com.app.stellarium;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +27,7 @@ import com.app.stellarium.database.tables.MoonCalendarTable;
 import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
+import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -36,6 +41,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     BadgeDrawable badgeDrawable;
+    TextView titleText;
     private KenBurnsView kbv;
     private int numberOfPrevFragment = 2; //1 - personalAccount, 2 - Home, 3 - Information
 
@@ -121,6 +127,28 @@ public class MainActivity extends AppCompatActivity {
         createFillNumerologyTable(database);
         createFillMoonCalendarTable(database);
         hideBottomBar(false);
+
+        if (!checkSignedUser(database)) {
+            database.close();
+            databaseHelper.close();
+            Intent myIntent = new Intent(MainActivity.this, MainRegistrationActivity.class);
+            MainActivity.this.startActivity(myIntent);
+        }
+        database.close();
+        databaseHelper.close();
+
+        //getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+        //      .replace(R.id.frameLayout, new FragmentRegistration()).commit();
+    }
+
+    private boolean checkSignedUser(SQLiteDatabase database) {
+/*        ContentValues values = new ContentValues();
+        values.put(UserTable.COLUMN_NAME, "Андрей");
+        database.insert(UserTable.TABLE_NAME, null, values);*/
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        return userCursor.getCount() > 0;
     }
 
     @Override

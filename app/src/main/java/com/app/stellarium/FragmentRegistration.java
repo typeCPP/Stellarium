@@ -1,6 +1,7 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,22 +36,6 @@ public class FragmentRegistration extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
 
-        MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
-
-        scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
-        buttonEndRegistration = view.findViewById(R.id.button_end_registration);
-        buttonEndRegistration.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    buttonEndRegistration.startAnimation(scaleUp);
-                }
-                return true;
-            }
-        });
         return view;
     }
 }

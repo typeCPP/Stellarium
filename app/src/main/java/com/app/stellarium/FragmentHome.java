@@ -1,6 +1,8 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -9,19 +11,18 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHome#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.UserTable;
+
 public class FragmentHome extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private TextView titleText;
     private String mParam1;
     private String mParam2;
     private Button affirmationButton, horoscopeButton, taroButton, compatibilityButton,
@@ -58,6 +59,10 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        String name = getUserName(databaseHelper.getReadableDatabase());
+        titleText = view.findViewById(R.id.title_text);
+        titleText.setText("Добрый день, " + name);
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -139,6 +144,19 @@ public class FragmentHome extends Fragment {
         yesOrNoButton.setOnTouchListener(new ButtonOnTouchListener());
 
         return view;
+    }
+
+    @SuppressLint("Range")
+    private String getUserName(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        if(userCursor.getCount() > 0) {
+            userCursor.moveToLast();
+            return userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+        } else {
+            return "Андрей";
+        }
     }
 
 }

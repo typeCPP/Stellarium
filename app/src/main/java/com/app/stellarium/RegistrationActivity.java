@@ -3,6 +3,9 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,14 +14,18 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
@@ -41,6 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private KenBurnsView kbv;
+    private Button buttonEndRegistration;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -52,6 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         imageSwitcherMan = findViewById(R.id.imageSwitcherMan);
 
         editTextDate = findViewById(R.id.registration_date);
+        buttonEndRegistration = findViewById(R.id.button_end_registration);
 
         imageCross = findViewById(R.id.cross);
         editTextName = findViewById(R.id.registration_name);
@@ -62,6 +71,51 @@ public class RegistrationActivity extends AppCompatActivity {
         StellariumTransitionGenerator stellariumTransitionGenerator =
                 new StellariumTransitionGenerator(10000, adi);
         kbv.setTransitionGenerator(stellariumTransitionGenerator);
+
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("userName");
+        if(name != null) {
+            editTextName.setText(name);
+        }
+        boolean isFacebookUID = intent.getBooleanExtra("isFacebook", false);
+        String userUID = intent.getStringExtra("userUID");
+        String email = intent.getStringExtra("userEmail");
+        String password = intent.getStringExtra("userPassword");
+
+        buttonEndRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonEndRegistration.startAnimation(scaleUp);
+                if(editTextName.getText().toString().isEmpty() || editTextDate.getText().toString().isEmpty() || (!isTouchMan && !isTouchWoman)) {
+                    Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
+                } else {
+                    DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                    ContentValues values = new ContentValues();
+
+                    values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
+                    values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
+                    values.put(UserTable.COLUMN_SEX, isTouchMan);
+                    if(isFacebookUID && userUID != null) {
+                        values.put(UserTable.COLUMN_FACEBOOK_ID, userUID);
+                    } else if(userUID != null) {
+                        values.put(UserTable.COLUMN_GOOGLE_ID, userUID);
+                    }
+                    if(email != null) {
+                        values.put(UserTable.COLUMN_EMAIL, email);
+                    }
+                    if(password != null) {
+                        values.put(UserTable.COLUMN_PASSWORD, password);
+                    }
+
+                    database.insert(UserTable.TABLE_NAME, null, values);
+                    database.close();
+                    databaseHelper.close();
+                    Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
+                    RegistrationActivity.this.startActivity(myIntent);
+                }
+            }
+        });
     }
 
     @SuppressLint("ResourceAsColor")

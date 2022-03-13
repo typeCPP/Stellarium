@@ -40,6 +40,7 @@
             app:prefixTextColor="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpEmailEditText"
                 style="@style/style_edit_text_main_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,6 +73,7 @@
             app:hintTextColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpPasswordEditText"
                 style="@style/style_edit_text_main_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
