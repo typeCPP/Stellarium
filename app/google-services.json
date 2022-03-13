@@ -14,11 +14,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "632189590717-1clgbc5ibsipqe27ilsq3jnnr8g0o600.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.stellarium",
+            "certificate_hash": "50f7f837ecf50491462ba9897641feecb7a485f9"
+          }
+        },
+        {
+          "client_id": "632189590717-6s06qton6mkffl4usc7pgtatk14569l3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.stellarium",
+            "certificate_hash": "2e8d20a796427a6e91b15369120456bda46e89a0"
+          }
+        },
+        {
           "client_id": "632189590717-bj76f9r6rrcaftuoesnuucghjec21d6m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.app.stellarium",
             "certificate_hash": "796c088222019623625f8a6c0d062a00cf8f4cbd"
+          }
+        },
+        {
+          "client_id": "632189590717-cic9jc9tnerkgd1np21i4l3hh5ldncbc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.stellarium",
+            "certificate_hash": "552d919c6dd62d8f98a758b652f5580520d9b9b4"
           }
         },
         {
