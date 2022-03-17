@@ -58,7 +58,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private Button btnSignin;
     private Animation scaleUp;
     TextInputEditText signInEmailEditText, signInPasswordEditText, signUpEmailEditText, signUpPasswordEditText;
-    Button facebookButton, googleButton;
+    Button facebookButton, googleButton, skipButton;
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
@@ -81,6 +81,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         googleButton = findViewById(R.id.buttonGoggle);
         facebookButton = findViewById(R.id.buttonFacebook);
+        skipButton = findViewById(R.id.registrationSkipButton);
 
         llSignup = findViewById(R.id.llSignup);
         llSignin = findViewById(R.id.llSignin);
@@ -131,6 +132,11 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                         startActivityForResult(signInIntent, 100);
                         break;
+                    case (R.id.registrationSkipButton):
+                        view.startAnimation(scaleUp);
+                        Intent intent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
+                        startActivity(intent);
+                        break;
                     case (R.id.btnSignup):
                         view.startAnimation(scaleUp);
                         if(signUpEmailEditText.getText().toString().isEmpty()
@@ -162,6 +168,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         facebookButton.setOnClickListener(new ButtonClickListener());
         googleButton.setOnClickListener(new ButtonClickListener());
+        skipButton.setOnClickListener(new ButtonClickListener());
         btnSignin.setOnClickListener(new ButtonClickListener());
         btnSignup.setOnClickListener(new ButtonClickListener());
 

@@ -8,6 +8,51 @@
     tools:context=".MainRegistrationActivity"
     android:background="@drawable/star_sky_reg">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="12"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registrationSkipButton"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.27"
+                android:text="@string/skip_registration"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                style="@style/style_sign_main_registration"
+                android:background="@android:color/transparent"
+                android:stateListAnimator="@animator/button_animation_shadow"
+                android:gravity="left|center"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <androidx.percentlayout.widget.PercentRelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingTop="15dp"
-                android:text="Вход"
+                android:text="@string/sign_in"
                 style="@style/style_sign_main_registration"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
@@ -62,7 +107,7 @@
                 android:gravity="center"
                 android:paddingTop="15dp"
                 android:rotation="180"
-                android:text="Регистрация"
+                android:text="@string/registration"
                 style="@style/style_sign_main_registration"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"

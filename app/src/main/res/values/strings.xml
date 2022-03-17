@@ -128,4 +128,5 @@
     <string name="title_health">Здоровье</string>
     <string name="title_relations">Отношения и любовь</string>
     <string name="title_business">Работа и бизнес</string>
+    <string name="skip_registration">Пропустить</string>
 </resources>
