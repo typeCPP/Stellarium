@@ -6,14 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
+import com.app.stellarium.database.tables.UserTable;
 import com.szugyi.circlemenu.view.CircleLayout;
 
 import java.lang.reflect.InvocationTargetException;
@@ -203,6 +201,9 @@ public class FragmentHoroscopeList extends Fragment {
         piscesButton = view.findViewById(R.id.piscesButton);
         piscesButton.setOnTouchListener(new ButtonOnTouchListener());
         piscesButton.setPadding(20, 20, 20, 20);
+
+        circleLayout.setAngle(getDegreeForCircleLayout());
+        
         return view;
     }
 
@@ -252,5 +253,16 @@ public class FragmentHoroscopeList extends Fragment {
         bundle.putStringArray("yearPredictions", predictions[4]);
 
         return bundle;
+    }
+
+    int getDegreeForCircleLayout() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        Cursor userTableCursor = database.query(UserTable.TABLE_NAME, null,
+                null, null, null, null, null);
+        userTableCursor.moveToFirst();
+        @SuppressLint("Range")
+        Integer sign = userTableCursor.getInt(userTableCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
+        return sign * -30;
     }
 }
