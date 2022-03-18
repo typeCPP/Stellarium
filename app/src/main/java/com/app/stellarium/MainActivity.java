@@ -352,14 +352,15 @@ public class MainActivity extends AppCompatActivity {
                 "rwlovers", "rwknightwands", "rwknightswords", "rwknightpentacles", "rwknightcups",
                 "rwkingwands", "rwkingswords", "rwkingpentacles", "rwkingcups", "rwjustice", "rwjudgement",
                 "rwhighpriestess", "rwhierophant", "rwhermit", "rwhangedman", "rwfool", "rwempress", "rwemperor",
-                "rwdevil", "rwdeath", "rwchariot", "rwacewands", "rwaceswords", "rwacepentacles", "rwacepentacles",
-                "rwacecups", "rw10wands", "rw10swords", "rw10pentacles", "rw10cups", "rw09wands", "rw09swords",
+                "rwdevil", "rwdeath", "rwchariot", "rwacewands", "rwaceswords", "rwacepentacles",
+                "rwacecups", "rwworld", "rwwheelfortune", "rwtower", "rwtemperance", "rwsun", "rwstrength", "rwstar",
+                "rwqueenwands", "rwqueenswords", "rwqueenpentacles", "rwqueencups", "rwpagewands", "rwpageswords", "rw10wands",
+                "rw10swords", "rw10pentacles", "rw10cups", "rw09wands", "rw09swords",
                 "rw09pentacles", "rw09cups", "rw08wands", "rw08swords", "rw08pentacles", "rw08cups",
                 "rw07wands", "rw07swords", "rw07pentacles", "rw07cups", "rw06wands", "rw06swords", "rw06pentacles",
                 "rw06cups", "rw05wands", "rw05swords", "rw05pentacles", "rw05cups", "rw04wands", "rw04swords",
                 "rw04pentacles", "rw04cups", "rw03wands", "rw03swords", "rw03pentacles", "rw03cups", "rw02wands",
-                "rw02swords", "rw02pentacles", "rw02cups", "rwworld", "rwwheelfortune", "rwtower",
-                "rwtemperance", "rwsun", "rwstrength", "rwstar", "rwqueenwands", "rwqueenswords", "rwqueenpentacles", "rwqueencups", "rwpagewands", "rwpageswords"};
+                "rw02swords", "rw02pentacles", "rw02cups"};
         ContentValues values = new ContentValues();
         for (int i = 0; i < 78; i++) {
             values.put(TaroCardsTable.COLUMN_ID, i);
