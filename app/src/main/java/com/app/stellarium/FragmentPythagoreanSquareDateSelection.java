@@ -4,6 +4,8 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.database.DatabaseHelper;
 
 import java.util.Calendar;
 
@@ -117,9 +122,8 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                birthdayDay = 18;
-                birthdayMonth = 7;
-                birthdayYear = 2002;
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                getUserBirthday(databaseHelper.getReadableDatabase());
                 addTextToTextView(birthdayDay, birthdayMonth, birthdayYear);
                 if (!isSetDate) {
                     nextButton.setVisibility(View.VISIBLE);
@@ -177,5 +181,23 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
             result[Integer.parseInt(String.valueOf(resultString.charAt(i)))]++;
         }
         return result;
+    }
+
+    private void getUserBirthday(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        if (userCursor.getCount() > 0) {
+            userCursor.moveToLast();
+            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+            String[] temp = birthdayString.split("/", 3);
+            birthdayDay = Integer.parseInt(temp[0]);
+            birthdayMonth = Integer.parseInt(temp[1]);
+            birthdayYear = Integer.parseInt(temp[2]);
+        } else {
+            birthdayDay = 18;
+            birthdayMonth = 7;
+            birthdayYear = 2002;
+        }
     }
 }

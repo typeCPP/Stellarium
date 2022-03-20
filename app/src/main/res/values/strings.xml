@@ -122,7 +122,8 @@
     <string name="description_pyramid_of_lovers">Гадание таро «Пирамида влюбленных» - это гадание на старших арканах, раскладка с одной стороны простая, но в то же время очень глубока: она поможет вам разобраться в сложных и запутанных отношениях, найти ответ на ваш вопрос.</string>
     <string name="description_three_cards">Гадание таро «Три карты» - с помощью этого раклада вы получите ответ на развитие текущей ситуации. Первая карта расскажет о прошлом, вторая - о настоящем, третья - о возможном будущем.</string>
     <string name="ok">Готово</string>
-    <string name="facebook_app_id">1292672574576885</string> <string name="fb_login_protocol_scheme">fb1292672574576885</string>
+    <string name="facebook_app_id">1292672574576885</string>
+    <string name="fb_login_protocol_scheme">fb1292672574576885</string>
     <string name="title_phase">Фаза Луны</string>
     <string name="title_characteristic">Характеристика дня</string>
     <string name="title_health">Здоровье</string>

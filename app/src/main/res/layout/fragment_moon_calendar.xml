@@ -10,7 +10,8 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="19.7">
 
         <View
             android:layout_width="match_parent"
@@ -38,7 +39,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -73,28 +75,12 @@
                 android:textAllCaps="false" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dateTextAppearance="@style/CalenderViewDateCustomText"
-                android:theme="@style/CalenderViewCustom"
-                android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/moon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:src="@drawable/moon" />
 
         <LinearLayout
@@ -134,70 +120,70 @@
                             style="@style/style_text_bold_moon_calendar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_phase"/>
+                            android:text="@string/title_phase" />
 
                         <TextView
                             android:id="@+id/phase"
                             style="@style/style_text_horoscope"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="7dp"/>
+                            android:paddingBottom="7dp" />
 
                         <TextView
                             android:id="@+id/title_characteristic"
                             style="@style/style_text_bold_moon_calendar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_characteristic"/>
+                            android:text="@string/title_characteristic" />
 
                         <TextView
                             android:id="@+id/characteristic"
                             style="@style/style_text_horoscope"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="7dp"/>
+                            android:paddingBottom="7dp" />
 
                         <TextView
                             android:id="@+id/title_health"
                             style="@style/style_text_bold_moon_calendar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_health"/>
+                            android:text="@string/title_health" />
 
                         <TextView
                             android:id="@+id/health"
                             style="@style/style_text_horoscope"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="7dp"/>
+                            android:paddingBottom="7dp" />
 
                         <TextView
                             android:id="@+id/title_relations"
                             style="@style/style_text_bold_moon_calendar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_relations"/>
+                            android:text="@string/title_relations" />
 
                         <TextView
                             android:id="@+id/relations"
                             style="@style/style_text_horoscope"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="7dp"/>
+                            android:paddingBottom="7dp" />
 
                         <TextView
                             android:id="@+id/title_business"
                             style="@style/style_text_bold_moon_calendar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_business"/>
+                            android:text="@string/title_business" />
 
                         <TextView
                             android:id="@+id/business"
                             style="@style/style_text_horoscope"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="7dp"/>
+                            android:paddingBottom="7dp" />
 
                     </LinearLayout>
 

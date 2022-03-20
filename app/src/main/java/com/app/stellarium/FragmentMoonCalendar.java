@@ -40,7 +40,9 @@ public class FragmentMoonCalendar extends Fragment {
     private LinearLayout textLayout;
     private FrameLayout frameLayout;
     private Animation rightAnim, leftAnim;
-    CalendarView calendarView;
+
+    private int dateOfMonthSelection;
+    private int monthSelection;
 
     public static FragmentMoonCalendar newInstance(String param1, String param2) {
         FragmentMoonCalendar fragment = new FragmentMoonCalendar();
@@ -77,17 +79,6 @@ public class FragmentMoonCalendar extends Fragment {
         textViewBusinessTitle = view.findViewById(R.id.title_business);
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
-
-        calendarView = view.findViewById(R.id.calendarView);
-        Time minTime = new Time();
-        minTime.set(1, 0, calendar.get(Calendar.YEAR));
-        calendarView.setMinDate(minTime.toMillis(true));
-        Time maxTime = new Time();
-        maxTime.set(31, 11, calendar.get(Calendar.YEAR));
-        calendarView.setMaxDate(maxTime.toMillis(true));
-        calendarView.setFirstDayOfWeek(2);
-
-        LinearLayout layoutCalendar = view.findViewById(R.id.layout_calendar);
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "ResourceType", "SetTextI18n", "NewApi"})
@@ -95,24 +86,13 @@ public class FragmentMoonCalendar extends Fragment {
             public void onClick(View clickView) {
                 switch (clickView.getId()) {
                     case R.id.calendarImage:
-                        layoutCalendar.setVisibility(View.VISIBLE);
-                        imageViewMoon.setVisibility(View.GONE);
-
-                        textViewPhaseTitle.setVisibility(View.GONE);
-                        textViewCharacteristicTitle.setVisibility(View.GONE);
-                        textViewHealthTitle.setVisibility(View.GONE);
-                        textViewRelationsTitle.setVisibility(View.GONE);
-                        textViewBusinessTitle.setVisibility(View.GONE);
-
-                        textViewPhase.setVisibility(View.GONE);
-                        textViewCharacteristic.setVisibility(View.GONE);
-                        textViewHealth.setVisibility(View.GONE);
-                        textViewRelations.setVisibility(View.GONE);
-                        textViewBusiness.setVisibility(View.GONE);
-
-                        imageViewCalendar.setVisibility(View.INVISIBLE);
-                        prevDayButton.setVisibility(View.INVISIBLE);
-                        nextDayButton.setVisibility(View.INVISIBLE);
+                        Fragment fragment = new FragmentMoonCalendarDateSelection();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("dayOfMonth", dateOfMonthSelection);
+                        bundle.putInt("month", monthSelection);
+                        fragment.setArguments(bundle);
+                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                         break;
                     case R.id.datePrevDay:
                         clickView.startAnimation(scaleUp);
@@ -126,9 +106,6 @@ public class FragmentMoonCalendar extends Fragment {
             }
 
         }
-
-        textViewDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + monthToString(calendar.get(Calendar.MONTH)));
-        getDescriptionFromDatabaseByDate((calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DAY_OF_MONTH));
         imageViewCalendar = view.findViewById(R.id.calendarImage);
         imageViewCalendar.setOnClickListener(new ButtonOnClickListener());
 
@@ -137,8 +114,20 @@ public class FragmentMoonCalendar extends Fragment {
 
         prevDayButton = view.findViewById(R.id.datePrevDay);
         prevDayButton.setOnClickListener(new ButtonOnClickListener());
-
-        changeDateViews(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH));
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            dateOfMonthSelection = bundle.getInt("dayOfMonth");
+            monthSelection = bundle.getInt("month");
+            textViewDate.setText(dateOfMonthSelection + monthToString(monthSelection));
+            changeDateViews(dateOfMonthSelection, monthSelection);
+            getDescriptionFromDatabaseByDate((monthSelection + 1) * 100 + dateOfMonthSelection);
+        } else {
+            dateOfMonthSelection = calendar.get(Calendar.DAY_OF_MONTH);
+            monthSelection = calendar.get(Calendar.MONTH);
+            textViewDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + monthToString(calendar.get(Calendar.MONTH)));
+            changeDateViews(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH));
+            getDescriptionFromDatabaseByDate((calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DAY_OF_MONTH));
+        }
 
         class SlideAnimationListener implements Animation.AnimationListener {
 
@@ -158,19 +147,22 @@ public class FragmentMoonCalendar extends Fragment {
             private void updateInformationText(Animation animation) {
                 Time time;
                 if (leftAnim == animation) {
+                    dateOfMonthSelection = Integer.parseInt(leftTitle.substring(0, 2));
+                    monthSelection = Integer.parseInt(leftTitle.substring(3, 5)) - 1;
+                    System.out.println("date: " + dateOfMonthSelection + " month :" + monthSelection);
                     textViewDate.setText(leftTitle.substring(0, 2) + monthToString(Integer.parseInt(leftTitle.substring(3, 5)) - 1));
                     getDescriptionFromDatabaseByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2)));
                     changeDateViews(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)) - 1);
                     time = new Time();
                     time.set(Integer.parseInt(leftTitle.substring(0, 2)) + 1, Integer.parseInt(leftTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
-                    calendarView.setDate(time.toMillis(true));
                 } else if (rightAnim == animation) {
+                    dateOfMonthSelection = Integer.parseInt(rightTitle.substring(0, 2));
+                    monthSelection = Integer.parseInt(rightTitle.substring(3, 5)) - 1;
                     textViewDate.setText(rightTitle.substring(0, 2) + monthToString(Integer.parseInt(rightTitle.substring(3, 5)) - 1));
                     getDescriptionFromDatabaseByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2)));
                     changeDateViews(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)) - 1);
                     time = new Time();
                     time.set(Integer.parseInt(rightTitle.substring(0, 2)) - 1, Integer.parseInt(rightTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
-                    calendarView.setDate(time.toMillis(true));
                 }
             }
         }
@@ -193,34 +185,6 @@ public class FragmentMoonCalendar extends Fragment {
         activeSwipe(textViewCharacteristicTitle);
         activeSwipe(textViewBusinessTitle);
         activeSwipe(textViewRelationsTitle);
-
-        calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
-            textViewDate.setText(dayOfMonth + monthToString(month));
-            Time time = new Time();
-            time.set(dayOfMonth, month, year);
-            changeDateViews(dayOfMonth, month);
-            calendarView.setDate(time.toMillis(true));
-            layoutCalendar.setVisibility(View.GONE);
-            imageViewMoon.setVisibility(View.VISIBLE);
-
-            textViewPhaseTitle.setVisibility(View.VISIBLE);
-            textViewCharacteristicTitle.setVisibility(View.VISIBLE);
-            textViewHealthTitle.setVisibility(View.VISIBLE);
-            textViewRelationsTitle.setVisibility(View.VISIBLE);
-            textViewBusinessTitle.setVisibility(View.VISIBLE);
-
-            textViewPhase.setVisibility(View.VISIBLE);
-            textViewCharacteristic.setVisibility(View.VISIBLE);
-            textViewHealth.setVisibility(View.VISIBLE);
-            textViewRelations.setVisibility(View.VISIBLE);
-            textViewBusiness.setVisibility(View.VISIBLE);
-
-            imageViewCalendar.setVisibility(View.VISIBLE);
-            prevDayButton.setVisibility(View.VISIBLE);
-            nextDayButton.setVisibility(View.VISIBLE);
-            getDescriptionFromDatabaseByDate((month + 1) * 100 + dayOfMonth);
-        });
-
         return view;
     }
 
@@ -325,7 +289,6 @@ public class FragmentMoonCalendar extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     void changeDateViews(int centerDay, int centerMonth) {
         String currentDate = calendar.get(Calendar.YEAR) + "-" + fixMonthOrDay(centerMonth + 1) + "-" + fixMonthOrDay(centerDay);
-
         String nextDate = LocalDate.parse(currentDate).plusDays(1).toString();
         rightTitle = fixDate(Integer.parseInt(nextDate.substring(5, 7)), Integer.parseInt(nextDate.substring(8, 10)));
         nextDayButton.setText(rightTitle);
