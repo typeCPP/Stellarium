@@ -162,38 +162,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static void createFillInformationTable(SQLiteDatabase database) {
+    public void createFillInformationTable(SQLiteDatabase database) {
         ContentValues values = new ContentValues();
         values.put(InformationTable.COLUMN_NAME, "АФФИРМАЦИЯ");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Аффирмации это круто, это класс, кто не согласен тот...");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_affirmation));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "ГОРОСКОП");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Все знают что такое гороскоп.");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_horoscope));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "ТАРО");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Карты, деньги, два ствола.");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_tarot));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "СОВМЕСТИМОСТЬ");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Милый ты любишь меня?");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_compatibility));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "ЛУННЫЙ КАЛЕНДАРЬ");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Стригу волосы только, когда Луна в стадии жопы.");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_moon_calendar));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "НУМЕРОЛОГИЯ");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Цифры решают всё.");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_numerology));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "КВАДРАТ ПИФАГОРА");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Это не похоже на школьную программу.");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_pythagorean_square));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
         values.put(InformationTable.COLUMN_NAME, "ДА-НЕТ");
-        values.put(InformationTable.COLUMN_DESCRIPTION, "Ну тут уж совсем всё просто.");
+        values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_yes_no));
         database.insert(InformationTable.TABLE_NAME, null, values);
     }
 
