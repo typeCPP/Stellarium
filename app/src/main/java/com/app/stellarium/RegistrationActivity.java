@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
+import com.app.stellarium.utils.ServerConnection;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.Calendar;
@@ -74,7 +75,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("userName");
-        if(name != null) {
+        if (name != null) {
             editTextName.setText(name);
         }
         boolean isFacebookUID = intent.getBooleanExtra("isFacebook", false);
@@ -86,9 +87,14 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 buttonEndRegistration.startAnimation(scaleUp);
-                if(editTextName.getText().toString().isEmpty() || editTextDate.getText().toString().isEmpty() || (!isTouchMan && !isTouchWoman)) {
+                if (editTextName.getText().toString().isEmpty() || editTextDate.getText().toString().isEmpty() || (!isTouchMan && !isTouchWoman)) {
                     Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                 } else {
+                    ServerConnection serverConnection = new ServerConnection();
+                    String params = "/register/?name=" +
+                            editTextName.getText().toString() +
+                            "&date=" + editTextDate.getText().toString() +
+                            "&sex=" + isTouchMan;
                     DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
@@ -96,23 +102,35 @@ public class RegistrationActivity extends AppCompatActivity {
                     values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_SEX, isTouchMan);
-                    if(isFacebookUID && userUID != null) {
+                    if (isFacebookUID && userUID != null) {
                         values.put(UserTable.COLUMN_FACEBOOK_ID, userUID);
-                    } else if(userUID != null) {
+                        params += "&facebook=" + userUID;
+                    } else if (userUID != null) {
                         values.put(UserTable.COLUMN_GOOGLE_ID, userUID);
+                        params += "&google=" + userUID;
                     }
-                    if(email != null) {
+                    if (email != null) {
                         values.put(UserTable.COLUMN_EMAIL, email);
+                        params += "&mail=" + email;
                     }
-                    if(password != null) {
+                    if (password != null) {
                         values.put(UserTable.COLUMN_PASSWORD, password);
+                        params += "&password=" + password;
                     }
-
-                    database.insert(UserTable.TABLE_NAME, null, values);
-                    database.close();
-                    databaseHelper.close();
-                    Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
-                    RegistrationActivity.this.startActivity(myIntent);
+                    String response = serverConnection.getStringResponseByParameters(params);
+                    if(!response.contains("False")) {
+                        values.put(UserTable.COLUMN_SERVER_ID, Integer.parseInt(response));
+                        values.put(UserTable.COLUMN_MAIL_CONFIRMED, 0);
+                        database.insert(UserTable.TABLE_NAME, null, values);
+                        database.close();
+                        databaseHelper.close();
+                        Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
+                        RegistrationActivity.this.startActivity(myIntent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Ошибка регистрации: проверьте введенные поля.", Toast.LENGTH_LONG).show();
+                        database.close();
+                        databaseHelper.close();
+                    }
                 }
             }
         });

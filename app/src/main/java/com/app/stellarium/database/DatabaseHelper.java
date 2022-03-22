@@ -1,5 +1,6 @@
 package com.app.stellarium.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -16,6 +17,7 @@ import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
+import com.app.stellarium.utils.jsonmodels.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int version = 2;
@@ -57,7 +59,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TaroCardsTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoonCalendarTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + NumerologyTable.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
         onCreate(sqLiteDatabase);
+    }
+
+    public void insertUser(SQLiteDatabase database, User user) {
+        ContentValues cv = new ContentValues();
+        cv.put(UserTable.COLUMN_NAME, user.name);
+        cv.put(UserTable.COLUMN_MAIL_CONFIRMED, user.mail_confirm);
+        cv.put(UserTable.COLUMN_DATE_OF_BIRTH, user.date);
+        cv.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, user.sign);
+        cv.put(UserTable.COLUMN_SEX, user.sex);
+        cv.put(UserTable.COLUMN_SERVER_ID, user.id);
+        database.insert(UserTable.TABLE_NAME, null, cv);
     }
 }

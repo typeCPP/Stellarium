@@ -4,9 +4,11 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,6 +25,8 @@ import androidx.percentlayout.widget.PercentRelativeLayout;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -44,8 +48,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.gson.Gson;
 
+
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainRegistrationActivity extends AppCompatActivity {
 
@@ -155,10 +165,16 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 || signInPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                         } else {
-                            //TODO: сверить на сервере есть ли такой пользователь и получить ответ.
-                            // Если есть, то выполняем код ниже, если нет, то пишем об этом.
-                            myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
-                            MainRegistrationActivity.this.startActivity(myIntent);
+                            User user = getAuthorizedUser(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
+                            if(user != null) {
+                                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                                SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                                databaseHelper.insertUser(database, user);
+                                database.close();
+                                databaseHelper.close();
+                                myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
+                                MainRegistrationActivity.this.startActivity(myIntent);
+                            }
                         }
                         break;
 
@@ -189,6 +205,21 @@ public class MainRegistrationActivity extends AppCompatActivity {
         });
         showSigninForm();
 
+    }
+
+    private User getAuthorizedUser(String email, String password) {
+        ServerConnection serverConnection = new ServerConnection();
+        String response = null;
+        User user = null;
+        try {
+            response = serverConnection.getStringResponseByParameters("auth/?mail="+email+"&password="+password);
+            user = new Gson().fromJson(response, User.class);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Ошибка авторизации.", Toast.LENGTH_LONG).show();
+            return null;
+        }
+
+        return user;
     }
 
     @Override

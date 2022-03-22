@@ -1,11 +1,11 @@
 package com.app.stellarium;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -128,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
         createFillMoonCalendarTable(database);
         hideBottomBar(false);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         if (!checkSignedUser(database)) {
             database.close();
             databaseHelper.close();
@@ -136,15 +139,9 @@ public class MainActivity extends AppCompatActivity {
         }
         database.close();
         databaseHelper.close();
-
-        //getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-        //      .replace(R.id.frameLayout, new FragmentRegistration()).commit();
     }
 
     private boolean checkSignedUser(SQLiteDatabase database) {
-/*        ContentValues values = new ContentValues();
-        values.put(UserTable.COLUMN_NAME, "Андрей");
-        database.insert(UserTable.TABLE_NAME, null, values);*/
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
                 null, null, null, null);
