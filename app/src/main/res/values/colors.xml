@@ -49,6 +49,7 @@
     <color name="alert_dialog_background_end_color">#615AC1</color>
     <color name="alert_dialog_background_start_color">#8C86E4</color>
     <color name="alert_dialog_background_stroke">#403A8C</color>
-
-
+    <color name="personal_account_button">#4DC0A9E2</color>
+    <color name="personal_account_edit_text_spoke">#E67875DF</color>
+    <color name="personal_account_edit_text_solid">#E69694DC</color>
 </resources>
