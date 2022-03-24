@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +24,9 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.PythagoreanSquare;
+import com.google.gson.Gson;
 
 import java.util.Calendar;
 
@@ -76,8 +81,11 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     view.startAnimation(scaleUp);
                     Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
                     fragmentHomePage.setArguments(bundle);
-                    int[] matrixValues = calculatePythagoreanSquare(birthdayDay, birthdayMonth, birthdayYear);
+                    Pair<int[], String[]> data = getDataFromServer(birthdayDay, birthdayMonth, birthdayYear);
+                    int[] matrixValues = data.first;
+                    String[] texts = data.second;
                     bundle.putIntArray("matrixValues", matrixValues);
+                    bundle.putStringArray("texts", texts);
                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
                 }
@@ -160,27 +168,21 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         bundle.putString("Date", editTextDate.getText().toString());
     }
 
-    private int[] calculatePythagoreanSquare(int birthdayDay, int birthdayMonth, int birthdayYear) {
-        //example date: 12.07.2002
-        int firstWorkNumber = birthdayDay / 10 + birthdayDay % 10 + birthdayMonth / 10
-                + birthdayMonth % 10 + birthdayYear / 1000 + birthdayYear / 100 % 10
-                + birthdayYear % 100 / 10 + birthdayYear % 10;
-        int secondWorkNumber = firstWorkNumber / 10 + firstWorkNumber % 10;
-        int thirdWorkNumber = firstWorkNumber - 2 * (birthdayDay / 10);
-        int fourthWorkNumber = thirdWorkNumber / 10 + thirdWorkNumber % 10;
-        String resultString = "" + birthdayDay + birthdayMonth
-                + birthdayYear + firstWorkNumber + secondWorkNumber + thirdWorkNumber + fourthWorkNumber;
+    private Pair<int[], String[]> getDataFromServer(int birthdayDay, int birthdayMonth, int birthdayYear) {
+        ServerConnection serverConnection = new ServerConnection();
+        String response = serverConnection.getStringResponseByParameters("pifagorSquare/?day=" + birthdayDay +
+                "&month=" + birthdayMonth + "&year=" + birthdayYear);
+        PythagoreanSquare pythagoreanSquare = new Gson().fromJson(response, PythagoreanSquare.class);
+        Log.d("PYTHAGOR", pythagoreanSquare.toString());
+        int[] counts = {pythagoreanSquare.one.count, pythagoreanSquare.two.count, pythagoreanSquare.three.count,
+                pythagoreanSquare.four.count, pythagoreanSquare.five.count, pythagoreanSquare.six.count,
+                pythagoreanSquare.seven.count, pythagoreanSquare.eight.count, pythagoreanSquare.nine.count};
 
-        int[] result = new int[10];
-        for (int i = 0; i < 10; i++) {
-            result[i] = 0;
-        }
+        String[] texts = {pythagoreanSquare.one.text, pythagoreanSquare.two.text, pythagoreanSquare.three.text,
+                pythagoreanSquare.four.text, pythagoreanSquare.five.text, pythagoreanSquare.six.text,
+                pythagoreanSquare.seven.text, pythagoreanSquare.eight.text, pythagoreanSquare.nine.text};
 
-        //calculating how much times a number appears
-        for (int i = 0; i < resultString.length(); i++) {
-            result[Integer.parseInt(String.valueOf(resultString.charAt(i)))]++;
-        }
-        return result;
+        return new Pair<>(counts, texts);
     }
 
     private void getUserBirthday(SQLiteDatabase database) {
@@ -189,7 +191,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                 null, null, null, null);
         if (userCursor.getCount() > 0) {
             userCursor.moveToLast();
-            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+            @SuppressLint("Range") String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
             String[] temp = birthdayString.split("/", 3);
             birthdayDay = Integer.parseInt(temp[0]);
             birthdayMonth = Integer.parseInt(temp[1]);

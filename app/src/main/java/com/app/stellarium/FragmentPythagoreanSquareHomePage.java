@@ -1,8 +1,6 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,10 +15,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.PythagoreanSquareTable;
-
-
 public class FragmentPythagoreanSquareHomePage extends Fragment {
 
     private LinearLayout layoutDate;
@@ -32,6 +26,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
             logicNumberTextView, interestNumberTextView, laborNumberTextView, luckNumberTextView,
             dutyNumberTextView, mindNumberTextView;
     private int[] matrixValues;
+    private String[] descriptions;
 
     private TextView titleTextView;
     private TextView descriptionTextView;
@@ -65,33 +60,34 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
         if (bundle != null) {
             date = bundle.getString("Date");
             matrixValues = bundle.getIntArray("matrixValues");
+            descriptions = bundle.getStringArray("texts");
 
             characterNumberTextView = view.findViewById(R.id.characterNumberText);
-            characterNumberTextView.setText(getCharacteristicNumber(1, matrixValues[1]));
+            characterNumberTextView.setText(getCharacteristicNumber(1, matrixValues[0]));
 
             energyNumberTextView = view.findViewById(R.id.energyNumberText);
-            energyNumberTextView.setText(getCharacteristicNumber(2, matrixValues[2]));
+            energyNumberTextView.setText(getCharacteristicNumber(2, matrixValues[1]));
 
             interestNumberTextView = view.findViewById(R.id.interestNumberText);
-            interestNumberTextView.setText(getCharacteristicNumber(3, matrixValues[3]));
+            interestNumberTextView.setText(getCharacteristicNumber(3, matrixValues[2]));
 
             healthNumberTextView = view.findViewById(R.id.healthNumberText);
-            healthNumberTextView.setText(getCharacteristicNumber(4, matrixValues[4]));
+            healthNumberTextView.setText(getCharacteristicNumber(4, matrixValues[3]));
 
             logicNumberTextView = view.findViewById(R.id.logicNumberText);
-            logicNumberTextView.setText(getCharacteristicNumber(5, matrixValues[5]));
+            logicNumberTextView.setText(getCharacteristicNumber(5, matrixValues[4]));
 
             laborNumberTextView = view.findViewById(R.id.laborNumberText);
-            laborNumberTextView.setText(getCharacteristicNumber(6, matrixValues[6]));
+            laborNumberTextView.setText(getCharacteristicNumber(6, matrixValues[5]));
 
             luckNumberTextView = view.findViewById(R.id.luckNumberText);
-            luckNumberTextView.setText(getCharacteristicNumber(7, matrixValues[7]));
+            luckNumberTextView.setText(getCharacteristicNumber(7, matrixValues[6]));
 
             dutyNumberTextView = view.findViewById(R.id.dutyNumberText);
-            dutyNumberTextView.setText(getCharacteristicNumber(8, matrixValues[8]));
+            dutyNumberTextView.setText(getCharacteristicNumber(8, matrixValues[7]));
 
             mindNumberTextView = view.findViewById(R.id.mindNumberText);
-            mindNumberTextView.setText(getCharacteristicNumber(9, matrixValues[9]));
+            mindNumberTextView.setText(getCharacteristicNumber(9, matrixValues[8]));
         }
         if (date != null) {
             editTextDate.setText(date);
@@ -146,7 +142,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
                             break;
 
                     }
-                    description = getDescriptionFromDatabaseByNumber(idOfPythagoreanSquareElement, matrixValues[idOfPythagoreanSquareElement]);
+                    description = descriptions[idOfPythagoreanSquareElement - 1];
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
                     LayoutInflater layoutInflater = getLayoutInflater();
                     View dialogView = layoutInflater.inflate(R.layout.fragment_pythagorean_square_characteristic, null);
@@ -202,39 +198,5 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
             stringBuilder.append(number);
         }
         return stringBuilder.toString();
-    }
-
-    @SuppressLint("Range")
-    private String getDescriptionFromDatabaseByNumber(int number, int count) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(PythagoreanSquareTable.TABLE_NAME, null,
-                "NUMBER = " + number,
-                null, null, null, null);
-        cursor.moveToFirst();
-        String description = "";
-        if (count == 0) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_NO_NUMBER));
-        }
-        if (count == 1) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_ONE_NUMBER));
-        }
-        if (count == 2) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_TWO_NUMBERS));
-        }
-        if (count == 3) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_THREE_NUMBERS));
-        }
-        if (count == 4) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_FOUR_NUMBERS));
-        }
-        if (count == 5) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_FIVE_NUMBERS));
-        }
-        if (count >= 6) {
-            description = cursor.getString(cursor.getColumnIndex(PythagoreanSquareTable.COLUMN_SIX_NUMBERS));
-        }
-        return description;
     }
 }

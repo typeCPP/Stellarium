@@ -89,4 +89,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(HoroscopePredictionsByPeriodTable.CREATE_TABLE);
         sqLiteDatabase.execSQL(HoroscopeSignCharacteristicTable.CREATE_TABLE);
     }
+
+    public void dropCompatibilityZodiac(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CompatibilityZodiacTable.TABLE_NAME);
+        sqLiteDatabase.execSQL(CompatibilityZodiacTable.CREATE_TABLE);
+    }
+
+    public void dropCompatibilityNames(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CompatibilityNamesTable.TABLE_NAME);
+        sqLiteDatabase.execSQL(CompatibilityNamesTable.CREATE_TABLE);
+    }
+
+    public void dropNumerology(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + NumerologyTable.TABLE_NAME);
+        sqLiteDatabase.execSQL(NumerologyTable.CREATE_TABLE);
+    }
 }

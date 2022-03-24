@@ -3,6 +3,7 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,8 +21,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.Numerology;
+import com.google.gson.Gson;
 
 import java.util.Calendar;
 
@@ -77,6 +82,7 @@ public class FragmentNumerologyDateSelection extends Fragment {
                     view.startAnimation(scaleUp);
                     Fragment fragment = new FragmentNumerology();
                     int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
+                    getServerResponseToDatabase(numerologyNumber);
                     bundle.putInt("numerologyNumber", numerologyNumber);
                     fragment.setArguments(bundle);
                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
@@ -113,6 +119,35 @@ public class FragmentNumerologyDateSelection extends Fragment {
         });
         nextButton.setOnTouchListener(new ButtonOnTouchListener());
         return view;
+    }
+
+    private void getServerResponseToDatabase(int number) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        databaseHelper.dropNumerology(database);
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("numerology/?num=" + number);
+            Numerology numerology = new Gson().fromJson(response, Numerology.class);
+            insertNumerology(database, numerology);
+        } catch (Exception e) {
+            database.close();
+            databaseHelper.close();
+        }
+        database.close();
+        databaseHelper.close();
+    }
+
+    private void insertNumerology(SQLiteDatabase database, Numerology numerology) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(NumerologyTable.COLUMN_NUMBER, numerology.number);
+        contentValues.put(NumerologyTable.COLUMN_GENERAL, numerology.general);
+        contentValues.put(NumerologyTable.COLUMN_DIGNITIES, numerology.dignities);
+        contentValues.put(NumerologyTable.COLUMN_DISADVANTAGES, numerology.disadvantages);
+        contentValues.put(NumerologyTable.COLUMN_FATE, numerology.fate);
+
+        database.insert(NumerologyTable.TABLE_NAME, null, contentValues);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -176,7 +211,7 @@ public class FragmentNumerologyDateSelection extends Fragment {
                 null, null, null, null);
         if (userCursor.getCount() > 0) {
             userCursor.moveToLast();
-            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+            @SuppressLint("Range") String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
             String[] temp = birthdayString.split("/", 3);
             birthdayDay = Integer.parseInt(temp[0]);
             birthdayMonth = Integer.parseInt(temp[1]);
