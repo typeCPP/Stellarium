@@ -10,7 +10,7 @@ public class HoroscopeSignCharacteristicTable {
     public final static String COLUMN_CAREER = "CAREER";
 
     public final static String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_DESCRIPTION + " TEXT NOT NULL,"
+            + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_DESCRIPTION + " TEXT NOT NULL,"
             + COLUMN_CHARACTER + " TEXT NOT NULL," + COLUMN_LOVE + " TEXT NOT NULL," + COLUMN_CAREER
             + " TEXT NOT NULL);";
 }

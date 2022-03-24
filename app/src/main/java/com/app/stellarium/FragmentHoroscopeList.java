@@ -1,11 +1,13 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +20,11 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
+import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.Horoscope;
+import com.google.gson.Gson;
 import com.szugyi.circlemenu.view.CircleLayout;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,7 +40,11 @@ public class FragmentHoroscopeList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        databaseHelper.dropHoroscopeTables(database);
+        database.close();
+        databaseHelper.close();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -126,6 +136,7 @@ public class FragmentHoroscopeList extends Fragment {
                                 drawableId = R.drawable.big_pisces;
                                 break;
                         }
+                        getHoroscopeDataFromServerToLocalTables(idOfHoroscopePredictionsByPeriodTableElement);
                         Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
                         bundle.putInt("signPictureDrawableId", drawableId);
                         bundle.putInt("signId", idOfHoroscopePredictionsByPeriodTableElement);
@@ -203,15 +214,103 @@ public class FragmentHoroscopeList extends Fragment {
         piscesButton.setPadding(20, 20, 20, 20);
 
         circleLayout.setAngle(getDegreeForCircleLayout());
-        
+
         return view;
+    }
+
+    private void getHoroscopeDataFromServerToLocalTables(int signId) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        String[] names = {"Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы"};
+        String[] periods = {"21 марта – 20 апреля", "21 апреля – 21 мая", "22 мая – 21 июня",
+                "22 июня – 22 июля", "23 июля – 23 августа", "24 августа – 22 сентября",
+                "23 сентября – 22 октября", "23 октября – 22 ноября", "22 ноября – 21 декабря",
+                "22 декабря – 20 января", "21 января – 19 февраля", "20 февраля – 20 марта"};
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response;
+            response = serverConnection.getStringResponseByParameters("/horoscopes/?sign=" + signId);
+            Log.d("HOROSCOPE", String.valueOf(signId));
+            Horoscope horoscope = new Gson().fromJson(response, Horoscope.class);
+            Log.d("HOROSCOPE", horoscope.toString());
+            Long characteristicId = insertSignCharacteristic(database, horoscope);
+            insertPredictions(database, horoscope, periods[signId - 1], names[signId - 1], characteristicId);
+        } catch (Exception e) {
+            database.close();
+            databaseHelper.close();
+        }
+        database.close();
+        databaseHelper.close();
+    }
+
+    private void insertPredictions(SQLiteDatabase sqLiteDatabase, Horoscope horoscope, String period, String name, Long characteristicId) {
+        ContentValues predictionCV = new ContentValues();
+        ContentValues periodCV = new ContentValues();
+        long rowId = -1;
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_COMMON, horoscope.today.common);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_LOVE, horoscope.today.love);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_HEALTH, horoscope.today.health);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_BUSINESS, horoscope.today.business);
+
+        rowId = sqLiteDatabase.insert(HoroscopePredictionsTable.TABLE_NAME, null, predictionCV);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_TODAY_PREDICTION_ID, rowId);
+
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_COMMON, horoscope.tomorrow.common);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_LOVE, horoscope.tomorrow.love);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_HEALTH, horoscope.tomorrow.health);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_BUSINESS, horoscope.tomorrow.business);
+
+        rowId = sqLiteDatabase.insert(HoroscopePredictionsTable.TABLE_NAME, null, predictionCV);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_TOMORROW_PREDICTION_ID, rowId);
+
+
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_COMMON, horoscope.week.common);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_LOVE, horoscope.week.love);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_HEALTH, horoscope.week.health);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_BUSINESS, horoscope.week.business);
+
+        rowId = sqLiteDatabase.insert(HoroscopePredictionsTable.TABLE_NAME, null, predictionCV);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_WEEK_PREDICTION_ID, rowId);
+
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_COMMON, horoscope.month.common);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_LOVE, horoscope.month.love);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_HEALTH, horoscope.month.health);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_BUSINESS, horoscope.month.business);
+
+        rowId = sqLiteDatabase.insert(HoroscopePredictionsTable.TABLE_NAME, null, predictionCV);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_MONTH_PREDICTION_ID, rowId);
+
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_COMMON, horoscope.year.common);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_LOVE, horoscope.year.love);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_HEALTH, horoscope.year.health);
+        predictionCV.put(HoroscopePredictionsTable.COLUMN_BUSINESS, horoscope.year.business);
+
+        rowId = sqLiteDatabase.insert(HoroscopePredictionsTable.TABLE_NAME, null, predictionCV);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_YEAR_PREDICTION_ID, rowId);
+
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_SIGN_NAME, name);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_PERIOD_SIGN, period);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_CHARACTERISTIC_ID, characteristicId);
+        periodCV.put(HoroscopePredictionsByPeriodTable.COLUMN_ID, horoscope.info.id);
+
+        sqLiteDatabase.insert(HoroscopePredictionsByPeriodTable.TABLE_NAME, null, periodCV);
+    }
+
+    private long insertSignCharacteristic(SQLiteDatabase sqLiteDatabase, Horoscope horoscope) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(HoroscopeSignCharacteristicTable.COLUMN_ID, horoscope.info.id);
+        contentValues.put(HoroscopeSignCharacteristicTable.COLUMN_DESCRIPTION, horoscope.character.description);
+        contentValues.put(HoroscopeSignCharacteristicTable.COLUMN_CHARACTER, horoscope.character.charact);
+        contentValues.put(HoroscopeSignCharacteristicTable.COLUMN_LOVE, horoscope.character.love);
+        contentValues.put(HoroscopeSignCharacteristicTable.COLUMN_CAREER, horoscope.character.career);
+        return sqLiteDatabase.insert(HoroscopeSignCharacteristicTable.TABLE_NAME, null, contentValues);
     }
 
     @SuppressLint("Range")
     private Bundle findAndGetHoroscopeSignDataFromDatabase(int signId) {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        Cursor periodTableCursor = database.query(HoroscopePredictionsByPeriodTable.TABLE_NAME, null,
+        @SuppressLint("Recycle") Cursor periodTableCursor = database.query(HoroscopePredictionsByPeriodTable.TABLE_NAME, null,
                 "_id = " + signId,
                 null, null, null, null);
         periodTableCursor.moveToFirst();

@@ -202,7 +202,7 @@ public class FragmentInformationAboutSign extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"ResourceAsColor", "WrongConstant"})
     private void setAttributesForTextView(String text, TextView textView) {
-        textView.setMaxLines(1);
+       // textView.setMaxLines(1);
         textView.setText(text);
         textView.setPadding(10, 30, 10, 30);
     }

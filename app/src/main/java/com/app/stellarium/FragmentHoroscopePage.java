@@ -261,8 +261,8 @@ public class FragmentHoroscopePage extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick() {
-                view.startAnimation(scaleUp);
-                if (bundle != null) {
+                if (bundle != null && view.getId() != R.id.contentLayout) {
+                    view.startAnimation(scaleUp);
                     switch (view.getId()) {
                         case R.id.commonHoroscopeButton:
                             if (isClickCommonHoroscopeButton) {

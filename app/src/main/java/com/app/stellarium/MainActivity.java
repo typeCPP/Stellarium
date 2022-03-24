@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         databaseHelper.onUpgrade(database, 2, 2);
         createFillInformationTable(database);
-        createFillHoroscopePredictionsByPeriodTable(database);
-        createFillHoroscopePredictionsTable(database);
-        createFillHoroscopeSignCharacteristicTable(database);
+        //createFillHoroscopePredictionsByPeriodTable(database);
+        //createFillHoroscopePredictionsTable(database);
+        //createFillHoroscopeSignCharacteristicTable(database);
         createFillPythagoreanSquareTable(database);
         createFillZodiacSignsTable(database);
         createFillCompatibilityZodiacTable(database);

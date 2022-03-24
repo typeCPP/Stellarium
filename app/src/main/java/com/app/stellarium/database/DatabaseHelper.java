@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TaroCardsTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoonCalendarTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + NumerologyTable.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 
@@ -72,5 +72,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(UserTable.COLUMN_SEX, user.sex);
         cv.put(UserTable.COLUMN_SERVER_ID, user.id);
         database.insert(UserTable.TABLE_NAME, null, cv);
+    }
+
+    public void dropUserTable(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+
+        sqLiteDatabase.execSQL(UserTable.CREATE_TABLE);
+    }
+
+    public void dropHoroscopeTables(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HoroscopePredictionsTable.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HoroscopePredictionsByPeriodTable.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HoroscopeSignCharacteristicTable.TABLE_NAME);
+
+        sqLiteDatabase.execSQL(HoroscopePredictionsTable.CREATE_TABLE);
+        sqLiteDatabase.execSQL(HoroscopePredictionsByPeriodTable.CREATE_TABLE);
+        sqLiteDatabase.execSQL(HoroscopeSignCharacteristicTable.CREATE_TABLE);
     }
 }
