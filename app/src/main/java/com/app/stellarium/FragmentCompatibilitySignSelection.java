@@ -2,6 +2,7 @@ package com.app.stellarium;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,7 +31,11 @@ import android.widget.ViewSwitcher;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.CompatibilityZodiacTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.CompatibilityHoroscope;
+import com.google.gson.Gson;
 import com.szugyi.circlemenu.view.CircleLayout;
 
 import java.lang.reflect.InvocationTargetException;
@@ -53,6 +59,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
     private Bundle bundle;
     private Animation scaleUp;
     private TextView signTextWoman, signTextMan;
+    private int idOfWomanSign = 1;
+    private int idOfManSign = 1;
 
 
     public static FragmentCompatibilitySignSelection newInstance(String param1, String param2) {
@@ -136,8 +144,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                     boolean isTouchLength = (Math.abs(motionEvent.getX() - actionDownPoint.x) +
                             Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
                     if (isTouchLength) {
-                        int idOfWomanSign = 1;
-                        int idOfManSign = 1;
+
                         switch (view.getId()) {
                             case R.id.compAriesButton:
                                 if (isWoman) {
@@ -299,27 +306,27 @@ public class FragmentCompatibilitySignSelection extends Fragment {
 
                         if (isSelectedWoman && isSelectedMan) {
 
-                             nextButton.animate().alpha(1).setDuration(500).setListener(new Animator.AnimatorListener() {
-                                 @Override
-                                 public void onAnimationStart(Animator animator) {
+                            nextButton.animate().alpha(1).setDuration(500).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
 
-                                 }
+                                }
 
-                                 @Override
-                                 public void onAnimationEnd(Animator animator) {
-                                     layout_with_spinner.setVisibility(View.INVISIBLE);
-                                 }
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    layout_with_spinner.setVisibility(View.INVISIBLE);
+                                }
 
-                                 @Override
-                                 public void onAnimationCancel(Animator animator) {
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
 
-                                 }
+                                }
 
-                                 @Override
-                                 public void onAnimationRepeat(Animator animator) {
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
 
-                                 }
-                             });
+                                }
+                            });
                         }
                     }
                 }
@@ -334,6 +341,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
                     fragmentCompatibilityZodiac.setArguments(bundle);
+                    getCompatibilityFromServerToDatabase(idOfWomanSign, idOfManSign);
                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                             .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
                 }
@@ -436,5 +444,43 @@ public class FragmentCompatibilitySignSelection extends Fragment {
         piscesButton = view.findViewById(R.id.compPiscesButton);
         piscesButton.setOnTouchListener(new ButtonOnTouchListenerChooseSign());
         return view;
+    }
+
+    private void getCompatibilityFromServerToDatabase(int womanId, int manId) {
+        ServerConnection serverConnection = new ServerConnection();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+        try {
+            String response = serverConnection.getStringResponseByParameters("compHoro/?first=" + womanId + "&second=" + manId);
+            CompatibilityHoroscope compatibilityHoroscope = new Gson().fromJson(response, CompatibilityHoroscope.class);
+
+            databaseHelper.dropCompatibilityZodiac(sqLiteDatabase);
+            insertCompatibilityToDatabase(sqLiteDatabase, compatibilityHoroscope, womanId, manId);
+            sqLiteDatabase.close();
+            databaseHelper.close();
+        } catch (Exception e) {
+            Log.d("COMPATIBILITY", e.getMessage());
+            sqLiteDatabase.close();
+            databaseHelper.close();
+        }
+    }
+
+    private void insertCompatibilityToDatabase(SQLiteDatabase database, CompatibilityHoroscope compatibilityHoroscope, int womanId, int manId) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CompatibilityZodiacTable.COLUMN_FIRST_SIGN_ID, womanId);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_SECOND_SIGN_ID, manId);
+
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_LOVE_TEXT, compatibilityHoroscope.love_text);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_SEX_TEXT, compatibilityHoroscope.sex_text);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_TEXT, compatibilityHoroscope.marriage_text);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_TEXT, compatibilityHoroscope.friend_text);
+
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_LOVE_VALUE, compatibilityHoroscope.love_val);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_SEX_VALUE, compatibilityHoroscope.sex_val);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_VALUE, compatibilityHoroscope.marriage_val);
+        contentValues.put(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_VALUE, compatibilityHoroscope.friend_val);
+
+        database.insert(CompatibilityZodiacTable.TABLE_NAME, null, contentValues);
     }
 }

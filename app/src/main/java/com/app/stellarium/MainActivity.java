@@ -119,12 +119,12 @@ public class MainActivity extends AppCompatActivity {
         //createFillHoroscopePredictionsByPeriodTable(database);
         //createFillHoroscopePredictionsTable(database);
         //createFillHoroscopeSignCharacteristicTable(database);
-        createFillPythagoreanSquareTable(database);
+        //createFillPythagoreanSquareTable(database);
         createFillZodiacSignsTable(database);
-        createFillCompatibilityZodiacTable(database);
-        createFillCompatibilityNamesTable(database);
+        //createFillCompatibilityZodiacTable(database);
+        //createFillCompatibilityNamesTable(database);
         createFillTaroCardsTable(database);
-        createFillNumerologyTable(database);
+        //createFillNumerologyTable(database);
         createFillMoonCalendarTable(database);
         hideBottomBar(false);
 
