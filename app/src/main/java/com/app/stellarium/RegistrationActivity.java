@@ -117,19 +117,29 @@ public class RegistrationActivity extends AppCompatActivity {
                         values.put(UserTable.COLUMN_PASSWORD, password);
                         params += "&password=" + password;
                     }
-                    String response = serverConnection.getStringResponseByParameters(params);
-                    if(!response.contains("False")) {
-                        values.put(UserTable.COLUMN_SERVER_ID, Integer.parseInt(response));
-                        values.put(UserTable.COLUMN_MAIL_CONFIRMED, 0);
+                    if ((email != null && password != null) || userUID != null) {
+
+                        String response = serverConnection.getStringResponseByParameters(params);
+
+                        if (response != null && !response.contains("False")) {
+                            values.put(UserTable.COLUMN_SERVER_ID, Integer.parseInt(response));
+                            values.put(UserTable.COLUMN_MAIL_CONFIRMED, 0);
+                            database.insert(UserTable.TABLE_NAME, null, values);
+                            database.close();
+                            databaseHelper.close();
+                            Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
+                            RegistrationActivity.this.startActivity(myIntent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Ошибка регистрации: проверьте введенные поля.", Toast.LENGTH_LONG).show();
+                            database.close();
+                            databaseHelper.close();
+                        }
+                    } else {
                         database.insert(UserTable.TABLE_NAME, null, values);
                         database.close();
                         databaseHelper.close();
                         Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
                         RegistrationActivity.this.startActivity(myIntent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Ошибка регистрации: проверьте введенные поля.", Toast.LENGTH_LONG).show();
-                        database.close();
-                        databaseHelper.close();
                     }
                 }
             }

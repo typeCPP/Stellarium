@@ -213,6 +213,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
         User user = null;
         try {
             response = serverConnection.getStringResponseByParameters("auth/?mail="+email+"&password="+password);
+            if(response.equals("False")) {
+                throw new NullPointerException("Wrong user data.");
+            }
             user = new Gson().fromJson(response, User.class);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Ошибка авторизации.", Toast.LENGTH_LONG).show();

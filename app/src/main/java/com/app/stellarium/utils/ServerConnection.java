@@ -36,7 +36,7 @@ public class ServerConnection {
         }
     }
 
-    private String getQuery(List<Pair<String, String>> params) throws UnsupportedEncodingException {
+    public static String getQuery(List<Pair<String, String>> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
 
