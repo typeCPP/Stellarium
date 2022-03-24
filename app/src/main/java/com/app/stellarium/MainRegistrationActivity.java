@@ -1,14 +1,11 @@
 package com.app.stellarium;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,7 +20,6 @@ import androidx.percentlayout.widget.PercentLayoutHelper;
 import androidx.percentlayout.widget.PercentRelativeLayout;
 
 import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.User;
@@ -51,11 +47,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.Gson;
 
 
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MainRegistrationActivity extends AppCompatActivity {
 
