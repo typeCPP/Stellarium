@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -24,6 +24,9 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.MoonCalendarTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.MoonCalendar;
+import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -120,13 +123,13 @@ public class FragmentMoonCalendar extends Fragment {
             monthSelection = bundle.getInt("month");
             textViewDate.setText(dateOfMonthSelection + monthToString(monthSelection));
             changeDateViews(dateOfMonthSelection, monthSelection);
-            getDescriptionFromDatabaseByDate((monthSelection + 1) * 100 + dateOfMonthSelection);
+            getDescriptionFromServerByDate((monthSelection + 1) * 100 + dateOfMonthSelection);
         } else {
             dateOfMonthSelection = calendar.get(Calendar.DAY_OF_MONTH);
             monthSelection = calendar.get(Calendar.MONTH);
             textViewDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + monthToString(calendar.get(Calendar.MONTH)));
             changeDateViews(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH));
-            getDescriptionFromDatabaseByDate((calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DAY_OF_MONTH));
+            getDescriptionFromServerByDate((calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DAY_OF_MONTH));
         }
 
         class SlideAnimationListener implements Animation.AnimationListener {
@@ -151,7 +154,7 @@ public class FragmentMoonCalendar extends Fragment {
                     monthSelection = Integer.parseInt(leftTitle.substring(3, 5)) - 1;
                     System.out.println("date: " + dateOfMonthSelection + " month :" + monthSelection);
                     textViewDate.setText(leftTitle.substring(0, 2) + monthToString(Integer.parseInt(leftTitle.substring(3, 5)) - 1));
-                    getDescriptionFromDatabaseByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2)));
+                    getDescriptionFromServerByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2)));
                     changeDateViews(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)) - 1);
                     time = new Time();
                     time.set(Integer.parseInt(leftTitle.substring(0, 2)) + 1, Integer.parseInt(leftTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
@@ -159,7 +162,7 @@ public class FragmentMoonCalendar extends Fragment {
                     dateOfMonthSelection = Integer.parseInt(rightTitle.substring(0, 2));
                     monthSelection = Integer.parseInt(rightTitle.substring(3, 5)) - 1;
                     textViewDate.setText(rightTitle.substring(0, 2) + monthToString(Integer.parseInt(rightTitle.substring(3, 5)) - 1));
-                    getDescriptionFromDatabaseByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2)));
+                    getDescriptionFromServerByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2)));
                     changeDateViews(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)) - 1);
                     time = new Time();
                     time.set(Integer.parseInt(rightTitle.substring(0, 2)) - 1, Integer.parseInt(rightTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
@@ -245,20 +248,21 @@ public class FragmentMoonCalendar extends Fragment {
         });
     }
 
-    @SuppressLint("Range")
-    private void getDescriptionFromDatabaseByDate(int date) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
-        Cursor cursor = database.query(MoonCalendarTable.TABLE_NAME, null,
-                "DATE = " + date,
-                null, null, null, null);
-        cursor.moveToFirst();
-        textViewPhase.setText(cursor.getString(cursor.getColumnIndex(MoonCalendarTable.COLUMN_PHASE)));
-        textViewCharacteristic.setText(cursor.getString(cursor.getColumnIndex(MoonCalendarTable.COLUMN_CHARACTERISTIC)));
-        textViewHealth.setText(cursor.getString(cursor.getColumnIndex(MoonCalendarTable.COLUMN_HEALTH)));
-        textViewRelations.setText(cursor.getString(cursor.getColumnIndex(MoonCalendarTable.COLUMN_RELATIONS)));
-        textViewBusiness.setText(cursor.getString(cursor.getColumnIndex(MoonCalendarTable.COLUMN_BUSINESS)));
+    private void getDescriptionFromServerByDate(int date) {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("moonCalendar/?date=" + date);
+            MoonCalendar moonCalendar = new Gson().fromJson(response, MoonCalendar.class);
+
+            textViewPhase.setText(moonCalendar.phase);
+            textViewCharacteristic.setText(moonCalendar.characteristics);
+            textViewHealth.setText(moonCalendar.health);
+            textViewRelations.setText(moonCalendar.relations);
+            textViewBusiness.setText(moonCalendar.business);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Ошибка загрузки.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private String fixDate(int month, int day) {

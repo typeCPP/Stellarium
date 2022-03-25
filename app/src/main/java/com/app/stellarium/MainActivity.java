@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         //createFillCompatibilityNamesTable(database);
         createFillTaroCardsTable(database);
         //createFillNumerologyTable(database);
-        createFillMoonCalendarTable(database);
+        //createFillMoonCalendarTable(database);
         hideBottomBar(false);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
