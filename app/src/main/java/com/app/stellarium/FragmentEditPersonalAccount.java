@@ -17,25 +17,24 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
-import com.app.stellarium.utils.jsonmodels.User;
+import com.app.stellarium.utils.ZodiacSignUtils;
 
 import java.util.Calendar;
 
 public class FragmentEditPersonalAccount extends Fragment {
 
-    private ImageView crossEditDate, crossEditName;
-    private TextView editTextName, editTextDate;
+    private ImageView crossEditDate, crossEditName, signImage;
+    private TextView editTextName, editTextDate, signText;
     private DatePickerDialog datePickerDialog;
     private int birthdayDay;
     private int birthdayMonth;
     private int birthdayYear;
-    private int userId;
+    private int userId, signId;
     private boolean isSelected = false;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private RadioButton radioButtonMan, radioButtonWoman;
@@ -61,7 +60,7 @@ public class FragmentEditPersonalAccount extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_edit_personal_account, container, false);
         saveButton = view.findViewById(R.id.save_button);
         crossEditDate = view.findViewById(R.id.cross_edit_date);
@@ -71,23 +70,16 @@ public class FragmentEditPersonalAccount extends Fragment {
         radioButtonMan = view.findViewById(R.id.radio_button_man);
         radioButtonWoman = view.findViewById(R.id.radio_button_woman);
         radioGroup = view.findViewById(R.id.radioGroup);
+        signImage = view.findViewById(R.id.sign_edit_personal_account);
+        signText = view.findViewById(R.id.sign_text_edit_personal_account);
+
+
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         getUserData(databaseHelper.getReadableDatabase());
+        setSignImageAndText(signId);
+        crossEditDate.setOnClickListener(crossClickListener);
+        crossEditName.setOnClickListener(crossClickListener);
 
-        radioButtonMan.setOnClickListener(radioButtonClickListener);
-        radioButtonWoman.setOnClickListener(radioButtonClickListener);
-        crossEditDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editTextDate.setText("");
-            }
-        });
-        crossEditName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editTextName.setText("");
-            }
-        });
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +99,8 @@ public class FragmentEditPersonalAccount extends Fragment {
                         }
                         editTextDate.setTextColor(getResources().getColor(R.color.white));
                         editTextDate.setText(text.toString());
+                        signId = ZodiacSignUtils.getUserSignID(text.toString());
+                        setSignImageAndText(signId);
                         isSelected = true;
                     }
                 };
@@ -132,8 +126,12 @@ public class FragmentEditPersonalAccount extends Fragment {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
                     contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
+                    contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
                     database.update(UserTable.TABLE_NAME, contentValues, "_ID=" + userId, null);
                     database.close();
+                    Fragment fragment = new FragmentPersonalAccount();
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right)
+                            .replace(R.id.frameLayout, fragment).commit();
                 } else {
                     Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();
                 }
@@ -142,14 +140,17 @@ public class FragmentEditPersonalAccount extends Fragment {
         return view;
     }
 
-    View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
+    View.OnClickListener crossClickListener = new View.OnClickListener() {
+
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
-            RadioButton radioButton = (RadioButton) view;
-            switch (radioButton.getId()) {
-                case R.id.radio_button_man:
+            switch (view.getId()) {
+                case R.id.cross_edit_date:
+                    editTextDate.setText("");
                     break;
-                case R.id.radio_button_woman:
+                case R.id.cross_edit_name:
+                    editTextName.setText("");
                     break;
             }
         }
@@ -157,6 +158,8 @@ public class FragmentEditPersonalAccount extends Fragment {
 
     @SuppressLint("ResourceAsColor")
     private void createDatePickerDialog(int day, int month, int year, Calendar calendar) {
+        signImage.animate().alpha(0f).setDuration(500).setListener(null);
+        signText.animate().alpha(0f).setDuration(500).setListener(null);
         datePickerDialog = new DatePickerDialog(getContext(), R.style.CustomDatePickerDialog, dateSetListener, year, month, day);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(R.color.button_registration_bottom_text);
@@ -179,6 +182,7 @@ public class FragmentEditPersonalAccount extends Fragment {
             String name = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
             int sex = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_SEX));
             userId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_ID));
+            signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
             switch (sex) {
                 case 0:
                     radioButtonWoman.setChecked(true);
@@ -198,5 +202,63 @@ public class FragmentEditPersonalAccount extends Fragment {
             birthdayMonth = 7;
             birthdayYear = 2002;
         }
+    }
+
+    private void setSignImageAndText(int signId) {
+        if (signId != 0) {
+            switch (signId) {
+                case 1:
+                    signText.setText("Овен");
+                    signImage.setImageResource(R.drawable.big_aries);
+                    break;
+                case 2:
+                    signText.setText("Телец");
+                    signImage.setImageResource(R.drawable.big_taurus);
+                    break;
+                case 3:
+                    signText.setText("Близнецы");
+                    signImage.setImageResource(R.drawable.big_gemini);
+                    break;
+                case 4:
+                    signText.setText("Рак");
+                    signImage.setImageResource(R.drawable.big_cancer);
+                    break;
+                case 5:
+                    signText.setText("Лев");
+                    signImage.setImageResource(R.drawable.big_leo);
+                    break;
+                case 6:
+                    signText.setText("Дева");
+                    signImage.setImageResource(R.drawable.big_virgo);
+                    break;
+                case 7:
+                    signText.setText("Весы");
+                    signImage.setImageResource(R.drawable.big_libra);
+                    break;
+                case 8:
+                    signText.setText("Скорпион");
+                    signImage.setImageResource(R.drawable.big_scorpio);
+                    break;
+                case 9:
+                    signText.setText("Стрелец");
+                    signImage.setImageResource(R.drawable.big_sagittarius);
+                    break;
+                case 10:
+                    signText.setText("Козерог");
+                    signImage.setImageResource(R.drawable.big_capricorn);
+                    break;
+                case 11:
+                    signText.setText("Водолей");
+                    signImage.setImageResource(R.drawable.big_aquarius);
+                    break;
+                case 12:
+                    signText.setText("Рыбы");
+                    signImage.setImageResource(R.drawable.big_pisces);
+                    break;
+            }
+        }
+        signImage.animate().alpha(1f).setDuration(500).setListener(null);
+        signText.animate().alpha(1f).setDuration(500).setListener(null);
+
     }
 }

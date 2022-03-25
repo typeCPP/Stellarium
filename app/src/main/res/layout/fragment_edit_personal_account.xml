@@ -21,12 +21,14 @@
             android:layout_weight="2.75">
 
             <ImageView
+                android:id="@+id/sign_edit_personal_account"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/big_aries" />
         </FrameLayout>
 
         <TextView
+            android:id="@+id/sign_text_edit_personal_account"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -35,8 +37,8 @@
             android:autoSizeTextType="uniform"
             android:breakStrategy="balanced"
             android:fontFamily="@font/gabriela_regular"
-            android:gravity="center"
 
+            android:gravity="center"
             android:text="Дева"
             android:textColor="@color/white"
             android:textStyle="bold" />

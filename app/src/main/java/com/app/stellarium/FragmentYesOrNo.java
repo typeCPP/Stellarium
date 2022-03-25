@@ -4,6 +4,7 @@ import static android.content.Context.SENSOR_SERVICE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -137,10 +138,13 @@ public class FragmentYesOrNo extends Fragment {
             ballResponseTextView.setAlpha(1.0f);
             ballResponseTextView.startAnimation(fadeInAnimation);
             ballResponseTextView.setText(ball.shake());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(300, 100));
-            } else {
-                vibrator.vibrate(300);
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("yes_or_no", Context.MODE_PRIVATE);
+            if (sharedPreferences.getBoolean("isChecked", true)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(300, 100));
+                } else {
+                    vibrator.vibrate(300);
+                }
             }
         }
     }

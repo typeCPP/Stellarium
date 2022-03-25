@@ -1,21 +1,35 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+
+import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.utils.custom.CustomDialog;
 
 public class FragmentPersonalAccount extends Fragment {
 
-    private ImageView arrowEditProfile;
+    private LinearLayout layoutEditProfile, layoutAffirmations;
+    private ImageView exitImage, signImage;
+    private TextView name, date, signText;
+    private SwitchCompat switchCompat;
+    private int signId;
 
     public static FragmentPersonalAccount newInstance(String param1, String param2) {
         FragmentPersonalAccount fragment = new FragmentPersonalAccount();
@@ -32,28 +46,152 @@ public class FragmentPersonalAccount extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personal_account, container, false);
-        class ButtonOnTouchListener implements View.OnTouchListener {
-            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId", "RestrictedApi"})
+        layoutEditProfile = view.findViewById(R.id.layout_profile_edit);
+        layoutAffirmations = view.findViewById(R.id.layout_profile_affirmations);
+        name = view.findViewById(R.id.personal_account_name);
+        date = view.findViewById(R.id.personal_account_date);
+        exitImage = view.findViewById(R.id.personal_account_exit);
+        switchCompat = view.findViewById(R.id.switch_personal_account);
+
+        signImage = view.findViewById(R.id.sign_image_personal_account);
+        signText = view.findViewById(R.id.sign_text_personal_account);
+
+        setSwitchMode();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        setUserData(databaseHelper.getReadableDatabase());
+        setSignImageAndText();
+
+        View.OnClickListener layoutClickListener = new View.OnClickListener() {
+
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Bundle bundle = new Bundle();
-
-                    switch (view.getId()) {
-                        case R.id.arrow_edit_profile:
-                            Fragment fragment = new FragmentEditPersonalAccount();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
-                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
-
-                            break;
-
-                    }
+            public void onClick(View view) {
+                Fragment fragment = null;
+                switch (view.getId()) {
+                    case R.id.layout_profile_edit:
+                        fragment = new FragmentEditPersonalAccount();
+                        break;
+                    case R.id.layout_profile_affirmations:
+                        break;
                 }
-                return true;
+                if (fragment != null) {
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
+                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+
+                }
+            }
+        };
+
+        exitImage.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View view) {
+                CustomDialog customDialog = new CustomDialog(getContext());
+                customDialog.show();
+                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
+        });
+
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("yes_or_no", Context.MODE_PRIVATE);
+                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isChecked", isChecked);
+                editor.commit();
+
+            }
+        });
+        layoutEditProfile.setOnClickListener(layoutClickListener);
+        layoutAffirmations.setOnClickListener(layoutClickListener);
+        return view;
+    }
+
+    @SuppressLint({"Range", "SetTextI18n"})
+    private void setUserData(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        if (userCursor.getCount() > 0) {
+            userCursor.moveToLast();
+            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+            String nameString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+            signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
+            if (!birthdayString.isEmpty()) {
+                String[] temp = birthdayString.split("/", 3);
+                date.setText(temp[0] + "." + temp[1] + "." + temp[2]);
+            }
+            if (!nameString.isEmpty()) {
+                name.setText(nameString);
+            }
+        } else {
+            date.setText("01.01.1999");
+            name.setText("Андрей");
+        }
+    }
+
+    private void setSwitchMode() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("yes_or_no", Context.MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("isChecked", true)) {
+            switchCompat.setChecked(true);
+        } else {
+            switchCompat.setChecked(false);
+        }
+    }
+
+    private void setSignImageAndText() {
+        if (signId != 0) {
+            switch (signId) {
+                case 1:
+                    signText.setText("Овен");
+                    signImage.setImageResource(R.drawable.big_aries);
+                    break;
+                case 2:
+                    signText.setText("Телец");
+                    signImage.setImageResource(R.drawable.big_taurus);
+                    break;
+                case 3:
+                    signText.setText("Близнецы");
+                    signImage.setImageResource(R.drawable.big_gemini);
+                    break;
+                case 4:
+                    signText.setText("Рак");
+                    signImage.setImageResource(R.drawable.big_cancer);
+                    break;
+                case 5:
+                    signText.setText("Лев");
+                    signImage.setImageResource(R.drawable.big_leo);
+                    break;
+                case 6:
+                    signText.setText("Дева");
+                    signImage.setImageResource(R.drawable.big_virgo);
+                    break;
+                case 7:
+                    signText.setText("Весы");
+                    signImage.setImageResource(R.drawable.big_libra);
+                    break;
+                case 8:
+                    signText.setText("Скорпион");
+                    signImage.setImageResource(R.drawable.big_scorpio);
+                    break;
+                case 9:
+                    signText.setText("Стрелец");
+                    signImage.setImageResource(R.drawable.big_sagittarius);
+                    break;
+                case 10:
+                    signText.setText("Козерог");
+                    signImage.setImageResource(R.drawable.big_capricorn);
+                    break;
+                case 11:
+                    signText.setText("Водолей");
+                    signImage.setImageResource(R.drawable.big_aquarius);
+                    break;
+                case 12:
+                    signText.setText("Рыбы");
+                    signImage.setImageResource(R.drawable.big_pisces);
+                    break;
             }
         }
-        arrowEditProfile = view.findViewById(R.id.arrow_edit_profile);
-        arrowEditProfile.setOnTouchListener(new ButtonOnTouchListener());
-        return view;
     }
 }

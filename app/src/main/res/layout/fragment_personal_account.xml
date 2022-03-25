@@ -30,6 +30,7 @@
                 android:layout_weight="10.5" />
 
             <ImageView
+                android:id="@+id/personal_account_exit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
@@ -51,6 +52,7 @@
                 android:weightSum="12">
 
                 <ImageView
+                    android:id="@+id/sign_image_personal_account"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="9"
@@ -58,6 +60,7 @@
 
 
                 <TextView
+                    android:id="@+id/sign_text_personal_account"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.5"
@@ -95,6 +98,7 @@
                     android:layout_weight="3" />
 
                 <TextView
+                    android:id="@+id/personal_account_name"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.5"
@@ -113,6 +117,7 @@
                     android:layout_weight="0.5" />
 
                 <TextView
+                    android:id="@+id/personal_account_date"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.5"
@@ -137,6 +142,7 @@
             android:layout_weight="0.5" />
 
         <LinearLayout
+            android:id="@+id/layout_profile_edit"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="-2dp"
@@ -163,16 +169,15 @@
                 android:textColor="@color/white" />
 
             <ImageView
-                android:id="@+id/arrow_edit_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
-                android:onClick="onClickEditProfile"
                 android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_profile_affirmations"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="-2dp"
@@ -231,9 +236,11 @@
                 android:textColor="@color/white" />
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_personal_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
+                android:checked="true"
                 android:layout_marginRight="10dp"
                 android:theme="@style/MySwitch" />
 

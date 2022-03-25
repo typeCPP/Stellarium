@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/alert_dialog_personal_account_background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:id="@+id/text_dialog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+        android:breakStrategy="balanced"
+        android:fontFamily="@font/gabriela_regular"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Вы уверены?"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="35dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/positive_button"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:autoSizeMaxTextSize="15sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/alert_dialog_button"
+            android:breakStrategy="balanced"
+            android:clickable="true"
+            android:fontFamily="@font/gabriela_regular"
+            android:text="Да"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/negative_button"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:autoSizeMaxTextSize="15sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/alert_dialog_button"
+            android:breakStrategy="balanced"
+            android:clickable="true"
+            android:fontFamily="@font/gabriela_regular"
+            android:text="Нет"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="35dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+</LinearLayout>

@@ -26,6 +26,7 @@ import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.ZodiacSignUtils;
 import com.app.stellarium.utils.jsonmodels.User;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
@@ -101,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_SEX, isTouchMan);
-                    int signId = getUserSignID(editTextDate.getText().toString());
+                    int signId = ZodiacSignUtils.getUserSignID(editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
 
                     if (isFacebookUID && userUID != null) {
@@ -147,7 +148,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private int getUserSignID(String dateOfBirth) {
+   /* private int getUserSignID(String dateOfBirth) {
         String[] dob = dateOfBirth.split("/", 3);
         int day = Integer.parseInt(dob[0]);
         int month = Integer.parseInt(dob[1]);
@@ -188,9 +189,8 @@ public class RegistrationActivity extends AppCompatActivity {
         else if((month == 2 && day >= 20) || (month == 3 && day <= 20)) {
             signId = 12;
         }
-        Toast.makeText(getApplicationContext(), signId, Toast.LENGTH_LONG).show();
         return signId;
-    }
+    }*/
 
     @SuppressLint("ResourceAsColor")
     public void onClickDate(View view) {
