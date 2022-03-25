@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -25,6 +26,7 @@ import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.User;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.Calendar;
@@ -99,6 +101,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_SEX, isTouchMan);
+                    int signId = getUserSignID(editTextDate.getText().toString());
+                    values.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
+
                     if (isFacebookUID && userUID != null) {
                         values.put(UserTable.COLUMN_FACEBOOK_ID, userUID);
                         params += "&facebook=" + userUID;
@@ -117,7 +122,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     if ((email != null && password != null) || userUID != null) {
 
                         String response = serverConnection.getStringResponseByParameters(params);
-
                         if (response != null && !response.contains("False")) {
                             values.put(UserTable.COLUMN_SERVER_ID, Integer.parseInt(response));
                             values.put(UserTable.COLUMN_MAIL_CONFIRMED, 0);
@@ -141,6 +145,51 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private int getUserSignID(String dateOfBirth) {
+        String[] dob = dateOfBirth.split("/", 3);
+        int day = Integer.parseInt(dob[0]);
+        int month = Integer.parseInt(dob[1]);
+        int signId = 1;
+        if((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+            signId = 1;
+        }
+        else if((month == 4 && day >= 21) || (month == 5 && day <= 21)) {
+            signId = 2;
+        }
+        else if((month == 5 && day >= 22) || (month == 6 && day <= 21)) {
+            signId = 3;
+        }
+        else if((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+            signId = 4;
+        }
+        else if((month == 7 && day >= 23) || (month == 8 && day <= 23)) {
+            signId = 5;
+        }
+        else if((month == 8 && day >= 24) || (month == 9 && day <= 23)) {
+            signId = 6;
+        }
+        else if((month == 9 && day >= 24) || (month == 10 && day <= 23)) {
+            signId = 7;
+        }
+        else if((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+            signId = 8;
+        }
+        else if((month == 11 && day >= 23) || (month == 12 && day <= 22)) {
+            signId = 9;
+        }
+        else if((month == 12 && day >= 23) || (month == 1 && day <= 20)) {
+            signId = 10;
+        }
+        else if((month == 1 && day >= 21) || (month == 2 && day <= 19)) {
+            signId = 11;
+        }
+        else if((month == 2 && day >= 20) || (month == 3 && day <= 20)) {
+            signId = 12;
+        }
+        Toast.makeText(getApplicationContext(), signId, Toast.LENGTH_LONG).show();
+        return signId;
     }
 
     @SuppressLint("ResourceAsColor")
