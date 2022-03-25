@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="apptour">
+        <item>@drawable/affirmation_background1</item>
+        <item>@drawable/affirmation_background2</item>
+        <item>@drawable/affirmation_background3</item>
+        <item>@drawable/affirmation_background4</item>
+        <item>@drawable/affirmation_background5</item>
+        <item>@drawable/affirmation_background6</item>
+        <item>@drawable/affirmation_background7</item>
+        <item>@drawable/affirmation_background8</item>
+        <item>@drawable/affirmation_background9</item>
+        <item>@drawable/affirmation_background10</item>
+        <item>@drawable/affirmation_background11</item>
+        <item>@drawable/affirmation_background12</item>
+        <item>@drawable/affirmation_background13</item>
+        <item>@drawable/affirmation_background14</item>
+        <item>@drawable/affirmation_background15</item>
+        <item>@drawable/affirmation_background16</item>
+        <item>@drawable/affirmation_background17</item>
+        <item>@drawable/affirmation_background18</item>
+        <item>@drawable/affirmation_background19</item>
+        <item>@drawable/affirmation_background20</item>
+        <item>@drawable/affirmation_background21</item>
+        <item>@drawable/affirmation_background22</item>
+        <item>@drawable/affirmation_background23</item>
+        <item>@drawable/affirmation_background24</item>
+        <item>@drawable/affirmation_background25</item>
+        <item>@drawable/affirmation_background26</item>
+        <item>@drawable/affirmation_background27</item>
+        <item>@drawable/affirmation_background28</item>
+        <item>@drawable/affirmation_background29</item>
+        <item>@drawable/affirmation_background30</item>
+        <item>@drawable/affirmation_background31</item>
+    </array>
+
+</resources>
