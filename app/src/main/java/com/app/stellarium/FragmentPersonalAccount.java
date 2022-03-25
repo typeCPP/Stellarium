@@ -42,7 +42,7 @@ public class FragmentPersonalAccount extends Fragment {
                     switch (view.getId()) {
                         case R.id.arrow_edit_profile:
                             Fragment fragment = new FragmentEditPersonalAccount();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
 
                             break;
