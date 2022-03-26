@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.CompatibilityNames;
 import com.google.gson.Gson;
@@ -64,13 +66,27 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                     } else if ((man.trim().contains(" ")) || (woman.trim().contains(" "))) {
                         Toast.makeText(getContext(), "Имена не должны содержать пробелы", Toast.LENGTH_SHORT).show();
                     } else {
-                        bundle.putString("NameWoman", woman.replaceAll("\\s+", ""));
-                        bundle.putString("NameMan", man.replaceAll("\\s+", ""));
-                        bundle.putInt("hashedId", getServerDataAndHashID(woman, man));
-                        Fragment fragmentCompatibilityName = new FragmentCompatibilityName();
-                        fragmentCompatibilityName.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
+                        LoadingDialog loadingDialog = new LoadingDialog(FragmentCompatibilityNameSelection.this);
+                        loadingDialog.startLoadingDialog();
+                        Handler handler = new Handler();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                bundle.putString("NameWoman", woman.replaceAll("\\s+", ""));
+                                bundle.putString("NameMan", man.replaceAll("\\s+", ""));
+                                bundle.putInt("hashedId", getServerDataAndHashID(woman, man));
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Fragment fragmentCompatibilityName = new FragmentCompatibilityName();
+                                        fragmentCompatibilityName.setArguments(bundle);
+                                        loadingDialog.dismissLoadingDialog();
+                                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                                .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityName).commit();
+                                    }
+                                });
+                            }
+                        }).start();
                     }
                 }
                 return true;

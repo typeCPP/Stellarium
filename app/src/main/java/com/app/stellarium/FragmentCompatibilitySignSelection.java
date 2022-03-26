@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -33,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityZodiacTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.CompatibilityHoroscope;
 import com.google.gson.Gson;
@@ -339,11 +341,25 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
-                    fragmentCompatibilityZodiac.setArguments(bundle);
-                    getCompatibilityFromServerToDatabase(idOfWomanSign, idOfManSign);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                            .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
+                    LoadingDialog loadingDialog = new LoadingDialog(FragmentCompatibilitySignSelection.this);
+                    loadingDialog.startLoadingDialog();
+                    Handler handler = new Handler();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getCompatibilityFromServerToDatabase(idOfWomanSign, idOfManSign);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Fragment fragmentCompatibilityZodiac = new FragmentCompatibilityZodiac();
+                                    fragmentCompatibilityZodiac.setArguments(bundle);
+                                    loadingDialog.dismissLoadingDialog();
+                                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                            .addToBackStack(null).replace(R.id.frameLayout, fragmentCompatibilityZodiac).commit();
+                                }
+                            });
+                        }
+                    }).start();
                 }
                 return true;
             }

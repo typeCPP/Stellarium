@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Affirmation;
 import com.google.gson.Gson;
@@ -65,16 +67,29 @@ public class FragmentAffirmation extends Fragment {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         Calendar calendar = Calendar.getInstance();
         String todayDate = String.valueOf(calendar.get(Calendar.YEAR)) + String.valueOf(calendar.get(Calendar.MONTH)) + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        if (!checkDatabaseForTodayAffirmation(database, todayDate)) {
-            getDataFromServerToDatabase(database, todayDate);
-        }
-
-        Pair<String, Integer> pair = getTodayBackgroundAndText(database, todayDate);
-        if (pair != null) {
-            Drawable background = getBackgroundByID(pair.second);
-            frameLayout.setBackground(background);
-            affirmationText.setText(pair.first);
-        }
+        LoadingDialog loadingDialog = new LoadingDialog(FragmentAffirmation.this);
+        loadingDialog.startLoadingDialog();
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (!checkDatabaseForTodayAffirmation(database, todayDate)) {
+                    getDataFromServerToDatabase(database, todayDate);
+                }
+                loadingDialog.dismissLoadingDialog();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Pair<String, Integer> pair = getTodayBackgroundAndText(database, todayDate);
+                        if (pair != null) {
+                            Drawable background = getBackgroundByID(pair.second);
+                            frameLayout.setBackground(background);
+                            affirmationText.setText(pair.first);
+                        }
+                    }
+                });
+            }
+        }).start();
         return view;
     }
 

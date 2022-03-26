@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Horoscope;
 import com.google.gson.Gson;
@@ -85,7 +87,7 @@ public class FragmentHoroscopeList extends Fragment {
                             Math.abs(motionEvent.getY() - actionDownPoint.y)) < touchMoveFactor;
                     if (isTouchLength) {
                         int drawableId = R.drawable.big_aries;
-                        int idOfHoroscopePredictionsByPeriodTableElement = 1;
+                        final int idOfHoroscopePredictionsByPeriodTableElement;
                         switch (view.getId()) {
                             case R.id.ariesButton:
                                 idOfHoroscopePredictionsByPeriodTableElement = 1;
@@ -135,15 +137,35 @@ public class FragmentHoroscopeList extends Fragment {
                                 idOfHoroscopePredictionsByPeriodTableElement = 12;
                                 drawableId = R.drawable.big_pisces;
                                 break;
+                            default:
+                                idOfHoroscopePredictionsByPeriodTableElement = 1;
+                                break;
                         }
-                        getHoroscopeDataFromServerToLocalTables(idOfHoroscopePredictionsByPeriodTableElement);
-                        Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
-                        bundle.putInt("signPictureDrawableId", drawableId);
-                        bundle.putInt("signId", idOfHoroscopePredictionsByPeriodTableElement);
-                        Fragment fragment = new FragmentHoroscopePage();
-                        fragment.setArguments(bundle);
-                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+
+                        Handler handler = new Handler();
+                        LoadingDialog loadingDialog = new LoadingDialog(FragmentHoroscopeList.this);
+                        loadingDialog.startLoadingDialog();
+                        int finalDrawableId = drawableId;
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                getHoroscopeDataFromServerToLocalTables(idOfHoroscopePredictionsByPeriodTableElement);
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
+                                        bundle.putInt("signPictureDrawableId", finalDrawableId);
+                                        bundle.putInt("signId", idOfHoroscopePredictionsByPeriodTableElement);
+                                        Fragment fragment = new FragmentHoroscopePage();
+                                        fragment.setArguments(bundle);
+                                        loadingDialog.dismissLoadingDialog();
+                                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                                .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                                    }
+                                });
+                            }
+                        });
+                        thread.start();
                     }
                 }
                 return true;
@@ -236,6 +258,7 @@ public class FragmentHoroscopeList extends Fragment {
             Long characteristicId = insertSignCharacteristic(database, horoscope);
             insertPredictions(database, horoscope, periods[signId - 1], names[signId - 1], characteristicId);
         } catch (Exception e) {
+            e.printStackTrace();
             database.close();
             databaseHelper.close();
         }

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.PythagoreanSquare;
 import com.google.gson.Gson;
@@ -81,13 +83,27 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                     view.startAnimation(scaleUp);
                     Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
                     fragmentHomePage.setArguments(bundle);
-                    Pair<int[], String[]> data = getDataFromServer(birthdayDay, birthdayMonth, birthdayYear);
-                    int[] matrixValues = data.first;
-                    String[] texts = data.second;
-                    bundle.putIntArray("matrixValues", matrixValues);
-                    bundle.putStringArray("texts", texts);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                            .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
+                    LoadingDialog loadingDialog = new LoadingDialog(FragmentPythagoreanSquareDateSelection.this);
+                    loadingDialog.startLoadingDialog();
+                    Handler handler = new Handler();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Pair<int[], String[]> data = getDataFromServer(birthdayDay, birthdayMonth, birthdayYear);
+                            int[] matrixValues = data.first;
+                            String[] texts = data.second;
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    bundle.putIntArray("matrixValues", matrixValues);
+                                    bundle.putStringArray("texts", texts);
+                                    loadingDialog.dismissLoadingDialog();
+                                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                            .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
+                                }
+                            });
+                        }
+                    }).start();
                 }
                 return true;
             }

@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.DatabaseHelper;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Numerology;
 import com.google.gson.Gson;
@@ -80,13 +83,27 @@ public class FragmentNumerologyDateSelection extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    Fragment fragment = new FragmentNumerology();
                     int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
-                    getServerResponseToDatabase(numerologyNumber);
-                    bundle.putInt("numerologyNumber", numerologyNumber);
-                    fragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                    LoadingDialog loadingDialog = new LoadingDialog(FragmentNumerologyDateSelection.this);
+                    loadingDialog.startLoadingDialog();
+                    Handler handler = new Handler();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getServerResponseToDatabase(numerologyNumber);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Fragment fragment = new FragmentNumerology();
+                                    bundle.putInt("numerologyNumber", numerologyNumber);
+                                    fragment.setArguments(bundle);
+                                    loadingDialog.dismissLoadingDialog();
+                                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                                }
+                            });
+                        }
+                    }).start();
                 }
                 return true;
             }
@@ -127,10 +144,12 @@ public class FragmentNumerologyDateSelection extends Fragment {
         databaseHelper.dropNumerology(database);
         try {
             ServerConnection serverConnection = new ServerConnection();
+            Log.d("NUMEROLOGY", String.valueOf(number));
             String response = serverConnection.getStringResponseByParameters("numerology/?num=" + number);
             Numerology numerology = new Gson().fromJson(response, Numerology.class);
             insertNumerology(database, numerology);
         } catch (Exception e) {
+            e.printStackTrace();
             database.close();
             databaseHelper.close();
         }

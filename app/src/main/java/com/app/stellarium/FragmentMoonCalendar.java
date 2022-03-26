@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.MoonCalendarTable;
+import com.app.stellarium.utils.LoadingDialog;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.MoonCalendar;
@@ -251,15 +253,34 @@ public class FragmentMoonCalendar extends Fragment {
 
     private void getDescriptionFromServerByDate(int date) {
         try {
-            ServerConnection serverConnection = new ServerConnection();
-            String response = serverConnection.getStringResponseByParameters("moonCalendar/?date=" + date);
-            MoonCalendar moonCalendar = new Gson().fromJson(response, MoonCalendar.class);
-
-            textViewPhase.setText(moonCalendar.phase);
-            textViewCharacteristic.setText(moonCalendar.characteristics);
-            textViewHealth.setText(moonCalendar.health);
-            textViewRelations.setText(moonCalendar.relations);
-            textViewBusiness.setText(moonCalendar.business);
+            LoadingDialog loadingDialog = new LoadingDialog(FragmentMoonCalendar.this);
+            loadingDialog.startLoadingDialog();
+            Handler handler = new Handler();
+            //Сделал чтобы после анимации не появлялся текст предыдущего дня, а сразу новый
+            textViewPhase.setText("");
+            textViewCharacteristic.setText("");
+            textViewHealth.setText("");
+            textViewRelations.setText("");
+            textViewBusiness.setText("");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ServerConnection serverConnection = new ServerConnection();
+                    String response = serverConnection.getStringResponseByParameters("moonCalendar/?date=" + date);
+                    MoonCalendar moonCalendar = new Gson().fromJson(response, MoonCalendar.class);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textViewPhase.setText(moonCalendar.phase);
+                            textViewCharacteristic.setText(moonCalendar.characteristics);
+                            textViewHealth.setText(moonCalendar.health);
+                            textViewRelations.setText(moonCalendar.relations);
+                            textViewBusiness.setText(moonCalendar.business);
+                            loadingDialog.dismissLoadingDialog();
+                        }
+                    });
+                }
+            }).start();
         } catch (Exception e) {
             Toast.makeText(getContext(), "Ошибка загрузки.", Toast.LENGTH_LONG).show();
         }
