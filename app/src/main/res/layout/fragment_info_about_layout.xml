@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_dialog_taro"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:id="@+id/text_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/gabriela_regular"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ok_button"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:autoSizeMaxTextSize="15sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/background_dialog_taro_button"
+        android:breakStrategy="balanced"
+        android:clickable="true"
+        android:fontFamily="@font/gabriela_regular"
+        android:text="Ок"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_gravity="center"
+        android:textColor="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+</LinearLayout>

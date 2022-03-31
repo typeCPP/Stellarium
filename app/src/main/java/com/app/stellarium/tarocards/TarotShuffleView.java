@@ -1,4 +1,4 @@
-package com.app.stellarium.utils;
+package com.app.stellarium.tarocards;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -10,7 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.app.stellarium.R;
-import com.app.stellarium.utils.custom.AnimHelper;
+import com.app.stellarium.tarocards.custom.AnimHelper;
+import com.app.stellarium.utils.ScreenUtil;
 
 public class TarotShuffleView extends FrameLayout {
 

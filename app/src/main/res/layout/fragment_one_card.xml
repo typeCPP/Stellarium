@@ -7,7 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.app.stellarium.utils.TarotShuffleView
+    <ImageButton
+        android:id="@+id/infoAboutLayoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/help_little"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+    <com.app.stellarium.tarocards.TarotShuffleView
         android:id="@+id/tarot_shuffle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

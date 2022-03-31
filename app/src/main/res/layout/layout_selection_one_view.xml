@@ -40,14 +40,4 @@
         android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/descriptionTextView"
-        style="@style/description_guess"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="30dp"
-        android:paddingRight="20dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

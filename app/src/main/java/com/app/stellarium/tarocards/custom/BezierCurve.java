@@ -1,4 +1,4 @@
-package com.app.stellarium.utils.custom;
+package com.app.stellarium.tarocards.custom;
 
 import android.graphics.PointF;
 

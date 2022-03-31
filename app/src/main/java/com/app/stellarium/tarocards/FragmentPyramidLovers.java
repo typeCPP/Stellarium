@@ -1,6 +1,7 @@
 package com.app.stellarium.tarocards;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,8 +23,6 @@ import com.app.stellarium.R;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
-import com.app.stellarium.utils.TarotSelectionView;
-import com.app.stellarium.utils.TarotShuffleView;
 
 import java.util.ArrayList;
 
@@ -43,6 +43,7 @@ public class FragmentPyramidLovers extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,9 +56,7 @@ public class FragmentPyramidLovers extends Fragment {
         taroSelectionView.setVisibility(View.GONE);
         RelativeLayout layout = view.findViewById(R.id.layout);
         layout.addView(taroSelectionView);
-        TextView description = layout.findViewById(R.id.descriptionTextView);
-        description.setText(R.string.description_day_card);
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
+        @SuppressLint("InflateParams") LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         linearLayout.setVisibility(View.GONE);
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
@@ -132,7 +131,8 @@ public class FragmentPyramidLovers extends Fragment {
             taroSelectionView.setPictures(pictures);
             taroSelectionView.showTarotSelectionView();
         });
-
+        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
+        System.out.println(infoButton);
         class ViewOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -150,7 +150,7 @@ public class FragmentPyramidLovers extends Fragment {
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
                     } else if (touchableView.getId() == R.id.second_open_image) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSecondCard);
@@ -163,7 +163,7 @@ public class FragmentPyramidLovers extends Fragment {
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
                     } else if (touchableView.getId() == R.id.third_open_image) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameThirdCard);
@@ -176,7 +176,7 @@ public class FragmentPyramidLovers extends Fragment {
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
                     } else if (touchableView.getId() == R.id.fourth_open_image) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFourthCard);
@@ -189,26 +189,31 @@ public class FragmentPyramidLovers extends Fragment {
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
-
+                        infoButton.setVisibility(View.GONE);
+                    } else if (touchableView.getId() == R.id.infoAboutLayoutButton){
+                        Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_pyramid_of_lovers));
+                        fragment.show();
+                        fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                     } else if (touchableView.getId() == R.id.close) {
                         linearLayout.setVisibility(View.GONE);
                         first.setVisibility(View.VISIBLE);
                         second.setVisibility(View.VISIBLE);
                         third.setVisibility(View.VISIBLE);
                         fourth.setVisibility(View.VISIBLE);
-                        description.setVisibility(View.VISIBLE);
+                        infoButton.setVisibility(View.VISIBLE);
                     }
                 }
                 return true;
             }
         }
 
+        infoButton.setOnTouchListener(new ViewOnTouchListener());
         closeView.setOnTouchListener(new ViewOnTouchListener());
         first.setOnTouchListener(new ViewOnTouchListener());
         second.setOnTouchListener(new ViewOnTouchListener());
         third.setOnTouchListener(new ViewOnTouchListener());
         fourth.setOnTouchListener(new ViewOnTouchListener());
+
         return view;
     }
 }

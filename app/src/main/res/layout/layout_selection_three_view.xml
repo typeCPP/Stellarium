@@ -58,12 +58,4 @@
         android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/descriptionTextView"
-        style="@style/style_sign_title"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:text="@string/description_three_cards"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

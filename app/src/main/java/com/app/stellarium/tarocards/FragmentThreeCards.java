@@ -1,6 +1,7 @@
 package com.app.stellarium.tarocards;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,8 +23,6 @@ import com.app.stellarium.R;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
-import com.app.stellarium.utils.TarotSelectionView;
-import com.app.stellarium.utils.TarotShuffleView;
 
 import java.util.ArrayList;
 
@@ -43,6 +43,7 @@ public class FragmentThreeCards extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,9 +55,8 @@ public class FragmentThreeCards extends Fragment {
         taroSelectionView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         taroSelectionView.setVisibility(View.GONE);
         RelativeLayout layout = view.findViewById(R.id.layout);
+        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
         layout.addView(taroSelectionView);
-        TextView description = layout.findViewById(R.id.descriptionTextView);
-        description.setText(R.string.description_day_card);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         linearLayout.setVisibility(View.GONE);
         layout.addView(linearLayout);
@@ -133,7 +133,7 @@ public class FragmentThreeCards extends Fragment {
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
                     } else if (touchableView.getId() == R.id.second_open_image) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSecondCard);
@@ -145,7 +145,7 @@ public class FragmentThreeCards extends Fragment {
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
                     } else if (touchableView.getId() == R.id.third_open_image) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameThirdCard);
@@ -157,13 +157,17 @@ public class FragmentThreeCards extends Fragment {
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
-                        description.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
+                    } else if (touchableView.getId() == R.id.infoAboutLayoutButton) {
+                        Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_three_cards));
+                        fragment.show();
+                        fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                     } else if (touchableView.getId() == R.id.close) {
                         linearLayout.setVisibility(View.GONE);
                         first.setVisibility(View.VISIBLE);
                         second.setVisibility(View.VISIBLE);
                         third.setVisibility(View.VISIBLE);
-                        description.setVisibility(View.VISIBLE);
+                        infoButton.setVisibility(View.VISIBLE);
                     }
                 }
                 return true;
@@ -174,6 +178,8 @@ public class FragmentThreeCards extends Fragment {
         first.setOnTouchListener(new ViewOnTouchListener());
         second.setOnTouchListener(new ViewOnTouchListener());
         third.setOnTouchListener(new ViewOnTouchListener());
+        infoButton.setOnTouchListener(new ViewOnTouchListener());
+
         return view;
     }
 

@@ -1,4 +1,4 @@
-package com.app.stellarium.utils;
+package com.app.stellarium.tarocards;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -13,7 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.app.stellarium.R;
-import com.app.stellarium.utils.custom.BezierEvaluator;
+import com.app.stellarium.tarocards.custom.BezierEvaluator;
+import com.app.stellarium.utils.ScreenUtil;
+import com.app.stellarium.utils.SlideScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,22 +124,18 @@ public class TarotSelectionView extends FrameLayout {
                     if (imageViews.size() == 3 && isOpenImageView.get(2)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
-                        view.findViewById(R.id.descriptionTextView).setVisibility(VISIBLE);
                     }
                     if (imageViews.size() == 1 && isOpenImageView.get(0)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
-                        view.findViewById(R.id.descriptionTextView).setVisibility(VISIBLE);
                     }
                     if (imageViews.size() == 4 && isOpenImageView.get(3)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
-                        view.findViewById(R.id.descriptionTextView).setVisibility(VISIBLE);
                     }
                     if (imageViews.size() == 7 && isOpenImageView.get(6)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
-                        view.findViewById(R.id.descriptionTextView).setVisibility(VISIBLE);
                     }
                     return;
                 }

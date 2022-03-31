@@ -1,6 +1,7 @@
 package com.app.stellarium.tarocards;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,8 +23,6 @@ import com.app.stellarium.R;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
-import com.app.stellarium.utils.TarotSelectionView;
-import com.app.stellarium.utils.TarotShuffleView;
 
 import java.util.ArrayList;
 
@@ -56,8 +56,7 @@ public class FragmentDayCard extends Fragment {
         taroSelectionView.setVisibility(View.GONE);
         RelativeLayout layout = view.findViewById(R.id.layout);
         layout.addView(taroSelectionView);
-        TextView description = layout.findViewById(R.id.descriptionTextView);
-        description.setText(R.string.description_day_card);
+        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
         ImageView first = view.findViewById(R.id.first_open_image);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         ImageView closeView = linearLayout.findViewById(R.id.close);
@@ -100,17 +99,23 @@ public class FragmentDayCard extends Fragment {
                             descriptionView.setText(descriptionFirstCard);
                             layout.addView(linearLayout);
                             first.setVisibility(View.GONE);
-                            description.setVisibility(View.GONE);
+                            infoButton.setVisibility(View.GONE);
                             isFirstClickOnCard = false;
                         } else {
                             linearLayout.setVisibility(View.VISIBLE);
                             first.setVisibility(View.GONE);
-                            description.setVisibility(View.GONE);
+                            infoButton.setVisibility(View.GONE);
                         }
+
+                    } else if (touchableView.getId() == R.id.infoAboutLayoutButton) {
+                        Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_day_card));
+                        fragment.show();
+                        fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
                     } else if (touchableView.getId() == R.id.close) {
                         linearLayout.setVisibility(View.GONE);
                         first.setVisibility(View.VISIBLE);
-                        description.setVisibility(View.VISIBLE);
+                        infoButton.setVisibility(View.VISIBLE);
                     }
                 }
                 return true;
@@ -119,6 +124,7 @@ public class FragmentDayCard extends Fragment {
 
         closeView.setOnTouchListener(new ViewOnTouchListener());
         first.setOnTouchListener(new ViewOnTouchListener());
+        infoButton.setOnTouchListener(new ViewOnTouchListener());
 
         return view;
     }

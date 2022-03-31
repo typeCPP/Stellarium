@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
-import com.app.stellarium.utils.custom.CustomDialog;
+import com.app.stellarium.utils.CustomDialog;
 
 public class FragmentPersonalAccount extends Fragment {
 

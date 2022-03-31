@@ -1,4 +1,4 @@
-package com.app.stellarium.utils.custom;
+package com.app.stellarium.utils;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,11 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.app.stellarium.MainActivity;
 import com.app.stellarium.MainRegistrationActivity;
 import com.app.stellarium.R;
 import com.app.stellarium.database.DatabaseHelper;

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/constraint_layout">
 
     <ImageView
         android:id="@+id/first_open_image"
@@ -42,15 +43,6 @@
         app:layout_constraintBottom_toTopOf="@+id/second_open_image"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/descriptionTextView"
-        style="@style/style_sign_title"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:text="@string/description_pyramid_of_lovers"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.app.stellarium.utils.SlideScrollView
         android:id="@+id/scrollView"

@@ -1,4 +1,4 @@
-package com.app.stellarium.utils;
+package com.app.stellarium.tarocards;
 
 import android.animation.Animator;
 
