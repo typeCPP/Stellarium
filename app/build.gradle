@@ -59,4 +59,6 @@ dependencies {
 
 
     implementation 'com.android.support:percent:+'
+/*    implementation 'com.felipecsl:gifimageview:2.2.0'*/
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
 }

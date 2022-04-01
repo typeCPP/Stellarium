@@ -23,7 +23,7 @@ import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.UserTable;
-import com.app.stellarium.utils.LoadingDialog;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Horoscope;
 import com.google.gson.Gson;
@@ -142,11 +142,11 @@ public class FragmentHoroscopeList extends Fragment {
                                 break;
                         }
 
-                        Handler handler = new Handler();
+                     /*   Handler handler = new Handler();
                         LoadingDialog loadingDialog = new LoadingDialog(FragmentHoroscopeList.this);
                         loadingDialog.startLoadingDialog();
-                        int finalDrawableId = drawableId;
-                        Thread thread = new Thread(new Runnable() {
+                        int finalDrawableId = drawableId;*/
+                      /*  Thread thread = new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 getHoroscopeDataFromServerToLocalTables(idOfHoroscopePredictionsByPeriodTableElement);
@@ -165,7 +165,7 @@ public class FragmentHoroscopeList extends Fragment {
                                 });
                             }
                         });
-                        thread.start();
+                        thread.start();*/
                     }
                 }
                 return true;

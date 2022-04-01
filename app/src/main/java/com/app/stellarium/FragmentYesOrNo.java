@@ -154,10 +154,13 @@ public class FragmentYesOrNo extends Fragment {
                 && ballResponseTextView != null && vibrator != null) {
             ballResponseTextView.setAlpha(0.0f);
             ballTriangleImageView.setAlpha(1.0f);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                vibrator.vibrate(100);
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("yes_or_no", Context.MODE_PRIVATE);
+            if (sharedPreferences.getBoolean("isChecked", true)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                } else {
+                    vibrator.vibrate(100);
+                }
             }
             return;
         }

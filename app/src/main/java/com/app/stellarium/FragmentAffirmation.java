@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
 import com.app.stellarium.database.tables.UserTable;
-import com.app.stellarium.utils.LoadingDialog;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Affirmation;
 import com.google.gson.Gson;
@@ -67,10 +67,10 @@ public class FragmentAffirmation extends Fragment {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         Calendar calendar = Calendar.getInstance();
         String todayDate = String.valueOf(calendar.get(Calendar.YEAR)) + String.valueOf(calendar.get(Calendar.MONTH)) + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        LoadingDialog loadingDialog = new LoadingDialog(FragmentAffirmation.this);
+    /*    LoadingDialog loadingDialog = new LoadingDialog(FragmentAffirmation.this);
         loadingDialog.startLoadingDialog();
-        Handler handler = new Handler();
-        new Thread(new Runnable() {
+        Handler handler = new Handler();*/
+       /* new Thread(new Runnable() {
             @Override
             public void run() {
                 if (!checkDatabaseForTodayAffirmation(database, todayDate)) {
@@ -89,7 +89,7 @@ public class FragmentAffirmation extends Fragment {
                     }
                 });
             }
-        }).start();
+        }).start();*/
         return view;
     }
 

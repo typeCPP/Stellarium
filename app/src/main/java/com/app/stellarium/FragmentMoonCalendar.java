@@ -1,8 +1,6 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,9 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.MoonCalendarTable;
-import com.app.stellarium.utils.LoadingDialog;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.MoonCalendar;
@@ -252,7 +248,7 @@ public class FragmentMoonCalendar extends Fragment {
 
 
     private void getDescriptionFromServerByDate(int date) {
-        try {
+ /*       try {
             LoadingDialog loadingDialog = new LoadingDialog(FragmentMoonCalendar.this);
             loadingDialog.startLoadingDialog();
             Handler handler = new Handler();
@@ -283,7 +279,7 @@ public class FragmentMoonCalendar extends Fragment {
             }).start();
         } catch (Exception e) {
             Toast.makeText(getContext(), "Ошибка загрузки.", Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
 
     private String fixDate(int month, int day) {

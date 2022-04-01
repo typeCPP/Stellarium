@@ -1,18 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/loading_dialog_background"
+    android:layout_marginRight="40dp"
+    android:layout_marginLeft="40dp">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/layout_dialog_error"
         android:layout_width="wrap_content"
-        android:text="LOADING..."
-        android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"/>
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/space_sphere"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/loading_dialog_background"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="190dp" />
+
+        <TextView
+            android:id="@+id/text_dialog_error"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gabriela_regular"
+            android:gravity="center"
+            android:text="Что-то пошло не так"
+            android:textColor="#3831AC"
+            android:textSize="22sp" />
+        <!--        android:autoSizeTextType="uniform"-->
+        <!--        android:breakStrategy="balanced"-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_error_loading_dialog"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:background="@drawable/loading_dialog_button"
+                android:fontFamily="@font/gabriela_regular"
+                android:text="Попробовать снова"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gif_loading_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:src="@drawable/gif_loading" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/text_dialog"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gabriela_regular"
+            android:gravity="center"
+            android:text="Устанавливаем связь с космосом"
+            android:textColor="#3831AC"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+
+    </LinearLayout>
+</FrameLayout>
+

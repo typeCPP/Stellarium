@@ -7,6 +7,8 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -26,12 +28,15 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.utils.LoadingDialog;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Numerology;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.Calendar;
+
+import pl.droidsonroids.gif.GifDrawable;
 
 public class FragmentNumerologyDateSelection extends Fragment {
 
@@ -45,6 +50,7 @@ public class FragmentNumerologyDateSelection extends Fragment {
     private Bundle bundle;
     private LinearLayout layoutDate;
     private boolean isSetDate;
+    private LoadingDialog loadingDialog;
     Animation scaleUp;
 
     public static FragmentPythagoreanSquareDateSelection newInstance(String param1, String param2) {
@@ -66,13 +72,14 @@ public class FragmentNumerologyDateSelection extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
             activity.setNumberOfPrevFragment();
-
+        loadingDialog = new LoadingDialog(requireContext());
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         isSetDate = false;
         editTextDate = view.findViewById(R.id.numerologic_date_selection);
         layoutDate = view.findViewById(R.id.numerologic_date_layout_1);
         nextButton = view.findViewById(R.id.nextNumerologicButton);
+        LayoutInflater layoutInflater = getLayoutInflater();
         nextButton.setAlpha(0f);
         nextButton.setVisibility(View.INVISIBLE);
         bundle = new Bundle();
@@ -84,20 +91,29 @@ public class FragmentNumerologyDateSelection extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
                     int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
-                    LoadingDialog loadingDialog = new LoadingDialog(FragmentNumerologyDateSelection.this);
-                    loadingDialog.startLoadingDialog();
+                    loadingDialog.show();
+                    loadingDialog.startGifAnimation();
+                    loadingDialog.stopGifAnimation();
+                    loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
                     Handler handler = new Handler();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             getServerResponseToDatabase(numerologyNumber);
+                            try {
+                                Thread.sleep(50000);
+                            } catch (InterruptedException ignored) {
+
+                            }
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     Fragment fragment = new FragmentNumerology();
                                     bundle.putInt("numerologyNumber", numerologyNumber);
                                     fragment.setArguments(bundle);
-                                    loadingDialog.dismissLoadingDialog();
+//                                    loadingDialog.dismiss();
                                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                             .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                                 }
