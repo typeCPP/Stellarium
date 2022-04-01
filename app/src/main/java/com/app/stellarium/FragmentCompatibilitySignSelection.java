@@ -34,7 +34,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityZodiacTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
-import com.app.stellarium.utils.LoadingDialog;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.CompatibilityHoroscope;
 import com.google.gson.Gson;
@@ -341,7 +341,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    LoadingDialog loadingDialog = new LoadingDialog(FragmentCompatibilitySignSelection.this);
+                    /*LoadingDialog loadingDialog = new LoadingDialog(FragmentCompatibilitySignSelection.this);
                     loadingDialog.startLoadingDialog();
                     Handler handler = new Handler();
                     new Thread(new Runnable() {
@@ -359,7 +359,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                                 }
                             });
                         }
-                    }).start();
+                    }).start();*/
                 }
                 return true;
             }

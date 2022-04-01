@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
-import com.app.stellarium.utils.LoadingDialog;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.CompatibilityNames;
 import com.google.gson.Gson;
@@ -65,7 +65,7 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                         Toast.makeText(getContext(), "Пожалуйста, введите имена", Toast.LENGTH_SHORT).show();
                     } else if ((man.trim().contains(" ")) || (woman.trim().contains(" "))) {
                         Toast.makeText(getContext(), "Имена не должны содержать пробелы", Toast.LENGTH_SHORT).show();
-                    } else {
+                    } /*else {
                         LoadingDialog loadingDialog = new LoadingDialog(FragmentCompatibilityNameSelection.this);
                         loadingDialog.startLoadingDialog();
                         Handler handler = new Handler();
@@ -86,8 +86,8 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                                     }
                                 });
                             }
-                        }).start();
-                    }
+                        }).start();*/
+               /*     }*/
                 }
                 return true;
             }

@@ -1,4 +1,4 @@
-package com.app.stellarium.utils;
+package com.app.stellarium.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

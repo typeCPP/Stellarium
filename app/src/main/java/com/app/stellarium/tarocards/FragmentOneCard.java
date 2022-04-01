@@ -23,6 +23,7 @@ import com.app.stellarium.R;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
+import com.app.stellarium.dialog.DialogInfoAboutLayout;
 
 import java.util.ArrayList;
 

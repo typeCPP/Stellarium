@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loading_dialog_background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_loading_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal"
+        android:src="@drawable/gif_loading"/>
+    </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+    <TextView
+        android:id="@+id/text_dialog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+        android:breakStrategy="balanced"
+        android:fontFamily="@font/gabriela_regular"
+        android:gravity="center"
+        android:text="Устанавливаем связь с космосом"
+        android:textColor="@color/title_button_pythagorean"
+        android:textSize="22sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
+</LinearLayout>
+<!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -11,8 +56,9 @@
         android:textColor="@color/black"
         android:layout_height="wrap_content"/>
     <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_loading_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/space_sphere"/>
 
-</LinearLayout>
+</LinearLayout>-->
