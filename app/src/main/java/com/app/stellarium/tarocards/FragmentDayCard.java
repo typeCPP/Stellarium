@@ -60,7 +60,10 @@ public class FragmentDayCard extends Fragment {
         ImageView first = view.findViewById(R.id.first_open_image);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         ImageView closeView = linearLayout.findViewById(R.id.close);
-        buttonStart.setOnClickListener(view1 -> taroShuffleView.anim());
+        buttonStart.setOnClickListener(view1 -> {
+            taroShuffleView.anim();
+            view1.setVisibility(View.GONE);
+        });
 
         int firstCardId = (int) (Math.random() * (78));
 

@@ -31,6 +31,7 @@ public class FragmentThreeCards extends Fragment {
     private TarotShuffleView taroShuffleView;
     private TarotSelectionView taroSelectionView;
     private String path = "android.resource://com.app.stellarium/drawable/";
+    private String firstCard = "ПРОШЛОЕ", secondCard = "НАСТОЯЩЕЕ", thirdCard = "БУДУЩЕЕ";
 
     public static FragmentThreeCards newInstance(String param1, String param2) {
         FragmentThreeCards fragment = new FragmentThreeCards();
@@ -61,7 +62,10 @@ public class FragmentThreeCards extends Fragment {
         linearLayout.setVisibility(View.GONE);
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
-        buttonStart.setOnClickListener(view1 -> taroShuffleView.anim());
+        buttonStart.setOnClickListener(view1 -> {
+            taroShuffleView.anim();
+            view1.setVisibility(View.GONE);
+        });
 
         int firstCardId = (int) (Math.random() * (78));
         int secondCardId = firstCardId;
@@ -122,37 +126,43 @@ public class FragmentThreeCards extends Fragment {
             @Override
             public boolean onTouch(View touchableView, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (touchableView.getId() == R.id.first_open_image) {
+                    if (touchableView.getId() == R.id.first_open_image && taroSelectionView.countOpenCards == 3) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFirstCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameFirstPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionFirstCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(firstCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.second_open_image) {
+                    } else if (touchableView.getId() == R.id.second_open_image && taroSelectionView.countOpenCards == 3) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSecondCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameSecondPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionSecondCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(secondCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.third_open_image) {
+                    } else if (touchableView.getId() == R.id.third_open_image && taroSelectionView.countOpenCards == 3) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameThirdCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameThirdPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionThirdCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(thirdCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);

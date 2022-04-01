@@ -17,7 +17,7 @@
         android:fontFamily="@font/gabriela_regular"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
     <View
         android:layout_width="match_parent"

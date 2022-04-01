@@ -33,13 +33,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <View
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="90" />
+                    android:layout_weight="90"
+                    android:orientation="vertical">
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -54,10 +57,6 @@
                         android:layout_weight="1"
                         android:src="@drawable/close" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <View
@@ -67,10 +66,21 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/characteristic_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/gabriela_regular"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/title_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/gabriela_regular"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
@@ -95,6 +105,7 @@
                         android:id="@+id/description_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/gabriela_regular"
                         android:paddingTop="20dp"
                         android:text="TextView"
                         android:textAlignment="center"

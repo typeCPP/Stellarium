@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/card_view"
-        android:layout_width="91dp"
-        android:layout_height="130dp"
+        android:layout_width="55dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="fitXY"
         android:src="@drawable/tarot" />

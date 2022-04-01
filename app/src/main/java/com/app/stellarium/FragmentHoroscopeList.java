@@ -385,6 +385,7 @@ public class FragmentHoroscopeList extends Fragment {
         userTableCursor.moveToFirst();
         @SuppressLint("Range")
         Integer sign = userTableCursor.getInt(userTableCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
-        return sign * -30;
+        return (sign - 1) * -30;
+
     }
 }

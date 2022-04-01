@@ -21,9 +21,9 @@ public class TarotShuffleView extends FrameLayout {
     OnShuffleViewListener onShuffleViewListener;
     LayoutInflater inflater;
     private static final int CARD_DEFAULT_WIDTH = 100;
-    private static final int CARD_ZOOM_IN_WIDTH = 91;
+    private static final int CARD_ZOOM_IN_WIDTH = 70;
     private static final int CARD_ZOOM_IN_HEIGHT = 130;
-    private static final int CARD_TOP_MARGIN = 150;
+    private static final int CARD_TOP_MARGIN = 100;
     private static final int CARD_TOP_UP = 50;
 
     public TarotShuffleView(Context context) {

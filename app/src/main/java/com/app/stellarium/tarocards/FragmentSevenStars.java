@@ -31,6 +31,12 @@ public class FragmentSevenStars extends Fragment {
     private TarotShuffleView taroShuffleView;
     private TarotSelectionView taroSelectionView;
     private String path = "android.resource://com.app.stellarium/drawable/";
+    private String firstCard = "ОПИСАНИЕ ВАШЕГО ХАРАКТЕРА", secondCard = "КАК ВЕДЕТ СЕБЯ В ЛЮБВИ ИЗБРАННИК",
+            thirdCard = "ОПИСАНИЕ ХАРАКТЕРА ВАШЕГО ИЗБРАННИКА",
+            fourthCard = "ЧТО БУДЕТ ПОМОГАТЬ ВАМ В ВАШИХ ОТНОШЕНИЯХ",
+            fifthCard= "ТАЙНЫЕ СКЛОННОСТИ И МЫСЛИ ВАШЕГО ИЗБРАННИКА",
+            sixthCard = "КАКИЕ ОПАСНОСТИ ДЛЯ ВАШЕЙ ЛЮБВИ МОГУТ БЫТЬ",
+            seventhCard = "ПЕРСПЕКТИВЫ ВАШИХ ОТНОШЕНИЙ";
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -61,7 +67,10 @@ public class FragmentSevenStars extends Fragment {
         linearLayout.setVisibility(View.GONE);
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
-        buttonStart.setOnClickListener(view1 -> taroShuffleView.anim());
+        buttonStart.setOnClickListener(view1 -> {
+            taroShuffleView.anim();
+            view1.setVisibility(View.GONE);
+        });
 
         int firstCardId = (int) (Math.random() * (78));
         int secondCardId = firstCardId;
@@ -183,13 +192,15 @@ public class FragmentSevenStars extends Fragment {
             @Override
             public boolean onTouch(View touchableView, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (touchableView.getId() == R.id.first_open_image) {
+                    if (touchableView.getId() == R.id.first_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFirstCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameFirstPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionFirstCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(firstCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -199,13 +210,16 @@ public class FragmentSevenStars extends Fragment {
                         sixth.setVisibility(View.GONE);
                         seventh.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.second_open_image) {
+
+                    } else if (touchableView.getId() == R.id.second_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSecondCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameSecondPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionSecondCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(secondCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -215,13 +229,16 @@ public class FragmentSevenStars extends Fragment {
                         sixth.setVisibility(View.GONE);
                         seventh.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.third_open_image) {
+
+                    } else if (touchableView.getId() == R.id.third_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameThirdCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameThirdPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionThirdCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(thirdCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -231,13 +248,16 @@ public class FragmentSevenStars extends Fragment {
                         sixth.setVisibility(View.GONE);
                         seventh.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.fourth_open_image) {
+
+                    } else if (touchableView.getId() == R.id.fourth_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFourthCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameFourthPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionFourthCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(fourthCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -248,13 +268,15 @@ public class FragmentSevenStars extends Fragment {
                         seventh.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
 
-                    } else if (touchableView.getId() == R.id.fifth_open_image) {
+                    } else if (touchableView.getId() == R.id.fifth_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFifthCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameFifthPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionFifthCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(fifthCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -265,13 +287,15 @@ public class FragmentSevenStars extends Fragment {
                         seventh.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
 
-                    } else if (touchableView.getId() == R.id.sixth_open_image) {
+                    } else if (touchableView.getId() == R.id.sixth_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSixthCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameSixthPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionSixthCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(sixthCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -282,13 +306,15 @@ public class FragmentSevenStars extends Fragment {
                         seventh.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
 
-                    } else if (touchableView.getId() == R.id.seventh_open_image) {
+                    } else if (touchableView.getId() == R.id.seventh_open_image && taroSelectionView.countOpenCards == 7) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSeventhCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameSeventhPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionSeventhCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(seventhCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);

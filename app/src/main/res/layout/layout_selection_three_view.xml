@@ -38,7 +38,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:fadingEdge="none"
         android:overScrollMode="never"
         android:scrollbars="none"
@@ -53,7 +53,7 @@
     <ImageView
         android:id="@+id/iv_translate"
         android:layout_width="70dp"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:src="@drawable/tarot"
         android:visibility="gone"
         tools:ignore="MissingConstraints" />

@@ -32,6 +32,7 @@ public class TarotSelectionView extends FrameLayout {
     ArrayList<ImageView> imageViews = new ArrayList<>();
     ArrayList<Boolean> isOpenImageView = new ArrayList<>();
     ImageView mIvTranslate;
+    public Integer countOpenCards = 0;
 
     private static final int MAX_CARD_COUNT = 78;
     int screenHalfWidth = 0;
@@ -102,40 +103,51 @@ public class TarotSelectionView extends FrameLayout {
                     if (!isOpenImageView.get(0)) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(0));
                         isOpenImageView.set(0, true);
+                        countOpenCards = 1;
                     } else if ((imageViews.size() > 1) && (!isOpenImageView.get(1))) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(1));
                         isOpenImageView.set(1, true);
+                        countOpenCards = 2;
                     } else if ((imageViews.size() > 1) && (!isOpenImageView.get(2))) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(2));
                         isOpenImageView.set(2, true);
+                        countOpenCards = 3;
                     } else if ((imageViews.size() > 3) && (!isOpenImageView.get(3))) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(3));
                         isOpenImageView.set(3, true);
+                        countOpenCards = 4;
                     } else if ((imageViews.size() > 4) && (!isOpenImageView.get(4))) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(4));
                         isOpenImageView.set(4, true);
+                        countOpenCards = 5;
                     } else if ((imageViews.size() > 4) && (!isOpenImageView.get(5))) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(5));
                         isOpenImageView.set(5, true);
+                        countOpenCards = 6;
                     } else if ((imageViews.size() > 4) && (!isOpenImageView.get(6))) {
                         startCardTranslateAnim(mIvTranslate, imageViews.get(6));
                         isOpenImageView.set(6, true);
+                        countOpenCards = 7;
                     }
                     if (imageViews.size() == 3 && isOpenImageView.get(2)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
+                        slideScrollView.setVisibility(GONE);
                     }
                     if (imageViews.size() == 1 && isOpenImageView.get(0)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
+                        slideScrollView.setVisibility(GONE);
                     }
                     if (imageViews.size() == 4 && isOpenImageView.get(3)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
+                        slideScrollView.setVisibility(GONE);
                     }
                     if (imageViews.size() == 7 && isOpenImageView.get(6)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
+                        slideScrollView.setVisibility(GONE);
                     }
                     return;
                 }

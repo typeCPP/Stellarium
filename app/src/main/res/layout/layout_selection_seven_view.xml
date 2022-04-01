@@ -10,7 +10,7 @@
         android:layout_width="70dp"
         android:layout_height="130dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="70dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/second_open_image"
         app:layout_constraintRight_toLeftOf="@+id/second_open_image" />
@@ -30,13 +30,13 @@
         android:layout_width="70dp"
         android:layout_height="130dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="70dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/second_open_image"
         app:layout_constraintLeft_toRightOf="@+id/second_open_image" />
 
     <ImageView
-        android:id="@+id/fourth_open_image"
+        android:id="@+id/seventh_open_image"
         android:layout_width="70dp"
         android:layout_height="130dp"
         android:layout_marginBottom="20dp"
@@ -59,16 +59,16 @@
         android:id="@+id/sixth_open_image"
         android:layout_width="70dp"
         android:layout_height="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="@id/first_open_image"
         app:layout_constraintTop_toBottomOf="@+id/first_open_image" />
 
     <ImageView
-        android:id="@+id/seventh_open_image"
+        android:id="@+id/fourth_open_image"
         android:layout_width="70dp"
         android:layout_height="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="@id/third_open_image"
         app:layout_constraintTop_toBottomOf="@+id/third_open_image" />
@@ -78,7 +78,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:fadingEdge="none"
         android:overScrollMode="never"
         android:scrollbars="none"

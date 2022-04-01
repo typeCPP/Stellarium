@@ -31,6 +31,8 @@ public class FragmentPyramidLovers extends Fragment {
     private TarotShuffleView taroShuffleView;
     private TarotSelectionView taroSelectionView;
     private String path = "android.resource://com.app.stellarium/drawable/";
+    private Integer[] cardsUsedInLayout = new Integer[]{3, 4, 5, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 30, 31, 32, 33, 34, 35, 36};
+    private String firstCard = "ВАШ ПАРТНЕР", secondCard = "ОТНОШЕНИЯ", thirdCard = "ВЫ", fourthCard = "БУДУЩЕЕ";
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -60,20 +62,23 @@ public class FragmentPyramidLovers extends Fragment {
         linearLayout.setVisibility(View.GONE);
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
-        buttonStart.setOnClickListener(view1 -> taroShuffleView.anim());
+        buttonStart.setOnClickListener(view1 -> {
+            taroShuffleView.anim();
+            view1.setVisibility(View.GONE);
+        });
 
-        int firstCardId = (int) (Math.random() * (78));
+        int firstCardId = cardsUsedInLayout[(int)(Math.random() * 22)];
         int secondCardId = firstCardId;
         while (secondCardId == firstCardId) {
-            secondCardId = (int) (Math.random() * (78));
+            secondCardId = cardsUsedInLayout[(int)(Math.random() * 22)];
         }
         int thirdCardId = secondCardId;
         while (thirdCardId == firstCardId || thirdCardId == secondCardId) {
-            thirdCardId = (int) (Math.random() * (78));
+            thirdCardId = cardsUsedInLayout[(int)(Math.random() * 22)];
         }
         int fourthCardId = thirdCardId;
         while (fourthCardId == firstCardId || fourthCardId == secondCardId || fourthCardId == thirdCardId) {
-            fourthCardId = (int) (Math.random() * (78));
+            fourthCardId = cardsUsedInLayout[(int)(Math.random() * 22)];
         }
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
@@ -138,59 +143,67 @@ public class FragmentPyramidLovers extends Fragment {
             @Override
             public boolean onTouch(View touchableView, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (touchableView.getId() == R.id.first_open_image) {
+                    if (touchableView.getId() == R.id.first_open_image && taroSelectionView.countOpenCards == 4) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFirstCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameFirstPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionFirstCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(firstCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.second_open_image) {
+                    } else if (touchableView.getId() == R.id.second_open_image && taroSelectionView.countOpenCards == 4) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameSecondCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameSecondPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionSecondCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(secondCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.third_open_image) {
+                    } else if (touchableView.getId() == R.id.third_open_image && taroSelectionView.countOpenCards == 4) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameThirdCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameThirdPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionThirdCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(thirdCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.fourth_open_image) {
+                    } else if (touchableView.getId() == R.id.fourth_open_image && taroSelectionView.countOpenCards == 4) {
                         TextView titleView = linearLayout.findViewById(R.id.title_view);
                         titleView.setText(nameFourthCard);
                         ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
                         imageView.setImageURI(Uri.parse(path + nameFourthPicture));
                         TextView descriptionView = linearLayout.findViewById(R.id.description_view);
                         descriptionView.setText(descriptionFourthCard);
+                        TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCard.setText(fourthCard);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
                         third.setVisibility(View.GONE);
                         fourth.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);
-                    } else if (touchableView.getId() == R.id.infoAboutLayoutButton){
+                    } else if (touchableView.getId() == R.id.infoAboutLayoutButton) {
                         Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_pyramid_of_lovers));
                         fragment.show();
                         fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

@@ -26,7 +26,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonStart"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:autoSizeMaxTextSize="18dp"
@@ -38,8 +38,11 @@
         android:fontFamily="@font/gabriela_regular"
         android:gravity="center"
         android:text="@string/guess"
+        android:minWidth="140dp"
         android:textAllCaps="false"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
+        android:layout_centerInParent="true"/>
 
     <LinearLayout
         android:id="@+id/description"
