@@ -2,10 +2,12 @@ package com.app.stellarium.tarocards;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,15 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.R;
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.CompatibilityNamesTable;
-import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.dialog.DialogInfoAboutLayout;
+import com.app.stellarium.dialog.LoadingDialog;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.Taro;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class FragmentThreeCards extends Fragment {
     private Button buttonStart;
@@ -33,6 +38,11 @@ public class FragmentThreeCards extends Fragment {
     private TarotSelectionView taroSelectionView;
     private String path = "android.resource://com.app.stellarium/drawable/";
     private String firstCard = "ПРОШЛОЕ", secondCard = "НАСТОЯЩЕЕ", thirdCard = "БУДУЩЕЕ";
+    private LoadingDialog loadingDialog;
+    private String nameFirstPicture, nameFirstCard, descriptionFirstCard, nameSecondPicture,
+            nameSecondCard, descriptionSecondCard, nameThirdPicture, nameThirdCard, descriptionThirdCard;
+    private ArrayList<ImageView> pictures;
+    private ImageView first, second, third;
 
     public static FragmentThreeCards newInstance(String param1, String param2) {
         FragmentThreeCards fragment = new FragmentThreeCards();
@@ -45,6 +55,7 @@ public class FragmentThreeCards extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,54 +78,21 @@ public class FragmentThreeCards extends Fragment {
             taroShuffleView.anim();
             view1.setVisibility(View.GONE);
         });
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                getThreeCardsFromServer();
+                return null;
+            }
+        });
 
-        int firstCardId = (int) (Math.random() * (78));
-        int secondCardId = firstCardId;
-        while (secondCardId == firstCardId) {
-            secondCardId = (int) (Math.random() * (78));
-        }
-        int thirdCardId = secondCardId;
-        while (thirdCardId == firstCardId || thirdCardId == secondCardId) {
-            thirdCardId = (int) (Math.random() * (78));
-        }
+        pictures = new ArrayList<>();
+        first = view.findViewById(R.id.first_open_image);
+        second = view.findViewById(R.id.second_open_image);
+        third = view.findViewById(R.id.third_open_image);
+        getThreeCardsFromServer();
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + firstCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameFirstPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_THREE_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + secondCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameSecondPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_THREE_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + thirdCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameThirdPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_THREE_CARDS));
-
-        ArrayList<ImageView> pictures = new ArrayList<>();
-        ImageView first = view.findViewById(R.id.first_open_image);
-        first.setImageURI(Uri.parse(path + nameFirstPicture));
-        pictures.add(first);
-        ImageView second = view.findViewById(R.id.second_open_image);
-        second.setImageURI(Uri.parse(path + nameSecondPicture));
-        pictures.add(second);
-        ImageView third = view.findViewById(R.id.third_open_image);
-        third.setImageURI(Uri.parse(path + nameThirdPicture));
-        pictures.add(third);
         taroShuffleView.setOnShuffleListener(() -> {
             taroShuffleView.setVisibility(View.GONE);
             taroSelectionView.setPictures(pictures);
@@ -192,6 +170,65 @@ public class FragmentThreeCards extends Fragment {
         infoButton.setOnTouchListener(new ViewOnTouchListener());
 
         return view;
+    }
+
+    public void getThreeCardsFromServer() {
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Taro threeCardsTaro = getServerResponse();
+                if (threeCardsTaro == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            nameFirstPicture = threeCardsTaro.three.first.pic_name;
+                            nameFirstCard = threeCardsTaro.three.first.name;
+                            descriptionFirstCard = threeCardsTaro.three.first.description;
+
+                            nameSecondPicture = threeCardsTaro.three.second.pic_name;
+                            nameSecondCard = threeCardsTaro.three.second.name;
+                            descriptionSecondCard = threeCardsTaro.three.second.description;
+
+                            nameThirdPicture = threeCardsTaro.three.third.pic_name;
+                            nameThirdCard = threeCardsTaro.three.third.name;
+                            descriptionThirdCard = threeCardsTaro.three.third.description;
+
+                            pictures = new ArrayList<>();
+
+                            first.setImageURI(Uri.parse(path + nameFirstPicture));
+                            pictures.add(first);
+                            second.setImageURI(Uri.parse(path + nameSecondPicture));
+                            pictures.add(second);
+                            third.setImageURI(Uri.parse(path + nameThirdPicture));
+                            pictures.add(third);
+
+                            loadingDialog.dismiss();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private Taro getServerResponse() {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("taro/?count=3");
+            return new Gson().fromJson(response, Taro.class);
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 
 }

@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.R;
@@ -24,8 +29,13 @@ import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.dialog.DialogInfoAboutLayout;
+import com.app.stellarium.dialog.LoadingDialog;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.Taro;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class FragmentSevenStars extends Fragment {
     private Button buttonStart;
@@ -35,9 +45,20 @@ public class FragmentSevenStars extends Fragment {
     private String firstCard = "ОПИСАНИЕ ВАШЕГО ХАРАКТЕРА", secondCard = "КАК ВЕДЕТ СЕБЯ В ЛЮБВИ ИЗБРАННИК",
             thirdCard = "ОПИСАНИЕ ХАРАКТЕРА ВАШЕГО ИЗБРАННИКА",
             fourthCard = "ЧТО БУДЕТ ПОМОГАТЬ ВАМ В ВАШИХ ОТНОШЕНИЯХ",
-            fifthCard= "ТАЙНЫЕ СКЛОННОСТИ И МЫСЛИ ВАШЕГО ИЗБРАННИКА",
+            fifthCard = "ТАЙНЫЕ СКЛОННОСТИ И МЫСЛИ ВАШЕГО ИЗБРАННИКА",
             sixthCard = "КАКИЕ ОПАСНОСТИ ДЛЯ ВАШЕЙ ЛЮБВИ МОГУТ БЫТЬ",
             seventhCard = "ПЕРСПЕКТИВЫ ВАШИХ ОТНОШЕНИЙ";
+
+    private String nameFirstPicture, nameFirstCard, descriptionFirstCard,
+            nameSecondPicture, nameSecondCard, descriptionSecondCard,
+            nameThirdPicture, nameThirdCard, descriptionThirdCard,
+            nameFourthPicture, nameFourthCard, descriptionFourthCard,
+            nameFifthPicture, nameFifthCard, descriptionFifthCard,
+            nameSixthPicture, nameSixthCard, descriptionSixthCard,
+            nameSeventhPicture, nameSeventhCard, descriptionSeventhCard;
+    private ImageView first, second, third, fourth, fifth, sixth, seventh;
+    private ArrayList<ImageView> pictures;
+    private LoadingDialog loadingDialog;
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -50,6 +71,7 @@ public class FragmentSevenStars extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,115 +94,24 @@ public class FragmentSevenStars extends Fragment {
             taroShuffleView.anim();
             view1.setVisibility(View.GONE);
         });
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                getSevenCardsFromServer();
+                return null;
+            }
+        });
 
-        int firstCardId = (int) (Math.random() * (78));
-        int secondCardId = firstCardId;
-        while (secondCardId == firstCardId) {
-            secondCardId = (int) (Math.random() * (78));
-        }
-        int thirdCardId = secondCardId;
-        while (thirdCardId == firstCardId || thirdCardId == secondCardId) {
-            thirdCardId = (int) (Math.random() * (78));
-        }
-        int fourthCardId = thirdCardId;
-        while (fourthCardId == firstCardId || fourthCardId == secondCardId || fourthCardId == thirdCardId) {
-            fourthCardId = (int) (Math.random() * (78));
-        }
-        int fifthCardId = fourthCardId;
-        while (fifthCardId == firstCardId || fifthCardId == secondCardId || fifthCardId == thirdCardId || fifthCardId == fourthCardId) {
-            fifthCardId = (int) (Math.random() * (78));
-        }
-        int sixthCardId = fifthCardId;
-        while (sixthCardId == firstCardId || sixthCardId == secondCardId || sixthCardId == thirdCardId || sixthCardId == fourthCardId || sixthCardId == fifthCardId) {
-            sixthCardId = (int) (Math.random() * (78));
-        }
-        int seventhCardId = sixthCardId;
-        while (seventhCardId == firstCardId || seventhCardId == secondCardId || seventhCardId == thirdCardId || seventhCardId == fourthCardId || seventhCardId == fifthCardId || seventhCardId == sixthCardId) {
-            seventhCardId = (int) (Math.random() * (78));
-        }
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + firstCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameFirstPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FIRST_OF_SEVEN_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + secondCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameSecondPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSecondCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SECOND_OF_SEVEN_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + thirdCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameThirdPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionThirdCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_THIRD_OF_SEVEN_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + fourthCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameFourthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFourthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FOURTH_OF_SEVEN_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + fifthCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameFifthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameFifthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFifthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_FIFTH_OF_SEVEN_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + sixthCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameSixthPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameSixthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSixthCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SIXTH_OF_SEVEN_CARDS));
-
-        cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + seventhCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameSeventhPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameSeventhCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionSeventhCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_SEVENTH_OF_SEVEN_CARDS));
-
-        ArrayList<ImageView> pictures = new ArrayList<>();
-        ImageView first = view.findViewById(R.id.first_open_image);
-        first.setImageURI(Uri.parse(path + nameFirstPicture));
-        pictures.add(first);
-        ImageView second = view.findViewById(R.id.second_open_image);
-        second.setImageURI(Uri.parse(path + nameSecondPicture));
-        pictures.add(second);
-        ImageView third = view.findViewById(R.id.third_open_image);
-        third.setImageURI(Uri.parse(path + nameThirdPicture));
-        pictures.add(third);
-        ImageView fourth = view.findViewById(R.id.fourth_open_image);
-        fourth.setImageURI(Uri.parse(path + nameFourthPicture));
-        pictures.add(fourth);
-        ImageView fifth = view.findViewById(R.id.fifth_open_image);
-        fifth.setImageURI(Uri.parse(path + nameFifthPicture));
-        pictures.add(fifth);
-        ImageView sixth = view.findViewById(R.id.sixth_open_image);
-        sixth.setImageURI(Uri.parse(path + nameSixthPicture));
-        pictures.add(sixth);
-        ImageView seventh = view.findViewById(R.id.seventh_open_image);
-        seventh.setImageURI(Uri.parse(path + nameSeventhPicture));
-        pictures.add(seventh);
-
-
+        pictures = new ArrayList<>();
+        first = view.findViewById(R.id.first_open_image);
+        second = view.findViewById(R.id.second_open_image);
+        third = view.findViewById(R.id.third_open_image);
+        fourth = view.findViewById(R.id.fourth_open_image);
+        fifth = view.findViewById(R.id.fifth_open_image);
+        sixth = view.findViewById(R.id.sixth_open_image);
+        seventh = view.findViewById(R.id.seventh_open_image);
+        getSevenCardsFromServer();
         taroShuffleView.setOnShuffleListener(() -> {
             taroShuffleView.setVisibility(View.GONE);
             taroSelectionView.setPictures(pictures);
@@ -357,5 +288,88 @@ public class FragmentSevenStars extends Fragment {
         seventh.setOnTouchListener(new ViewOnTouchListener());
         infoButton.setOnTouchListener(new ViewOnTouchListener());
         return view;
+    }
+
+    public void getSevenCardsFromServer() {
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Taro sevenCardsTaro = getServerResponse();
+                if (sevenCardsTaro == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            nameFirstPicture = sevenCardsTaro.seven.first.pic_name;
+                            nameFirstCard = sevenCardsTaro.seven.first.name;
+                            descriptionFirstCard = sevenCardsTaro.seven.first.description;
+
+                            nameSecondPicture = sevenCardsTaro.seven.second.pic_name;
+                            nameSecondCard = sevenCardsTaro.seven.second.name;
+                            descriptionSecondCard = sevenCardsTaro.seven.second.description;
+
+                            nameThirdPicture = sevenCardsTaro.seven.third.pic_name;
+                            nameThirdCard = sevenCardsTaro.seven.third.name;
+                            descriptionThirdCard = sevenCardsTaro.seven.third.description;
+
+                            nameFourthPicture = sevenCardsTaro.seven.fourth.pic_name;
+                            nameFourthCard = sevenCardsTaro.seven.fourth.name;
+                            descriptionFourthCard = sevenCardsTaro.seven.fourth.description;
+
+                            nameFifthPicture = sevenCardsTaro.seven.fifth.pic_name;
+                            nameFifthCard = sevenCardsTaro.seven.fifth.name;
+                            descriptionFifthCard = sevenCardsTaro.seven.fifth.description;
+
+                            nameSixthPicture = sevenCardsTaro.seven.sixth.pic_name;
+                            nameSixthCard = sevenCardsTaro.seven.sixth.name;
+                            descriptionSixthCard = sevenCardsTaro.seven.sixth.description;
+
+                            nameSeventhPicture = sevenCardsTaro.seven.seventh.pic_name;
+                            nameSeventhCard = sevenCardsTaro.seven.seventh.name;
+                            descriptionSeventhCard = sevenCardsTaro.seven.seventh.description;
+
+                            pictures = new ArrayList<>();
+
+                            first.setImageURI(Uri.parse(path + nameFirstPicture));
+                            pictures.add(first);
+                            second.setImageURI(Uri.parse(path + nameSecondPicture));
+                            pictures.add(second);
+                            third.setImageURI(Uri.parse(path + nameThirdPicture));
+                            pictures.add(third);
+                            fourth.setImageURI(Uri.parse(path + nameFourthPicture));
+                            pictures.add(fourth);
+                            fifth.setImageURI(Uri.parse(path + nameFifthPicture));
+                            pictures.add(fifth);
+                            sixth.setImageURI(Uri.parse(path + nameSixthPicture));
+                            pictures.add(sixth);
+                            seventh.setImageURI(Uri.parse(path + nameSeventhPicture));
+                            pictures.add(seventh);
+
+                            loadingDialog.dismiss();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private Taro getServerResponse() {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("taro/?count=7");
+            return new Gson().fromJson(response, Taro.class);
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 }

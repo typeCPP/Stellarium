@@ -3,6 +3,7 @@ package com.app.stellarium.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.app.stellarium.R;
 
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
@@ -26,6 +29,7 @@ public class LoadingDialog extends Dialog implements android.view.View.OnClickLi
     private LinearLayout linearLayoutError;
     private Context context;
     private Button button;
+    private UnaryOperator<Void> onClick;
 
     public LoadingDialog(@NonNull Context context) {
         super(context);
@@ -49,18 +53,17 @@ public class LoadingDialog extends Dialog implements android.view.View.OnClickLi
 
         class LoadingDialogOnClickListener implements View.OnClickListener {
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                startGifAnimation();
+                onClick.apply(null);
             }
         }
         button.setOnClickListener(new LoadingDialogOnClickListener());
     }
 
-
-    @Override
-    public void onClick(View view) {
-
+    public void setOnClick(UnaryOperator<Void> onClick) {
+        this.onClick = onClick;
     }
 
     public void startGifAnimation() {
@@ -73,11 +76,21 @@ public class LoadingDialog extends Dialog implements android.view.View.OnClickLi
 
     public void stopGifAnimation() {
         if (gifDrawable.isRunning()) {
-            text.animate().alpha(0f).setDuration(250).setListener(null);
-            text.setVisibility(View.INVISIBLE);
-            linearLayoutError.setVisibility(View.VISIBLE);
-            linearLayoutError.animate().alpha(1f).setDuration(250).setListener(null);
-            gifDrawable.stop();
+            try {
+                text.animate().alpha(0f).setDuration(250).setListener(null);
+                text.setVisibility(View.INVISIBLE);
+                linearLayoutError.setVisibility(View.VISIBLE);
+                linearLayoutError.animate().alpha(1f).setDuration(250).setListener(null);
+                gifDrawable.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+                gifDrawable.stop();
+            }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

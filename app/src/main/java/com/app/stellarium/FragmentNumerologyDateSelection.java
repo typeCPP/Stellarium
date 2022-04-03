@@ -93,27 +93,20 @@ public class FragmentNumerologyDateSelection extends Fragment {
                     int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
                     loadingDialog.show();
                     loadingDialog.startGifAnimation();
-                    loadingDialog.stopGifAnimation();
                     loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
 
                     Handler handler = new Handler();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             getServerResponseToDatabase(numerologyNumber);
-                            try {
-                                Thread.sleep(50000);
-                            } catch (InterruptedException ignored) {
-
-                            }
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     Fragment fragment = new FragmentNumerology();
                                     bundle.putInt("numerologyNumber", numerologyNumber);
                                     fragment.setArguments(bundle);
-//                                    loadingDialog.dismiss();
+                                    loadingDialog.dismiss();
                                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                             .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                                 }

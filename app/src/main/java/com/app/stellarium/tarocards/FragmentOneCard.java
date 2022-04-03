@@ -2,10 +2,12 @@ package com.app.stellarium.tarocards;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,15 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.R;
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.CompatibilityNamesTable;
-import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.dialog.DialogInfoAboutLayout;
+import com.app.stellarium.dialog.LoadingDialog;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.Taro;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class FragmentOneCard extends Fragment {
     private Button buttonStart;
@@ -33,6 +38,12 @@ public class FragmentOneCard extends Fragment {
     private TarotSelectionView taroSelectionView;
     private String path = "android.resource://com.app.stellarium/drawable/";
     private boolean isFirstClickOnCard = true;
+    private LoadingDialog loadingDialog;
+    private String nameFirstPicture;
+    private String nameFirstCard;
+    private ArrayList<ImageView> pictures;
+    private ImageView first;
+    private String descriptionFirstCard;
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -45,6 +56,7 @@ public class FragmentOneCard extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,15 +70,23 @@ public class FragmentOneCard extends Fragment {
         RelativeLayout layout = view.findViewById(R.id.layout);
         layout.addView(taroSelectionView);
         ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
-        ImageView first = view.findViewById(R.id.first_open_image);
+        first = view.findViewById(R.id.first_open_image);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         ImageView closeView = linearLayout.findViewById(R.id.close);
         buttonStart.setOnClickListener(view1 -> {
             taroShuffleView.anim();
             view1.setVisibility(View.GONE);
         });
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                getOneCardFromServer();
+                return null;
+            }
+        });
 
-        int firstCardId = (int) (Math.random() * (78));
+/*        int firstCardId = (int) (Math.random() * (78));
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -80,7 +100,8 @@ public class FragmentOneCard extends Fragment {
         @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_ONE_CARD));
         ArrayList<ImageView> pictures = new ArrayList<>();
         first.setImageURI(Uri.parse(path + nameFirstPicture));
-        pictures.add(first);
+        pictures.add(first);*/
+        getOneCardFromServer();
         taroShuffleView.setOnShuffleListener(() -> {
             taroShuffleView.setVisibility(View.GONE);
             taroSelectionView.setPictures(pictures);
@@ -131,5 +152,49 @@ public class FragmentOneCard extends Fragment {
         infoButton.setOnTouchListener(new ViewOnTouchListener());
 
         return view;
+    }
+
+    public void getOneCardFromServer() {
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Taro oneTaro = getServerResponse();
+                if (oneTaro == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            nameFirstPicture = oneTaro.one.pic_name;
+                            nameFirstCard = oneTaro.one.name;
+                            descriptionFirstCard = oneTaro.one.description;
+                            pictures = new ArrayList<>();
+                            first.setImageURI(Uri.parse(path + nameFirstPicture));
+                            pictures.add(first);
+                            loadingDialog.dismiss();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private Taro getServerResponse() {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("taro/?count=1");
+            return new Gson().fromJson(response, Taro.class);
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 }
