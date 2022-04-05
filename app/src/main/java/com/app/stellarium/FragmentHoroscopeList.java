@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PointF;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
@@ -31,6 +33,7 @@ import com.szugyi.circlemenu.view.CircleLayout;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.function.UnaryOperator;
 
 public class FragmentHoroscopeList extends Fragment {
     private LinearLayout ariesButton, taurusButton, geminiButton, cancerButton, leoButton, virgoButton,
@@ -38,6 +41,7 @@ public class FragmentHoroscopeList extends Fragment {
     private CircleLayout circleLayout;
     private short touchMoveFactor = 10;
     private PointF actionDownPoint = new PointF(0f, 0f);
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,9 @@ public class FragmentHoroscopeList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_horoscope_list, container, false);
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         int MIN_DISTANCE = (int) (120.0f * dm.densityDpi / 300.0f + 0.5);
-
+        loadingDialog = new LoadingDialog(view.getContext());
         class ButtonOnTouchListener implements View.OnTouchListener {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -141,31 +146,15 @@ public class FragmentHoroscopeList extends Fragment {
                                 idOfHoroscopePredictionsByPeriodTableElement = 1;
                                 break;
                         }
-
-                     /*   Handler handler = new Handler();
-                        LoadingDialog loadingDialog = new LoadingDialog(FragmentHoroscopeList.this);
-                        loadingDialog.startLoadingDialog();
-                        int finalDrawableId = drawableId;*/
-                      /*  Thread thread = new Thread(new Runnable() {
+                        int finalDrawableId = drawableId;
+                        loadingDialog.setOnClick(new UnaryOperator<Void>() {
                             @Override
-                            public void run() {
-                                getHoroscopeDataFromServerToLocalTables(idOfHoroscopePredictionsByPeriodTableElement);
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Bundle bundle = findAndGetHoroscopeSignDataFromDatabase(idOfHoroscopePredictionsByPeriodTableElement);
-                                        bundle.putInt("signPictureDrawableId", finalDrawableId);
-                                        bundle.putInt("signId", idOfHoroscopePredictionsByPeriodTableElement);
-                                        Fragment fragment = new FragmentHoroscopePage();
-                                        fragment.setArguments(bundle);
-                                        loadingDialog.dismissLoadingDialog();
-                                        getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                                .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
-                                    }
-                                });
+                            public Void apply(Void unused) {
+                                getServerDataAndOpenHoroscopePage(idOfHoroscopePredictionsByPeriodTableElement, finalDrawableId);
+                                return null;
                             }
                         });
-                        thread.start();*/
+                        getServerDataAndOpenHoroscopePage(idOfHoroscopePredictionsByPeriodTableElement, drawableId);
                     }
                 }
                 return true;
@@ -240,9 +229,49 @@ public class FragmentHoroscopeList extends Fragment {
         return view;
     }
 
-    private void getHoroscopeDataFromServerToLocalTables(int signId) {
+    private void getServerDataAndOpenHoroscopePage(int signId, int drawableId) {
+        Handler handler = new Handler();
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Horoscope horoscope = getHoroscopeDataFromServerToLocalTables(signId);
+                if (horoscope == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    });
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bundle bundle;
+                        Fragment fragment = new FragmentHoroscopePage();
+                        try {
+                            bundle = findAndGetHoroscopeSignDataFromDatabase(signId);
+                            bundle.putInt("signPictureDrawableId", drawableId);
+                            bundle.putInt("signId", signId);
+                            fragment.setArguments(bundle);
+                            loadingDialog.dismiss();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                        } catch (Exception e) {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
+
+    private Horoscope getHoroscopeDataFromServerToLocalTables(int signId) {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        Horoscope horoscope;
         String[] names = {"Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы"};
         String[] periods = {"21 марта – 20 апреля", "21 апреля – 21 мая", "22 мая – 21 июня",
                 "22 июня – 22 июля", "23 июля – 23 августа", "24 августа – 22 сентября",
@@ -253,7 +282,7 @@ public class FragmentHoroscopeList extends Fragment {
             String response;
             response = serverConnection.getStringResponseByParameters("/horoscopes/?sign=" + signId);
             Log.d("HOROSCOPE", String.valueOf(signId));
-            Horoscope horoscope = new Gson().fromJson(response, Horoscope.class);
+            horoscope = new Gson().fromJson(response, Horoscope.class);
             Log.d("HOROSCOPE", horoscope.toString());
             Long characteristicId = insertSignCharacteristic(database, horoscope);
             insertPredictions(database, horoscope, periods[signId - 1], names[signId - 1], characteristicId);
@@ -261,9 +290,11 @@ public class FragmentHoroscopeList extends Fragment {
             e.printStackTrace();
             database.close();
             databaseHelper.close();
+            return null;
         }
         database.close();
         databaseHelper.close();
+        return horoscope;
     }
 
     private void insertPredictions(SQLiteDatabase sqLiteDatabase, Horoscope horoscope, String period, String name, Long characteristicId) {

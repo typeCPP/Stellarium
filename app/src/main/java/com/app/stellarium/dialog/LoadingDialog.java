@@ -3,6 +3,8 @@ package com.app.stellarium.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -68,6 +70,7 @@ public class LoadingDialog extends Dialog implements android.view.View.OnClickLi
 
     public void startGifAnimation() {
         text.setVisibility(View.VISIBLE);
+        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         text.animate().alpha(1f).setDuration(250).setListener(null);
         linearLayoutError.animate().alpha(0f).setDuration(250).setListener(null);
         linearLayoutError.setVisibility(View.INVISIBLE);

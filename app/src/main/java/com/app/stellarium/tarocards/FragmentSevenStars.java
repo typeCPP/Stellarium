@@ -324,7 +324,7 @@ public class FragmentSevenStars extends Fragment {
 
                             nameFourthPicture = sevenCardsTaro.seven.fourth.pic_name;
                             nameFourthCard = sevenCardsTaro.seven.fourth.name;
-                            descriptionFourthCard = sevenCardsTaro.seven.fourth.description;
+                            descriptionFourthCard = sevenCardsTaro.seven.seventh.description;
 
                             nameFifthPicture = sevenCardsTaro.seven.fifth.pic_name;
                             nameFifthCard = sevenCardsTaro.seven.fifth.name;
@@ -336,7 +336,7 @@ public class FragmentSevenStars extends Fragment {
 
                             nameSeventhPicture = sevenCardsTaro.seven.seventh.pic_name;
                             nameSeventhCard = sevenCardsTaro.seven.seventh.name;
-                            descriptionSeventhCard = sevenCardsTaro.seven.seventh.description;
+                            descriptionSeventhCard = sevenCardsTaro.seven.fourth.description;
 
                             pictures = new ArrayList<>();
 
