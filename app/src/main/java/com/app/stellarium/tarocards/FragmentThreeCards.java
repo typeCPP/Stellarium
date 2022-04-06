@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -68,7 +67,7 @@ public class FragmentThreeCards extends Fragment {
         taroSelectionView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         taroSelectionView.setVisibility(View.GONE);
         RelativeLayout layout = view.findViewById(R.id.layout);
-        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
+        ImageView infoButton = view.findViewById(R.id.infoAboutLayoutButton);
         layout.addView(taroSelectionView);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         linearLayout.setVisibility(View.GONE);

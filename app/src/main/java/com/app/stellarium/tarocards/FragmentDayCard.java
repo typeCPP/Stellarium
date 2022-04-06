@@ -9,11 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -69,7 +67,7 @@ public class FragmentDayCard extends Fragment {
         taroSelectionView.setVisibility(View.GONE);
         RelativeLayout layout = view.findViewById(R.id.layout);
         layout.addView(taroSelectionView);
-        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
+        ImageView infoButton = view.findViewById(R.id.infoAboutLayoutButton);
         first = view.findViewById(R.id.first_open_image);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         ImageView closeView = linearLayout.findViewById(R.id.close);
@@ -92,50 +90,49 @@ public class FragmentDayCard extends Fragment {
             taroShuffleView.setVisibility(View.GONE);
             taroSelectionView.setPictures(pictures);
             taroSelectionView.showTarotSelectionView();
-            buttonStart.setVisibility(View.GONE);
+
         });
 
-        class ViewOnTouchListener implements View.OnTouchListener {
+        class ViewOnClickListener implements View.OnClickListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
-            public boolean onTouch(View touchableView, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (touchableView.getId() == R.id.first_open_image) {
-                        if (isFirstClickOnCard) {
-                            TextView titleView = linearLayout.findViewById(R.id.title_view);
-                            titleView.setText(nameFirstCard);
-                            ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
-                            imageView.setImageURI(Uri.parse(path + nameFirstPicture));
-                            TextView descriptionView = linearLayout.findViewById(R.id.description_view);
-                            descriptionView.setText(descriptionFirstCard);
-                            layout.addView(linearLayout);
-                            first.setVisibility(View.GONE);
-                            infoButton.setVisibility(View.GONE);
-                            isFirstClickOnCard = false;
-                        } else {
-                            linearLayout.setVisibility(View.VISIBLE);
-                            first.setVisibility(View.GONE);
-                            infoButton.setVisibility(View.GONE);
-                        }
-
-                    } else if (touchableView.getId() == R.id.infoAboutLayoutButton) {
-                        Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_day_card));
-                        fragment.show();
-                        fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                    } else if (touchableView.getId() == R.id.close) {
-                        linearLayout.setVisibility(View.GONE);
-                        first.setVisibility(View.VISIBLE);
-                        infoButton.setVisibility(View.VISIBLE);
+            public void onClick(View touchableView) {
+                if (touchableView.getId() == R.id.first_open_image) {
+                    if (isFirstClickOnCard) {
+                        TextView characteristicCardText = linearLayout.findViewById(R.id.characteristic_card);
+                        characteristicCardText.setVisibility(View.GONE);
+                        TextView titleView = linearLayout.findViewById(R.id.title_view);
+                        titleView.setText(nameFirstCard);
+                        ImageView imageView = linearLayout.findViewById(R.id.description_image_view);
+                        imageView.setImageURI(Uri.parse(path + nameFirstPicture));
+                        TextView descriptionView = linearLayout.findViewById(R.id.description_view);
+                        descriptionView.setText(descriptionFirstCard);
+                        layout.addView(linearLayout);
+                        first.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
+                        isFirstClickOnCard = false;
+                    } else {
+                        linearLayout.setVisibility(View.VISIBLE);
+                        first.setVisibility(View.GONE);
+                        infoButton.setVisibility(View.GONE);
                     }
+
+                } else if (touchableView.getId() == R.id.infoAboutLayoutButton) {
+                    Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_day_card));
+                    fragment.show();
+                    fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                } else if (touchableView.getId() == R.id.close) {
+                    linearLayout.setVisibility(View.GONE);
+                    first.setVisibility(View.VISIBLE);
+                    infoButton.setVisibility(View.VISIBLE);
                 }
-                return true;
             }
         }
 
-        closeView.setOnTouchListener(new ViewOnTouchListener());
-        first.setOnTouchListener(new ViewOnTouchListener());
-        infoButton.setOnTouchListener(new ViewOnTouchListener());
+        closeView.setOnClickListener(new ViewOnClickListener());
+        first.setOnClickListener(new ViewOnClickListener());
+        infoButton.setOnClickListener(new ViewOnClickListener());
 
         return view;
     }

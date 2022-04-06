@@ -2,8 +2,6 @@ package com.app.stellarium.tarocards;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -15,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,9 +22,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.R;
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.CompatibilityNamesTable;
-import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.dialog.DialogInfoAboutLayout;
 import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
@@ -78,7 +72,7 @@ public class FragmentSevenStars extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_seven_stars, container, false);
 
-        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
+        ImageView infoButton = view.findViewById(R.id.infoAboutLayoutButton);
         taroShuffleView = view.findViewById(R.id.tarot_shuffle_view);
         buttonStart = view.findViewById(R.id.buttonStart);
         taroSelectionView = new TarotSelectionView(this.getContext(), 7);
@@ -322,8 +316,8 @@ public class FragmentSevenStars extends Fragment {
                             nameThirdCard = sevenCardsTaro.seven.third.name;
                             descriptionThirdCard = sevenCardsTaro.seven.third.description;
 
-                            nameFourthPicture = sevenCardsTaro.seven.fourth.pic_name;
-                            nameFourthCard = sevenCardsTaro.seven.fourth.name;
+                            nameFourthPicture = sevenCardsTaro.seven.seventh.pic_name;
+                            nameFourthCard = sevenCardsTaro.seven.seventh.name;
                             descriptionFourthCard = sevenCardsTaro.seven.seventh.description;
 
                             nameFifthPicture = sevenCardsTaro.seven.fifth.pic_name;
@@ -334,8 +328,8 @@ public class FragmentSevenStars extends Fragment {
                             nameSixthCard = sevenCardsTaro.seven.sixth.name;
                             descriptionSixthCard = sevenCardsTaro.seven.sixth.description;
 
-                            nameSeventhPicture = sevenCardsTaro.seven.seventh.pic_name;
-                            nameSeventhCard = sevenCardsTaro.seven.seventh.name;
+                            nameSeventhPicture = sevenCardsTaro.seven.fourth.pic_name;
+                            nameSeventhCard = sevenCardsTaro.seven.fourth.name;
                             descriptionSeventhCard = sevenCardsTaro.seven.fourth.description;
 
                             pictures = new ArrayList<>();

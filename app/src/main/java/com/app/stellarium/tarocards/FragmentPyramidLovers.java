@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -104,8 +103,9 @@ public class FragmentPyramidLovers extends Fragment {
             taroSelectionView.setPictures(pictures);
             taroSelectionView.showTarotSelectionView();
         });
-        ImageButton infoButton = view.findViewById(R.id.infoAboutLayoutButton);
-        System.out.println(infoButton);
+
+        ImageView infoButton = view.findViewById(R.id.infoAboutLayoutButton);
+
         class ViewOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override

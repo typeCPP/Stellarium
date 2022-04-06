@@ -32,6 +32,7 @@ public class TarotSelectionView extends FrameLayout {
     ArrayList<ImageView> imageViews = new ArrayList<>();
     ArrayList<Boolean> isOpenImageView = new ArrayList<>();
     ImageView mIvTranslate;
+    public boolean checkAnimationEnd = false;
     public Integer countOpenCards = 0;
 
     private static final int MAX_CARD_COUNT = 78;
@@ -138,6 +139,7 @@ public class TarotSelectionView extends FrameLayout {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
                         cardContainer.setVisibility(GONE);
                         slideScrollView.setVisibility(GONE);
+                        checkAnimationEnd = true;
                     }
                     if (imageViews.size() == 4 && isOpenImageView.get(3)) {
                         cardContainer.animate().alpha(0.0f).setDuration(500);
@@ -198,6 +200,10 @@ public class TarotSelectionView extends FrameLayout {
         mDismissSet.setTarget(originView);
         mDisplaySet.setTarget(targetView);
         mDisplaySet.addListener(new CardAnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                targetView.performClick();
+            }
         });
         mDismissSet.start();
         mDisplaySet.start();

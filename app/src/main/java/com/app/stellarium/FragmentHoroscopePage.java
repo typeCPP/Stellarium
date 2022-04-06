@@ -12,7 +12,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,7 +31,7 @@ public class FragmentHoroscopePage extends Fragment {
     private int numberOfActiveButton = 1;
     private Button commonHoroscopeButton, healthHoroscopeButton, loveHoroscopeButton,
             businessHoroscopeButton;
-    private ImageButton infoAboutSignButton;
+    private ImageView infoAboutSignButton;
     private LinearLayout contentLayout, firstFreeSpace, secondFreeSpace, thirdFreeSpace, fourthFreeSpace;
     private TextView signTitle;
     private ImageView signImage;

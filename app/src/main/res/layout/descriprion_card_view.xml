@@ -68,9 +68,11 @@
             <TextView
                 android:id="@+id/characteristic_card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_weight="1.4"
                 android:fontFamily="@font/gabriela_regular"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
@@ -99,14 +101,18 @@
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
                     <TextView
                         android:id="@+id/description_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/gabriela_regular"
+                        android:paddingLeft="10dp"
                         android:paddingTop="20dp"
+                        android:paddingRight="10dp"
                         android:text="TextView"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"

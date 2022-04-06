@@ -26,13 +26,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/infoAboutSignButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
                 android:background="@android:color/transparent"
-                android:src="@drawable/help_little" />
+                android:src="@drawable/help" />
         </LinearLayout>
 
         <TextView
