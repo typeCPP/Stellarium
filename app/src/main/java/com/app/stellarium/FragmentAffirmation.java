@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
@@ -29,12 +31,14 @@ import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.Random;
+import java.util.function.UnaryOperator;
 
 
 public class FragmentAffirmation extends Fragment {
 
     private FrameLayout frameLayout;
     private TextView affirmationText;
+    private LoadingDialog loadingDialog;
 
     public FragmentAffirmation() {
     }
@@ -50,6 +54,7 @@ public class FragmentAffirmation extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,21 +67,44 @@ public class FragmentAffirmation extends Fragment {
 
         frameLayout = view.findViewById(R.id.frameLayout);
         affirmationText = view.findViewById(R.id.affirmation_text);
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                workWithBackgroundAndText();
+                return null;
+            }
+        });
 
+        workWithBackgroundAndText();
+
+        return view;
+    }
+
+    private void workWithBackgroundAndText() {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         Calendar calendar = Calendar.getInstance();
         String todayDate = String.valueOf(calendar.get(Calendar.YEAR)) + String.valueOf(calendar.get(Calendar.MONTH)) + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-    /*    LoadingDialog loadingDialog = new LoadingDialog(FragmentAffirmation.this);
-        loadingDialog.startLoadingDialog();
-        Handler handler = new Handler();*/
-       /* new Thread(new Runnable() {
+        Handler handler = new Handler();
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 if (!checkDatabaseForTodayAffirmation(database, todayDate)) {
-                    getDataFromServerToDatabase(database, todayDate);
+                    try {
+                        getDataFromServerToDatabase(database, todayDate);
+                        loadingDialog.dismiss();
+                    } catch (Exception e) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadingDialog.stopGifAnimation();
+                            }
+                        });
+                    }
                 }
-                loadingDialog.dismissLoadingDialog();
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -85,12 +113,12 @@ public class FragmentAffirmation extends Fragment {
                             Drawable background = getBackgroundByID(pair.second);
                             frameLayout.setBackground(background);
                             affirmationText.setText(pair.first);
+                            loadingDialog.dismiss();
                         }
                     }
                 });
             }
-        }).start();*/
-        return view;
+        }).start();
     }
 
     private boolean checkDatabaseForTodayAffirmation(SQLiteDatabase database, String todayDate) {
@@ -136,6 +164,9 @@ public class FragmentAffirmation extends Fragment {
         }
         String response = serverConnection.getStringResponseByParameters(params);
         Affirmation affirmation = new Gson().fromJson(response, Affirmation.class);
+        if (affirmation == null) {
+            throw new NullPointerException();
+        }
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(AffirmationsTable.COLUMN_DATE, todayDate);
