@@ -23,7 +23,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:gravity="center|bottom"
         android:orientation="horizontal"
         android:weightSum="1">
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:textColorHint="#FFF"
+
             app:boxStrokeColor="@color/white"
             app:endIconTint="@color/white"
             app:helperTextTextColor="@color/white"
@@ -48,14 +49,14 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textColor="#FFFFFF"
-                android:textCursorDrawable="@null"/>
+                android:textCursorDrawable="@null" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:gravity="center|bottom"
         android:orientation="horizontal"
         android:weightSum="1">
@@ -79,14 +80,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="@string/password"
                 android:backgroundTint="@color/white"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textColor="#FFFFFF"
-                android:textCursorDrawable="@null"/>
+                android:textCursorDrawable="@null" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/forgotPasswordButton"
+            style="@style/style_sign_main_registration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:stateListAnimator="@animator/button_animation_shadow"
+            android:text="@string/forgot_password"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

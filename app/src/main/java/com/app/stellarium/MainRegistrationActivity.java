@@ -58,6 +58,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private LinearLayout llSignup;
     private TextView tvSigninInvoker;
     private LinearLayout llSignin;
+    private Button forgotPasswordBtn;
     private Button btnSignup;
     private Button btnSignin;
     private Animation scaleUp;
@@ -86,6 +87,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         btnSignup = findViewById(R.id.btnSignup);
         btnSignin = findViewById(R.id.btnSignin);
+        forgotPasswordBtn = findViewById(R.id.forgotPasswordButton);
 
         googleButton = findViewById(R.id.buttonGoggle);
         facebookButton = findViewById(R.id.buttonFacebook);
@@ -174,6 +176,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 MainRegistrationActivity.this.startActivity(myIntent);
                             }
                         }
+                    case (R.id.forgotPasswordButton):
+                        view.startAnimation(scaleUp);
                         break;
 
                 }
@@ -185,6 +189,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new ButtonClickListener());
         btnSignin.setOnClickListener(new ButtonClickListener());
         btnSignup.setOnClickListener(new ButtonClickListener());
+        forgotPasswordBtn.setOnClickListener(new ButtonClickListener());
 
         tvSignupInvoker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -364,5 +369,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
         tvSigninInvoker.setVisibility(View.GONE);
         Animation clockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_left_to_right);
         btnSignin.startAnimation(clockwise);
+        forgotPasswordBtn.startAnimation(clockwise);
     }
 }
