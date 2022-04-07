@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         createFillZodiacSignsTable(database);
         //createFillCompatibilityZodiacTable(database);
         //createFillCompatibilityNamesTable(database);
-        createFillTaroCardsTable(database);
+        //createFillTaroCardsTable(database);
         //createFillNumerologyTable(database);
         //createFillMoonCalendarTable(database);
         hideBottomBar(false);

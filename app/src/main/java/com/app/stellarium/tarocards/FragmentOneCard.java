@@ -83,22 +83,6 @@ public class FragmentOneCard extends Fragment {
                 return null;
             }
         });
-
-/*        int firstCardId = (int) (Math.random() * (78));
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(TaroCardsTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_ID + " = " + firstCardId,
-                null, null, null, null);
-        cursor.moveToFirst();
-        @SuppressLint("Range") final String nameFirstPicture = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_PICTURE_NAME));
-        @SuppressLint("Range") final String nameFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_NAME));
-        @SuppressLint("Range") final String descriptionFirstCard = cursor.getString(cursor.getColumnIndex(TaroCardsTable.COLUMN_DESCRIPTION_ONE_CARD));
-        ArrayList<ImageView> pictures = new ArrayList<>();
-        first.setImageURI(Uri.parse(path + nameFirstPicture));
-        pictures.add(first);*/
         getOneCardFromServer();
         taroShuffleView.setOnShuffleListener(() -> {
             taroShuffleView.setVisibility(View.GONE);
