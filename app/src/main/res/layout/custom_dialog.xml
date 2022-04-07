@@ -19,7 +19,7 @@
         android:fontFamily="@font/gabriela_regular"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Вы уверены?"
+        android:text="@string/question_agreement"
         android:textColor="@color/white"
         android:textSize="22sp" />
 
@@ -48,7 +48,7 @@
             android:breakStrategy="balanced"
             android:clickable="true"
             android:fontFamily="@font/gabriela_regular"
-            android:text="Да"
+            android:text="@string/yes"
             android:textColor="@color/white"
             android:textStyle="bold" />
         <androidx.appcompat.widget.AppCompatButton
@@ -62,7 +62,7 @@
             android:breakStrategy="balanced"
             android:clickable="true"
             android:fontFamily="@font/gabriela_regular"
-            android:text="Нет"
+            android:text="@string/no"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

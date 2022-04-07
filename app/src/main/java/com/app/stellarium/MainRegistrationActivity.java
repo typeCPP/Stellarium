@@ -1,10 +1,10 @@
 package com.app.stellarium;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +22,7 @@ import androidx.percentlayout.widget.PercentRelativeLayout;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.dialog.DialogPasswordReset;
 import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.User;
@@ -47,7 +48,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.Gson;
-
 
 import java.util.Arrays;
 
@@ -178,6 +178,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         }
                     case (R.id.forgotPasswordButton):
                         view.startAnimation(scaleUp);
+                        Dialog dialog = new DialogPasswordReset(MainRegistrationActivity.this);
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         break;
 
                 }
@@ -190,6 +193,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         btnSignin.setOnClickListener(new ButtonClickListener());
         btnSignup.setOnClickListener(new ButtonClickListener());
         forgotPasswordBtn.setOnClickListener(new ButtonClickListener());
+
 
         tvSignupInvoker.setOnClickListener(new View.OnClickListener() {
             @Override

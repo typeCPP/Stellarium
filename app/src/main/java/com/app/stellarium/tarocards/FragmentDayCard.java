@@ -118,9 +118,9 @@ public class FragmentDayCard extends Fragment {
                     }
 
                 } else if (touchableView.getId() == R.id.infoAboutLayoutButton) {
-                    Dialog fragment = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_day_card));
-                    fragment.show();
-                    fragment.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    Dialog dialog = new DialogInfoAboutLayout(view.getContext(), getString(R.string.description_day_card));
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                 } else if (touchableView.getId() == R.id.close) {
                     linearLayout.setVisibility(View.GONE);

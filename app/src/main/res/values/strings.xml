@@ -141,4 +141,10 @@
     <string name="info_yes_no">Шар судьбы позволяет принимать решения. Чтобы узнать ответ на ваш вопрос нужно мысленно или вслух проговорить вопрос и нажать кнопку «Спросить». Вы увидите ответ сразу же в центре Шара. Но помните, что Шар отвечает только вопросы, которые подразумевают однозначный ответ на «да» или «нет».</string>
     <string name="makeChoice">Выберите расклад</string>
     <string name="forgot_password">Забыли пароль?</string>
+    <string name="question_agreement">Вы уверены?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="info_about_password_reset">Не удается выполнить вход? \n Введите электронный адрес, и мы отправим Вам новый пароль для восстановления доступа к аккаунту.</string>
+    <string name="toLogin">Вернуться ко входу</string>
+    <string name="further">Далее</string>
 </resources>

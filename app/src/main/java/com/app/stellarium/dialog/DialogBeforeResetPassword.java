@@ -12,13 +12,13 @@ import androidx.annotation.NonNull;
 
 import com.app.stellarium.R;
 
-public class DialogInfoAboutLayout extends Dialog implements
+public class DialogBeforeResetPassword extends Dialog implements
         android.view.View.OnClickListener {
 
     public Button okButton;
     private String text;
 
-    public DialogInfoAboutLayout (@NonNull Context context, String text) {
+    public DialogBeforeResetPassword (@NonNull Context context, String text) {
         super(context);
         this.text = text;
     }
@@ -27,7 +27,7 @@ public class DialogInfoAboutLayout extends Dialog implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.fragment_info_about_layout);
+        setContentView(R.layout.dialog_before_reset_password);
         okButton = findViewById(R.id.ok_button);
         okButton.setOnClickListener(this);
         TextView textView = findViewById(R.id.text_dialog);
@@ -43,4 +43,3 @@ public class DialogInfoAboutLayout extends Dialog implements
     }
 
 }
-
