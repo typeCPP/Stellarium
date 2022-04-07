@@ -1,8 +1,7 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 
 public class FragmentCompatibilityName extends Fragment {
@@ -29,22 +26,16 @@ public class FragmentCompatibilityName extends Fragment {
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
     private LinearLayout contentLayout;
+    private String loveText, friendshipText, jobText;
+    private int loveValue, friendshipValue, jobValue;
 
     private TextView informationTextView, loveProgressBarText, friendshipProgressBarText,
-    workProgressBarText;
+            workProgressBarText;
+
     private ProgressBar loveProgressBar, friendshipProgressBar, workProgressBar;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FragmentCompatibilityName() {
-        // Required empty public constructor
     }
 
     public static FragmentCompatibilityName newInstance(String param1, String param2) {
@@ -80,7 +71,6 @@ public class FragmentCompatibilityName extends Fragment {
                             updateStateButtons(friendshipButton);
                             break;
                         case R.id.workButton:
-                            Button:
                             updateStateButtons(workButton);
                             break;
                     }
@@ -119,41 +109,30 @@ public class FragmentCompatibilityName extends Fragment {
         workProgressBar = view.findViewById(R.id.progressBarWork);
 
         String nameManString = null, nameWomanString = null;
-        int hashedId = 1;
         Bundle bundle = getArguments();
         if (bundle != null) {
-            nameManString = bundle.getString("NameMan");
-            nameWomanString = bundle.getString("NameWoman");
-            hashedId = bundle.getInt("hashedId");
+            nameManString = bundle.getString("nameMan");
+            nameWomanString = bundle.getString("nameWoman");
+            loveText = bundle.getString("loveText");
+            friendshipText = bundle.getString("friendText");
+            jobText = bundle.getString("jobText");
+
+            loveValue = bundle.getInt("loveValue");
+            friendshipValue = bundle.getInt("friendValue");
+            jobValue = bundle.getInt("jobValue");
         }
         if (nameManString != null && nameWomanString != null) {
             nameMan.setText(nameManString);
             nameWoman.setText(nameWomanString);
         }
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(CompatibilityNamesTable.TABLE_NAME, null,
-                CompatibilityNamesTable.COLUMN_HASHED_ID + " = " + hashedId,
-                null, null, null, null);
-        cursor.moveToFirst();
-
-        final String loveText = cursor.getString(cursor.getColumnIndex(CompatibilityNamesTable.COLUMN_COMP_LOVE_TEXT));
-        final String friendshipText = cursor.getString(cursor.getColumnIndex(CompatibilityNamesTable.COLUMN_COMP_FRIENDSHIP_TEXT));
-        final String workText = cursor.getString(cursor.getColumnIndex(CompatibilityNamesTable.COLUMN_COMP_JOB_TEXT));
-
-        int loveValue = cursor.getInt(cursor.getColumnIndex(CompatibilityNamesTable.COLUMN_COMP_LOVE_VALUE));
-        int friendshipValue = cursor.getInt(cursor.getColumnIndex(CompatibilityNamesTable.COLUMN_COMP_FRIENDSHIP_VALUE));
-        int workValue = cursor.getInt(cursor.getColumnIndex(CompatibilityNamesTable.COLUMN_COMP_JOB_VALUE));
-
         loveProgressBarText.setText(loveValue + "%");
         friendshipProgressBarText.setText(friendshipValue + "%");
-        workProgressBarText.setText(workValue + "%");
+        workProgressBarText.setText(jobValue + "%");
 
         loveProgressBar.setProgress(loveValue);
         friendshipProgressBar.setProgress(friendshipValue);
-        workProgressBar.setProgress(workValue);
+        workProgressBar.setProgress(jobValue);
 
         informationTextView.setText(loveText);
 
@@ -181,7 +160,7 @@ public class FragmentCompatibilityName extends Fragment {
                         informationTextView.setText(friendshipText);
                         break;
                     case 3:
-                        informationTextView.setText(workText);
+                        informationTextView.setText(jobText);
                         break;
                 }
             }

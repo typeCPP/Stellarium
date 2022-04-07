@@ -1,8 +1,6 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,8 +18,6 @@ import android.widget.ViewSwitcher;
 
 import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.CompatibilityZodiacTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 
 
@@ -36,6 +32,9 @@ public class FragmentCompatibilityZodiac extends Fragment {
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
     private LinearLayout contentLayout;
+
+    private String informationLove, informationSex, informationMarriage, informationFriendship;
+    private int loveValue, sexValue, marriageValue, friendshipValue;
 
     public static FragmentCompatibilityZodiac newInstance(String param1, String param2) {
         FragmentCompatibilityZodiac fragment = new FragmentCompatibilityZodiac();
@@ -77,24 +76,16 @@ public class FragmentCompatibilityZodiac extends Fragment {
             numberManSign = bundle.getInt("manSign");
             signTextMan.setText(bundle.getString("signTextMan"));
             signTextWoman.setText(bundle.getString("signTextWoman"));
+
+            informationLove = bundle.getString("loveText");
+            informationSex = bundle.getString("sexText");
+            informationMarriage = bundle.getString("marriageText");
+            informationFriendship = bundle.getString("friendText");
+            loveValue = bundle.getInt("loveVal");
+            sexValue = bundle.getInt("sexVal");
+            marriageValue = bundle.getInt("marriageVal");
+            friendshipValue = bundle.getInt("friendVal");
         }
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(CompatibilityZodiacTable.TABLE_NAME, null,
-                CompatibilityZodiacTable.COLUMN_FIRST_SIGN_ID + " = " + numberWomanSign + " and " +
-                        CompatibilityZodiacTable.COLUMN_SECOND_SIGN_ID + " = " + numberManSign,
-                null, null, null, null);
-        cursor.moveToFirst();
-        final String informationLove = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_LOVE_TEXT));
-        final String informationSex = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_SEX_TEXT));
-        final String informationMarriage = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_TEXT));
-        final String informationFriendship = cursor.getString(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_TEXT));
-
-        final int loveValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_LOVE_VALUE));
-        final int sexValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_SEX_VALUE));
-        final int marriageValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_MARRIAGE_VALUE));
-        final int friendshipValue = cursor.getInt(cursor.getColumnIndex(CompatibilityZodiacTable.COLUMN_COMP_FRIENDSHIP_VALUE));
 
         progressBarLove.setProgress(loveValue);
         progressBarSex.setProgress(sexValue);
