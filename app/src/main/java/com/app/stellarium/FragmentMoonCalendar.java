@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -28,6 +27,7 @@ import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.function.UnaryOperator;
 
 public class FragmentMoonCalendar extends Fragment {
     private Calendar calendar = Calendar.getInstance();
@@ -44,6 +44,7 @@ public class FragmentMoonCalendar extends Fragment {
 
     private int dateOfMonthSelection;
     private int monthSelection;
+    private LoadingDialog loadingDialog;
 
     public static FragmentMoonCalendar newInstance(String param1, String param2) {
         FragmentMoonCalendar fragment = new FragmentMoonCalendar();
@@ -78,6 +79,15 @@ public class FragmentMoonCalendar extends Fragment {
         textViewHealthTitle = view.findViewById(R.id.title_health);
         textViewRelationsTitle = view.findViewById(R.id.title_relations);
         textViewBusinessTitle = view.findViewById(R.id.title_business);
+
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                getDescriptionFromServerByDate((monthSelection + 1) * 100 + dateOfMonthSelection);
+                return null;
+            }
+        });
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         class ButtonOnClickListener implements View.OnClickListener {
@@ -248,10 +258,10 @@ public class FragmentMoonCalendar extends Fragment {
 
 
     private void getDescriptionFromServerByDate(int date) {
- /*       try {
-            LoadingDialog loadingDialog = new LoadingDialog(FragmentMoonCalendar.this);
-            loadingDialog.startLoadingDialog();
-            Handler handler = new Handler();
+        Handler handler = new Handler();
+        try {
+            loadingDialog.show();
+            loadingDialog.startGifAnimation();
             //Сделал чтобы после анимации не появлялся текст предыдущего дня, а сразу новый
             textViewPhase.setText("");
             textViewCharacteristic.setText("");
@@ -264,22 +274,36 @@ public class FragmentMoonCalendar extends Fragment {
                     ServerConnection serverConnection = new ServerConnection();
                     String response = serverConnection.getStringResponseByParameters("moonCalendar/?date=" + date);
                     MoonCalendar moonCalendar = new Gson().fromJson(response, MoonCalendar.class);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            textViewPhase.setText(moonCalendar.phase);
-                            textViewCharacteristic.setText(moonCalendar.characteristics);
-                            textViewHealth.setText(moonCalendar.health);
-                            textViewRelations.setText(moonCalendar.relations);
-                            textViewBusiness.setText(moonCalendar.business);
-                            loadingDialog.dismissLoadingDialog();
-                        }
-                    });
+                    if (moonCalendar == null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadingDialog.stopGifAnimation();
+                            }
+                        });
+                    } else {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                textViewPhase.setText(moonCalendar.phase);
+                                textViewCharacteristic.setText(moonCalendar.characteristics);
+                                textViewHealth.setText(moonCalendar.health);
+                                textViewRelations.setText(moonCalendar.relations);
+                                textViewBusiness.setText(moonCalendar.business);
+                                loadingDialog.dismiss();
+                            }
+                        });
+                    }
                 }
             }).start();
         } catch (Exception e) {
-            Toast.makeText(getContext(), "Ошибка загрузки.", Toast.LENGTH_LONG).show();
-        }*/
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.stopGifAnimation();
+                }
+            });
+        }
     }
 
     private String fixDate(int month, int day) {
