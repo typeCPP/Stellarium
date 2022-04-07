@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.tables.UserTable;
@@ -31,6 +33,7 @@ import com.app.stellarium.utils.jsonmodels.PythagoreanSquare;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
+import java.util.function.UnaryOperator;
 
 public class FragmentPythagoreanSquareDateSelection extends Fragment {
 
@@ -44,7 +47,8 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
     private Bundle bundle;
     private LinearLayout layoutDate;
     private boolean isSetDate;
-    Animation scaleUp;
+    private Animation scaleUp;
+    private LoadingDialog loadingDialog;
 
     public static FragmentPythagoreanSquareDateSelection newInstance(String param1, String param2) {
         FragmentPythagoreanSquareDateSelection fragment = new FragmentPythagoreanSquareDateSelection();
@@ -57,6 +61,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,35 +80,22 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         nextButton.setVisibility(View.INVISIBLE);
         bundle = new Bundle();
 
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                workWithServer();
+                return null;
+            }
+        });
+
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
-                    fragmentHomePage.setArguments(bundle);
-                   /* LoadingDialog loadingDialog = new LoadingDialog(FragmentPythagoreanSquareDateSelection.this);
-                    loadingDialog.startLoadingDialog();
-                    Handler handler = new Handler();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Pair<int[], String[]> data = getDataFromServer(birthdayDay, birthdayMonth, birthdayYear);
-                            int[] matrixValues = data.first;
-                            String[] texts = data.second;
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    bundle.putIntArray("matrixValues", matrixValues);
-                                    bundle.putStringArray("texts", texts);
-                                    loadingDialog.dismissLoadingDialog();
-                                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                            .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
-                                }
-                            });
-                        }
-                    }).start();*/
+                    workWithServer();
                 }
                 return true;
             }
@@ -137,6 +129,41 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         });
         nextButton.setOnTouchListener(new ButtonOnTouchListener());
         return view;
+    }
+
+    private void workWithServer() {
+        Fragment fragmentHomePage = new FragmentPythagoreanSquareHomePage();
+        fragmentHomePage.setArguments(bundle);
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Pair<int[], String[]> data = getDataFromServer(birthdayDay, birthdayMonth, birthdayYear);
+                int[] matrixValues = data.first;
+                String[] texts = data.second;
+                if (matrixValues == null || texts == null || matrixValues.length == 0 || texts.length == 0) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            bundle.putIntArray("matrixValues", matrixValues);
+                            bundle.putStringArray("texts", texts);
+                            loadingDialog.dismiss();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragmentHomePage).commit();
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
     @SuppressLint("ResourceAsColor")
@@ -189,7 +216,9 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         String response = serverConnection.getStringResponseByParameters("pifagorSquare/?day=" + birthdayDay +
                 "&month=" + birthdayMonth + "&year=" + birthdayYear);
         PythagoreanSquare pythagoreanSquare = new Gson().fromJson(response, PythagoreanSquare.class);
-        Log.d("PYTHAGOR", pythagoreanSquare.toString());
+        if (pythagoreanSquare == null) {
+            return new Pair<>(null, null);
+        }
         int[] counts = {pythagoreanSquare.one.count, pythagoreanSquare.two.count, pythagoreanSquare.three.count,
                 pythagoreanSquare.four.count, pythagoreanSquare.five.count, pythagoreanSquare.six.count,
                 pythagoreanSquare.seven.count, pythagoreanSquare.eight.count, pythagoreanSquare.nine.count};
