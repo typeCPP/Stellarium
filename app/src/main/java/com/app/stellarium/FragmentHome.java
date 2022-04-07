@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
+
+import java.util.Calendar;
 
 public class FragmentHome extends Fragment {
 
@@ -53,7 +56,7 @@ public class FragmentHome extends Fragment {
 
     }
 
-    @SuppressLint({"ResourceType", "ClickableViewAccessibility"})
+    @SuppressLint({"ResourceType", "ClickableViewAccessibility", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class FragmentHome extends Fragment {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         String name = getUserName(databaseHelper.getReadableDatabase());
         titleText = view.findViewById(R.id.title_text);
-        titleText.setText("Добрый день, " + name);
+        titleText.setText(getHelloStringByCurrentTime() + ", " + name);
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -151,12 +154,30 @@ public class FragmentHome extends Fragment {
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
                 null, null, null, null);
-        if(userCursor.getCount() > 0) {
+        if (userCursor.getCount() > 0) {
             userCursor.moveToLast();
             return userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
         } else {
             return "Андрей";
         }
     }
+
+    private String getHelloStringByCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        Log.d("TIME", String.valueOf(hour));
+        if (hour >= 12 && hour <= 17) {
+            return "Добрый день";
+        } else if (hour >= 18 && hour <= 23) {
+            return "Добрый вечер";
+        } else if (hour == 0 || hour <= 5) {
+            return "Доброй ночи";
+        } else if (hour >= 6 && hour <= 11) {
+            return "Доброе утро";
+        } else {
+            return "Добрый день";
+        }
+    }
+
 
 }
