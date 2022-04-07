@@ -1,16 +1,22 @@
 package com.app.stellarium;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +47,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -68,7 +75,13 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
     private PasswordFilter passwordFilter = new PasswordFilter();
+    private TextInputLayout signInInputLayout, signUpInputLayout;
+    private ImageView signUpEye, signInEye;
+    private boolean isShowSignup = false, isShowSignin = false;
 
+    private float letterSpacing = 0.212f;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +91,17 @@ public class MainRegistrationActivity extends AppCompatActivity {
         signInPasswordEditText = findViewById(R.id.signInPasswordEditText);
         signUpEmailEditText = findViewById(R.id.signUpEmailEditText);
         signUpPasswordEditText = findViewById(R.id.signUpPasswordEditText);
+
+        signUpEye = findViewById(R.id.signup_eye_password);
+        signUpEye.setVisibility(View.GONE);
+        signUpEye.setOnClickListener(eyeOnClickListener);
+
+        signInEye = findViewById(R.id.signin_eye_password);
+        signInEye.setVisibility(View.GONE);
+        signInEye.setOnClickListener(eyeOnClickListener);
+
+        signInInputLayout = findViewById(R.id.signInTextInputLayout);
+        signUpInputLayout = findViewById(R.id.signUpTextInputLayout);
 
         signInPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
         signUpPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
@@ -97,6 +121,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
         llSignin = findViewById(R.id.llSignin);
         scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_up);
 
+        signUpPasswordEditText.setLetterSpacing(letterSpacing);
+        signInPasswordEditText.setLetterSpacing(letterSpacing);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("632189590717-1n3jc5bdchq75l1r32hcpp5roegq3utf.apps.googleusercontent.com")
                 .requestEmail()
@@ -107,7 +134,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
         FacebookSdk.setApplicationId("1292672574576885");
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
-
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -126,6 +152,71 @@ public class MainRegistrationActivity extends AppCompatActivity {
             }
         });
 
+        signInEmailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                validate_email(signInEmailEditText);
+            }
+        });
+
+        signUpEmailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                validate_email(signUpEmailEditText);
+            }
+        });
+        signUpPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setEyeVisibility(signUpEye, signUpPasswordEditText);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setEyeVisibility(signUpEye, signUpPasswordEditText);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setEyeVisibility(signUpEye, signUpPasswordEditText);
+            }
+        });
+        signInPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setEyeVisibility(signInEye, signInPasswordEditText);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setEyeVisibility(signInEye, signInPasswordEditText);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setEyeVisibility(signInEye, signInPasswordEditText);
+            }
+        });
         class ButtonClickListener implements View.OnClickListener {
             @Override
             public void onClick(View view) {
@@ -212,6 +303,53 @@ public class MainRegistrationActivity extends AppCompatActivity {
         });
         showSigninForm();
 
+    }
+
+    View.OnClickListener eyeOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.signup_eye_password:
+                    eyeChange(isShowSignup, signUpPasswordEditText, signUpEye);
+                    isShowSignup = !isShowSignup;
+                    break;
+                case R.id.signin_eye_password:
+                    System.out.println("akskskdk");
+                    eyeChange(isShowSignin, signInPasswordEditText, signInEye);
+                    isShowSignin = !isShowSignin;
+                    break;
+            }
+        }
+    };
+
+    private void validate_email(TextInputEditText email) {
+        if (!email.getText().toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+            email.setError("Некорректный email");
+        } else {
+            email.setError(null);
+        }
+    }
+
+    private void eyeChange(boolean isShow, TextInputEditText textInputEditText, ImageView eye) {
+        if (isShow) {
+            eye.setImageResource(R.drawable.ic_eye_hide_white);
+            textInputEditText.setLetterSpacing(letterSpacing);
+            textInputEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            textInputEditText.setSelection(textInputEditText.length());
+        } else {
+            eye.setImageResource(R.drawable.ic_eye_show_white);
+            textInputEditText.setLetterSpacing(0f);
+            textInputEditText.setTransformationMethod(null);
+            textInputEditText.setSelection(textInputEditText.length());
+        }
+    }
+
+    private void setEyeVisibility(ImageView eye, TextInputEditText text) {
+        if (text.getText().toString().isEmpty()) {
+            eye.setVisibility(View.GONE);
+        } else {
+            eye.setVisibility(View.VISIBLE);
+        }
     }
 
     private User getAuthorizedUser(String email, String password) {

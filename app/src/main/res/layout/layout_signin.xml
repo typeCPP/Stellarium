@@ -27,13 +27,13 @@
         android:gravity="center|bottom"
         android:orientation="horizontal"
         android:weightSum="1">
-
+        <!--        "#CDADFF"-->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signInTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:textColorHint="#FFF"
-
             app:boxStrokeColor="@color/white"
             app:endIconTint="@color/white"
             app:helperTextTextColor="@color/white"
@@ -61,31 +61,45 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_weight="0.7"
-            android:backgroundTint="@color/white"
-            android:textColorHint="#FFF"
-            app:boxStrokeColor="@color/white"
-            app:endIconTint="@color/white"
-            app:helperTextTextColor="@color/white"
-            app:hintTextColor="@color/white"
-            app:prefixTextColor="#FFFFFF">
+            android:layout_weight="0.7">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signInPasswordEditText"
-                style="@style/style_edit_text_main_registration"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:backgroundTint="@color/white"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:textColor="#FFFFFF"
-                android:textCursorDrawable="@null" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColorHint="#FFF"
+                app:boxStrokeColor="@color/white"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:helperTextTextColor="@color/white"
+                app:hintTextColor="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signInPasswordEditText"
+                    style="@style/style_edit_text_main_registration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:paddingEnd="40dp"
+                    android:textColor="#FFFFFF"
+                    android:textCursorDrawable="@null" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/signin_eye_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/ic_eye_hide_white" />
+        </FrameLayout>
 
     </LinearLayout>
 

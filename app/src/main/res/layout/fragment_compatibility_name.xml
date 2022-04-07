@@ -131,62 +131,84 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="4.5"
-                android:background="@drawable/name_selection_background"
-                android:overScrollMode="never"
-                android:scrollbars="none">
+                android:background="@drawable/name_selection_background">
 
-                <TextView
-                    android:id="@+id/nameWoman"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
-                    android:autoSizeMinTextSize="18dp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </ScrollView>
+                    android:fillViewport="true"
+                    android:scrollbars="none">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/nameWoman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:autoSizeMinTextSize="18dp"
+                            android:autoSizeStepGranularity="1dp"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/gabriela_regular"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="1dp"
+                            android:singleLine="true"
+                            android:text="dd"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </FrameLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="4.5"
-                android:background="@drawable/name_selection_background"
-                android:overScrollMode="never"
-                android:scrollbars="none">
+                android:background="@drawable/name_selection_background">
 
-                <TextView
-                    android:id="@+id/nameMan"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
-                    android:autoSizeMinTextSize="18dp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </ScrollView>
+                    android:fillViewport="true"
+                    android:scrollbars="none">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/nameMan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:autoSizeMinTextSize="18dp"
+                            android:autoSizeStepGranularity="1dp"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/gabriela_regular"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="1dp"
+                            android:singleLine="true"
+                            android:text="dd"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </FrameLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -460,5 +482,4 @@
             </ScrollView>
 
         </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+    </LinearLayout></FrameLayout>
