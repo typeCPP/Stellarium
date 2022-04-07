@@ -56,7 +56,6 @@ public class FragmentNumerology extends Fragment {
         if (bundle != null) {
             numerologyNumber = bundle.getInt("numerologyNumber");
             numerologyTitle.setText("Число судьбы - " + numerologyNumber);
-
         }
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -89,7 +88,7 @@ public class FragmentNumerology extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                textView.setText(getDescriptionFromDatabaseByNumber(numerologyNumber, numberOfActiveButton));
+                textView.setText(getDescriptionFromBundle(numberOfActiveButton, bundle));
             }
 
             @Override
@@ -114,7 +113,7 @@ public class FragmentNumerology extends Fragment {
         activeSwipe(scrollViewVertical);
 
         textView = view.findViewById(R.id.typesOfPredictionsNumerology);
-        textView.setText(getDescriptionFromDatabaseByNumber(numerologyNumber, 1));
+        textView.setText(getDescriptionFromBundle(numberOfActiveButton, bundle));
         activeSwipe(textView);
 
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
@@ -211,27 +210,19 @@ public class FragmentNumerology extends Fragment {
         });
     }
 
-    @SuppressLint("Range")
-    private String getDescriptionFromDatabaseByNumber(int number, int numberOfButton) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(NumerologyTable.TABLE_NAME, null,
-                "NUMBER = " + number,
-                null, null, null, null);
-        cursor.moveToFirst();
+    private String getDescriptionFromBundle(int numberOfButton, Bundle bundle) {
         String description = "";
         if (numberOfButton == 1) {
-            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_GENERAL));
+            description = bundle.getString("general");
         }
         if (numberOfButton == 2) {
-            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_DIGNITIES));
+            description = bundle.getString("dignities");
         }
         if (numberOfButton == 3) {
-            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_DISADVANTAGES));
+            description = bundle.getString("disadvantages");
         }
         if (numberOfButton == 4) {
-            description = cursor.getString(cursor.getColumnIndex(NumerologyTable.COLUMN_FATE));
+            description = bundle.getString("fate");
         }
         return description;
     }

@@ -3,15 +3,12 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,9 +20,9 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.dialog.LoadingDialog;
@@ -33,10 +30,8 @@ import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Numerology;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.Calendar;
-
-import pl.droidsonroids.gif.GifDrawable;
+import java.util.function.UnaryOperator;
 
 public class FragmentNumerologyDateSelection extends Fragment {
 
@@ -64,6 +59,7 @@ public class FragmentNumerologyDateSelection extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +68,14 @@ public class FragmentNumerologyDateSelection extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
             activity.setNumberOfPrevFragment();
-        loadingDialog = new LoadingDialog(requireContext());
+        loadingDialog = new LoadingDialog(view.getContext());
+        loadingDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                useServerDataOpenFragment();
+                return null;
+            }
+        });
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         isSetDate = false;
@@ -90,29 +93,7 @@ public class FragmentNumerologyDateSelection extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
-                    loadingDialog.show();
-                    loadingDialog.startGifAnimation();
-                    loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    Handler handler = new Handler();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            getServerResponseToDatabase(numerologyNumber);
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Fragment fragment = new FragmentNumerology();
-                                    bundle.putInt("numerologyNumber", numerologyNumber);
-                                    fragment.setArguments(bundle);
-                                    loadingDialog.dismiss();
-                                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                            .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
-                                }
-                            });
-                        }
-                    }).start();
+                    useServerDataOpenFragment();
                 }
                 return true;
             }
@@ -147,35 +128,56 @@ public class FragmentNumerologyDateSelection extends Fragment {
         return view;
     }
 
-    private void getServerResponseToDatabase(int number) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        databaseHelper.dropNumerology(database);
-        try {
-            ServerConnection serverConnection = new ServerConnection();
-            Log.d("NUMEROLOGY", String.valueOf(number));
-            String response = serverConnection.getStringResponseByParameters("numerology/?num=" + number);
-            Numerology numerology = new Gson().fromJson(response, Numerology.class);
-            insertNumerology(database, numerology);
-        } catch (Exception e) {
-            e.printStackTrace();
-            database.close();
-            databaseHelper.close();
-        }
-        database.close();
-        databaseHelper.close();
+    private void useServerDataOpenFragment() {
+        int numerologyNumber = calculateNumber(birthdayDay, birthdayMonth, birthdayYear);
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        bundle = new Bundle();
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getServerResponseToBundle(numerologyNumber);
+                if (bundle == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.stopGifAnimation();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Fragment fragment = new FragmentNumerology();
+                            bundle.putInt("numerologyNumber", numerologyNumber);
+                            fragment.setArguments(bundle);
+                            loadingDialog.dismiss();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
-    private void insertNumerology(SQLiteDatabase database, Numerology numerology) {
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(NumerologyTable.COLUMN_NUMBER, numerology.number);
-        contentValues.put(NumerologyTable.COLUMN_GENERAL, numerology.general);
-        contentValues.put(NumerologyTable.COLUMN_DIGNITIES, numerology.dignities);
-        contentValues.put(NumerologyTable.COLUMN_DISADVANTAGES, numerology.disadvantages);
-        contentValues.put(NumerologyTable.COLUMN_FATE, numerology.fate);
-
-        database.insert(NumerologyTable.TABLE_NAME, null, contentValues);
+    private void getServerResponseToBundle(int number) {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("numerology/?num=" + number);
+            Numerology numerology = new Gson().fromJson(response, Numerology.class);
+            if (numerology == null) {
+                bundle = null;
+                return;
+            }
+            bundle.putString("general", numerology.general);
+            bundle.putString("dignities", numerology.dignities);
+            bundle.putString("disadvantages", numerology.disadvantages);
+            bundle.putString("fate", numerology.fate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("ResourceAsColor")
