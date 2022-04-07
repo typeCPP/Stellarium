@@ -393,6 +393,19 @@
         </item>
     </style>
 
+    <style name="style_affirmation_widget_logo">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="android:textStyle">
+            bold
+        </item>
+        <item name="android:fontFamily">
+            @font/gabriela_regular
+        </item>
+    </style>
+
     <style name="style_yes_or_no_ball">
         <item name="android:textColor">#6B000000</item>
         <item name="textAllCaps">
@@ -592,5 +605,15 @@
         <!-- цвет дорожки для неактивного состояния (30% прозрачности) -->
         <item name="android:colorForeground">#7E7E7E</item>
     </style>
+    <style name="Widget.Stellarium.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Widget.Stellarium.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
 </resources>
 
