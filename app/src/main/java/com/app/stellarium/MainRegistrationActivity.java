@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,6 +22,7 @@ import androidx.percentlayout.widget.PercentRelativeLayout;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.User;
 import com.facebook.AccessToken;
@@ -64,6 +66,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
+    private PasswordFilter passwordFilter = new PasswordFilter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
         signInPasswordEditText = findViewById(R.id.signInPasswordEditText);
         signUpEmailEditText = findViewById(R.id.signUpEmailEditText);
         signUpPasswordEditText = findViewById(R.id.signUpPasswordEditText);
+
+        signInPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
+        signUpPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
 
         tvSignupInvoker = findViewById(R.id.tvSignupInvoker);
         tvSigninInvoker = findViewById(R.id.tvSigninInvoker);
@@ -141,7 +147,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         break;
                     case (R.id.btnSignup):
                         view.startAnimation(scaleUp);
-                        if(signUpEmailEditText.getText().toString().isEmpty()
+                        if (signUpEmailEditText.getText().toString().isEmpty()
                                 || signUpPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                         } else {
@@ -153,12 +159,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         break;
                     case (R.id.btnSignin):
                         view.startAnimation(scaleUp);
-                        if(signInEmailEditText.getText().toString().isEmpty()
+                        if (signInEmailEditText.getText().toString().isEmpty()
                                 || signInPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                         } else {
                             User user = getAuthorizedUser(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
-                            if(user != null) {
+                            if (user != null) {
                                 DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
                                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                                 databaseHelper.insertUser(database, user);
@@ -204,8 +210,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
         String response = null;
         User user = null;
         try {
-            response = serverConnection.getStringResponseByParameters("auth/?mail="+email+"&password="+password);
-            if(response.equals("False")) {
+            response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + password);
+            if (response.equals("False")) {
                 throw new NullPointerException("Wrong user data.");
             }
             user = new Gson().fromJson(response, User.class);
@@ -251,7 +257,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             Log.d("TEST", user.getEmail());
                             Log.d("TEST", user.getUid());
 
-                            if(checkUserByUID(user.getUid())) {
+                            if (checkUserByUID(user.getUid())) {
                                 Intent myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
                                 MainRegistrationActivity.this.startActivity(myIntent);
                             } else {
@@ -285,7 +291,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             Log.d("TEST", user.getUid());
                             Log.d("TEST", user.getEmail());
                             Log.d("TEST", user.getDisplayName());
-                            if(checkUserByUID(user.getUid())) {
+                            if (checkUserByUID(user.getUid())) {
                                 Intent myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
                                 MainRegistrationActivity.this.startActivity(myIntent);
                             } else {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fb="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -88,7 +87,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="7.5"
                 android:orientation="vertical"
                 android:weightSum="12">
 
@@ -103,10 +102,11 @@
                     android:layout_height="0dp"
                     android:layout_weight="1.5"
                     android:autoSizeMaxTextSize="25sp"
-                    android:autoSizeMinTextSize="16dp"
+                    android:autoSizeMinTextSize="14dp"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
+                    android:maxLines="1"
                     android:text="Андрей"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -122,11 +122,30 @@
                     android:layout_height="0dp"
                     android:layout_weight="1.5"
                     android:autoSizeMaxTextSize="25sp"
-                    android:autoSizeMinTextSize="16dp"
+                    android:autoSizeMinTextSize="14dp"
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
                     android:text="01.01.1999"
+                    android:textColor="#99EDEBEB" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5" />
+
+                <TextView
+                    android:id="@+id/personal_account_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:fontFamily="@font/gabriela_regular"
+                    android:maxLines="1"
+                    android:text="aboba@yandex.ru"
                     android:textColor="#99EDEBEB" />
             </LinearLayout>
 
@@ -245,8 +264,35 @@
                 android:theme="@style/MySwitch" />
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_account_full_registration"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
+            android:layout_marginBottom="-2dp"
+            android:layout_weight="1"
+            android:background="@drawable/personal_account_button"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeTextType="uniform"
+                android:breakStrategy="balanced"
+                android:fontFamily="@font/gabriela_regular"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Зарегистрироваться"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_account_subscription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="-2dp"
@@ -273,6 +319,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_account_share"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="-2dp"
@@ -299,6 +346,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_account_evaluation"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="-2dp"

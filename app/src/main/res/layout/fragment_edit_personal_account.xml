@@ -10,10 +10,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="12">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="0.5" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -76,6 +77,7 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="bottom"
+                    android:maxLength="20"
                     android:paddingLeft="10dp"
                     android:text="Имя"
                     android:textColor="#B3FFFFFF" />
@@ -85,36 +87,28 @@
                     android:layout_height="0dp"
                     android:layout_weight="6">
 
-                    <ScrollView
+                    <EditText
+                        android:id="@+id/edit_account_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:autofillHints="username"
                         android:background="@drawable/edit_text_personal_account"
-                        android:overScrollMode="never"
+                        android:breakStrategy="balanced"
+                        android:elegantTextHeight="true"
+                        android:ems="10"
+                        android:fontFamily="@font/gabriela_regular"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:maxHeight="1000dp"
+                        android:maxLines="1"
+                        android:minHeight="48dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="40dp"
-                        android:scrollbars="none">
-
-                        <EditText
-                            android:id="@+id/edit_account_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:autofillHints="username"
-                            android:breakStrategy="balanced"
-                            android:elegantTextHeight="true"
-                            android:ems="10"
-                            android:fontFamily="@font/gabriela_regular"
-                            android:imeOptions="actionDone"
-                            android:inputType="textPersonName"
-                            android:maxHeight="1000dp"
-                            android:maxLines="1"
-                            android:minHeight="48dp"
-                            android:text="Имя"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
-                    </ScrollView>
+                        android:text="Имя"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
 
                     <ImageView
                         android:id="@+id/cross_edit_name"
@@ -135,10 +129,87 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <View
+        <LinearLayout
+            android:id="@+id/edit_account_layout_password"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.25" />
+            android:layout_weight="1.5"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="12">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:weightSum="12">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6"
+                    android:autoSizeMaxTextSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:breakStrategy="balanced"
+                    android:fontFamily="@font/gabriela_regular"
+                    android:gravity="bottom"
+                    android:paddingLeft="10dp"
+                    android:text="Пароль"
+                    android:textColor="#B3FFFFFF" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6">
+
+                    <EditText
+                        android:id="@+id/edit_account_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/edit_text_personal_account"
+                        android:breakStrategy="balanced"
+                        android:elegantTextHeight="true"
+                        android:ems="10"
+                        android:fontFamily="@font/gabriela_regular"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:maxHeight="1000dp"
+                        android:maxLines="1"
+                        android:minHeight="48dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="40dp"
+                        android:text="Пароль"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
+
+                    <ImageView
+                        android:id="@+id/eye_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="2dp"
+                        android:onClick="onClickCrossDate"
+                        android:src="@drawable/ic_eye_hide" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,36 +248,28 @@
                     android:layout_height="0dp"
                     android:layout_weight="6">
 
-                    <ScrollView
+                    <TextView
+                        android:id="@+id/edit_account_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/edit_text_personal_account"
-                        android:overScrollMode="never"
+                        android:breakStrategy="balanced"
+                        android:elegantTextHeight="true"
+                        android:ems="10"
+                        android:fontFamily="@font/gabriela_regular"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:inputType="date"
+                        android:maxHeight="1000dp"
+                        android:maxLines="1"
+                        android:minHeight="48dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="40dp"
-                        android:scrollbars="none">
-
-                        <TextView
-                            android:id="@+id/edit_account_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:breakStrategy="balanced"
-                            android:elegantTextHeight="true"
-                            android:ems="10"
-                            android:fontFamily="@font/gabriela_regular"
-                            android:gravity="center_vertical"
-                            android:imeOptions="actionDone"
-                            android:inputType="date"
-                            android:maxHeight="1000dp"
-                            android:maxLines="1"
-                            android:minHeight="48dp"
-                            android:text="Дата рождения"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
-                    </ScrollView>
+                        android:text="Дата рождения"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
 
                     <ImageView
                         android:id="@+id/cross_edit_date"
@@ -226,6 +289,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -303,14 +372,16 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/lastView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="0.75"
             android:orientation="horizontal"
             android:weightSum="12">
 
@@ -319,28 +390,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.5" />
 
-            <LinearLayout
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/save_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
-                android:orientation="vertical"
-                android:weightSum="12">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/save_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6"
-                    android:background="@drawable/save_button_personal_account"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:text="Сохранить"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                android:background="@drawable/save_button_personal_account"
+                android:fontFamily="@font/gabriela_regular"
+                android:text="Сохранить"
+                android:textColor="@color/white" />
 
             <View
                 android:layout_width="0dp"

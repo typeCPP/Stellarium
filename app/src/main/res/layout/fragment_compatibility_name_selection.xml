@@ -143,56 +143,47 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
-                <ScrollView
+                <EditText
+                    android:id="@+id/editTextWoman"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="4.5"
                     android:background="@drawable/name_selection_background"
-                    android:overScrollMode="never"
-                    android:scrollbars="none">
-
-                    <EditText
-                        android:id="@+id/editTextWoman"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|center_vertical"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
-                        android:fontFamily="@font/gabriela_regular"
-                        android:gravity="center"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-                </ScrollView>
+                    android:fontFamily="@font/gabriela_regular"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:maxLength="20"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2" />
 
-                <ScrollView
+
+                <EditText
+                    android:id="@+id/editTextMan"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="4.5"
                     android:background="@drawable/name_selection_background"
-                    android:overScrollMode="never"
-                    android:scrollbars="none">
-
-                    <EditText
-                        android:id="@+id/editTextMan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|center_vertical"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
-                        android:fontFamily="@font/gabriela_regular"
-                        android:gravity="center"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-                </ScrollView>
+                    android:fontFamily="@font/gabriela_regular"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:maxLength="20"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <View

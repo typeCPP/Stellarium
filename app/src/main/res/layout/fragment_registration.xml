@@ -38,40 +38,34 @@
             android:layout_height="match_parent"
             android:layout_weight="9">
 
-            <ScrollView
+
+            <EditText
+                android:id="@+id/registration_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
+                android:autoSizeMaxTextSize="1000dp"
+                android:autoSizeMinTextSize="8dp"
+                android:autoSizeStepGranularity="2dp"
+                android:autoSizeTextType="uniform"
+                android:autofillHints="username"
                 android:background="@drawable/edit_text_registration"
-                android:overScrollMode="never"
+                android:breakStrategy="balanced"
+                android:elegantTextHeight="true"
+                android:ems="10"
+                android:fontFamily="@font/gabriela_regular"
+                android:hint="@string/name"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:inputType="textPersonName"
+                android:maxHeight="1000dp"
+                android:maxLines="1"
+                android:minHeight="48dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="40dp"
-                android:scrollbars="none">
-
-                <EditText
-                    android:id="@+id/registration_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:autoSizeMaxTextSize="1000dp"
-                    android:autoSizeMinTextSize="8dp"
-                    android:autoSizeStepGranularity="2dp"
-                    android:autoSizeTextType="uniform"
-                    android:autofillHints="username"
-                    android:breakStrategy="balanced"
-                    android:elegantTextHeight="true"
-                    android:ems="10"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-                    android:maxHeight="1000dp"
-                    android:maxLines="1"
-                    android:minHeight="48dp"
-                    android:textColor="@color/text_registration"
-                    android:textStyle="italic"
-                    android:imeOptions="actionDone"
-                    android:textColorHint="@color/hint_registration"/>
-            </ScrollView>
+                android:textColor="@color/text_registration"
+                android:textColorHint="@color/hint_registration"
+                android:textStyle="italic" />
 
             <ImageView
                 android:id="@+id/cross"
@@ -124,7 +118,6 @@
             android:ems="10"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center_vertical"
-            android:text="@string/birthday_day"
             android:maxHeight="1000dp"
             android:maxLines="1"
             android:minHeight="48dp"
@@ -132,6 +125,7 @@
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
+            android:text="@string/birthday_day"
             android:textColor="@color/hint_registration"
             android:textStyle="italic" />
 

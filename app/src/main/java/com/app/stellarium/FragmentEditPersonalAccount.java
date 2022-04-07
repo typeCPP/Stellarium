@@ -3,18 +3,25 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputFilter;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,14 +29,17 @@ import android.widget.Toast;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.filters.PasswordFilter;
+import com.app.stellarium.filters.UsernameFilter;
 import com.app.stellarium.utils.ZodiacSignUtils;
 
 import java.util.Calendar;
 
 public class FragmentEditPersonalAccount extends Fragment {
 
-    private ImageView crossEditDate, crossEditName, signImage;
-    private TextView editTextName, editTextDate, signText;
+    private ImageView crossEditDate, crossEditName, signImage, eyeEditPassword;
+    private TextView editTextDate, signText;
+    private EditText editTextName, editTextPassword;
     private DatePickerDialog datePickerDialog;
     private int birthdayDay;
     private int birthdayMonth;
@@ -40,6 +50,12 @@ public class FragmentEditPersonalAccount extends Fragment {
     private RadioButton radioButtonMan, radioButtonWoman;
     private Button saveButton;
     private RadioGroup radioGroup;
+    private boolean isShow = false;
+    private UsernameFilter usernameFilter = new UsernameFilter();
+    private PasswordFilter passwordFilter = new PasswordFilter();
+    private View lastView;
+    private LinearLayout layoutPassword;
+
 
     public FragmentEditPersonalAccount() {
         // Required empty public constructor
@@ -57,6 +73,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,13 +89,37 @@ public class FragmentEditPersonalAccount extends Fragment {
         radioGroup = view.findViewById(R.id.radioGroup);
         signImage = view.findViewById(R.id.sign_edit_personal_account);
         signText = view.findViewById(R.id.sign_text_edit_personal_account);
-
-
+        eyeEditPassword = view.findViewById(R.id.eye_password);
+        editTextPassword = view.findViewById(R.id.edit_account_password);
+        editTextPassword.setLetterSpacing(0.2f);
+        layoutPassword = view.findViewById(R.id.edit_account_layout_password);
+        lastView = view.findViewById(R.id.lastView);
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         getUserData(databaseHelper.getReadableDatabase());
         setSignImageAndText(signId);
         crossEditDate.setOnClickListener(crossClickListener);
         crossEditName.setOnClickListener(crossClickListener);
+        editTextName.setFilters(new InputFilter[]{usernameFilter});
+        editTextPassword.setFilters(new InputFilter[]{passwordFilter});
+        eyeEditPassword.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                if (isShow) {
+                    eyeEditPassword.setImageResource(R.drawable.ic_eye_hide);
+                    editTextPassword.setLetterSpacing(0.2f);
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    editTextPassword.setSelection(editTextPassword.length());
+                    isShow = false;
+                } else {
+                    eyeEditPassword.setImageResource(R.drawable.ic_eye_show);
+                    editTextPassword.setLetterSpacing(0f);
+                    editTextPassword.setTransformationMethod(null);
+                    editTextPassword.setSelection(editTextPassword.length());
+                    isShow = true;
+                }
+            }
+        });
 
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,15 +163,16 @@ public class FragmentEditPersonalAccount extends Fragment {
             public void onClick(View view) {
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                 ContentValues contentValues = new ContentValues();
-                if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty()) {
+                if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty() && !editTextPassword.getText().toString().isEmpty()) {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
                     contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
+                    contentValues.put(UserTable.COLUMN_PASSWORD, editTextPassword.getText().toString());
                     database.update(UserTable.TABLE_NAME, contentValues, "_ID=" + userId, null);
                     database.close();
                     Fragment fragment = new FragmentPersonalAccount();
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right)
                             .replace(R.id.frameLayout, fragment).commit();
                 } else {
                     Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();
@@ -161,6 +203,14 @@ public class FragmentEditPersonalAccount extends Fragment {
         signImage.animate().alpha(0f).setDuration(500).setListener(null);
         signText.animate().alpha(0f).setDuration(500).setListener(null);
         datePickerDialog = new DatePickerDialog(getContext(), R.style.CustomDatePickerDialog, dateSetListener, year, month, day);
+        datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                signImage.animate().alpha(1f).setDuration(500).setListener(null);
+                signText.animate().alpha(1f).setDuration(500).setListener(null);
+            }
+        });
+        datePickerDialog.setCancelable(false);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(R.color.button_registration_bottom_text);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(R.color.button_registration_bottom_text);
@@ -171,6 +221,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("Range")
     private void getUserData(SQLiteDatabase database) {
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
@@ -180,6 +231,13 @@ public class FragmentEditPersonalAccount extends Fragment {
             userCursor.moveToLast();
             String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
             String name = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+            String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+            String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
+            if (email != null && password != null) {
+                editTextPassword.setText(password);
+            } else {
+                hidePasswordField();
+            }
             int sex = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_SEX));
             userId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_ID));
             signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
@@ -202,6 +260,13 @@ public class FragmentEditPersonalAccount extends Fragment {
             birthdayMonth = 7;
             birthdayYear = 2002;
         }
+    }
+
+    private void hidePasswordField() {
+        layoutPassword.setVisibility(View.GONE);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lastView.getLayoutParams();
+        params.weight = 1.5f;
+        lastView.setLayoutParams(params);
     }
 
     private void setSignImageAndText(int signId) {

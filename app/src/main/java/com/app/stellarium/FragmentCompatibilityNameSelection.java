@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
-import com.app.stellarium.dialog.LoadingDialog;
+import com.app.stellarium.filters.NameFilter;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.CompatibilityNames;
 import com.google.gson.Gson;
@@ -31,6 +31,7 @@ public class FragmentCompatibilityNameSelection extends Fragment {
     private Button nextButton;
     private Bundle bundle;
     private Animation scaleUp;
+    private NameFilter nameFilter = new NameFilter();
 
     public static FragmentCompatibilityNameSelection newInstance(String param1, String param2) {
         FragmentCompatibilityNameSelection fragment = new FragmentCompatibilityNameSelection();
@@ -87,7 +88,7 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                                 });
                             }
                         }).start();*/
-               /*     }*/
+                    /*     }*/
                 }
                 return true;
             }
@@ -95,6 +96,8 @@ public class FragmentCompatibilityNameSelection extends Fragment {
 
         editTextMan = view.findViewById(R.id.editTextMan);
         editTextWoman = view.findViewById(R.id.editTextWoman);
+        editTextMan.setFilters(new InputFilter[]{nameFilter});
+        editTextWoman.setFilters(new InputFilter[]{nameFilter});
         nextButton = view.findViewById(R.id.compButtonNext);
 
         nextButton.setOnTouchListener(new ButtonOnTouchListenerNext());

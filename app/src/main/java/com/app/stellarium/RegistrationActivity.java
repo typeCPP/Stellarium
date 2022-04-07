@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.filters.UsernameFilter;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.ZodiacSignUtils;
@@ -50,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private KenBurnsView kbv;
     private Button buttonEndRegistration;
+    private UsernameFilter usernameFilter = new UsernameFilter();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -65,6 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         imageCross = findViewById(R.id.cross);
         editTextName = findViewById(R.id.registration_name);
+        editTextName.setFilters(new InputFilter[]{usernameFilter});
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
         kbv = findViewById(R.id.image11);

@@ -25,9 +25,9 @@ import com.app.stellarium.dialog.CustomDialog;
 
 public class FragmentPersonalAccount extends Fragment {
 
-    private LinearLayout layoutEditProfile, layoutAffirmations;
+    private LinearLayout layoutEditProfile, layoutAffirmations, layoutFullRegistration;
     private ImageView exitImage, signImage;
-    private TextView name, date, signText;
+    private TextView name, date, signText, email;
     private SwitchCompat switchCompat;
     private int signId;
 
@@ -48,8 +48,11 @@ public class FragmentPersonalAccount extends Fragment {
         View view = inflater.inflate(R.layout.fragment_personal_account, container, false);
         layoutEditProfile = view.findViewById(R.id.layout_profile_edit);
         layoutAffirmations = view.findViewById(R.id.layout_profile_affirmations);
+        layoutFullRegistration = view.findViewById(R.id.layout_account_full_registration);
+
         name = view.findViewById(R.id.personal_account_name);
         date = view.findViewById(R.id.personal_account_date);
+        email = view.findViewById(R.id.personal_account_email);
         exitImage = view.findViewById(R.id.personal_account_exit);
         switchCompat = view.findViewById(R.id.switch_personal_account);
 
@@ -75,7 +78,7 @@ public class FragmentPersonalAccount extends Fragment {
                         break;
                 }
                 if (fragment != null) {
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
                             .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
 
                 }
@@ -117,6 +120,12 @@ public class FragmentPersonalAccount extends Fragment {
             userCursor.moveToLast();
             String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
             String nameString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+            String emailString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+            if (emailString != null) {
+                layoutFullRegistration.setVisibility(View.GONE);
+            } else {
+                email.setVisibility(View.GONE);
+            }
             signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
             if (!birthdayString.isEmpty()) {
                 String[] temp = birthdayString.split("/", 3);
