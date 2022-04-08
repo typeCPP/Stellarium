@@ -34,6 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:textColorHint="#FFF"
+            app:errorTextColor="@color/error_signin"
+            app:boxStrokeErrorColor="@color/error_signin"
             app:boxStrokeColor="@color/white"
             app:endIconTint="@color/white"
             app:helperTextTextColor="@color/white"
@@ -64,9 +66,9 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.7">
+<!--            android:layout_marginTop="24dp"-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

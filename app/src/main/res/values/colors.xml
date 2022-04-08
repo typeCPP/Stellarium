@@ -44,7 +44,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorPrimaryTrans">#33673AB7</color>
-    <color name="colorAccentTrans">#33009688</color>
+    <color name="colorAccentTrans">#1A009688</color>
     <color name="colorBlackTrans">#a0000000</color>
     <color name="alert_dialog_background_end_color">#615AC1</color>
     <color name="alert_dialog_background_start_color">#8C86E4</color>
@@ -52,4 +52,5 @@
     <color name="personal_account_button">#4DC0A9E2</color>
     <color name="personal_account_edit_text_spoke">#E67875DF</color>
     <color name="personal_account_edit_text_solid">#E69694DC</color>
+    <color name="error_signin">#FF3E3E</color>
 </resources>

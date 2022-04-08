@@ -69,6 +69,7 @@ public class RegistrationActivity extends AppCompatActivity {
         imageCross = findViewById(R.id.cross);
         editTextName = findViewById(R.id.registration_name);
         editTextName.setFilters(new InputFilter[]{usernameFilter});
+        editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
         kbv = findViewById(R.id.image11);
@@ -97,7 +98,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     ServerConnection serverConnection = new ServerConnection();
                     String params = "/register/?name=" +
                             editTextName.getText().toString() +
-                            "&date=" + editTextDate.getText().toString() +
+                            "&date=" + getBirthdayString(birthdayDay, birthdayMonth, birthdayYear) +
                             "&sex=" + isTouchMan;
                     DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -150,6 +151,17 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String getBirthdayString(int birthdayDay, int birthdayMonth, int birthdayYear){
+        StringBuffer text = new StringBuffer(""+birthdayDay + birthdayMonth + birthdayYear);
+        if (birthdayDay < 10) {
+            text.insert(0, 0);
+        }
+        if (birthdayMonth < 10) {
+            text.insert(2, 0);
+        }
+        return text.toString();
     }
 
     @SuppressLint("ResourceAsColor")

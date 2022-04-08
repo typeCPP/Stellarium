@@ -100,6 +100,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         crossEditDate.setOnClickListener(crossClickListener);
         crossEditName.setOnClickListener(crossClickListener);
         editTextName.setFilters(new InputFilter[]{usernameFilter});
+        editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
         editTextPassword.setFilters(new InputFilter[]{passwordFilter});
         eyeEditPassword.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)

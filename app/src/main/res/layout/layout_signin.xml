@@ -34,6 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:textColorHint="#FFF"
+            app:errorTextColor="@color/error_signin"
+            app:boxStrokeErrorColor="@color/error_signin"
             app:boxStrokeColor="@color/white"
             app:endIconTint="@color/white"
             app:helperTextTextColor="@color/white"
@@ -63,19 +65,21 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.7">
+<!--            android:layout_marginTop="24dp"-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#FFF"
                 app:boxStrokeColor="@color/white"
-                app:endIconTint="@color/white"
                 app:errorEnabled="true"
                 app:helperTextTextColor="@color/white"
+                app:endIconTint="@color/white"
+                app:errorIconDrawable="@null"
                 app:hintTextColor="@color/white">
+<!--                app:endIconTint="@color/white"-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/signInPasswordEditText"
@@ -106,7 +110,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.3"
         android:orientation="horizontal"
         android:weightSum="1">
 

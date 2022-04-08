@@ -29,6 +29,7 @@ import androidx.percentlayout.widget.PercentRelativeLayout;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.dialog.DialogPasswordReset;
+import com.app.stellarium.filters.EmailFilter;
 import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.User;
@@ -75,6 +76,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
     private PasswordFilter passwordFilter = new PasswordFilter();
+    private EmailFilter emailFilter = new EmailFilter();
     private TextInputLayout signInInputLayout, signUpInputLayout;
     private ImageView signUpEye, signInEye;
     private boolean isShowSignup = false, isShowSignin = false;
@@ -105,6 +107,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         signInPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
         signUpPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
+        signInEmailEditText.setFilters(new InputFilter[]{emailFilter});
+        signUpEmailEditText.setFilters(new InputFilter[]{emailFilter});
 
         tvSignupInvoker = findViewById(R.id.tvSignupInvoker);
         tvSigninInvoker = findViewById(R.id.tvSigninInvoker);
@@ -165,7 +169,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                validate_email(signInEmailEditText);
+                validate_email(signInEmailEditText, signInInputLayout);
             }
         });
 
@@ -182,7 +186,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                validate_email(signUpEmailEditText);
+                validate_email(signUpEmailEditText, signUpInputLayout);
             }
         });
         signUpPasswordEditText.addTextChangedListener(new TextWatcher() {
@@ -314,7 +318,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
                     isShowSignup = !isShowSignup;
                     break;
                 case R.id.signin_eye_password:
-                    System.out.println("akskskdk");
                     eyeChange(isShowSignin, signInPasswordEditText, signInEye);
                     isShowSignin = !isShowSignin;
                     break;
@@ -322,11 +325,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
         }
     };
 
-    private void validate_email(TextInputEditText email) {
+    private void validate_email(TextInputEditText email, TextInputLayout layout) {
         if (!email.getText().toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-            email.setError("Некорректный email");
+            layout.setError("Некорректный email");
+            layout.setErrorIconDrawable(null);
         } else {
-            email.setError(null);
+            layout.setError(null);
         }
     }
 
