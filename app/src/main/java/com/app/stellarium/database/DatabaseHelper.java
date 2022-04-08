@@ -8,15 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
 import com.app.stellarium.database.tables.CompatibilityNamesTable;
 import com.app.stellarium.database.tables.CompatibilityZodiacTable;
+import com.app.stellarium.database.tables.FavoriteAffirmationsTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsByPeriodTable;
 import com.app.stellarium.database.tables.HoroscopePredictionsTable;
 import com.app.stellarium.database.tables.HoroscopeSignCharacteristicTable;
 import com.app.stellarium.database.tables.InformationTable;
-import com.app.stellarium.database.tables.MoonCalendarTable;
 import com.app.stellarium.database.tables.NumerologyTable;
-import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
-import com.app.stellarium.database.tables.TodayAffirmationTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.utils.jsonmodels.User;
@@ -45,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //sqLiteDatabase.execSQL(MoonCalendarTable.CREATE_TABLE);
             sqLiteDatabase.execSQL(NumerologyTable.CREATE_TABLE);
             sqLiteDatabase.execSQL(UserTable.CREATE_TABLE);
-            sqLiteDatabase.execSQL(TodayAffirmationTable.CREATE_TABLE);
+            sqLiteDatabase.execSQL(FavoriteAffirmationsTable.CREATE_TABLE);
         } catch (Exception ignored) {
         }
     }
@@ -65,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoonCalendarTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + NumerologyTable.TABLE_NAME);
         //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + FavoriteAffirmationsTable.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 

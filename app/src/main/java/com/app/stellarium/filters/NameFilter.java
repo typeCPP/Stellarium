@@ -3,6 +3,8 @@ package com.app.stellarium.filters;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+import java.util.regex.Pattern;
+
 public class NameFilter implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end,
@@ -10,7 +12,7 @@ public class NameFilter implements InputFilter {
         StringBuilder builder = new StringBuilder();
         for (int i = start; i < end; i++) {
             char c = source.charAt(i);
-            if (Character.isLetter(c)) {
+            if (Character.isLetter(c) || Pattern.matches( "[\\Q- \\E]", new StringBuilder(1).append(c))) {
                 builder.append(c);
             }
         }

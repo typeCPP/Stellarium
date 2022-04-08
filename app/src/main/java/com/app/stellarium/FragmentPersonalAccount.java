@@ -75,6 +75,7 @@ public class FragmentPersonalAccount extends Fragment {
                         fragment = new FragmentEditPersonalAccount();
                         break;
                     case R.id.layout_profile_affirmations:
+                        fragment = new FragmentFavoriteAffirmations();
                         break;
                 }
                 if (fragment != null) {
@@ -123,6 +124,7 @@ public class FragmentPersonalAccount extends Fragment {
             String emailString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
             if (emailString != null) {
                 layoutFullRegistration.setVisibility(View.GONE);
+                email.setText(emailString);
             } else {
                 email.setVisibility(View.GONE);
             }

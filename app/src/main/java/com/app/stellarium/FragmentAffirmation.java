@@ -23,19 +23,16 @@ import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
-import com.app.stellarium.database.tables.TaroCardsTable;
-import com.app.stellarium.database.tables.TodayAffirmationTable;
+import com.app.stellarium.database.tables.FavoriteAffirmationsTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Affirmation;
 import com.google.gson.Gson;
-import com.like.IconType;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 import java.util.function.UnaryOperator;
 
@@ -72,12 +69,14 @@ public class FragmentAffirmation extends Fragment {
             activity.setNumberOfPrevFragment();
             activity.hideBottomBar(true);
         }
+
         View view = inflater.inflate(R.layout.fragment_affirmation, container, false);
 
         frameLayout = view.findViewById(R.id.frameLayout);
         affirmationText = view.findViewById(R.id.affirmation_text);
         loadingDialog = new LoadingDialog(view.getContext());
         likeButton = view.findViewById(R.id.heart_button);
+
         Calendar calendar = Calendar.getInstance();
         String todayDate
                 = String.valueOf(calendar.get(Calendar.YEAR))
@@ -85,34 +84,19 @@ public class FragmentAffirmation extends Fragment {
                 + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         likeButton.setOnLikeListener(new OnLikeListener() {
 
+            @SuppressLint("Range")
             @Override
             public void liked(LikeButton likeButton) {
-                isLiked = true;
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
-                Cursor affirmationCursor = database.query(TodayAffirmationTable.TABLE_NAME, null,
-                        AffirmationsTable.COLUMN_DATE + " = " + todayDate,
-                        null, null, null, null);
-                affirmationCursor.moveToFirst();
-                ContentValues values = new ContentValues();
-                values.put(TodayAffirmationTable.COLUMN_DATE, todayDate);
-                values.put(TodayAffirmationTable.COLUMN_LIKE, "1");
-                database.update(TodayAffirmationTable.TABLE_NAME, values, null, null);
+                updateFavoriteAffirmationTable(database, todayDate, true);
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                isLiked = false;
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
-                Cursor affirmationCursor = database.query(TodayAffirmationTable.TABLE_NAME, null,
-                        AffirmationsTable.COLUMN_DATE + " = " + todayDate,
-                        null, null, null, null);
-                affirmationCursor.moveToFirst();
-                ContentValues values = new ContentValues();
-                values.put(TodayAffirmationTable.COLUMN_DATE, todayDate);
-                values.put(TodayAffirmationTable.COLUMN_LIKE, "0");
-                database.update(TodayAffirmationTable.TABLE_NAME, values, null, null);
+                updateFavoriteAffirmationTable(database, todayDate, false);
             }
         });
 
@@ -128,15 +112,21 @@ public class FragmentAffirmation extends Fragment {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        updateTodayAffirmationTable(database, todayDate);
-        
-        Integer intIsLiked = checkLike(database, todayDate);
-        if (intIsLiked == 1) {
-            likeButton.setLiked(true);
-        } else {
-            likeButton.setLiked(false);
-        }
+        //updateTodayAffirmationTable(database, todayDate);
+
+        isLiked = checkLike(database, todayDate);
+        likeButton.setLiked(isLiked);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity activity = (MainActivity) getActivity();
+
+        if (activity != null) {
+            activity.hideBottomBar(true);
+        }
     }
 
     private void workWithBackgroundAndText() {
@@ -208,12 +198,18 @@ public class FragmentAffirmation extends Fragment {
     }
 
     @SuppressLint("Range")
-    private Integer checkLike(SQLiteDatabase database, String todayDate) {
-        Cursor affirmationCursor = database.query(TodayAffirmationTable.TABLE_NAME, null,
-                TodayAffirmationTable.COLUMN_DATE + " = " + todayDate,
+    private boolean checkLike(SQLiteDatabase database, String todayDate) {
+        getDataFromServerToDatabase(database, todayDate);
+        Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
+                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
                 null, null, null, null);
         affirmationCursor.moveToFirst();
-        return Integer.valueOf(affirmationCursor.getString(affirmationCursor.getColumnIndex(TodayAffirmationTable.COLUMN_LIKE)));
+        @SuppressLint("Range") int idTodayAffirmation
+                = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
+        Cursor favoriteAffirmationCursor = database.query(FavoriteAffirmationsTable.TABLE_NAME, null,
+                FavoriteAffirmationsTable.COLUMN_AFFIRMATION_ID + " = " + idTodayAffirmation,
+                null, null, null, null);
+        return favoriteAffirmationCursor.getCount() >= 1;
     }
 
     @SuppressLint("Range")
@@ -266,16 +262,35 @@ public class FragmentAffirmation extends Fragment {
         }
     }
 
-    private void updateTodayAffirmationTable(SQLiteDatabase database, String todayDate)
-    {
-        Cursor affirmationsCursor = database.query(TodayAffirmationTable.TABLE_NAME, null,
+//    private void updateTodayAffirmationTable(SQLiteDatabase database, String todayDate)
+//    {
+//        Cursor affirmationsCursor = database.query(FavoriteAffirmationsTable.TABLE_NAME, null,
+//                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
+//                null, null, null, null);
+//        if (affirmationsCursor.getCount() < 1) {
+//            ContentValues values = new ContentValues();
+//            values.put(FavoriteAffirmationsTable.COLUMN_DATE, todayDate);
+//            values.put(FavoriteAffirmationsTable.COLUMN_LIKE, "0");
+//            database.insert(FavoriteAffirmationsTable.TABLE_NAME, null, values);
+//        }
+//    }
+
+    private void updateFavoriteAffirmationTable(SQLiteDatabase database, String todayDate, boolean addAffirmation) {
+        getDataFromServerToDatabase(database, todayDate);
+        Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
                 AffirmationsTable.COLUMN_DATE + " = " + todayDate,
                 null, null, null, null);
-        if (affirmationsCursor.getCount() < 1) {
-            ContentValues values = new ContentValues();
-            values.put(TodayAffirmationTable.COLUMN_DATE, todayDate);
-            values.put(TodayAffirmationTable.COLUMN_LIKE, "0");
-            database.insert(TodayAffirmationTable.TABLE_NAME, null, values);
+        affirmationCursor.moveToFirst();
+        @SuppressLint("Range") Integer idTodayAffirmation
+                = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FavoriteAffirmationsTable.COLUMN_AFFIRMATION_ID, idTodayAffirmation);
+        if (addAffirmation) {
+            database.insert(FavoriteAffirmationsTable.TABLE_NAME, null, contentValues);
+        } else {
+            String[] args = {String.valueOf(idTodayAffirmation)};
+            database.delete(FavoriteAffirmationsTable.TABLE_NAME, "AFFIRMATION_ID=?", args);
         }
     }
 }
