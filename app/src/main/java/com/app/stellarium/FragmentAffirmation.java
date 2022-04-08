@@ -112,11 +112,20 @@ public class FragmentAffirmation extends Fragment {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        //updateTodayAffirmationTable(database, todayDate);
 
         isLiked = checkLike(database, todayDate);
         likeButton.setLiked(isLiked);
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        MainActivity activity = (MainActivity) getActivity();
+
+        if (activity != null) {
+            activity.hideBottomBar(false);
+        }
     }
 
     @Override
@@ -251,29 +260,6 @@ public class FragmentAffirmation extends Fragment {
         Log.d("DRAWABLE", resources.getDrawable(resID).toString());
         return resID;
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        MainActivity activity = (MainActivity) getActivity();
-
-        if (activity != null) {
-            activity.hideBottomBar(false);
-        }
-    }
-
-//    private void updateTodayAffirmationTable(SQLiteDatabase database, String todayDate)
-//    {
-//        Cursor affirmationsCursor = database.query(FavoriteAffirmationsTable.TABLE_NAME, null,
-//                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
-//                null, null, null, null);
-//        if (affirmationsCursor.getCount() < 1) {
-//            ContentValues values = new ContentValues();
-//            values.put(FavoriteAffirmationsTable.COLUMN_DATE, todayDate);
-//            values.put(FavoriteAffirmationsTable.COLUMN_LIKE, "0");
-//            database.insert(FavoriteAffirmationsTable.TABLE_NAME, null, values);
-//        }
-//    }
 
     private void updateFavoriteAffirmationTable(SQLiteDatabase database, String todayDate, boolean addAffirmation) {
         getDataFromServerToDatabase(database, todayDate);

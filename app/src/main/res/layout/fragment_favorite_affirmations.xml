@@ -38,7 +38,8 @@
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
                 android:textColor="#6B000000"
-                style="@style/style_affirmation_title"/>
+                style="@style/style_affirmation_title"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
