@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentAffirmation"
+    android:background="@drawable/affirmation_background2"
     android:orientation="vertical"
-    android:id="@+id/frameLayout"
-    android:background="@drawable/affirmation_background2">
+    tools:context=".FragmentAffirmation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,14 +32,37 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.25" />
 
+
             <TextView
+                style="@style/style_affirmation_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
-                android:textColor="#6B000000"
-                style="@style/style_affirmation_title"/>
+                android:textColor="#6B000000" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.075" />
+
+            <com.like.LikeButton
+                android:id="@+id/heart_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                app:icon_size="9dp"
+                app:liked="false"
+                app:icon_type="heart"
+                android:paddingBottom="4dp"
+                app:anim_scale_factor="3"
+                app:circle_start_color="@color/alert_dialog_background_stroke"
+                app:circle_end_color="#FF5722"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
 
         </LinearLayout>
 
@@ -60,9 +84,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
+                android:background="@drawable/affirmation_background"
                 android:text="@string/affirmation_text"
-                android:textAlignment="center"
-                android:background="@drawable/affirmation_background"/>
+                android:textAlignment="center" />
 
         </LinearLayout>
 

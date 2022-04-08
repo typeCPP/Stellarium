@@ -16,6 +16,7 @@ import com.app.stellarium.database.tables.MoonCalendarTable;
 import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.database.tables.PythagoreanSquareTable;
 import com.app.stellarium.database.tables.TaroCardsTable;
+import com.app.stellarium.database.tables.TodayAffirmationTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.utils.jsonmodels.User;
@@ -44,13 +45,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //sqLiteDatabase.execSQL(MoonCalendarTable.CREATE_TABLE);
             sqLiteDatabase.execSQL(NumerologyTable.CREATE_TABLE);
             sqLiteDatabase.execSQL(UserTable.CREATE_TABLE);
+            sqLiteDatabase.execSQL(TodayAffirmationTable.CREATE_TABLE);
         } catch (Exception ignored) {
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AffirmationsTable.TABLE_NAME);
+        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AffirmationsTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + InformationTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HoroscopePredictionsTable.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HoroscopePredictionsByPeriodTable.TABLE_NAME);
