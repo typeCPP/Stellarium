@@ -12,7 +12,9 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,14 +96,68 @@ public class FragmentEditPersonalAccount extends Fragment {
         editTextPassword.setLetterSpacing(0.2f);
         layoutPassword = view.findViewById(R.id.edit_account_layout_password);
         lastView = view.findViewById(R.id.lastView);
+
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         getUserData(databaseHelper.getReadableDatabase());
         setSignImageAndText(signId);
         crossEditDate.setOnClickListener(crossClickListener);
         crossEditName.setOnClickListener(crossClickListener);
+
         editTextName.setFilters(new InputFilter[]{usernameFilter});
         editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
         editTextPassword.setFilters(new InputFilter[]{passwordFilter});
+
+        editTextName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                showAndHideIcon(editTextName, crossEditName);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                showAndHideIcon(editTextName, crossEditName);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                showAndHideIcon(editTextName, crossEditName);
+            }
+        });
+
+        editTextDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                showAndHideIconForDate(editTextDate, crossEditDate);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                showAndHideIconForDate(editTextDate, crossEditDate);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                showAndHideIconForDate(editTextDate, crossEditDate);
+            }
+        });
+
+        editTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                showAndHideIcon(editTextPassword, eyeEditPassword);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                showAndHideIcon(editTextPassword, eyeEditPassword);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                showAndHideIcon(editTextPassword, eyeEditPassword);
+            }
+        });
+
         eyeEditPassword.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -173,7 +229,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                     database.update(UserTable.TABLE_NAME, contentValues, "_ID=" + userId, null);
                     database.close();
                     Fragment fragment = new FragmentPersonalAccount();
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right)
+                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_in_left, R.animator.slide_out_right)
                             .replace(R.id.frameLayout, fragment).commit();
                 } else {
                     Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();
@@ -181,6 +237,26 @@ public class FragmentEditPersonalAccount extends Fragment {
             }
         });
         return view;
+    }
+
+    private void showAndHideIcon(EditText editText, ImageView icon) {
+        if (editText.getText().toString().isEmpty()) {
+            icon.setVisibility(View.GONE);
+        } else {
+            icon.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showAndHideIconForDate(TextView textView, ImageView icon) {
+        if (textView.getText().toString().isEmpty()) {
+            icon.setVisibility(View.GONE);
+            signImage.animate().alpha(0f).setDuration(500).setListener(null);
+            signText.animate().alpha(0f).setDuration(500).setListener(null);
+        } else {
+            icon.setVisibility(View.VISIBLE);
+            signImage.animate().alpha(1f).setDuration(500).setListener(null);
+            signText.animate().alpha(1f).setDuration(500).setListener(null);
+        }
     }
 
     View.OnClickListener crossClickListener = new View.OnClickListener() {
