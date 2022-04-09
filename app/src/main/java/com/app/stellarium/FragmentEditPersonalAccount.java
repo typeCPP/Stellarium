@@ -307,6 +307,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         if (userCursor.getCount() > 0) {
             userCursor.moveToLast();
             String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+            birthdayString = birthdayString.replaceAll("\\.", "/");
             String name = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
             String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
             String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
@@ -328,7 +329,7 @@ public class FragmentEditPersonalAccount extends Fragment {
             }
             editTextName.setText(name);
             editTextDate.setText(birthdayString);
-            String[] temp = birthdayString.split("\\.", 3);
+            String[] temp = birthdayString.split("/", 3);
             birthdayDay = Integer.parseInt(temp[0]);
             birthdayMonth = Integer.parseInt(temp[1]);
             birthdayYear = Integer.parseInt(temp[2]);
