@@ -70,4 +70,20 @@
     <color name="button_pythagorean_square">#C1BDF3</color>
     <color name="nav_background_curved">#1bc0a7</color>
     <color name="numerologic_background">#12FFFFFF</color>
+    <color name="color_hint_style_edit_text_registration">#A0A3B6</color>
+    <color name="text_color_style_horoscope_title">#EEE7FF</color>
+    <color name="text_color_style_birthday_day">#F7FFFFFF</color>
+    <color name="shadow_color_style_birthday_day">#40000000</color>
+    <color name="text_color_style_date">#E6FFFFFF</color>
+    <color name="shadow_color_style_date">#4BACB1EA</color>
+    <color name="text_color_style_period">#EEE7FF</color>
+    <color name="text_color_style_affirmation_text">#9A000000</color>
+    <color name="text_color_style_affirmation_title">#6B000000</color>
+    <color name="text_color_style_affirmation_widget_logo">#FFFFFF</color>
+    <color name="text_color_style_yes_or_no_ball">#6B000000</color>
+    <color name="text_color_little_style_moon_calendar_title">#A4EEE7FF</color>
+    <color name="text_color_style_date_numerologic">#E6020202</color>
+    <color name="shadow_color_style_date_numerologic">#4BACB1EA</color>
+    <color name="color_switch_thumb_normal_style_my_switch">#CCAC82EC</color>
+    <color name="color_foreground_style_my_switch">#7E7E7E</color>
 </resources>

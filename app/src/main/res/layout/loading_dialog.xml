@@ -26,7 +26,7 @@
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/something_went_wrong"
-            android:textColor="#3831AC"
+            android:textColor="@color/loading_dialog_button"
             android:textSize="22sp" />
         <View
             android:layout_width="match_parent"
@@ -89,8 +89,8 @@
             android:layout_gravity="center"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
-            android:text="Устанавливаем связь с космосом"
-            android:textColor="#3831AC"
+            android:text="@string/connection"
+            android:textColor="@color/loading_dialog_button"
             android:textSize="22sp" />
 
         <View

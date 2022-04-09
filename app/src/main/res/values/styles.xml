@@ -54,7 +54,7 @@
 
     <style name="style_edit_text_registration">
         <item name="android:textColorHint">
-            #A0A3B6
+            @color/color_hint_style_edit_text_registration
         </item>
         <item name="android:textSize">
             24sp
@@ -83,7 +83,7 @@
         <item name="android:fontFamily">
             @font/gabriela_regular
         </item>
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_horoscope_title</item>
         <item name="android:textSize">
             16sp
         </item>
@@ -175,11 +175,11 @@
 
     <style name="birthday_day">
         <item name="android:textColor">
-            #F7FFFFFF
+            @color/text_color_style_birthday_day
         </item>
 
         <item name="android:shadowColor">
-            #40000000
+            @color/shadow_color_style_birthday_day
         </item>
 
         <item name="android:shadowDx">
@@ -205,11 +205,11 @@
         </item>
 
         <item name="android:textColor">
-            #E6FFFFFF
+            @color/text_color_style_date
         </item>
 
         <item name="android:shadowColor">
-            #4BACB1EA
+            @color/shadow_color_style_date
         </item>
 
         <item name="android:shadowDx">
@@ -229,7 +229,7 @@
     </style>
 
     <style name="style_period">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="android:textSize">
             14sp
         </item>
@@ -245,7 +245,7 @@
     </style>
 
     <style name="style_name_of_button_type_horoscope">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="android:textSize">
             22sp
         </item>
@@ -264,7 +264,7 @@
     </style>
 
     <style name="style_sign_title">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="fontFamily">
             @font/gabriela_regular
         </item>
@@ -274,7 +274,7 @@
     </style>
 
     <style name="compatibility_horoscope_title">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="android:textSize">
             12sp
         </item>
@@ -284,7 +284,7 @@
     </style>
 
     <style name="style_types">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="android:textSize">
             14sp
         </item>
@@ -300,7 +300,7 @@
     </style>
 
     <style name="style_text_horoscope">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="android:textSize">
             17sp
         </item>
@@ -313,7 +313,7 @@
     </style>
 
     <style name="style_text_bold_moon_calendar">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="android:textSize">
             18sp
         </item>
@@ -371,7 +371,7 @@
     </style>
 
     <style name="style_affirmation_text">
-        <item name="android:textColor">#9A000000</item>
+        <item name="android:textColor">@color/text_color_style_affirmation_text</item>
         <item name="android:textSize">
             32sp
         </item>
@@ -384,7 +384,7 @@
     </style>
 
     <style name="style_affirmation_title">
-        <item name="android:textColor">#6B000000</item>
+        <item name="android:textColor">@color/text_color_style_affirmation_title</item>
         <item name="textAllCaps">
             false
         </item>
@@ -394,7 +394,7 @@
     </style>
 
     <style name="style_affirmation_widget_logo">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/text_color_style_affirmation_widget_logo</item>
         <item name="textAllCaps">
             false
         </item>
@@ -407,7 +407,7 @@
     </style>
 
     <style name="style_yes_or_no_ball">
-        <item name="android:textColor">#6B000000</item>
+        <item name="android:textColor">@color/text_color_style_yes_or_no_ball</item>
         <item name="textAllCaps">
             false
         </item>
@@ -423,7 +423,7 @@
     </style>
 
     <style name="style_moon_calendar_title">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_period</item>
         <item name="fontFamily">
             @font/gabriela_regular
         </item>
@@ -433,7 +433,7 @@
     </style>
 
     <style name="little_style_moon_calendar_title">
-        <item name="android:textColor">#A4EEE7FF</item>
+        <item name="android:textColor">@color/text_color_little_style_moon_calendar_title</item>
         <item name="fontFamily">
             @font/gabriela_regular
         </item>
@@ -448,10 +448,10 @@
             18sp
         </item>
 
-        <item name="android:textColor">#E6020202</item>
+        <item name="android:textColor">@color/text_color_style_date_numerologic</item>
 
         <item name="android:shadowColor">
-            #4BACB1EA
+            @color/shadow_color_style_date_numerologic
         </item>
 
         <item name="android:shadowDx">
@@ -471,7 +471,7 @@
     </style>
 
     <style name="style_fate_number_numerologic">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_horoscope_title</item>
         <item name="android:textSize">
             28sp
         </item>
@@ -490,7 +490,7 @@
     </style>
 
     <style name="description_guess">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_horoscope_title</item>
         <item name="fontFamily">
             @font/gabriela_regular
         </item>
@@ -519,7 +519,7 @@
     </style>
 
     <style name="style_edit_text_main_registration">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_horoscope_title</item>
         <item name="android:textSize">
             17sp
         </item>
@@ -532,7 +532,7 @@
     </style>
 
     <style name="style_sign_main_registration">
-        <item name="android:textColor">#EEE7FF</item>
+        <item name="android:textColor">@color/text_color_style_horoscope_title</item>
         <item name="android:textSize">
             26sp
         </item>
@@ -600,11 +600,12 @@
         <item name="colorControlActivated">@color/button_registration_bottom</item>
 
         <!-- неактивное состояние ползунка -->
-        <item name="colorSwitchThumbNormal">#CCAC82EC</item>
+        <item name="colorSwitchThumbNormal">@color/color_switch_thumb_normal_style_my_switch</item>
 
         <!-- цвет дорожки для неактивного состояния (30% прозрачности) -->
-        <item name="android:colorForeground">#7E7E7E</item>
+        <item name="android:colorForeground">@color/color_foreground_style_my_switch</item>
     </style>
+
     <style name="Widget.Stellarium.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>

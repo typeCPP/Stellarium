@@ -3,15 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_for_reset_password"
-    android:layout_marginRight="40dp"
-    android:layout_marginLeft="40dp">
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp">
 
     <LinearLayout
         android:id="@+id/layout_email_dialog_error"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -25,8 +24,8 @@
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/something_went_wrong"
-            android:textColor="#3831AC"
-            android:textSize="22sp" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <View
             android:layout_width="match_parent"
@@ -85,17 +84,18 @@
         <TextView
             android:id="@+id/email_dialog_text_confirm"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/confirm_email"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
+
         <TextView
             android:id="@+id/text_dialog"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"

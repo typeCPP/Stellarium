@@ -148,9 +148,9 @@
     <string name="toLogin">Вернуться ко входу</string>
     <string name="further">Далее</string>
     <string name="try_again">Попробовать снова</string>
-    <string name="confirm_email">Подтвердите, пожалуйста, вашу почту</string>
-    <string name="check_spam_folder">Не забудьте проверить папку спам</string>
-    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="confirm_email">Вам на почту было отправлено письмо с ссылкой на подтверждение.</string>
+    <string name="check_spam_folder">Не забудьте проверить папку спам.</string>
+    <string name="something_went_wrong">Что-то пошло не так.</string>
     <string name="sign">Знак</string>
     <string name="male_gender">Мужской</string>
     <string name="female_gender">Женский</string>
@@ -164,4 +164,5 @@
     <string name="subscribe">Оформить подписку</string>
     <string name="share_with_friend">Поделиться с другом</string>
     <string name="rate_app">Оценить приложение</string>
+    <string name="connection">Устанавливаем связь с космосом.</string>
 </resources>
