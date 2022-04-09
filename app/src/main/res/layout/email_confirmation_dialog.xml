@@ -10,13 +10,13 @@
         android:id="@+id/layout_email_dialog_error"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/loading_dialog_background"
+        android:background="@drawable/email_confirmation_background"
         android:orientation="vertical"
         android:visibility="invisible">
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="190dp" />
+            android:layout_height="130dp" />
 
         <TextView
             android:id="@+id/text_email_dialog_error"
@@ -84,7 +84,7 @@
             android:layout_height="10dp" />
 
         <TextView
-            android:id="@+id/email_dialog_text_confirm_password"
+            android:id="@+id/email_dialog_text_confirm"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"

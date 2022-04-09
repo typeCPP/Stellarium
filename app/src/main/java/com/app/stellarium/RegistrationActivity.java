@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
-import com.app.stellarium.dialog.LoadingDialog;
+import com.app.stellarium.dialog.EmailConfirmationDialog;
 import com.app.stellarium.filters.UsernameFilter;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.app.stellarium.utils.ServerConnection;
@@ -56,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private KenBurnsView kbv;
     private Button buttonEndRegistration;
     private UsernameFilter usernameFilter = new UsernameFilter();
-    private LoadingDialog loadingDialog;
+    private EmailConfirmationDialog emailConfirmationDialog;
     private int serverID;
     private Intent mainActivityIntent;
     private boolean isReadyForResume = false;
@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
         StellariumTransitionGenerator stellariumTransitionGenerator =
                 new StellariumTransitionGenerator(10000, adi);
         kbv.setTransitionGenerator(stellariumTransitionGenerator);
-        loadingDialog = new LoadingDialog(getLayoutInflater().getContext());
+        emailConfirmationDialog = new EmailConfirmationDialog(getLayoutInflater().getContext());
 
 
         Intent intent = getIntent();
@@ -144,7 +144,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         String response = serverConnection.getStringResponseByParameters(params);
                         if (response != null && !response.contains("False")) {
                             serverID = Integer.parseInt(response);
-                            loadingDialog.setOnClick(new UnaryOperator<Void>() {
+                            emailConfirmationDialog.setOnClick(new UnaryOperator<Void>() {
                                 @Override
                                 public Void apply(Void unused) {
                                     waitForEmailConfirmation(serverID, mainActivityIntent);
@@ -183,8 +183,8 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
-        loadingDialog.show();
-        loadingDialog.startGifAnimation();
+        emailConfirmationDialog.show();
+        emailConfirmationDialog.startGifAnimation();
         ServerConnection serverConnection = new ServerConnection();
         Handler handler = new Handler();
         new Thread(new Runnable() {
@@ -202,7 +202,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                loadingDialog.stopGifAnimation();
+                                emailConfirmationDialog.stopGifAnimation();
                             }
                         });
                     }
@@ -217,7 +217,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        loadingDialog.dismiss();
+                        emailConfirmationDialog.dismiss();
                         RegistrationActivity.this.startActivity(myIntent);
                     }
                 });
