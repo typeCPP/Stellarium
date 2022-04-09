@@ -5,9 +5,10 @@ import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -21,18 +22,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.filters.UsernameFilter;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.ZodiacSignUtils;
-import com.app.stellarium.utils.jsonmodels.User;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.Calendar;
+import java.util.function.UnaryOperator;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -53,6 +56,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private KenBurnsView kbv;
     private Button buttonEndRegistration;
     private UsernameFilter usernameFilter = new UsernameFilter();
+    private LoadingDialog loadingDialog;
+    private int serverID;
+    private Intent mainActivityIntent;
+    private boolean isReadyForResume = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -77,6 +84,8 @@ public class RegistrationActivity extends AppCompatActivity {
         StellariumTransitionGenerator stellariumTransitionGenerator =
                 new StellariumTransitionGenerator(10000, adi);
         kbv.setTransitionGenerator(stellariumTransitionGenerator);
+        loadingDialog = new LoadingDialog(getLayoutInflater().getContext());
+
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("userName");
@@ -89,6 +98,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = intent.getStringExtra("userPassword");
 
         buttonEndRegistration.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 buttonEndRegistration.startAnimation(scaleUp);
@@ -96,19 +106,23 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                 } else {
                     ServerConnection serverConnection = new ServerConnection();
+                    int sex = 0;
+                    if (isTouchMan)
+                        sex = 1;
                     String params = "/register/?name=" +
                             editTextName.getText().toString() +
-                            "&date=" + getBirthdayString(birthdayDay, birthdayMonth, birthdayYear) +
-                            "&sex=" + isTouchMan;
+                            "&birth=" + getBirthdayString(birthdayDay, birthdayMonth, birthdayYear) +
+                            "&sex=" + sex;
                     DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
 
                     values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
-                    values.put(UserTable.COLUMN_SEX, isTouchMan);
+                    values.put(UserTable.COLUMN_SEX, sex);
                     int signId = ZodiacSignUtils.getUserSignID(editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
+                    params += "&sign=" + signId;
 
                     if (isFacebookUID && userUID != null) {
                         values.put(UserTable.COLUMN_FACEBOOK_ID, userUID);
@@ -125,17 +139,25 @@ public class RegistrationActivity extends AppCompatActivity {
                         values.put(UserTable.COLUMN_PASSWORD, password);
                         params += "&password=" + password;
                     }
+                    mainActivityIntent = new Intent(RegistrationActivity.this, MainActivity.class);
                     if ((email != null && password != null) || userUID != null) {
-
                         String response = serverConnection.getStringResponseByParameters(params);
                         if (response != null && !response.contains("False")) {
-                            values.put(UserTable.COLUMN_SERVER_ID, Integer.parseInt(response));
+                            serverID = Integer.parseInt(response);
+                            loadingDialog.setOnClick(new UnaryOperator<Void>() {
+                                @Override
+                                public Void apply(Void unused) {
+                                    waitForEmailConfirmation(serverID, mainActivityIntent);
+                                    return null;
+                                }
+                            });
+                            values.put(UserTable.COLUMN_SERVER_ID, serverID);
                             values.put(UserTable.COLUMN_MAIL_CONFIRMED, 0);
                             database.insert(UserTable.TABLE_NAME, null, values);
                             database.close();
                             databaseHelper.close();
-                            Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
-                            RegistrationActivity.this.startActivity(myIntent);
+                            isReadyForResume = true;
+                            waitForEmailConfirmation(serverID, mainActivityIntent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Ошибка регистрации: проверьте введенные поля.", Toast.LENGTH_LONG).show();
                             database.close();
@@ -145,21 +167,72 @@ public class RegistrationActivity extends AppCompatActivity {
                         database.insert(UserTable.TABLE_NAME, null, values);
                         database.close();
                         databaseHelper.close();
-                        Intent myIntent = new Intent(RegistrationActivity.this, MainActivity.class);
-                        RegistrationActivity.this.startActivity(myIntent);
+                        RegistrationActivity.this.startActivity(mainActivityIntent);
                     }
                 }
             }
         });
     }
 
-    private String getBirthdayString(int birthdayDay, int birthdayMonth, int birthdayYear){
-        StringBuffer text = new StringBuffer(""+birthdayDay + birthdayMonth + birthdayYear);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isReadyForResume) {
+            waitForEmailConfirmation(serverID, mainActivityIntent);
+        }
+    }
+
+    private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
+        loadingDialog.show();
+        loadingDialog.startGifAnimation();
+        ServerConnection serverConnection = new ServerConnection();
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isConfirmed = false;
+                while (!isConfirmed) {
+                    try {
+                        String response = serverConnection.getStringResponseByParameters("check_confirm/?user_id=" + userServerID);
+                        if (Integer.parseInt(response) == 1) {
+                            isConfirmed = true;
+                        }
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadingDialog.stopGifAnimation();
+                            }
+                        });
+                    }
+                }
+                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(UserTable.COLUMN_MAIL_CONFIRMED, 1);
+                database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_SERVER_ID + "=" + userServerID, null);
+                database.close();
+                databaseHelper.close();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingDialog.dismiss();
+                        RegistrationActivity.this.startActivity(myIntent);
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    private String getBirthdayString(int birthdayDay, int birthdayMonth, int birthdayYear) {
+        StringBuffer text = new StringBuffer(birthdayDay + "." + birthdayMonth + "." + birthdayYear);
         if (birthdayDay < 10) {
             text.insert(0, 0);
         }
         if (birthdayMonth < 10) {
-            text.insert(2, 0);
+            text.insert(3, 0);
         }
         return text.toString();
     }

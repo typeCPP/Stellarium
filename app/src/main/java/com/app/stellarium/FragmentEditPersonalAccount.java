@@ -328,7 +328,7 @@ public class FragmentEditPersonalAccount extends Fragment {
             }
             editTextName.setText(name);
             editTextDate.setText(birthdayString);
-            String[] temp = birthdayString.split("/", 3);
+            String[] temp = birthdayString.split("\\.", 3);
             birthdayDay = Integer.parseInt(temp[0]);
             birthdayMonth = Integer.parseInt(temp[1]);
             birthdayYear = Integer.parseInt(temp[2]);

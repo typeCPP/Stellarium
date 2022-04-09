@@ -247,6 +247,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         if (signUpEmailEditText.getText().toString().isEmpty()
                                 || signUpPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
+
+                        } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
+                            Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else {
                             myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                             myIntent.putExtra("userEmail", signUpEmailEditText.getText().toString());
@@ -356,6 +359,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    private boolean checkIfUserExists(String email) {
+        ServerConnection serverConnection = new ServerConnection();
+        String response = serverConnection.getStringResponseByParameters("user_exist/?mail=" + email);
+        return response.contains("True");
+    }
+
     private User getAuthorizedUser(String email, String password) {
         ServerConnection serverConnection = new ServerConnection();
         String response = null;
@@ -367,6 +376,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
             }
             user = new Gson().fromJson(response, User.class);
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Ошибка авторизации.", Toast.LENGTH_LONG).show();
             return null;
         }

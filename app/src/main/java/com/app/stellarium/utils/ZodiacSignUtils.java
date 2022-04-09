@@ -2,6 +2,7 @@ package com.app.stellarium.utils;
 
 public class ZodiacSignUtils {
     public static int getUserSignID(String dateOfBirth) {
+        dateOfBirth = dateOfBirth.replaceAll("\\.", "/");
         String[] dob = dateOfBirth.split("/", 3);
         int day = Integer.parseInt(dob[0]);
         int month = Integer.parseInt(dob[1]);

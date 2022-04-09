@@ -130,6 +130,7 @@ public class FragmentPersonalAccount extends Fragment {
             }
             signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
             if (!birthdayString.isEmpty()) {
+                birthdayString = birthdayString.replaceAll("\\.", "/");
                 String[] temp = birthdayString.split("/", 3);
                 date.setText(temp[0] + "." + temp[1] + "." + temp[2]);
             }
