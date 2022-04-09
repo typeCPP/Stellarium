@@ -1,5 +1,6 @@
 package com.app.stellarium;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,10 +31,13 @@ import com.app.stellarium.database.tables.TaroCardsTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
+import com.app.stellarium.utils.ServerConnection;
+import com.app.stellarium.utils.jsonmodels.User;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -136,9 +140,64 @@ public class MainActivity extends AppCompatActivity {
             databaseHelper.close();
             Intent myIntent = new Intent(MainActivity.this, MainRegistrationActivity.class);
             MainActivity.this.startActivity(myIntent);
+        } else {
+            try {
+                getSignedUserDataFromServer(database, databaseHelper);
+            } catch (Exception e) {
+                e.printStackTrace();
+                database.close();
+                databaseHelper.close();
+                Intent myIntent = new Intent(MainActivity.this, MainRegistrationActivity.class);
+                MainActivity.this.startActivity(myIntent);
+            }
         }
+
         database.close();
         databaseHelper.close();
+    }
+
+    private void getSignedUserDataFromServer(SQLiteDatabase database, DatabaseHelper databaseHelper) {
+        ServerConnection serverConnection = new ServerConnection();
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        userCursor.moveToLast();
+        @SuppressLint("Range") String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+        @SuppressLint("Range") String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
+        @SuppressLint("Range") String facebookID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_FACEBOOK_ID));
+        @SuppressLint("Range") String googleID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_GOOGLE_ID));
+        String params = "auth/?";
+        if (email != null && password != null && !email.isEmpty() && !password.isEmpty()) {
+            params += "mail=" + email;
+            params += "&password=" + password;
+        } else if (googleID != null && !googleID.isEmpty()) {
+            params += "google=" + googleID;
+        } else if (facebookID != null && !facebookID.isEmpty()) {
+            params += "facebook=" + facebookID;
+        }
+        String response = serverConnection.getStringResponseByParameters(params);
+        User user = new Gson().fromJson(response, User.class);
+        databaseHelper.dropUserTable(database);
+        insertSignedUserToDatabase(user, database, email, password, googleID, facebookID);
+    }
+
+    private void insertSignedUserToDatabase(User user, SQLiteDatabase database, String email, String password, String googleID, String facebookID) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(UserTable.COLUMN_SERVER_ID, user.id);
+        contentValues.put(UserTable.COLUMN_NAME, user.name);
+        contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, user.date);
+        contentValues.put(UserTable.COLUMN_SEX, user.sex);
+        contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, user.sign);
+        contentValues.put(UserTable.COLUMN_MAIL_CONFIRMED, user.mail_confirm);
+        if (email != null && password != null) {
+            contentValues.put(UserTable.COLUMN_EMAIL, email);
+            contentValues.put(UserTable.COLUMN_PASSWORD, password);
+        } else if (googleID != null) {
+            contentValues.put(UserTable.COLUMN_GOOGLE_ID, googleID);
+        } else if (facebookID != null) {
+            contentValues.put(UserTable.COLUMN_FACEBOOK_ID, facebookID);
+        }
+        database.insert(UserTable.TABLE_NAME, null, contentValues);
     }
 
     private boolean checkSignedUser(SQLiteDatabase database) {

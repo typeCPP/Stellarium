@@ -157,7 +157,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             database.close();
                             databaseHelper.close();
                             isReadyForResume = true;
-                            waitForEmailConfirmation(serverID, mainActivityIntent);
+                            if (userUID == null) {
+                                waitForEmailConfirmation(serverID, mainActivityIntent);
+                            }
+                            else {
+                                RegistrationActivity.this.startActivity(mainActivityIntent);
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "Ошибка регистрации: проверьте введенные поля.", Toast.LENGTH_LONG).show();
                             database.close();

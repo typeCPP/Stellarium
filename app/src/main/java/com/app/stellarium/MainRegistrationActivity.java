@@ -2,8 +2,8 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
@@ -80,6 +80,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private TextInputLayout signInInputLayout, signUpInputLayout;
     private ImageView signUpEye, signInEye;
     private boolean isShowSignup = false, isShowSignin = false;
+    private DatabaseHelper databaseHelper;
 
     private float letterSpacing = 0.212f;
 
@@ -127,6 +128,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         signUpPasswordEditText.setLetterSpacing(letterSpacing);
         signInPasswordEditText.setLetterSpacing(letterSpacing);
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("632189590717-1n3jc5bdchq75l1r32hcpp5roegq3utf.apps.googleusercontent.com")
@@ -263,11 +266,15 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 || signInPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                         } else {
-                            User user = getAuthorizedUser(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
+                            User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
                             if (user != null) {
-                                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+                                databaseHelper = new DatabaseHelper(getApplicationContext());
                                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                                 databaseHelper.insertUser(database, user);
+                                ContentValues contentValues = new ContentValues();
+                                contentValues.put(UserTable.COLUMN_EMAIL, signInEmailEditText.getText().toString());
+                                contentValues.put(UserTable.COLUMN_PASSWORD, signInPasswordEditText.getText().toString());
+                                database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_SERVER_ID+"="+ user.id, null);
                                 database.close();
                                 databaseHelper.close();
                                 myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
@@ -365,7 +372,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         return response.contains("True");
     }
 
-    private User getAuthorizedUser(String email, String password) {
+    private User getUserByEmailAndPassword(String email, String password) {
         ServerConnection serverConnection = new ServerConnection();
         String response = null;
         User user = null;
@@ -412,15 +419,26 @@ public class MainRegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("TEST", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            Log.d("TEST", user.getEmail());
-                            Log.d("TEST", user.getUid());
-
                             if (checkUserByUID(user.getUid())) {
-                                Intent myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
-                                MainRegistrationActivity.this.startActivity(myIntent);
+                                User userToInsert = getUserByGoogleID(user.getUid());
+                                if (userToInsert == null) {
+                                    Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
+                                    myIntent.putExtra("userUID", user.getUid());
+                                    myIntent.putExtra("userEmail", user.getEmail());
+                                    myIntent.putExtra("userName", user.getDisplayName());
+                                    myIntent.putExtra("isFacebook", false);
+                                    MainRegistrationActivity.this.startActivity(myIntent);
+                                } else {
+                                    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                                    databaseHelper.insertUser(database, userToInsert);
+                                    ContentValues contentValues = new ContentValues();
+                                    contentValues.put(UserTable.COLUMN_GOOGLE_ID, user.getUid());
+                                    database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_SERVER_ID + "=" + userToInsert.id, null);
+                                    database.close();
+                                    Intent myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
+                                    MainRegistrationActivity.this.startActivity(myIntent);
+                                }
                             } else {
                                 Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                                 myIntent.putExtra("userUID", user.getUid());
@@ -447,14 +465,26 @@ public class MainRegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            Log.d("TEST", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d("TEST", user.getUid());
-                            Log.d("TEST", user.getEmail());
-                            Log.d("TEST", user.getDisplayName());
                             if (checkUserByUID(user.getUid())) {
-                                Intent myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
-                                MainRegistrationActivity.this.startActivity(myIntent);
+                                User userToInsert = getUserByGoogleID(user.getUid());
+                                if (userToInsert == null) {
+                                    Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
+                                    myIntent.putExtra("userUID", user.getUid());
+                                    myIntent.putExtra("userEmail", user.getEmail());
+                                    myIntent.putExtra("userName", user.getDisplayName());
+                                    myIntent.putExtra("isFacebook", true);
+                                    MainRegistrationActivity.this.startActivity(myIntent);
+                                } else {
+                                    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                                    databaseHelper.insertUser(database, userToInsert);
+                                    ContentValues contentValues = new ContentValues();
+                                    contentValues.put(UserTable.COLUMN_GOOGLE_ID, user.getUid());
+                                    database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_FACEBOOK_ID + "=" + user.getUid(), null);
+                                    database.close();
+                                    Intent myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
+                                    MainRegistrationActivity.this.startActivity(myIntent);
+                                }
                             } else {
                                 Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                                 myIntent.putExtra("userUID", user.getUid());
@@ -474,14 +504,29 @@ public class MainRegistrationActivity extends AppCompatActivity {
     }
 
     private boolean checkUserByUID(String uid) {
-        //TODO: сверить на сервере есть ли такой пользователь и получить ответ. Временно будем проверять локальную базу
-        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
-                UserTable.COLUMN_FACEBOOK_ID + "=\'" + uid + "\' OR " + UserTable.COLUMN_GOOGLE_ID + "=\'" + uid + "\'",
-                null, null, null, null);
-        Log.d("SQL", String.valueOf(userCursor.getCount()));
-        return userCursor.getCount() > 0;
+        ServerConnection serverConnection = new ServerConnection();
+        String response = serverConnection.getStringResponseByParameters("check_uid/?uid=" + uid);
+        return !response.equals("Error");
+    }
+
+    private User getUserByGoogleID(String uid) {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("/auth/?google=" + uid);
+            return new Gson().fromJson(response, User.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private User getUserByFacebookID(String uid) {
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            String response = serverConnection.getStringResponseByParameters("/auth/?facebook=" + uid);
+            return new Gson().fromJson(response, User.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private void showSignupForm() {
