@@ -2,24 +2,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loading_dialog_background"
+    android:background="@drawable/email_confirmation_background"
     android:layout_marginRight="40dp"
     android:layout_marginLeft="40dp">
 
     <LinearLayout
-        android:id="@+id/layout_dialog_error"
+        android:id="@+id/layout_email_dialog_error"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/loading_dialog_background"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="190dp" />
 
         <TextView
-            android:id="@+id/text_dialog_error"
+            android:id="@+id/text_email_dialog_error"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -28,6 +28,7 @@
             android:text="Что-то пошло не так"
             android:textColor="#3831AC"
             android:textSize="22sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
@@ -44,7 +45,7 @@
                 android:layout_weight="0.7" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button_error_loading_dialog"
+                android:id="@+id/button_error_email_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.6"
@@ -68,10 +69,10 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="110dp">
 
             <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gif_loading_dialog"
+                android:id="@+id/gif_email_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
@@ -83,19 +84,29 @@
             android:layout_height="10dp" />
 
         <TextView
+            android:id="@+id/email_dialog_text_confirm_password"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gabriela_regular"
+            android:gravity="center"
+            android:text="@string/confirm_email"
+            android:textColor="#3831AC"
+            android:textSize="22sp" />
+        <TextView
             android:id="@+id/text_dialog"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
-            android:text="Устанавливаем связь с космосом"
-            android:textColor="#3831AC"
-            android:textSize="22sp" />
+            android:text="@string/check_spam_folder"
+            android:textColor="#191378"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
+            android:layout_height="10dp" />
 
     </LinearLayout>
 </FrameLayout>

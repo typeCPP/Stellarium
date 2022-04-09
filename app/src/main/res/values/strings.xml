@@ -147,4 +147,7 @@
     <string name="info_about_password_reset">Не удается выполнить вход? \n Введите электронный адрес, и мы отправим Вам новый пароль для восстановления доступа к аккаунту.</string>
     <string name="toLogin">Вернуться ко входу</string>
     <string name="further">Далее</string>
+    <string name="try_again">Попробовать снова</string>
+    <string name="confirm_email">Подтвердите, пожалуйста, вашу почту</string>
+    <string name="check_spam_folder">Не забудьте проверить папку спам</string>
 </resources>

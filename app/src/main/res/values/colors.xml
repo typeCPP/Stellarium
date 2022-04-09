@@ -53,4 +53,9 @@
     <color name="personal_account_edit_text_spoke">#E67875DF</color>
     <color name="personal_account_edit_text_solid">#E69694DC</color>
     <color name="error_signin">#FF3E3E</color>
+    <color name="loading_dialog_start_color">#BEB8FA</color>
+    <color name="loading_dialog_end_color">#D5CEF8</color>
+    <color name="loading_dialog_button">#3831AC</color>
+    <color name="email_dialog_start_color">#BBA0F8</color>
+    <color name="email_dialog_end_color">#9A97FA</color>
 </resources>

@@ -3,9 +3,9 @@
     android:shape="rectangle">
     <gradient android:angle="270"
         android:type="linear"
-        android:startColor="@color/loading_dialog_start_color"
-        android:endColor="@color/loading_dialog_end_color">
+        android:startColor="@color/email_dialog_start_color"
+        android:endColor="@color/email_dialog_end_color">
     </gradient>
     <corners android:radius="10dp" />
-    <stroke android:width="2dp" android:color="@color/loading_dialog_start_color"/>
+    <stroke android:width="2dp" android:color="@color/email_dialog_end_color"/>
 </shape>
