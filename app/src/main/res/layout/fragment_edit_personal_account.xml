@@ -40,7 +40,7 @@
             android:fontFamily="@font/gabriela_regular"
 
             android:gravity="center"
-            android:text="Дева"
+            android:text="@string/sign"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
                     android:gravity="bottom"
                     android:maxLength="20"
                     android:paddingLeft="10dp"
-                    android:text="Имя"
+                    android:text="@string/name"
                     android:textColor="#B3FFFFFF" />
 
                 <FrameLayout
@@ -105,7 +105,7 @@
                         android:minHeight="48dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="40dp"
-                        android:text="Имя"
+                        android:text="@string/name"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="italic" />
@@ -161,7 +161,7 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="bottom"
                     android:paddingLeft="10dp"
-                    android:text="Пароль"
+                    android:text="@string/password"
                     android:textColor="#B3FFFFFF" />
 
                 <FrameLayout
@@ -187,7 +187,7 @@
                         android:minHeight="48dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="40dp"
-                        android:text="Пароль"
+                        android:text="@string/password"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="italic" />
@@ -240,7 +240,7 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="bottom"
                     android:paddingLeft="10dp"
-                    android:text="Дата рождения"
+                    android:text="@string/birthday_day"
                     android:textColor="#B3FFFFFF" />
 
                 <FrameLayout
@@ -266,7 +266,7 @@
                         android:minHeight="48dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="40dp"
-                        android:text="Дата рождения"
+                        android:text="@string/birthday_day"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="italic" />
@@ -340,7 +340,7 @@
                             android:fontFamily="@font/gabriela_regular"
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
-                            android:text="Мужской"
+                            android:text="@string/male_gender"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -358,7 +358,7 @@
                             android:fontFamily="@font/gabriela_regular"
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
-                            android:text="Женский"
+                            android:text="@string/female_gender"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
                     </RadioGroup>
@@ -398,7 +398,7 @@
                 android:layout_weight="9"
                 android:background="@drawable/save_button_personal_account"
                 android:fontFamily="@font/gabriela_regular"
-                android:text="Сохранить"
+                android:text="@string/save"
                 android:textColor="@color/white" />
 
             <View

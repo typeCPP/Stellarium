@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/email_confirmation_background"
+    android:background="@drawable/background_for_reset_password"
     android:layout_marginRight="40dp"
     android:layout_marginLeft="40dp">
 
@@ -10,9 +10,8 @@
         android:id="@+id/layout_email_dialog_error"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/email_confirmation_background"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <View
             android:layout_width="match_parent"
@@ -25,7 +24,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
-            android:text="Что-то пошло не так"
+            android:text="@string/something_went_wrong"
             android:textColor="#3831AC"
             android:textSize="22sp" />
 
@@ -49,7 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.6"
-                android:background="@drawable/loading_dialog_button"
+                android:background="@drawable/background_for_button_reset_password"
                 android:fontFamily="@font/gabriela_regular"
                 android:text="@string/try_again"
                 android:textColor="@color/white" />
@@ -76,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:src="@drawable/gif_loading" />
+                android:src="@drawable/white_gif_loading" />
         </FrameLayout>
 
         <View
@@ -91,7 +90,7 @@
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/confirm_email"
-            android:textColor="#3831AC"
+            android:textColor="@color/white"
             android:textSize="22sp" />
         <TextView
             android:id="@+id/text_dialog"
@@ -101,7 +100,7 @@
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
             android:text="@string/check_spam_folder"
-            android:textColor="#191378"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <View

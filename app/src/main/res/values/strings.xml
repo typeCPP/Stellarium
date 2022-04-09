@@ -20,8 +20,8 @@
     <string name="yes_no_name">Шар судьбы</string>
     <string name="hello">Добрый день, Андрей!</string>
     <string name="title_registration">Добро пожаловать!</string>
-    <string name="name">имя</string>
-    <string name="birthday_day">дата рождения</string>
+    <string name="name">Имя</string>
+    <string name="birthday_day">Дата рождения</string>
     <string name="registration_button">Далее</string>
     <string name="content_description_man">Выбран мужской пол</string>
     <string name="content_description_woman">Выбран женский пол</string>
@@ -150,4 +150,18 @@
     <string name="try_again">Попробовать снова</string>
     <string name="confirm_email">Подтвердите, пожалуйста, вашу почту</string>
     <string name="check_spam_folder">Не забудьте проверить папку спам</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="sign">Знак</string>
+    <string name="male_gender">Мужской</string>
+    <string name="female_gender">Женский</string>
+    <string name="save">Сохранить</string>
+    <string name="birthday_day_example">01.01.1999</string>
+    <string name="email_example">aboba@yandex.ru</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="favorite_affirmations">Любимые аффирмации</string>
+    <string name="vibration">Вибрация</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="subscribe">Оформить подписку</string>
+    <string name="share_with_friend">Поделиться с другом</string>
+    <string name="rate_app">Оценить приложение</string>
 </resources>

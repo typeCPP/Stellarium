@@ -2,6 +2,6 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#373565" />
+    <solid android:color="@color/dialog_taro_button" />
     <corners android:radius="10dp" />
 </shape>

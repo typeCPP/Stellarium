@@ -3,8 +3,8 @@
     android:shape="rectangle">
     <gradient
         android:angle="90"
-        android:endColor="#0A092C"
-        android:startColor="#373565"
+        android:endColor="@color/dialog_taro_end_color"
+        android:startColor="@color/dialog_taro_start_color"
         android:type="linear" />
     <corners android:radius="10dp" />
 </shape>

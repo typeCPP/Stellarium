@@ -11,11 +11,11 @@
         </item>
 
         <item name="android:textColor">
-            @color/textColorTitle
+            @color/text_color_title
         </item>
 
         <item name="android:shadowColor">
-            @color/shadowColorTitle
+            @color/shadow_color_title
         </item>
 
         <item name="android:gravity">
@@ -47,7 +47,7 @@
             bold
         </item>
         <item name="android:textColor">
-            @color/buttonTextBlackColor
+            @color/button_text_black_color
         </item>
 
     </style>
@@ -65,17 +65,17 @@
     <style name="CustomDatePickerDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@color/registration_edit_text_background</item>
         <item name="android:dialogTheme">@style/MyDialogTheme</item>
-        <item name="background">@color/shadowColorTitle</item>
+        <item name="background">@color/shadow_color_title</item>
         <item name="android:datePickerStyle">@style/MyDatePicker</item>
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="background">@color/shadowColorTitle</item>
+        <item name="background">@color/shadow_color_title</item>
         <item name="android:datePickerStyle">@style/MyDatePicker</item>
     </style>
 
     <style name="MyDatePicker" parent="@android:style/Widget.Material.DatePicker">
-        <item name="background">@color/shadowColorTitle</item>
+        <item name="background">@color/shadow_color_title</item>
         <item name="android:datePickerMode">spinner</item>
     </style>
 
@@ -342,11 +342,11 @@
         </item>
 
         <item name="android:textColor">
-            @color/textColorTitle
+            @color/text_color_title
         </item>
 
         <item name="android:shadowColor">
-            @color/shadowColorTitle
+            @color/shadow_color_title
         </item>
 
         <item name="android:gravity">
@@ -554,11 +554,11 @@
         </item>
 
         <item name="android:textColor">
-            @color/textColorTitle
+            @color/text_color_title
         </item>
 
         <item name="android:shadowColor">
-            @color/shadowColorTitle
+            @color/shadow_color_title
         </item>
 
         <item name="android:gravity">

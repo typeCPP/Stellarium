@@ -69,7 +69,7 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="скорпион"
+                    android:text="@string/sign"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -107,7 +107,7 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
                     android:maxLines="1"
-                    android:text="Андрей"
+                    android:text="@string/name"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -126,7 +126,7 @@
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
-                    android:text="01.01.1999"
+                    android:text="@string/birthday_day_example"
                     android:textColor="#99EDEBEB" />
 
                 <View
@@ -145,7 +145,7 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
                     android:maxLines="1"
-                    android:text="aboba@yandex.ru"
+                    android:text="@string/email_example"
                     android:textColor="#99EDEBEB" />
             </LinearLayout>
 
@@ -184,7 +184,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:paddingLeft="10dp"
-                android:text="Редактировать профиль"
+                android:text="@string/edit_profile"
                 android:textColor="@color/white" />
 
             <ImageView
@@ -218,7 +218,7 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Любимые аффирмации"
+                android:text="@string/favorite_affirmations"
                 android:textColor="@color/white" />
 
             <ImageView
@@ -251,7 +251,7 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Вибрация"
+                android:text="@string/vibration"
                 android:textColor="@color/white" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -287,7 +287,7 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Зарегистрироваться"
+                android:text="@string/register"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -314,7 +314,7 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Оформить подписку"
+                android:text="@string/subscribe"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -341,7 +341,7 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Поделиться с другом"
+                android:text="@string/share_with_friend"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -368,7 +368,7 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Оценить приложение"
+                android:text="@string/rate_app"
                 android:textColor="@color/white" />
         </LinearLayout>
 

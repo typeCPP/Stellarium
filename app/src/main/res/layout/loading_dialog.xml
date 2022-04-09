@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/gabriela_regular"
             android:gravity="center"
-            android:text="Что-то пошло не так"
+            android:text="@string/something_went_wrong"
             android:textColor="#3831AC"
             android:textSize="22sp" />
         <View
