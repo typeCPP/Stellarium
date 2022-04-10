@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FragmentAffirmation"
+    android:background="@drawable/affirmation_background2"
     android:orientation="vertical"
-    android:id="@+id/frameLayout"
-    android:background="@drawable/affirmation_background2">
+    tools:context=".FragmentAffirmation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +41,8 @@
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
                 android:textColor="#6B000000"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -52,13 +53,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
-                app:icon_size="9dp"
-                app:liked="true"
-                app:icon_type="heart"
                 android:paddingBottom="4dp"
                 app:anim_scale_factor="3"
+                app:circle_end_color="#FF5722"
                 app:circle_start_color="@color/alert_dialog_background_stroke"
-                app:circle_end_color="#FF5722"/>
+                app:icon_size="9dp"
+                app:icon_type="heart"
+                app:liked="true" />
 
             <View
                 android:layout_width="0dp"
@@ -78,29 +79,35 @@
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             android:weightSum="1">
+
             <ImageView
                 android:id="@+id/left_arrow"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.05"
                 android:src="@drawable/left_arrow" />
+
             <View
-                android:layout_height="match_parent"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.05" />
+
             <TextView
                 android:id="@+id/affirmation_text"
                 style="@style/style_affirmation_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
+                android:background="@drawable/affirmation_background"
+                android:padding="10dp"
                 android:text="@string/affirmation_text"
-                android:textAlignment="center"
-                android:background="@drawable/affirmation_background"/>
+                android:textAlignment="center" />
+
             <View
-                android:layout_height="match_parent"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.05" />
+
             <ImageView
                 android:id="@+id/right_arrow"
                 android:layout_width="0dp"

@@ -41,6 +41,7 @@
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
                 android:textColor="#6B000000" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -51,13 +52,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
-                app:icon_size="9dp"
-                app:liked="false"
-                app:icon_type="heart"
                 android:paddingBottom="4dp"
                 app:anim_scale_factor="3"
+                app:circle_end_color="#FF5722"
                 app:circle_start_color="@color/alert_dialog_background_stroke"
-                app:circle_end_color="#FF5722"/>
+                app:icon_size="9dp"
+                app:icon_type="heart"
+                app:liked="false" />
 
             <View
                 android:layout_width="0dp"
@@ -85,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:background="@drawable/affirmation_background"
+                android:padding="10dp"
                 android:text="@string/affirmation_text"
                 android:textAlignment="center" />
 

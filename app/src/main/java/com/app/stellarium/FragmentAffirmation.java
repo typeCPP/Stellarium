@@ -3,7 +3,6 @@ package com.app.stellarium;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -33,7 +32,6 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import java.util.Calendar;
-import java.util.Random;
 import java.util.function.UnaryOperator;
 
 
@@ -92,7 +90,7 @@ public class FragmentAffirmation extends Fragment {
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                 updateFavoriteAffirmationTable(database, todayDate, true);
                 int userID = databaseHelper.getCurrentUserServerID(database);
-                Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+                Log.d("AFFIRMATION USER ID", String.valueOf(userID));
                 if (userID != 0) {
                     ServerConnection serverConnection = new ServerConnection();
                     serverConnection.getStringResponseByParameters("like_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
@@ -105,7 +103,7 @@ public class FragmentAffirmation extends Fragment {
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                 updateFavoriteAffirmationTable(database, todayDate, false);
                 int userID = databaseHelper.getCurrentUserServerID(database);
-                Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+                Log.d("AFFIRMATION USER ID", String.valueOf(userID));
                 if (userID != 0) {
                     ServerConnection serverConnection = new ServerConnection();
                     serverConnection.getStringResponseByParameters("unlike_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
@@ -234,7 +232,7 @@ public class FragmentAffirmation extends Fragment {
         Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
                 AffirmationsTable.COLUMN_DATE + " = " + todayDate,
                 null, null, null, null);
-        if(affirmationCursor.getCount() > 0) {
+        if (affirmationCursor.getCount() > 0) {
             affirmationCursor.moveToFirst();
             @SuppressLint("Range") int idTodayAffirmation
                     = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
@@ -274,17 +272,6 @@ public class FragmentAffirmation extends Fragment {
         contentValues.put(AffirmationsTable.COLUMN_PICTURE, affirmation.picture);
 
         database.insert(AffirmationsTable.TABLE_NAME, null, contentValues);
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private int getRandomAffirmationBackgroundName() {
-        @SuppressLint("Recycle") TypedArray imgs = getResources().obtainTypedArray(R.array.apptour);
-        Random rand = new Random();
-        int rndInt = rand.nextInt(imgs.length());
-        int resID = imgs.getResourceId(rndInt, 0);
-        Resources resources = getContext().getResources();
-        Log.d("DRAWABLE", resources.getDrawable(resID).toString());
-        return resID;
     }
 
     private void updateFavoriteAffirmationTable(SQLiteDatabase database, String todayDate, boolean addAffirmation) {

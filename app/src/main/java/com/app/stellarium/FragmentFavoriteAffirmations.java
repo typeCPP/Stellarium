@@ -106,7 +106,7 @@ public class FragmentFavoriteAffirmations extends Fragment {
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     updateFavoriteAffirmationTable(database, affirmation.id, true);
                     int userID = databaseHelper.getCurrentUserServerID(database);
-                    Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+                    Log.d("AFFIRMATION USER ID", String.valueOf(userID));
 //                    if (userID != 0) {
 //                        ServerConnection serverConnection = new ServerConnection();
 //                        serverConnection.getStringResponseByParameters("like_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
@@ -119,7 +119,7 @@ public class FragmentFavoriteAffirmations extends Fragment {
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     updateFavoriteAffirmationTable(database, affirmation.id, false);
                     int userID = databaseHelper.getCurrentUserServerID(database);
-                    Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+                    Log.d("AFFIRMATION USER ID", String.valueOf(userID));
 //                    if (userID != 0) {
 //                        ServerConnection serverConnection = new ServerConnection();
 //                        serverConnection.getStringResponseByParameters("unlike_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
