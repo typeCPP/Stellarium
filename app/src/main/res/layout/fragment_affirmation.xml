@@ -40,7 +40,7 @@
                 android:layout_weight="0.5"
                 android:text="@string/affirmation_title"
                 android:textAlignment="center"
-                android:textColor="#6B000000" />
+                android:textColor="@color/light_black" />
 
             <View
                 android:layout_width="0dp"
@@ -54,7 +54,7 @@
                 android:layout_weight="0.1"
                 android:paddingBottom="4dp"
                 app:anim_scale_factor="3"
-                app:circle_end_color="#FF5722"
+                app:circle_end_color="@color/like_color"
                 app:circle_start_color="@color/alert_dialog_background_stroke"
                 app:icon_size="9dp"
                 app:icon_type="heart"

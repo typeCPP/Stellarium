@@ -7,7 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="navColor">#426e86</color>
     <color name="icon_color1">#f8f1e5</color>
     <color name="icon_color2">#FFE07B</color>
@@ -69,7 +68,7 @@
     <color name="reset_password_start_color">#258aac</color>
     <color name="button_pythagorean_square">#C1BDF3</color>
     <color name="nav_background_curved">#1bc0a7</color>
-    <color name="numerologic_background">#12FFFFFF</color>
+    <color name="numerology_background">#12FFFFFF</color>
     <color name="color_hint_style_edit_text_registration">#A0A3B6</color>
     <color name="text_color_style_horoscope_title">#EEE7FF</color>
     <color name="text_color_style_birthday_day">#F7FFFFFF</color>
@@ -82,8 +81,10 @@
     <color name="text_color_style_affirmation_widget_logo">#FFFFFF</color>
     <color name="text_color_style_yes_or_no_ball">#6B000000</color>
     <color name="text_color_little_style_moon_calendar_title">#A4EEE7FF</color>
-    <color name="text_color_style_date_numerologic">#E6020202</color>
-    <color name="shadow_color_style_date_numerologic">#4BACB1EA</color>
+    <color name="text_color_style_date_numerology">#E6020202</color>
+    <color name="shadow_color_style_date_numerology">#4BACB1EA</color>
     <color name="color_switch_thumb_normal_style_my_switch">#CCAC82EC</color>
     <color name="color_foreground_style_my_switch">#7E7E7E</color>
+    <color name="like_color">#FF5722</color>
+    <color name="light_black">#6B000000</color>
 </resources>

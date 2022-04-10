@@ -27,20 +27,20 @@
         android:gravity="center|bottom"
         android:orientation="horizontal"
         android:weightSum="1">
-        <!--        "#CDADFF"-->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signInTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
-            android:textColorHint="#FFF"
-            app:errorTextColor="@color/error_signin"
-            app:boxStrokeErrorColor="@color/error_signin"
+            android:textColorHint="@color/white"
             app:boxStrokeColor="@color/white"
+            app:boxStrokeErrorColor="@color/error_signin"
             app:endIconTint="@color/white"
+            app:errorTextColor="@color/error_signin"
             app:helperTextTextColor="@color/white"
             app:hintTextColor="@color/white"
-            app:prefixTextColor="#FFFFFF">
+            app:prefixTextColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signInEmailEditText"
@@ -50,7 +50,7 @@
                 android:background="@android:color/transparent"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textCursorDrawable="@null" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -67,19 +67,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.7">
-<!--            android:layout_marginTop="24dp"-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#FFF"
+                android:textColorHint="@color/white"
                 app:boxStrokeColor="@color/white"
-                app:errorEnabled="true"
-                app:helperTextTextColor="@color/white"
                 app:endIconTint="@color/white"
+                app:errorEnabled="true"
                 app:errorIconDrawable="@null"
+                app:helperTextTextColor="@color/white"
                 app:hintTextColor="@color/white">
-<!--                app:endIconTint="@color/white"-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/signInPasswordEditText"
@@ -90,7 +88,7 @@
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:paddingEnd="40dp"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textCursorDrawable="@null" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +128,7 @@
             android:stateListAnimator="@animator/button_animation_shadow"
             android:text="@string/forgot_password"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="13sp" />
     </LinearLayout>
 
@@ -151,7 +149,7 @@
             android:background="@android:color/transparent"
             android:gravity="center_horizontal|center"
             android:text="@string/sign_in"
-            android:textColor="#FFF" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <View

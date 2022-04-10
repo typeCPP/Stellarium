@@ -85,10 +85,10 @@
     <string name="work">работа</string>
     <string name="choose_zodiac_signs">Выберите знаки зодиака</string>
     <string name="enter_names">Введите имена</string>
-    <string name="compatibilityByName">совместимость по именам</string>
-    <string name="compatibility_by_zodiac_signs">совместимость по знакам зодиака</string>
+    <string name="compatibilityByName">Совместимость по именам</string>
+    <string name="compatibility_by_zodiac_signs">Совместимость по знакам зодиака</string>
     <string name="affirmation_title">Следующая аффирмация будет завтра</string>
-    <string name="affirmation_text">Андрей добрый человек, но ничего страшного, такое случается</string>
+    <string name="affirmation_text">Текст аффирмации</string>
     <string name="some_date">2 февраля</string>
     <string name="enter_date_numerologic">Введите свою дату рождения, чтобы узнать число судьбы:</string>
     <string name="fate_number">Число судьбы - 8</string>
@@ -150,7 +150,7 @@
     <string name="try_again">Попробовать снова</string>
     <string name="confirm_email">Вам на почту было отправлено письмо с ссылкой на подтверждение аккаунта.</string>
     <string name="check_spam_folder">Не забудьте проверить папку спам.</string>
-    <string name="something_went_wrong">Что-то пошло не так.</string>
+    <string name="something_went_wrong">Что-то пошло не так…</string>
     <string name="sign">Знак</string>
     <string name="male_gender">Мужской</string>
     <string name="female_gender">Женский</string>
@@ -164,6 +164,6 @@
     <string name="subscribe">Оформить подписку</string>
     <string name="share_with_friend">Поделиться с другом</string>
     <string name="rate_app">Оценить приложение</string>
-    <string name="connection">Устанавливаем связь с космосом.</string>
+    <string name="connection">Устанавливаем связь с космосом</string>
     <string name="phrase_about_zero_affirmations">К сожалению, Вы не оценили ни одной аффирмации</string>
 </resources>

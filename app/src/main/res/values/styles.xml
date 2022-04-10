@@ -448,10 +448,10 @@
             18sp
         </item>
 
-        <item name="android:textColor">@color/text_color_style_date_numerologic</item>
+        <item name="android:textColor">@color/text_color_style_date_numerology</item>
 
         <item name="android:shadowColor">
-            @color/shadow_color_style_date_numerologic
+            @color/shadow_color_style_date_numerology
         </item>
 
         <item name="android:shadowDx">
