@@ -13,5 +13,5 @@ public class AffirmationsTable {
             + COLUMN_ID + " INTEGER PRIMARY KEY,"
             + COLUMN_TEXT + " TEXT NOT NULL,"
             + COLUMN_DATE + " TEXT NOT NULL,"
-            + COLUMN_PICTURE + " NUMBER);";
+            + COLUMN_PICTURE + " TEXT);";
 }

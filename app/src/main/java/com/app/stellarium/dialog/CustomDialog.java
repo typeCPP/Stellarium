@@ -41,6 +41,8 @@ public class CustomDialog extends Dialog implements
             case R.id.positive_button:
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 databaseHelper.dropUserTable(databaseHelper.getWritableDatabase());
+                databaseHelper.dropAffirmationTable(databaseHelper.getWritableDatabase());
+                databaseHelper.dropFavoriteAffirmationsTable(databaseHelper.getWritableDatabase());
                 databaseHelper.close();
                 Intent myIntent = new Intent(getContext(), MainRegistrationActivity.class);
                 getContext().startActivity(myIntent);

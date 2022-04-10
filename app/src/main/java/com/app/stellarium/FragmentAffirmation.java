@@ -44,6 +44,7 @@ public class FragmentAffirmation extends Fragment {
     private LoadingDialog loadingDialog;
     private LikeButton likeButton;
     private boolean isLiked = false;
+    private Affirmation affirmation;
 
     public FragmentAffirmation() {
     }
@@ -90,6 +91,12 @@ public class FragmentAffirmation extends Fragment {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                 updateFavoriteAffirmationTable(database, todayDate, true);
+                int userID = databaseHelper.getCurrentUserServerID(database);
+                Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+                if (userID != 0) {
+                    ServerConnection serverConnection = new ServerConnection();
+                    serverConnection.getStringResponseByParameters("like_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
+                }
             }
 
             @Override
@@ -97,6 +104,12 @@ public class FragmentAffirmation extends Fragment {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                 updateFavoriteAffirmationTable(database, todayDate, false);
+                int userID = databaseHelper.getCurrentUserServerID(database);
+                Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+                if (userID != 0) {
+                    ServerConnection serverConnection = new ServerConnection();
+                    serverConnection.getStringResponseByParameters("unlike_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
+                }
             }
         });
 
@@ -116,6 +129,16 @@ public class FragmentAffirmation extends Fragment {
         isLiked = checkLike(database, todayDate);
         likeButton.setLiked(isLiked);
         return view;
+    }
+
+    private int getCurrentAffirmationID(String todayDate, SQLiteDatabase database) {
+        Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
+                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
+                null, null, null, null);
+        affirmationCursor.moveToFirst();
+        @SuppressLint("Range") int idTodayAffirmation
+                = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
+        return idTodayAffirmation;
     }
 
     @Override
@@ -165,9 +188,9 @@ public class FragmentAffirmation extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Pair<String, Integer> pair = getTodayBackgroundAndText(database, todayDate);
+                        Pair<String, String> pair = getTodayBackgroundAndText(database, todayDate);
                         if (pair != null) {
-                            Drawable background = getBackgroundByID(pair.second);
+                            Drawable background = getBackgroundByName(pair.second);
                             frameLayout.setBackground(background);
 
                             affirmationText.setText(pair.first);
@@ -187,7 +210,7 @@ public class FragmentAffirmation extends Fragment {
     }
 
     @SuppressLint("Range")
-    private Pair<String, Integer> getTodayBackgroundAndText(SQLiteDatabase database, String todayDate) {
+    private Pair<String, String> getTodayBackgroundAndText(SQLiteDatabase database, String todayDate) {
         Cursor affirmationsCursor = database.query(AffirmationsTable.TABLE_NAME, null,
                 AffirmationsTable.COLUMN_DATE + " = " + todayDate,
                 null, null, null, null);
@@ -196,29 +219,32 @@ public class FragmentAffirmation extends Fragment {
         }
         affirmationsCursor.moveToLast();
         String text = affirmationsCursor.getString(affirmationsCursor.getColumnIndex(AffirmationsTable.COLUMN_TEXT));
-        int backgroundID = affirmationsCursor.getInt(affirmationsCursor.getColumnIndex(AffirmationsTable.COLUMN_PICTURE));
-        return new Pair<>(text, backgroundID);
+        String backgroundName = affirmationsCursor.getString(affirmationsCursor.getColumnIndex(AffirmationsTable.COLUMN_PICTURE));
+        return new Pair<>(text, backgroundName);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private Drawable getBackgroundByID(int backgroundID) {
+    private Drawable getBackgroundByName(String backgroundName) {
         Resources resources = getContext().getResources();
-        return resources.getDrawable(backgroundID);
+        return resources.getDrawable(getContext().getResources().getIdentifier(backgroundName, "drawable", getContext().getPackageName()));
     }
 
     @SuppressLint("Range")
     private boolean checkLike(SQLiteDatabase database, String todayDate) {
-        getDataFromServerToDatabase(database, todayDate);
         Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
                 AffirmationsTable.COLUMN_DATE + " = " + todayDate,
                 null, null, null, null);
-        affirmationCursor.moveToFirst();
-        @SuppressLint("Range") int idTodayAffirmation
-                = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
-        Cursor favoriteAffirmationCursor = database.query(FavoriteAffirmationsTable.TABLE_NAME, null,
-                FavoriteAffirmationsTable.COLUMN_AFFIRMATION_ID + " = " + idTodayAffirmation,
-                null, null, null, null);
-        return favoriteAffirmationCursor.getCount() >= 1;
+        if(affirmationCursor.getCount() > 0) {
+            affirmationCursor.moveToFirst();
+            @SuppressLint("Range") int idTodayAffirmation
+                    = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
+            Cursor favoriteAffirmationCursor = database.query(FavoriteAffirmationsTable.TABLE_NAME, null,
+                    FavoriteAffirmationsTable.COLUMN_AFFIRMATION_ID + " = " + idTodayAffirmation,
+                    null, null, null, null);
+            return favoriteAffirmationCursor.getCount() >= 1;
+        } else {
+            return false;
+        }
     }
 
     @SuppressLint("Range")
@@ -236,7 +262,7 @@ public class FragmentAffirmation extends Fragment {
             params = "affirmation/?id=" + userServerId;
         }
         String response = serverConnection.getStringResponseByParameters(params);
-        Affirmation affirmation = new Gson().fromJson(response, Affirmation.class);
+        affirmation = new Gson().fromJson(response, Affirmation.class);
         if (affirmation == null) {
             throw new NullPointerException();
         }
@@ -245,7 +271,7 @@ public class FragmentAffirmation extends Fragment {
         contentValues.put(AffirmationsTable.COLUMN_DATE, todayDate);
         contentValues.put(AffirmationsTable.COLUMN_TEXT, affirmation.text);
         contentValues.put(AffirmationsTable.COLUMN_ID, affirmation.id);
-        contentValues.put(AffirmationsTable.COLUMN_PICTURE, getRandomAffirmationBackgroundName());
+        contentValues.put(AffirmationsTable.COLUMN_PICTURE, affirmation.picture);
 
         database.insert(AffirmationsTable.TABLE_NAME, null, contentValues);
     }
@@ -262,7 +288,6 @@ public class FragmentAffirmation extends Fragment {
     }
 
     private void updateFavoriteAffirmationTable(SQLiteDatabase database, String todayDate, boolean addAffirmation) {
-        getDataFromServerToDatabase(database, todayDate);
         Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
                 AffirmationsTable.COLUMN_DATE + " = " + todayDate,
                 null, null, null, null);

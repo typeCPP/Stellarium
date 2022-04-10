@@ -1,7 +1,9 @@
 package com.app.stellarium.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -78,10 +80,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.insert(UserTable.TABLE_NAME, null, cv);
     }
 
+    public int getCurrentUserServerID(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        userCursor.moveToLast();
+        @SuppressLint("Range") String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+        @SuppressLint("Range") String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
+        @SuppressLint("Range") String facebookID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_FACEBOOK_ID));
+        @SuppressLint("Range") String googleID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_GOOGLE_ID));
+        @SuppressLint("Range") int serverID = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_SERVER_ID));
+        if (email == null && password == null && facebookID == null && googleID == null) {
+            return 0;
+        } else {
+            return serverID;
+        }
+    }
+
     public void dropUserTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
-
         sqLiteDatabase.execSQL(UserTable.CREATE_TABLE);
+    }
+
+    public void dropAffirmationTable(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AffirmationsTable.TABLE_NAME);
+        sqLiteDatabase.execSQL(AffirmationsTable.CREATE_TABLE);
+    }
+
+    public void dropFavoriteAffirmationsTable(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + FavoriteAffirmationsTable.TABLE_NAME);
+        sqLiteDatabase.execSQL(FavoriteAffirmationsTable.CREATE_TABLE);
     }
 
     public void dropHoroscopeTables(SQLiteDatabase sqLiteDatabase) {
