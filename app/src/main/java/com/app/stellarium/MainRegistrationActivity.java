@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.percentlayout.widget.PercentLayoutHelper;
 import androidx.percentlayout.widget.PercentRelativeLayout;
@@ -60,6 +62,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
+import java.util.function.UnaryOperator;
 
 public class MainRegistrationActivity extends AppCompatActivity {
 
@@ -90,6 +93,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
     private float letterSpacing = 0.212f;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +142,13 @@ public class MainRegistrationActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
         emailConfirmationDialog = new EmailConfirmationDialog(getLayoutInflater().getContext());
+        emailConfirmationDialog.setOnClick(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                waitForEmailConfirmation(serverID, myIntent);
+                return null;
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("632189590717-1n3jc5bdchq75l1r32hcpp5roegq3utf.apps.googleusercontent.com")
