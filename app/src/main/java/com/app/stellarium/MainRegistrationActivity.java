@@ -269,6 +269,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 || signUpPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
 
+                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
+                            Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else {
@@ -283,6 +285,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         if (signInEmailEditText.getText().toString().isEmpty()
                                 || signInPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
+                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
+                            Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else {
                             User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
                             if (user != null) {
@@ -306,6 +310,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 MainRegistrationActivity.this.startActivity(myIntent);
                             }
                         }
+                        break;
                     case (R.id.forgotPasswordButton):
                         view.startAnimation(scaleUp);
                         Dialog dialog = new DialogPasswordReset(MainRegistrationActivity.this);
@@ -422,7 +427,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
     private void validate_email(TextInputEditText email, TextInputLayout layout) {
         if (!email.getText().toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-            layout.setError("Некорректный email");
+            layout.setError("Некорректная почта.");
             layout.setErrorIconDrawable(null);
         } else {
             layout.setError(null);
