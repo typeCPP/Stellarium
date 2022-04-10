@@ -1,11 +1,13 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,10 @@ import com.app.stellarium.utils.AffirmationPagerAdapter;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.Affirmation;
 import com.google.gson.Gson;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FragmentFavoriteAffirmations extends Fragment {
@@ -78,7 +81,12 @@ public class FragmentFavoriteAffirmations extends Fragment {
                 favoriteAffirmationsCursor.moveToNext();
             }
         }
+
         View page;
+        Cursor favoriteAffirmationsCursor = database.query(FavoriteAffirmationsTable.TABLE_NAME, null,
+                null, null, null, null, null);
+        int countAffirmations = favoriteAffirmationsCursor.getCount();
+        int i = 0;
         for (Affirmation affirmation : affirmations) {
             page = inflater.inflate(R.layout.fragment_favorite_affirmations, null);
             if (affirmation == null) {
@@ -88,13 +96,64 @@ public class FragmentFavoriteAffirmations extends Fragment {
             textView.setText(affirmation.text);
             FrameLayout frameLayout = page.findViewById(R.id.frameLayout);
             frameLayout.setBackground(getBackgroundByName(affirmation.picture));
+            LikeButton likeButton = page.findViewById(R.id.heart_button);
+            likeButton.setOnLikeListener(new OnLikeListener() {
+
+                @SuppressLint("Range")
+                @Override
+                public void liked(LikeButton likeButton) {
+                    DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                    updateFavoriteAffirmationTable(database, affirmation.id, true);
+                    int userID = databaseHelper.getCurrentUserServerID(database);
+                    Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+//                    if (userID != 0) {
+//                        ServerConnection serverConnection = new ServerConnection();
+//                        serverConnection.getStringResponseByParameters("like_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
+//                    }
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                    updateFavoriteAffirmationTable(database, affirmation.id, false);
+                    int userID = databaseHelper.getCurrentUserServerID(database);
+                    Log.d("AFFIRAMTION USER ID", String.valueOf(userID));
+//                    if (userID != 0) {
+//                        ServerConnection serverConnection = new ServerConnection();
+//                        serverConnection.getStringResponseByParameters("unlike_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
+//                    }
+                }
+            });
+
+            if (i == 0) {
+                page.findViewById(R.id.left_arrow).setVisibility(View.INVISIBLE);
+            }
+            if (i == countAffirmations - 1) {
+                page.findViewById(R.id.right_arrow).setVisibility(View.INVISIBLE);
+            }
+            i++;
             pages.add(page);
         }
-        AffirmationPagerAdapter pagerAdapter = new AffirmationPagerAdapter(pages);
-        ViewPager viewPager = new ViewPager(getContext());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(1);
-        return viewPager;
+
+        if (pages.size() != 0) {
+            AffirmationPagerAdapter pagerAdapter = new AffirmationPagerAdapter(pages);
+            ViewPager viewPager = new ViewPager(getContext());
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.setCurrentItem(1);
+            return viewPager;
+        } else {
+            View fragment = inflater.inflate(R.layout.fragment_favorite_affirmations, container, false);
+            TextView textView = fragment.findViewById(R.id.affirmation_text);
+            textView.setText(R.string.phrase_about_zero_affirmations);
+            FrameLayout frameLayout = fragment.findViewById(R.id.frameLayout);
+            frameLayout.setBackgroundResource(0);
+            fragment.findViewById(R.id.heart_button).setVisibility(View.INVISIBLE);
+            fragment.findViewById(R.id.left_arrow).setVisibility(View.INVISIBLE);
+            fragment.findViewById(R.id.right_arrow).setVisibility(View.INVISIBLE);
+            return fragment;
+        }
     }
 
     @Override
@@ -121,5 +180,17 @@ public class FragmentFavoriteAffirmations extends Fragment {
     private Drawable getBackgroundByName(String backgroundName) {
         Resources resources = getContext().getResources();
         return resources.getDrawable(getContext().getResources().getIdentifier(backgroundName, "drawable", getContext().getPackageName()));
+    }
+
+    private void updateFavoriteAffirmationTable(SQLiteDatabase database, Integer idAffirmation, boolean addAffirmation) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FavoriteAffirmationsTable.COLUMN_AFFIRMATION_ID, idAffirmation);
+        if (addAffirmation) {
+            database.insert(FavoriteAffirmationsTable.TABLE_NAME, null, contentValues);
+        } else {
+            String[] args = {String.valueOf(idAffirmation)};
+            database.delete(FavoriteAffirmationsTable.TABLE_NAME, "AFFIRMATION_ID=?", args);
+        }
     }
 }
