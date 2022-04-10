@@ -3,6 +3,7 @@ package com.app.stellarium.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -32,6 +33,7 @@ public class EmailConfirmationDialog extends Dialog implements android.view.View
     private Context context;
     private Button button;
     private UnaryOperator<Void> onClick;
+    private UnaryOperator<Void> onCancel;
 
     public EmailConfirmationDialog(@NonNull Context context) {
         super(context);
@@ -64,10 +66,22 @@ public class EmailConfirmationDialog extends Dialog implements android.view.View
             }
         }
         button.setOnClickListener(new LoadingDialogOnClickListener());
+
+        this.setOnCancelListener(new OnCancelListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                onCancel.apply(null);
+            }
+        });
     }
 
     public void setOnClick(UnaryOperator<Void> onClick) {
         this.onClick = onClick;
+    }
+
+    public void setOnCancel(UnaryOperator<Void> onCancel) {
+        this.onCancel = onCancel;
     }
 
     public void startGifAnimation() {

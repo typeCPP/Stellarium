@@ -88,6 +88,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private EmailConfirmationDialog emailConfirmationDialog;
     private boolean isReadyToResume = false;
+    private boolean isConfirmationRunning = true;
     private int serverID;
     private Intent myIntent;
 
@@ -146,6 +147,13 @@ public class MainRegistrationActivity extends AppCompatActivity {
             @Override
             public Void apply(Void unused) {
                 waitForEmailConfirmation(serverID, myIntent);
+                return null;
+            }
+        });
+        emailConfirmationDialog.setOnCancel(new UnaryOperator<Void>() {
+            @Override
+            public Void apply(Void unused) {
+                isConfirmationRunning = false;
                 return null;
             }
         });
@@ -269,7 +277,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 || signUpPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
 
-                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
+                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signUpEmailEditText.getText().toString()).matches()) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
@@ -389,13 +397,14 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
         emailConfirmationDialog.show();
         emailConfirmationDialog.startGifAnimation();
+        isConfirmationRunning = true;
         ServerConnection serverConnection = new ServerConnection();
         Handler handler = new Handler();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean isConfirmed = false;
-                while (!isConfirmed) {
+                while (!isConfirmed && isConfirmationRunning) {
                     try {
                         String response = serverConnection.getStringResponseByParameters("check_confirm/?user_id=" + userServerID);
                         if (Integer.parseInt(response) == 1) {
@@ -411,6 +420,10 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         });
                     }
                 }
+                if(!isConfirmationRunning) {
+                    return;
+                }
+                isConfirmationRunning = false;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
