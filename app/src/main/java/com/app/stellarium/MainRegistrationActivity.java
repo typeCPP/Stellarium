@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ import androidx.percentlayout.widget.PercentRelativeLayout;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.dialog.DialogPasswordReset;
+import com.app.stellarium.dialog.EmailConfirmationDialog;
 import com.app.stellarium.filters.EmailFilter;
 import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.utils.ServerConnection;
@@ -81,6 +83,10 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private ImageView signUpEye, signInEye;
     private boolean isShowSignup = false, isShowSignin = false;
     private DatabaseHelper databaseHelper;
+    private EmailConfirmationDialog emailConfirmationDialog;
+    private boolean isReadyToResume = false;
+    private int serverID;
+    private Intent myIntent;
 
     private float letterSpacing = 0.212f;
 
@@ -130,6 +136,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
         signInPasswordEditText.setLetterSpacing(letterSpacing);
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
+
+        emailConfirmationDialog = new EmailConfirmationDialog(getLayoutInflater().getContext());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("632189590717-1n3jc5bdchq75l1r32hcpp5roegq3utf.apps.googleusercontent.com")
@@ -227,7 +235,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
         class ButtonClickListener implements View.OnClickListener {
             @Override
             public void onClick(View view) {
-                Intent myIntent;
                 switch (view.getId()) {
                     case (R.id.buttonFacebook):
                         view.startAnimation(scaleUp);
@@ -254,10 +261,10 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else {
+                            serverID = registerUserByEmailPassword(signUpEmailEditText.getText().toString(), signUpPasswordEditText.getText().toString());
                             myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
-                            myIntent.putExtra("userEmail", signUpEmailEditText.getText().toString());
-                            myIntent.putExtra("userPassword", signUpPasswordEditText.getText().toString());
-                            MainRegistrationActivity.this.startActivity(myIntent);
+                            isReadyToResume = true;
+                            waitForEmailConfirmation(serverID, myIntent);
                         }
                         break;
                     case (R.id.btnSignin):
@@ -268,16 +275,23 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         } else {
                             User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
                             if (user != null) {
-                                databaseHelper = new DatabaseHelper(getApplicationContext());
-                                SQLiteDatabase database = databaseHelper.getWritableDatabase();
-                                databaseHelper.insertUser(database, user);
-                                ContentValues contentValues = new ContentValues();
-                                contentValues.put(UserTable.COLUMN_EMAIL, signInEmailEditText.getText().toString());
-                                contentValues.put(UserTable.COLUMN_PASSWORD, signInPasswordEditText.getText().toString());
-                                database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_SERVER_ID+"="+ user.id, null);
-                                database.close();
-                                databaseHelper.close();
-                                myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
+                                if (user.date == null || user.name == null || user.sex == null || user.sign == null) {
+                                    myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
+                                    myIntent.putExtra("userServerID", user.id);
+                                    myIntent.putExtra("userEmail", signInEmailEditText.getText().toString());
+                                    myIntent.putExtra("userPassword", signInPasswordEditText.getText().toString());
+                                } else {
+                                    databaseHelper = new DatabaseHelper(getApplicationContext());
+                                    SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                                    databaseHelper.insertUser(database, user);
+                                    ContentValues contentValues = new ContentValues();
+                                    contentValues.put(UserTable.COLUMN_EMAIL, signInEmailEditText.getText().toString());
+                                    contentValues.put(UserTable.COLUMN_PASSWORD, signInPasswordEditText.getText().toString());
+                                    database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_SERVER_ID + "=" + user.id, null);
+                                    database.close();
+                                    databaseHelper.close();
+                                    myIntent = new Intent(MainRegistrationActivity.this, MainActivity.class);
+                                }
                                 MainRegistrationActivity.this.startActivity(myIntent);
                             }
                         }
@@ -334,6 +348,66 @@ public class MainRegistrationActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isReadyToResume) {
+            waitForEmailConfirmation(serverID, myIntent);
+        }
+    }
+
+    private int registerUserByEmailPassword(String email, String password) {
+        ServerConnection serverConnection = new ServerConnection();
+        String response = serverConnection.getStringResponseByParameters("register/?mail=" + email + "&password=" + password);
+        if (response != null) {
+            try {
+                return Integer.parseInt(response);
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
+        emailConfirmationDialog.show();
+        emailConfirmationDialog.startGifAnimation();
+        ServerConnection serverConnection = new ServerConnection();
+        Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isConfirmed = false;
+                while (!isConfirmed) {
+                    try {
+                        String response = serverConnection.getStringResponseByParameters("check_confirm/?user_id=" + userServerID);
+                        if (Integer.parseInt(response) == 1) {
+                            isConfirmed = true;
+                        }
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                emailConfirmationDialog.stopGifAnimation();
+                            }
+                        });
+                    }
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        emailConfirmationDialog.dismiss();
+                        myIntent.putExtra("userServerID", userServerID);
+                        myIntent.putExtra("userEmail", signUpEmailEditText.getText().toString());
+                        myIntent.putExtra("userPassword", signUpPasswordEditText.getText().toString());
+                        MainRegistrationActivity.this.startActivity(myIntent);
+                    }
+                });
+            }
+        }).start();
+    }
 
     private void validate_email(TextInputEditText email, TextInputLayout layout) {
         if (!email.getText().toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {

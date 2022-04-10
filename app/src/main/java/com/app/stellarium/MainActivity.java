@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -140,9 +141,24 @@ public class MainActivity extends AppCompatActivity {
             databaseHelper.close();
             Intent myIntent = new Intent(MainActivity.this, MainRegistrationActivity.class);
             MainActivity.this.startActivity(myIntent);
-        } else {
+        } else if(!checkIfUserIsGuest(database)) {
             try {
-                getSignedUserDataFromServer(database, databaseHelper);
+                Pair<User, String[]> pair = getSignedUserDataFromServer(database, databaseHelper);
+                User user = pair.first;
+                if (user.sign == null || user.sex == null || user.name == null || user.date == null) {
+                    Intent myIntent = new Intent(MainActivity.this, RegistrationActivity.class);
+                    myIntent.putExtra("userServerID", user.id);
+                    myIntent.putExtra("userEmail", pair.second[0]);
+                    myIntent.putExtra("userPassword", pair.second[1]);
+                    if (pair.second[2] == null) {
+                        myIntent.putExtra("userUID", pair.second[3]);
+                        myIntent.putExtra("isFacebook", false);
+                    } else {
+                        myIntent.putExtra("userUID", pair.second[2]);
+                        myIntent.putExtra("isFacebook", true);
+                    }
+                    MainActivity.this.startActivity(myIntent);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 database.close();
@@ -156,7 +172,20 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper.close();
     }
 
-    private void getSignedUserDataFromServer(SQLiteDatabase database, DatabaseHelper databaseHelper) {
+    private boolean checkIfUserIsGuest(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        userCursor.moveToLast();
+        @SuppressLint("Range") String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+        @SuppressLint("Range") String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
+        @SuppressLint("Range") String facebookID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_FACEBOOK_ID));
+        @SuppressLint("Range") String googleID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_GOOGLE_ID));
+
+        return email == null && password == null && facebookID == null && googleID == null;
+    }
+
+    private Pair<User, String[]> getSignedUserDataFromServer(SQLiteDatabase database, DatabaseHelper databaseHelper) {
         ServerConnection serverConnection = new ServerConnection();
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
@@ -177,8 +206,12 @@ public class MainActivity extends AppCompatActivity {
         }
         String response = serverConnection.getStringResponseByParameters(params);
         User user = new Gson().fromJson(response, User.class);
+        if (user.sign == null || user.sex == null || user.name == null || user.date == null) {
+            return new Pair<>(user, new String[]{email, password, facebookID, googleID});
+        }
         databaseHelper.dropUserTable(database);
         insertSignedUserToDatabase(user, database, email, password, googleID, facebookID);
+        return new Pair<>(user, new String[]{email, password, facebookID, googleID});
     }
 
     private void insertSignedUserToDatabase(User user, SQLiteDatabase database, String email, String password, String googleID, String facebookID) {

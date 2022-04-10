@@ -96,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String userUID = intent.getStringExtra("userUID");
         String email = intent.getStringExtra("userEmail");
         String password = intent.getStringExtra("userPassword");
+        serverID = intent.getIntExtra("userServerID", 0);
 
         buttonEndRegistration.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -109,7 +110,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     int sex = 0;
                     if (isTouchMan)
                         sex = 1;
-                    String params = "/register/?name=" +
+                    String params = "/update_user/?name=" +
                             editTextName.getText().toString() +
                             "&birth=" + getBirthdayString(birthdayDay, birthdayMonth, birthdayYear) +
                             "&sex=" + sex;
@@ -141,28 +142,17 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                     mainActivityIntent = new Intent(RegistrationActivity.this, MainActivity.class);
                     if ((email != null && password != null) || userUID != null) {
+                        params += "&id=" + serverID;
                         String response = serverConnection.getStringResponseByParameters(params);
-                        if (response != null && !response.contains("False")) {
-                            serverID = Integer.parseInt(response);
-                            emailConfirmationDialog.setOnClick(new UnaryOperator<Void>() {
-                                @Override
-                                public Void apply(Void unused) {
-                                    waitForEmailConfirmation(serverID, mainActivityIntent);
-                                    return null;
-                                }
-                            });
+                        if (response != null) {
                             values.put(UserTable.COLUMN_SERVER_ID, serverID);
-                            values.put(UserTable.COLUMN_MAIL_CONFIRMED, 0);
+                            values.put(UserTable.COLUMN_MAIL_CONFIRMED, 1);
                             database.insert(UserTable.TABLE_NAME, null, values);
                             database.close();
                             databaseHelper.close();
                             isReadyForResume = true;
-                            if (userUID == null) {
-                                waitForEmailConfirmation(serverID, mainActivityIntent);
-                            }
-                            else {
-                                RegistrationActivity.this.startActivity(mainActivityIntent);
-                            }
+
+                            RegistrationActivity.this.startActivity(mainActivityIntent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Ошибка регистрации: проверьте введенные поля.", Toast.LENGTH_LONG).show();
                             database.close();
@@ -179,15 +169,15 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+/*    @Override
     protected void onResume() {
         super.onResume();
         if (isReadyForResume) {
             waitForEmailConfirmation(serverID, mainActivityIntent);
         }
-    }
+    }*/
 
-    private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
+    /*private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
         emailConfirmationDialog.show();
         emailConfirmationDialog.startGifAnimation();
         ServerConnection serverConnection = new ServerConnection();
@@ -229,7 +219,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         }).start();
 
-    }
+    }*/
 
     private String getBirthdayString(int birthdayDay, int birthdayMonth, int birthdayYear) {
         StringBuffer text = new StringBuffer(birthdayDay + "." + birthdayMonth + "." + birthdayYear);
