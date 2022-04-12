@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,13 @@ import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.filters.UsernameFilter;
+import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.ZodiacSignUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class FragmentEditPersonalAccount extends Fragment {
 
@@ -227,7 +232,31 @@ public class FragmentEditPersonalAccount extends Fragment {
                     contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
                     contentValues.put(UserTable.COLUMN_PASSWORD, editTextPassword.getText().toString());
                     database.update(UserTable.TABLE_NAME, contentValues, "_ID=" + userId, null);
+                    int userID = databaseHelper.getCurrentUserServerID(database);
                     database.close();
+                    if (userID != 0) {
+                        ServerConnection serverConnection = new ServerConnection();
+                        String params = "update_user/?";
+                        List<Pair<String, String>> queryParams = new ArrayList<>();
+                        queryParams.add(new Pair<>("id", String.valueOf(userID)));
+                        queryParams.add(new Pair<>("name", editTextName.getText().toString()));
+                        queryParams.add(new Pair<>("birth", editTextDate.getText().toString().replaceAll("/", ".")));
+
+                        if (radioButtonMan.isChecked())
+                            queryParams.add(new Pair<>("sex", "1"));
+                        else
+                            queryParams.add(new Pair<>("sex", "0"));
+
+                        queryParams.add(new Pair<>("sign", String.valueOf(signId)));
+                        queryParams.add(new Pair<>("password", editTextPassword.getText().toString()));
+                        try {
+                            params += ServerConnection.getQuery(queryParams);
+                            serverConnection.getStringResponseByParameters(params);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Ошибка сохранения.", Toast.LENGTH_LONG).show();
+                        }
+                    }
                     Fragment fragment = new FragmentPersonalAccount();
                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_in_left, R.animator.slide_out_right)
                             .replace(R.id.frameLayout, fragment).commit();

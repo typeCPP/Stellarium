@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,11 +105,10 @@ public class FragmentFavoriteAffirmations extends Fragment {
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     updateFavoriteAffirmationTable(database, affirmation.id, true);
                     int userID = databaseHelper.getCurrentUserServerID(database);
-                    Log.d("AFFIRMATION USER ID", String.valueOf(userID));
-//                    if (userID != 0) {
-//                        ServerConnection serverConnection = new ServerConnection();
-//                        serverConnection.getStringResponseByParameters("like_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
-//                    }
+                    if (userID != 0) {
+                        ServerConnection serverConnection = new ServerConnection();
+                        serverConnection.getStringResponseByParameters("like_affirm/?user_id=" + userID + "&affirm_id=" + affirmation.id);
+                    }
                 }
 
                 @Override
@@ -119,11 +117,10 @@ public class FragmentFavoriteAffirmations extends Fragment {
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     updateFavoriteAffirmationTable(database, affirmation.id, false);
                     int userID = databaseHelper.getCurrentUserServerID(database);
-                    Log.d("AFFIRMATION USER ID", String.valueOf(userID));
-//                    if (userID != 0) {
-//                        ServerConnection serverConnection = new ServerConnection();
-//                        serverConnection.getStringResponseByParameters("unlike_affirm/?user_id=" + userID + "&affirm_id=" + getCurrentAffirmationID(todayDate, database));
-//                    }
+                    if (userID != 0) {
+                        ServerConnection serverConnection = new ServerConnection();
+                        serverConnection.getStringResponseByParameters("unlike_affirm/?user_id=" + userID + "&affirm_id=" + affirmation.id);
+                    }
                 }
             });
 
