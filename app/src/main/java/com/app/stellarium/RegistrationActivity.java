@@ -169,57 +169,9 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-/*    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isReadyForResume) {
-            waitForEmailConfirmation(serverID, mainActivityIntent);
-        }
-    }*/
-
-    /*private void waitForEmailConfirmation(int userServerID, Intent myIntent) {
-        emailConfirmationDialog.show();
-        emailConfirmationDialog.startGifAnimation();
-        ServerConnection serverConnection = new ServerConnection();
-        Handler handler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                boolean isConfirmed = false;
-                while (!isConfirmed) {
-                    try {
-                        String response = serverConnection.getStringResponseByParameters("check_confirm/?user_id=" + userServerID);
-                        if (Integer.parseInt(response) == 1) {
-                            isConfirmed = true;
-                        }
-                        Thread.sleep(2000);
-                    } catch (Exception e) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                emailConfirmationDialog.stopGifAnimation();
-                            }
-                        });
-                    }
-                }
-                DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-                SQLiteDatabase database = databaseHelper.getWritableDatabase();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(UserTable.COLUMN_MAIL_CONFIRMED, 1);
-                database.update(UserTable.TABLE_NAME, contentValues, UserTable.COLUMN_SERVER_ID + "=" + userServerID, null);
-                database.close();
-                databaseHelper.close();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        emailConfirmationDialog.dismiss();
-                        RegistrationActivity.this.startActivity(myIntent);
-                    }
-                });
-            }
-        }).start();
-
-    }*/
+    @Override
+    public void onBackPressed() {
+    }
 
     private String getBirthdayString(int birthdayDay, int birthdayMonth, int birthdayYear) {
         StringBuffer text = new StringBuffer(birthdayDay + "." + birthdayMonth + "." + birthdayYear);
