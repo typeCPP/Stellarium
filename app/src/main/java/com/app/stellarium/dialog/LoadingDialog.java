@@ -69,6 +69,7 @@ public class LoadingDialog extends Dialog implements android.view.View.OnClickLi
     }
 
     public void startGifAnimation() {
+        this.setCancelable(false);
         text.setVisibility(View.VISIBLE);
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         text.animate().alpha(1f).setDuration(250).setListener(null);
@@ -80,6 +81,7 @@ public class LoadingDialog extends Dialog implements android.view.View.OnClickLi
     public void stopGifAnimation() {
         if (gifDrawable.isRunning()) {
             try {
+                this.setCancelable(true);
                 text.animate().alpha(0f).setDuration(250).setListener(null);
                 text.setVisibility(View.INVISIBLE);
                 linearLayoutError.setVisibility(View.VISIBLE);
