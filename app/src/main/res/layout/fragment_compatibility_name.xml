@@ -218,17 +218,23 @@
             android:layout_height="0dp"
             android:layout_weight="0.25" />
 
-        <GridLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_weight="2.25"
-            android:columnCount="3"
+            android:layout_weight="1.75"
             android:orientation="horizontal"
-            android:rowCount="2"
-            android:useDefaultMargins="true">
+            android:weightSum="12">
 
-            <RelativeLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.25" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5">
 
                 <ProgressBar
                     android:id="@+id/progressBarLove"
@@ -236,9 +242,9 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/progress_bar_background"
+                    android:background="@drawable/progress_bar_background_dark"
                     android:progress="20"
-                    android:progressDrawable="@drawable/progress_bar_progress"
+                    android:progressDrawable="@drawable/progress_bar_progress_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -254,12 +260,17 @@
                     android:gravity="center"
                     android:text="100%"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5">
 
                 <ProgressBar
                     android:id="@+id/progressBarFriendship"
@@ -267,9 +278,9 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/progress_bar_background"
+                    android:background="@drawable/progress_bar_background_dark"
                     android:progress="99"
-                    android:progressDrawable="@drawable/progress_bar_progress"
+                    android:progressDrawable="@drawable/progress_bar_progress_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -285,13 +296,18 @@
                     android:gravity="center"
                     android:text="100%"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5">
 
                 <ProgressBar
                     android:id="@+id/progressBarWork"
@@ -299,9 +315,9 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/progress_bar_background"
+                    android:background="@drawable/progress_bar_background_dark"
                     android:progress="88"
-                    android:progressDrawable="@drawable/progress_bar_progress"
+                    android:progressDrawable="@drawable/progress_bar_progress_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -317,34 +333,13 @@
                     android:gravity="center"
                     android:text="100%"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_gravity="center_horizontal|top"
-                android:fontFamily="@font/gabriela_regular"
-                android:gravity="center"
-                android:text="любовь"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_gravity="center_horizontal|top"
-                android:fontFamily="@font/gabriela_regular"
-                android:text="дружба"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_gravity="center_horizontal|top"
-                android:fontFamily="@font/gabriela_regular"
-                android:gravity="center"
-                android:text="работа"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-
-        </GridLayout>
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
 
         <LinearLayout
@@ -354,88 +349,48 @@
             android:orientation="horizontal"
             android:weightSum="12">
 
-            <ImageView
+
+            <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="2.25" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/loveButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:background="@drawable/navigation_menu_zodiac"
-                android:orientation="horizontal"
-                android:weightSum="12">
+                android:layout_weight="2.5"
+                android:fontFamily="@font/gabriela_regular"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/love"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/friendshipButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:fontFamily="@font/gabriela_regular"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/friendship"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.75" />
+            <TextView
+                android:id="@+id/workButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:fontFamily="@font/gabriela_regular"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/work"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/loveButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:autoSizeMaxTextSize="15sp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/love"
-                    android:textColor="@android:color/white" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
-
-                <TextView
-                    android:id="@+id/friendshipButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:autoSizeMaxTextSize="15sp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/friendship"
-                    android:textColor="@android:color/white" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
-
-                <TextView
-                    android:id="@+id/workButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:autoSizeMaxTextSize="15sp"
-                    android:autoSizeStepGranularity="1dp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/work"
-                    android:textColor="@android:color/white" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.75" />
-
-            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -446,7 +401,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.1"
+            android:layout_weight="4.6"
             android:orientation="horizontal"
             android:weightSum="1">
 

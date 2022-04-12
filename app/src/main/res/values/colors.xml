@@ -36,8 +36,8 @@
     <color name="button_pythagorean_home_start_color">#BBB8ED</color>
     <color name="button_pythagorean_home_stroke">#7772C1</color>
     <color name="compatibility_sign_text">#9395B0</color>
-    <color name="progress_bar_background">#9787CAEF</color>
-    <color name="progress_bar_progress">#87CAEF</color>
+    <color name="progress_bar_background">#9982B9F3</color>
+    <color name="progress_bar_progress">#6CB7F1</color>
     <color name="zodiac_main_text">#8C877EEF</color>
     <color name="colorPrimary">#673AB7</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -87,4 +87,6 @@
     <color name="color_foreground_style_my_switch">#7E7E7E</color>
     <color name="like_color">#FF5722</color>
     <color name="light_black">#6B000000</color>
+    <color name="progress_bar_background_dark">#996C9DF1</color>
+    <color name="progress_bar_progress_bar">#6C9DF1</color>
 </resources>

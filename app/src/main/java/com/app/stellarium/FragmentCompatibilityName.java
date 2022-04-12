@@ -2,6 +2,7 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,7 +22,7 @@ public class FragmentCompatibilityName extends Fragment {
 
     private Bundle bundle;
     private int numberOfButton; //1 - love, 2 - friendship, 3 - work
-    private TextView loveButton, friendshipButton, workButton,
+    private TextView loveButton, friendshipButton, jobButton,
             nameWoman, nameMan;
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
@@ -30,9 +31,9 @@ public class FragmentCompatibilityName extends Fragment {
     private int loveValue, friendshipValue, jobValue;
 
     private TextView informationTextView, loveProgressBarText, friendshipProgressBarText,
-            workProgressBarText;
+            jobProgressBarText;
 
-    private ProgressBar loveProgressBar, friendshipProgressBar, workProgressBar;
+    private ProgressBar loveProgressBar, friendshipProgressBar, jobProgressBar;
 
 
     public FragmentCompatibilityName() {
@@ -71,7 +72,7 @@ public class FragmentCompatibilityName extends Fragment {
                             updateStateButtons(friendshipButton);
                             break;
                         case R.id.workButton:
-                            updateStateButtons(workButton);
+                            updateStateButtons(jobButton);
                             break;
                     }
                 }
@@ -85,13 +86,11 @@ public class FragmentCompatibilityName extends Fragment {
         activeSwipe(loveButton);
         friendshipButton = view.findViewById(R.id.friendshipButton);
         activeSwipe(friendshipButton);
-        workButton = view.findViewById(R.id.workButton);
-        activeSwipe(workButton);
+        jobButton = view.findViewById(R.id.workButton);
+        activeSwipe(jobButton);
 
         rightAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
-
-        updateStateButtons(loveButton);
 
         contentLayout = view.findViewById(R.id.contentLayout);
         activeSwipe(contentLayout);
@@ -102,11 +101,13 @@ public class FragmentCompatibilityName extends Fragment {
         informationTextView = view.findViewById(R.id.informationText);
         loveProgressBarText = view.findViewById(R.id.textLoveProgressBar);
         friendshipProgressBarText = view.findViewById(R.id.textFriendshipProgressBar);
-        workProgressBarText = view.findViewById(R.id.textWorkProgressBar);
+        jobProgressBarText = view.findViewById(R.id.textWorkProgressBar);
 
         loveProgressBar = view.findViewById(R.id.progressBarLove);
         friendshipProgressBar = view.findViewById(R.id.progressBarFriendship);
-        workProgressBar = view.findViewById(R.id.progressBarWork);
+        jobProgressBar = view.findViewById(R.id.progressBarWork);
+
+        updateStateButtons(loveButton);
 
         String nameManString = null, nameWomanString = null;
         Bundle bundle = getArguments();
@@ -128,11 +129,11 @@ public class FragmentCompatibilityName extends Fragment {
 
         loveProgressBarText.setText(loveValue + "%");
         friendshipProgressBarText.setText(friendshipValue + "%");
-        workProgressBarText.setText(jobValue + "%");
+        jobProgressBarText.setText(jobValue + "%");
 
         loveProgressBar.setProgress(loveValue);
         friendshipProgressBar.setProgress(friendshipValue);
-        workProgressBar.setProgress(jobValue);
+        jobProgressBar.setProgress(jobValue);
 
         informationTextView.setText(loveText);
 
@@ -168,13 +169,14 @@ public class FragmentCompatibilityName extends Fragment {
 
         loveButton.setOnTouchListener(new ButtonOnTouchListener());
         friendshipButton.setOnTouchListener(new ButtonOnTouchListener());
-        workButton.setOnTouchListener(new ButtonOnTouchListener());
+        jobButton.setOnTouchListener(new ButtonOnTouchListener());
         leftAnim.setAnimationListener(new SlideAnimationListener());
         rightAnim.setAnimationListener(new SlideAnimationListener());
 
         return view;
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void updateStateButtons(TextView button) {
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
@@ -182,29 +184,63 @@ public class FragmentCompatibilityName extends Fragment {
         if (button != loveButton) {
             loveButton.setScaleX(1);
             loveButton.setScaleY(1);
+            setProgressAndBackground(loveProgressBar,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    loveValue);
+
         } else {
             numberOfButton = 1;
+            setProgressAndBackground(loveProgressBar,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    loveValue);
+
         }
         if (button != friendshipButton) {
             friendshipButton.setScaleX(1);
             friendshipButton.setScaleY(1);
+            setProgressAndBackground(friendshipProgressBar,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    friendshipValue);
         } else {
             numberOfButton = 2;
+            setProgressAndBackground(friendshipProgressBar,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    friendshipValue);
         }
-        if (button != workButton) {
-            workButton.setScaleX(1);
-            workButton.setScaleY(1);
+        if (button != jobButton) {
+            jobButton.setScaleX(1);
+            jobButton.setScaleY(1);
+            setProgressAndBackground(jobProgressBar,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    jobValue);
         } else {
             numberOfButton = 3;
+            setProgressAndBackground(jobProgressBar,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    jobValue);
         }
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfButton) {
                 contentLayout.startAnimation(rightAnim);
-            } else if (oldNumberOfActiveButton > numberOfButton){
+            } else if (oldNumberOfActiveButton > numberOfButton) {
                 contentLayout.startAnimation(leftAnim);
             }
         }
         isStartPage = false;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setProgressAndBackground(ProgressBar progressBar, Drawable background, Drawable progress, int value) {
+        progressBar.setProgress(0);
+        progressBar.setBackground(background);
+        progressBar.setProgressDrawable(progress);
+        progressBar.setProgress(value);
     }
 
     private void activeSwipe(View view) {
@@ -227,7 +263,7 @@ public class FragmentCompatibilityName extends Fragment {
                         updateStateButtons(friendshipButton);
                         break;
                     case 2:
-                        updateStateButtons(workButton);
+                        updateStateButtons(jobButton);
                         break;
                 }
             }
