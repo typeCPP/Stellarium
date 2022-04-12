@@ -7,6 +7,4 @@
         android:startColor="@color/alert_dialog_background_start_color"
         android:type="linear" />
     <corners android:radius="20dp" />
-    <stroke android:color="@color/alert_dialog_background_stroke"
-        android:width="2dp"/>
 </shape>

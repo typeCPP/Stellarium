@@ -56,8 +56,8 @@
                     android:autoSizeStepGranularity="2dp"
                     android:autoSizeTextType="uniform"
                     android:gravity="center|top"
-                    android:text="@string/birthday_day"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/gabriela_regular"
+                    android:text="@string/birthday_day" />
 
                 <View
                     android:layout_width="0dp"
@@ -87,7 +87,6 @@
                     android:autoSizeStepGranularity="2dp"
                     android:autoSizeTextType="uniform"
                     android:gravity="center|top"
-                    android:textStyle="bold"
                     android:visibility="visible" />
 
                 <View

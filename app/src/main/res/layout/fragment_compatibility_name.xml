@@ -144,6 +144,7 @@
                     android:layout_marginRight="3dp"
                     android:fillViewport="true"
                     android:scrollbars="none">
+
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -186,6 +187,7 @@
                     android:layout_marginRight="3dp"
                     android:fillViewport="true"
                     android:scrollbars="none">
+
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -383,8 +385,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/love"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:textColor="@android:color/white" />
 
                 <View
                     android:layout_width="0dp"
@@ -403,8 +404,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/friendship"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:textColor="@android:color/white" />
 
                 <View
                     android:layout_width="0dp"
@@ -428,8 +428,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/work"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:textColor="@android:color/white" />
 
                 <View
                     android:layout_width="0dp"
@@ -445,41 +444,72 @@
             android:layout_weight="0.25" />
 
         <LinearLayout
-            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.10"
+            android:layout_weight="4.1"
             android:orientation="horizontal"
-            android:weightSum="12">
+            android:weightSum="1">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.25" />
+                android:layout_weight="0.05" />
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="9.5"
-                android:background="@drawable/zodiac_main_text"
-                android:overScrollMode="never"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:scrollbars="none">
+                android:layout_weight="0.9"
+                android:background="@drawable/numerology_background"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:weightSum="1">
 
-                <TextView
-                    android:id="@+id/informationText"
+                <ScrollView
+                    android:id="@+id/scrollViewVertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:justificationMode="inter_word"
-                    android:paddingBottom="15dp"
-                    android:text="@string/text_information"
-                    android:textColor="@android:color/white"
-                    android:textSize="17dp" />
-            </ScrollView>
+                    android:layout_height="0dp"
+                    android:layout_weight="0.97"
+                    android:fillViewport="true"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:weightSum="10.5">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:gravity="center|bottom"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <LinearLayout
+                            android:id="@+id/contentLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|bottom"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:id="@+id/informationText"
+                                style="@style/style_text_horoscope"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/text_information"
+                                android:textAlignment="textStart" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.03" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout></FrameLayout>
+    </LinearLayout>
+</FrameLayout>

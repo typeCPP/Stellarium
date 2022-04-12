@@ -200,10 +200,6 @@
 
     <style name="date">
 
-        <item name="android:textSize">
-            20sp
-        </item>
-
         <item name="android:textColor">
             @color/text_color_style_date
         </item>
@@ -546,7 +542,7 @@
 
     <style name="style_title_pythagorean_square">
         <item name="android:textSize">
-            25sp
+            20sp
         </item>
 
         <item name="android:layout_width">

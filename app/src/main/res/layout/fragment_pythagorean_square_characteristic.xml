@@ -29,18 +29,18 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="12">
+                android:weightSum="11.4">
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.2" />
 
                 <TextView
                     android:id="@+id/description_pyth_square"
@@ -48,16 +48,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="11"
                     android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:justificationMode="inter_word"
                     android:text="@string/text_information"
+                    android:textAlignment="center"
                     android:textColor="@color/information_text_color"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.2" />
             </LinearLayout>
 
             <View

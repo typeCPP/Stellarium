@@ -250,7 +250,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfButton) {
                 contentLayout.startAnimation(rightAnim);
-            } else {
+            } else if (oldNumberOfActiveButton > numberOfButton){
                 contentLayout.startAnimation(leftAnim);
 
             }

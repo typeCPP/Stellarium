@@ -24,6 +24,7 @@
                 android:layout_marginTop="85dp"
                 android:gravity="center|top"
                 android:text="@string/title_information"
+                android:textAllCaps="false"
                 android:textAppearance="@style/style_title" />
 
             <View
@@ -47,11 +48,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="11"
                     android:fontFamily="@font/gabriela_regular"
-                    android:gravity="center"
-                    android:justificationMode="inter_word"
                     android:text="@string/text_information"
+                    android:textAlignment="textStart"
                     android:textColor="@color/information_text_color"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
 
                 <View
                     android:layout_width="0dp"

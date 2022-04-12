@@ -253,35 +253,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void createFillInformationTable(SQLiteDatabase database) {
         ContentValues values = new ContentValues();
-        values.put(InformationTable.COLUMN_NAME, "АФФИРМАЦИЯ");
+        values.put(InformationTable.COLUMN_NAME, "Аффирмация");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_affirmation));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "ГОРОСКОП");
+        values.put(InformationTable.COLUMN_NAME, "Гороскоп");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_horoscope));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "ТАРО");
+        values.put(InformationTable.COLUMN_NAME, "Карты Таро");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_tarot));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "СОВМЕСТИМОСТЬ");
+        values.put(InformationTable.COLUMN_NAME, "Совместимость");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_compatibility));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "ЛУННЫЙ КАЛЕНДАРЬ");
+        values.put(InformationTable.COLUMN_NAME, "Лунный календарь");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_moon_calendar));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "НУМЕРОЛОГИЯ");
+        values.put(InformationTable.COLUMN_NAME, "Нумерология");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_numerology));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "КВАДРАТ ПИФАГОРА");
+        values.put(InformationTable.COLUMN_NAME, "Квадрат Пифагора");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_pythagorean_square));
         database.insert(InformationTable.TABLE_NAME, null, values);
 
-        values.put(InformationTable.COLUMN_NAME, "ДА-НЕТ");
+        values.put(InformationTable.COLUMN_NAME, "Шар судьбы");
         values.put(InformationTable.COLUMN_DESCRIPTION, getResources().getString(R.string.info_yes_no));
         database.insert(InformationTable.TABLE_NAME, null, values);
     }

@@ -39,7 +39,7 @@
                 android:layout_weight="4"
                 android:fillViewport="true">
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -95,38 +95,52 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6.3"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-            <ScrollView
-                android:id="@+id/scrollViewVertical"
-                android:layout_width="match_parent"
+            <View
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:overScrollMode="never"
-                android:scrollbars="none">
+                android:layout_weight="0.05" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:background="@drawable/numerology_background"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ScrollView
+                    android:id="@+id/scrollViewVertical"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="center|bottom"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
-                    <TextView
-                        android:id="@+id/typesOfPredictionsNumerology"
-                        style="@style/style_text_horoscope"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.9"
-                        android:background="@drawable/numerologic_background"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/numerologic_information" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:gravity="center|bottom"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                </LinearLayout>
-            </ScrollView>
+                        <TextView
+                            android:id="@+id/typesOfPredictionsNumerology"
+                            style="@style/style_text_horoscope"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/numerologic_information" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

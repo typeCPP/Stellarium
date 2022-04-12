@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center"
                 android:layout_weight="0.35"
-                android:background="@drawable/rectangle_button_info"
+                android:background="@drawable/button_compatibility_sign"
                 android:stateListAnimator="@animator/button_animation_shadow"
                 android:text="@string/ball_ask_button" />
 
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center"
                 android:layout_weight="0.35"
-                android:background="@drawable/rectangle_button_info"
+                android:background="@drawable/button_compatibility_sign"
                 android:stateListAnimator="@animator/button_animation_shadow"
                 android:text="@string/ball_clear_button" />
         </LinearLayout>

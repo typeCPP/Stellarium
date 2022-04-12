@@ -64,8 +64,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="40dp"
                 android:textColor="@color/text_registration"
-                android:textColorHint="@color/hint_registration"
-                android:textStyle="italic" />
+                android:textColorHint="@color/hint_registration" />
 
             <ImageView
                 android:id="@+id/cross"
@@ -126,8 +125,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/birthday_day"
-            android:textColor="@color/hint_registration"
-            android:textStyle="italic" />
+            android:textColor="@color/hint_registration" />
 
         <View
             android:layout_width="0dp"

@@ -200,7 +200,7 @@ public class FragmentCompatibilityName extends Fragment {
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfButton) {
                 contentLayout.startAnimation(rightAnim);
-            } else {
+            } else if (oldNumberOfActiveButton > numberOfButton){
                 contentLayout.startAnimation(leftAnim);
             }
         }

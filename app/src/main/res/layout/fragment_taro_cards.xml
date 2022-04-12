@@ -50,6 +50,7 @@
                     android:layout_weight="2" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:padding="3dp"
                     android:id="@+id/buttonNavigateToOneCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -64,9 +65,7 @@
                     android:gravity="center"
                     android:text="@string/one_card"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="-5dp"
-                    android:layout_marginLeft="-5dp"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -87,6 +86,7 @@
                     android:layout_weight="2" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:padding="3dp"
                     android:id="@+id/buttonNavigateToDayCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -101,9 +101,7 @@
                     android:gravity="center"
                     android:text="@string/day_card"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="-5dp"
-                    android:layout_marginLeft="-5dp"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -124,6 +122,7 @@
                     android:layout_weight="2" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:padding="3dp"
                     android:id="@+id/buttonNavigateToThreeCards"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -138,9 +137,7 @@
                     android:gravity="center"
                     android:text="@string/three_cards"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="-5dp"
-                    android:layout_marginLeft="-5dp"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -161,6 +158,7 @@
                     android:layout_weight="2" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:padding="3dp"
                     android:id="@+id/buttonNavigateToSevenStars"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -175,9 +173,7 @@
                     android:gravity="center"
                     android:text="@string/seven_stars"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="-5dp"
-                    android:layout_marginLeft="-5dp"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -198,6 +194,7 @@
                     android:layout_weight="2" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:padding="3dp"
                     android:id="@+id/buttonNavigateToPyramidLovers"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -212,9 +209,7 @@
                     android:gravity="center"
                     android:text="@string/pyramid_of_lovers"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="-5dp"
-                    android:layout_marginLeft="-5dp" />
+                    android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
