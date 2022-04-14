@@ -166,4 +166,7 @@
     <string name="rate_app">Оценить приложение</string>
     <string name="connection">Устанавливаем связь с космосом</string>
     <string name="phrase_about_zero_affirmations">К сожалению, Вы не оценили ни одной аффирмации</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

@@ -54,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle widgetBundle = getIntent().getExtras();
+        if (widgetBundle != null && widgetBundle.get("key") == "widget") {
+            System.out.println(widgetBundle.get("key"));
+            Fragment fragmentAffirmation = new FragmentAffirmation();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, fragmentAffirmation).commit();
+        }
         bottomNavigationView = findViewById(R.id.bottomNav);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentHome()).commit();
         bottomNavigationView.findViewById(R.id.ic_home).performClick();
@@ -141,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             databaseHelper.close();
             Intent myIntent = new Intent(MainActivity.this, MainRegistrationActivity.class);
             MainActivity.this.startActivity(myIntent);
-        } else if(!checkIfUserIsGuest(database)) {
+        } else if (!checkIfUserIsGuest(database)) {
             try {
                 Pair<User, String[]> pair = getSignedUserDataFromServer(database, databaseHelper);
                 User user = pair.first;
@@ -170,6 +177,33 @@ public class MainActivity extends AppCompatActivity {
 
         database.close();
         databaseHelper.close();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Bundle widgetBundle = getIntent().getExtras();
+        if (widgetBundle != null && widgetBundle.get("key") == "widget") {
+            System.out.println(widgetBundle.get("key"));
+            Fragment fragmentAffirmation = new FragmentAffirmation();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, fragmentAffirmation).commit();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        Bundle widgetBundle = getIntent().getExtras();
+        if (widgetBundle != null && widgetBundle.get("key") == "widget") {
+            System.out.println(widgetBundle.get("key"));
+            Fragment fragmentAffirmation = new FragmentAffirmation();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, fragmentAffirmation).commit();
+        }
+        else
+        {
+            super.onResume();
+        }
     }
 
     private boolean checkIfUserIsGuest(SQLiteDatabase database) {

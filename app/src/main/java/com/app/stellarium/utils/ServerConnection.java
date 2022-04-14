@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ServerConnection {
-    public String serverURL = "http://192.168.1.105:5000/";
+    public String serverURL = "http://192.168.0.106:5000/";
 
     public String getStringResponseByParameters(String params) {
         String result;

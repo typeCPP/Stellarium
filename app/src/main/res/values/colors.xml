@@ -87,4 +87,12 @@
     <color name="color_foreground_style_my_switch">#7E7E7E</color>
     <color name="like_color">#FF5722</color>
     <color name="light_black">#6B000000</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="text_shadow_widget">#7F000000</color>
+    <color name="color_affirmation_widget_pink">#f4b6bb</color>
+    <color name="color_affirmation_widget_blue">#85a6db</color>
+    <color name="text_shadow_widget_mono">#000000</color>
 </resources>

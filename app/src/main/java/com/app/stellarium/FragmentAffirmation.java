@@ -43,7 +43,7 @@ public class FragmentAffirmation extends Fragment {
     private LikeButton likeButton;
     private boolean isLiked = false;
     private Affirmation affirmation;
-
+    private boolean isOpenByWidget = false;
     public FragmentAffirmation() {
     }
 
@@ -63,10 +63,14 @@ public class FragmentAffirmation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        MainActivity activity = (MainActivity) getActivity();
-        if (activity != null) {
-            activity.setNumberOfPrevFragment();
-            activity.hideBottomBar(true);
+        Bundle bundle = getArguments();
+        isOpenByWidget = true;
+        if (bundle == null) {
+            MainActivity activity = (MainActivity) getActivity();
+            if (activity != null) {
+                activity.hideBottomBar(true);
+            }
+            isOpenByWidget = false;
         }
 
         View view = inflater.inflate(R.layout.fragment_affirmation, container, false);
@@ -142,20 +146,25 @@ public class FragmentAffirmation extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        MainActivity activity = (MainActivity) getActivity();
-
-        if (activity != null) {
-            activity.hideBottomBar(false);
+        if (!isOpenByWidget) {
+            MainActivity activity = (MainActivity) getActivity();
+            if (activity != null) {
+                activity.hideBottomBar(false);
+            }
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MainActivity activity = (MainActivity) getActivity();
-
-        if (activity != null) {
-            activity.hideBottomBar(true);
+        isOpenByWidget = true;
+        Bundle bundle = getArguments();
+        if (bundle == null) {
+            MainActivity activity = (MainActivity) getActivity();
+            if (activity != null) {
+                activity.hideBottomBar(true);
+                isOpenByWidget = false;
+            }
         }
     }
 

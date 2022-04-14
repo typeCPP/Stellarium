@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/color_affirmation_widget_pink" />
+    <corners android:radius="25dp" />
+</shape>

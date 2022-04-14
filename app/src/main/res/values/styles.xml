@@ -402,6 +402,23 @@
         </item>
     </style>
 
+    <style name="style_affirmation_widget_logo_mono">
+        <item name="android:textColor">@color/text_color_style_affirmation_widget_logo</item>
+        <item name="textAllCaps">
+            false
+        </item>
+        <item name="android:textStyle">
+            bold
+        </item>
+        <item name="android:fontFamily">
+            @font/pacifico_regular
+        </item>
+
+        <item name="android:textSize">
+            17sp
+        </item>
+    </style>
+
     <style name="style_yes_or_no_ball">
         <item name="android:textColor">@color/text_color_style_yes_or_no_ball</item>
         <item name="textAllCaps">
@@ -612,5 +629,9 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-</resources>
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 
+</resources>

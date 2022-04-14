@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+<!--    <solid android:color="@color/color_affirmation_widget_blue" />-->
+    <corners android:radius="25dp" />
+    <gradient
+        android:type="radial"
+        android:gradientRadius="1000"
+        android:startColor="@color/color_affirmation_widget_blue"
+        android:endColor="#58667E"
+        />
+</shape>

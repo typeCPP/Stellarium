@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_widget_description"
+    android:initialKeyguardLayout="@layout/affirmation_widget_space"
+    android:initialLayout="@layout/affirmation_widget_space"
+    android:minWidth="230dp"
+    android:minHeight="110dp"
+    android:previewImage="@drawable/example_widget_preview_space"
+    android:previewLayout="@layout/affirmation_widget_space"
+    android:targetCellWidth="4"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="10000"
+    android:widgetCategory="home_screen" />
