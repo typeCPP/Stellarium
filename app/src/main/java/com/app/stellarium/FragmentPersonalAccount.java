@@ -2,6 +2,7 @@ package com.app.stellarium;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,7 +28,7 @@ public class FragmentPersonalAccount extends Fragment {
 
     private LinearLayout layoutEditProfile, layoutAffirmations, layoutFullRegistration;
     private ImageView exitImage, signImage;
-    private TextView name, date, signText, email;
+    private TextView name, date, signText, email, registrationButton;
     private SwitchCompat switchCompat;
     private int signId;
 
@@ -55,6 +56,7 @@ public class FragmentPersonalAccount extends Fragment {
         email = view.findViewById(R.id.personal_account_email);
         exitImage = view.findViewById(R.id.personal_account_exit);
         switchCompat = view.findViewById(R.id.switch_personal_account);
+        registrationButton = view.findViewById(R.id.registration_button);
 
         signImage = view.findViewById(R.id.sign_image_personal_account);
         signText = view.findViewById(R.id.sign_text_personal_account);
@@ -105,6 +107,20 @@ public class FragmentPersonalAccount extends Fragment {
                 editor.putBoolean("isChecked", isChecked);
                 editor.commit();
 
+            }
+        });
+
+        registrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                databaseHelper.dropUserTable(databaseHelper.getWritableDatabase());
+                databaseHelper.dropAffirmationTable(databaseHelper.getWritableDatabase());
+                databaseHelper.dropFavoriteAffirmationsTable(databaseHelper.getWritableDatabase());
+                databaseHelper.close();
+                Intent myIntent = new Intent(getActivity(), MainRegistrationActivity.class);
+                myIntent.putExtra("showSkipButton", false);
+                getActivity().startActivity(myIntent);
             }
         });
         layoutEditProfile.setOnClickListener(layoutClickListener);
