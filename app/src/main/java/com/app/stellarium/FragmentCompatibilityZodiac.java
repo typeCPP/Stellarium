@@ -1,6 +1,7 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +20,8 @@ import android.widget.ViewSwitcher;
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.utils.OnSwipeTouchListener;
+
+import java.util.Objects;
 
 
 public class FragmentCompatibilityZodiac extends Fragment {
@@ -219,6 +222,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
         return view;
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void updateStateButtons(TextView button) {
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
@@ -226,36 +230,77 @@ public class FragmentCompatibilityZodiac extends Fragment {
         if (button != loveButton) {
             loveButton.setScaleX(1);
             loveButton.setScaleY(1);
+            setProgressAndBackground(progressBarLove,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    loveValue);
+
         } else {
             numberOfButton = 1;
+            setProgressAndBackground(progressBarLove,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    loveValue);
         }
         if (button != sexButton) {
             sexButton.setScaleX(1);
             sexButton.setScaleY(1);
+            setProgressAndBackground(progressBarSex,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    sexValue);
         } else {
             numberOfButton = 2;
+            setProgressAndBackground(progressBarSex,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    sexValue);
         }
         if (button != marriageButton) {
             marriageButton.setScaleX(1);
             marriageButton.setScaleY(1);
+            setProgressAndBackground(progressBarMarriage,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    marriageValue);
         } else {
             numberOfButton = 3;
+            setProgressAndBackground(progressBarMarriage,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    marriageValue);
         }
         if (button != friendshipButton) {
             friendshipButton.setScaleX(1);
             friendshipButton.setScaleY(1);
+            setProgressAndBackground(progressBarFriendship,
+                    getResources().getDrawable(R.drawable.progress_bar_background_dark),
+                    getResources().getDrawable(R.drawable.progress_bar_progress_dark),
+                    friendshipValue);
         } else {
             numberOfButton = 4;
+            setProgressAndBackground(progressBarFriendship,
+                    getResources().getDrawable(R.drawable.progress_bar_background),
+                    getResources().getDrawable(R.drawable.progress_bar_progress),
+                    friendshipValue);
         }
         if (!isStartPage) {
             if (oldNumberOfActiveButton < numberOfButton) {
                 contentLayout.startAnimation(rightAnim);
-            } else if (oldNumberOfActiveButton > numberOfButton){
+            } else if (oldNumberOfActiveButton > numberOfButton) {
                 contentLayout.startAnimation(leftAnim);
 
             }
         }
         isStartPage = false;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setProgressAndBackground(ProgressBar progressBar, Drawable background, Drawable progress, int value) {
+        progressBar.setProgress(0);
+        progressBar.setBackground(background);
+        progressBar.setProgressDrawable(progress);
+        progressBar.setProgress(value);
     }
 
     private void addSign(ImageSwitcher circle, int numberSign) {

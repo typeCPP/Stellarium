@@ -91,6 +91,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private boolean isConfirmationRunning = true;
     private int serverID;
     private Intent myIntent;
+    private boolean showSkipButton = true;
 
     private float letterSpacing = 0.212f;
 
@@ -141,6 +142,14 @@ public class MainRegistrationActivity extends AppCompatActivity {
         signInPasswordEditText.setLetterSpacing(letterSpacing);
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
+
+        showSkipButton = getIntent().getBooleanExtra("showSkipButton", true);
+
+        if(showSkipButton) {
+            skipButton.setVisibility(View.VISIBLE);
+        } else {
+            skipButton.setVisibility(View.INVISIBLE);
+        }
 
         emailConfirmationDialog = new EmailConfirmationDialog(getLayoutInflater().getContext());
         emailConfirmationDialog.setOnClick(new UnaryOperator<Void>() {
@@ -487,7 +496,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
             user = new Gson().fromJson(response, User.class);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Ошибка авторизации.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Неверная почта или пароль.", Toast.LENGTH_LONG).show();
             return null;
         }
 
