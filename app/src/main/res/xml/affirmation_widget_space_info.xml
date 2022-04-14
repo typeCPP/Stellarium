@@ -9,5 +9,5 @@
     android:previewLayout="@layout/affirmation_widget_space"
     android:targetCellWidth="4"
     android:targetCellHeight="2"
-    android:updatePeriodMillis="10000"
+    android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />
