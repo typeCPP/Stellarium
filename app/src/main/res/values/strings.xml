@@ -55,7 +55,7 @@
     <string name="labor_number">888</string>
     <string name="mind_memory">ум, память</string>
     <string name="mind_memory_number">999</string>
-    <string name="enter_birthday_date">Введите свою дату рождения, чтобы составить Квадрат Пифагора</string>
+    <string name="enter_birthday_date">Введите дату рождения, чтобы составить Квадрат Пифагора</string>
     <string name="characteristic">ХАРАКТЕРИСТИКА</string>
     <string name="some_sign_and_date">Водолей | 21 января - 19 февраля</string>
     <string name="today">Сегодня</string>
@@ -90,7 +90,7 @@
     <string name="affirmation_title">Следующая аффирмация будет завтра</string>
     <string name="affirmation_text">Текст аффирмации</string>
     <string name="some_date">2 февраля</string>
-    <string name="enter_date_numerologic">Введите свою дату рождения, чтобы узнать число судьбы:</string>
+    <string name="enter_date_numerology">Введите дату рождения, чтобы узнать число судьбы:</string>
     <string name="fate_number">Число судьбы - 8</string>
     <string name="numerologic_information">Какая-то инфа</string>
     <string name="numerologic_button_generalCharacter">Общее</string>

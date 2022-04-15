@@ -5,10 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.util.Pair;
 
+import com.app.stellarium.AffirmationWidget;
+import com.app.stellarium.AffirmationWidgetMono;
+import com.app.stellarium.AffirmationWidgetSpace;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
 import com.app.stellarium.database.tables.UserTable;
@@ -20,7 +21,7 @@ import java.util.Calendar;
 
 public class AffirmationWidgetUtils {
     static Affirmation affirmation;
-    static String str;
+    public static String str;
 
     public static boolean checkDatabaseForTodayAffirmation(SQLiteDatabase database, String todayDate) {
         @SuppressLint("Recycle") Cursor affirmationsCursor = database.query(AffirmationsTable.TABLE_NAME, null,
@@ -70,7 +71,7 @@ public class AffirmationWidgetUtils {
         database.insert(AffirmationsTable.TABLE_NAME, null, contentValues);
     }
 
-    public static String workWithText(Context context) {
+    public static void workWithText(Context context) {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         Calendar calendar = Calendar.getInstance();
@@ -90,10 +91,19 @@ public class AffirmationWidgetUtils {
                     @Override
                     public void run() {
                        str = getTodayText(database, todayDate);
+                        AffirmationWidget.setNewTextForAffirmation(str);
+                        AffirmationWidgetMono.setNewTextForAffirmation(str);
+                        AffirmationWidgetSpace.setNewTextForAffirmation(str);
                     }
                 });
             }
         }).start();
-        return str;
+    }
+
+    public static boolean checkSignedUser(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        return userCursor.getCount() > 0;
     }
 }

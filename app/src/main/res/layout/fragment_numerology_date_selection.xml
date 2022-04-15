@@ -65,7 +65,7 @@
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center|top"
-                    android:text="@string/enter_date_numerologic" />
+                    android:text="@string/enter_date_numerology" />
 
                 <View
                     android:layout_width="0dp"

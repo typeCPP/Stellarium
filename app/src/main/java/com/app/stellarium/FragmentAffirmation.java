@@ -44,6 +44,7 @@ public class FragmentAffirmation extends Fragment {
     private boolean isLiked = false;
     private Affirmation affirmation;
     private boolean isOpenByWidget = false;
+    public static String text;
     public FragmentAffirmation() {
     }
 
@@ -124,7 +125,6 @@ public class FragmentAffirmation extends Fragment {
         });
 
         workWithBackgroundAndText();
-
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
@@ -199,8 +199,8 @@ public class FragmentAffirmation extends Fragment {
                         if (pair != null) {
                             Drawable background = getBackgroundByName(pair.second);
                             frameLayout.setBackground(background);
-
                             affirmationText.setText(pair.first);
+                            text = pair.first;
                             loadingDialog.dismiss();
                         }
                     }

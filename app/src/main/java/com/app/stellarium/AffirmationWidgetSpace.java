@@ -1,39 +1,20 @@
 package com.app.stellarium;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Outline;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
-import android.text.Layout;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewOutlineProvider;
-
-import android.widget.ImageView;
+import android.database.sqlite.SQLiteDatabase;
 import android.widget.RemoteViews;
 
-import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintSet;
-
+import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.utils.AffirmationWidgetUtils;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class AffirmationWidgetSpace extends AppWidgetProvider {
     public static final String ACTION_WIDGET_CLICK_RECEIVER = "ActionReceiverWidget";
-
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-    }
+    private static String text;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -42,8 +23,24 @@ public class AffirmationWidgetSpace extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.affirmation_widget_space);
         Intent launchActivity = new Intent(context, ActivityAfterClickWidget.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchActivity, 0);
-        remoteViews.setOnClickPendingIntent(R.id.space_widget_layout, pendingIntent);
-        remoteViews.setTextViewText(R.id.text_affirmation_widget_space, AffirmationWidgetUtils.workWithText(context));
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        if (AffirmationWidgetUtils.checkSignedUser(database) && FragmentAffirmation.text != null) {
+            remoteViews.setTextViewText(R.id.text_affirmation_widget_space, FragmentAffirmation.text);
+            remoteViews.setOnClickPendingIntent(R.id.space_widget_layout, pendingIntent);
+        } else {
+            if (AffirmationWidgetUtils.checkSignedUser(database)) {
+                if (text == null) {
+                    AffirmationWidgetUtils.workWithText(context);
+                    remoteViews.setTextViewText(R.id.text_affirmation_widget_space, "Перемены - мои друзья.");
+                } else {
+                    remoteViews.setTextViewText(R.id.text_affirmation_widget_space, text);
+                }
+                remoteViews.setOnClickPendingIntent(R.id.space_widget_layout, pendingIntent);
+            } else {
+                remoteViews.setTextViewText(R.id.text_affirmation_widget_space, "Перемены - мои друзья.");
+            }
+        }
         ComponentName thisWidget = new ComponentName(context, AffirmationWidgetSpace.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(thisWidget, remoteViews);
@@ -56,5 +53,10 @@ public class AffirmationWidgetSpace extends AppWidgetProvider {
 
     @Override
     public void onDisabled(Context context) {
+    }
+
+    public static void setNewTextForAffirmation(String str)
+    {
+        text = str;
     }
 }
