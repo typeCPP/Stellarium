@@ -145,8 +145,6 @@
     <string name="male_gender">Мужской</string>
     <string name="female_gender">Женский</string>
     <string name="save">Сохранить</string>
-    <string name="birthday_day_example">01.01.1999</string>
-    <string name="email_example">aboba@yandex.ru</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="favorite_affirmations">Любимые аффирмации</string>
     <string name="vibration">Вибрация</string>

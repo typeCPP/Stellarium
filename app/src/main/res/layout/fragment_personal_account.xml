@@ -54,8 +54,7 @@
                     android:id="@+id/sign_image_personal_account"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="9"
-                    android:src="@drawable/big_aries" />
+                    android:layout_weight="9" />
 
 
                 <TextView
@@ -69,7 +68,6 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/sign"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -107,7 +105,6 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
                     android:maxLines="1"
-                    android:text="@string/name"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -126,7 +123,6 @@
                     android:autoSizeTextType="uniform"
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
-                    android:text="@string/birthday_day_example"
                     android:textColor="#99EDEBEB" />
 
                 <View
@@ -145,7 +141,6 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/gabriela_regular"
                     android:maxLines="1"
-                    android:text="@string/email_example"
                     android:textColor="#99EDEBEB" />
             </LinearLayout>
 
