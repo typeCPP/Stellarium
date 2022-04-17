@@ -31,7 +31,6 @@
                 android:layout_weight="0.5"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:text="@string/some_date"
                 android:textAllCaps="false" />
         </LinearLayout>
 

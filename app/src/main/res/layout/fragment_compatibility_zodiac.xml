@@ -134,7 +134,6 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center|center_horizontal|top"
                 android:maxLines="1"
-                android:text="близнецы"
                 android:textColor="@color/compatibility_sign_text"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -153,7 +152,6 @@
                 android:fontFamily="@font/gabriela_regular"
                 android:gravity="center_horizontal|top"
                 android:maxLines="1"
-                android:text="скорпион"
                 android:textColor="@color/compatibility_sign_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -339,11 +337,6 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <!--                <View-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_weight="1" />-->
-
                 <TextView
                     android:id="@+id/loveButton"
                     android:layout_width="0dp"
@@ -355,11 +348,6 @@
                     android:text="@string/love_lowercase"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
-
-                <!--                <View-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_weight="0.5" />-->
 
                 <TextView
                     android:id="@+id/sexButton"
@@ -373,11 +361,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
-                <!--                <View-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_weight="0.5" />-->
-
                 <TextView
                     android:id="@+id/marriageButton"
                     android:layout_width="0dp"
@@ -390,11 +373,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
-                <!--                <View-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_weight="0.5" />-->
-
                 <TextView
                     android:id="@+id/friendshipButton"
                     android:layout_width="0dp"
@@ -406,12 +384,6 @@
                     android:text="@string/friendship"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
-
-                <!--                <View-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_weight="0.5" />-->
-
             </LinearLayout>
         </LinearLayout>
 
@@ -462,7 +434,7 @@
                             android:id="@+id/contentLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center|bottom"
+                            android:gravity="top"
                             android:orientation="horizontal"
                             android:weightSum="1">
 
@@ -476,7 +448,6 @@
                                 android:paddingTop="10dp"
                                 android:paddingRight="20dp"
                                 android:paddingBottom="5dp"
-                                android:text="@string/text_information"
                                 android:textAlignment="textStart" />
                         </LinearLayout>
                     </LinearLayout>

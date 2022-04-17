@@ -162,7 +162,6 @@
                             android:inputType="textPersonName"
                             android:paddingLeft="1dp"
                             android:singleLine="true"
-                            android:text="dd"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
                     </FrameLayout>
@@ -205,7 +204,6 @@
                             android:inputType="textPersonName"
                             android:paddingLeft="1dp"
                             android:singleLine="true"
-                            android:text="dd"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
                     </FrameLayout>
@@ -440,7 +438,7 @@
                             android:id="@+id/contentLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center|bottom"
+                            android:gravity="top"
                             android:orientation="horizontal"
                             android:weightSum="1">
 
@@ -454,7 +452,6 @@
                                 android:paddingTop="10dp"
                                 android:paddingRight="20dp"
                                 android:paddingBottom="5dp"
-                                android:text="@string/text_information"
                                 android:textAlignment="textStart" />
                         </LinearLayout>
                     </LinearLayout>

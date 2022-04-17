@@ -24,8 +24,7 @@
             <ImageView
                 android:id="@+id/sign_edit_personal_account"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/big_aries" />
+                android:layout_height="match_parent" />
         </FrameLayout>
 
         <TextView
