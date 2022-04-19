@@ -32,7 +32,7 @@
             android:id="@+id/signInTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:layout_weight="0.8"
             android:textColorHint="@color/white"
             app:boxStrokeColor="@color/white"
             app:boxStrokeErrorColor="@color/error_signin"
@@ -66,16 +66,16 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7">
+            android:layout_weight="0.8">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signInTextInputPasswordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="@color/white"
                 app:endIconTint="@color/white"
                 app:errorEnabled="true"
-                app:errorIconDrawable="@null"
                 app:helperTextTextColor="@color/white"
                 app:hintTextColor="@color/white">
 

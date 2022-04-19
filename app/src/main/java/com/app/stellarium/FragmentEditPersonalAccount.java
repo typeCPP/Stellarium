@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.provider.Contacts;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -22,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -36,8 +36,9 @@ import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.filters.UsernameFilter;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.ZodiacSignUtils;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,8 +46,9 @@ import java.util.List;
 public class FragmentEditPersonalAccount extends Fragment {
 
     private ImageView crossEditDate, crossEditName, signImage, eyeEditPassword;
-    private TextView editTextDate, signText;
-    private EditText editTextName, editTextPassword;
+    private TextView signText;
+    private TextInputEditText editTextName, editTextPassword, editTextDate;
+    private TextInputLayout passwordTextInputLayout;
     private DatePickerDialog datePickerDialog;
     private int birthdayDay;
     private int birthdayMonth;
@@ -62,6 +64,7 @@ public class FragmentEditPersonalAccount extends Fragment {
     private PasswordFilter passwordFilter = new PasswordFilter();
     private View lastView;
     private LinearLayout layoutPassword;
+    private float letterSpacing = 0.27f;
 
 
     public FragmentEditPersonalAccount() {
@@ -89,16 +92,22 @@ public class FragmentEditPersonalAccount extends Fragment {
         saveButton = view.findViewById(R.id.save_button);
         crossEditDate = view.findViewById(R.id.cross_edit_date);
         crossEditName = view.findViewById(R.id.cross_edit_name);
+
         editTextName = view.findViewById(R.id.edit_account_name);
         editTextDate = view.findViewById(R.id.edit_account_date);
+        editTextDate.setFocusable(false);
+        editTextDate.setFocusableInTouchMode(false);
+        passwordTextInputLayout = view.findViewById(R.id.password_text_input_layout);
         radioButtonMan = view.findViewById(R.id.radio_button_man);
         radioButtonWoman = view.findViewById(R.id.radio_button_woman);
         radioGroup = view.findViewById(R.id.radioGroup);
         signImage = view.findViewById(R.id.sign_edit_personal_account);
         signText = view.findViewById(R.id.sign_text_edit_personal_account);
         eyeEditPassword = view.findViewById(R.id.eye_password);
+
         editTextPassword = view.findViewById(R.id.edit_account_password);
-        editTextPassword.setLetterSpacing(0.2f);
+        editTextPassword.setLetterSpacing(letterSpacing);
+
         layoutPassword = view.findViewById(R.id.edit_account_layout_password);
         lastView = view.findViewById(R.id.lastView);
 
@@ -111,7 +120,6 @@ public class FragmentEditPersonalAccount extends Fragment {
         editTextName.setFilters(new InputFilter[]{usernameFilter});
         editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
         editTextPassword.setFilters(new InputFilter[]{passwordFilter});
-
         editTextName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -150,16 +158,19 @@ public class FragmentEditPersonalAccount extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 showAndHideIcon(editTextPassword, eyeEditPassword);
+                checkValidityPassword(editTextPassword, passwordTextInputLayout);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 showAndHideIcon(editTextPassword, eyeEditPassword);
+                checkValidityPassword(editTextPassword, passwordTextInputLayout);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 showAndHideIcon(editTextPassword, eyeEditPassword);
+                checkValidityPassword(editTextPassword, passwordTextInputLayout);
             }
         });
 
@@ -168,17 +179,17 @@ public class FragmentEditPersonalAccount extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isShow) {
-                    eyeEditPassword.setImageResource(R.drawable.ic_eye_hide);
-                    editTextPassword.setLetterSpacing(0.2f);
+                    eyeEditPassword.setImageResource(R.drawable.ic_eye_hide_white);
+                    editTextPassword.setLetterSpacing(letterSpacing);
                     editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     editTextPassword.setSelection(editTextPassword.length());
-                    isShow = false;
+                    isShow=false;
                 } else {
-                    eyeEditPassword.setImageResource(R.drawable.ic_eye_show);
+                    eyeEditPassword.setImageResource(R.drawable.ic_eye_show_white);
                     editTextPassword.setLetterSpacing(0f);
                     editTextPassword.setTransformationMethod(null);
                     editTextPassword.setSelection(editTextPassword.length());
-                    isShow = true;
+                    isShow=true;
                 }
             }
         });
@@ -225,7 +236,10 @@ public class FragmentEditPersonalAccount extends Fragment {
             public void onClick(View view) {
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
                 ContentValues contentValues = new ContentValues();
-                if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty() && !editTextPassword.getText().toString().isEmpty()) {
+                if (passwordTextInputLayout.getError() != null) {
+                    Toast.makeText(getContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
+                }
+                else if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty() && !editTextPassword.getText().toString().isEmpty()) {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
                     contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
@@ -268,7 +282,16 @@ public class FragmentEditPersonalAccount extends Fragment {
         return view;
     }
 
-    private void showAndHideIcon(EditText editText, ImageView icon) {
+    private void checkValidityPassword(TextInputEditText text, TextInputLayout layout) {
+        if (!text.toString().isEmpty() && text.length() < 8) {
+            layout.setError("Введите не менее 8 символов");
+            layout.setErrorIconDrawable(null);
+        } else {
+            layout.setError(null);
+        }
+    }
+
+    private void showAndHideIcon(TextInputEditText editText, ImageView icon) {
         if (editText.getText().toString().isEmpty()) {
             icon.setVisibility(View.GONE);
         } else {

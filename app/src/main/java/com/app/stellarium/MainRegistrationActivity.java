@@ -82,7 +82,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     private PasswordFilter passwordFilter = new PasswordFilter();
     private EmailFilter emailFilter = new EmailFilter();
-    private TextInputLayout signInInputLayout, signUpInputLayout;
+    private TextInputLayout signInInputLayout, signUpInputLayout, signInInputLayoutPassword, signUpInputLayoutPassword;
     private ImageView signUpEye, signInEye;
     private boolean isShowSignup = false, isShowSignin = false;
     private DatabaseHelper databaseHelper;
@@ -117,6 +117,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         signInInputLayout = findViewById(R.id.signInTextInputLayout);
         signUpInputLayout = findViewById(R.id.signUpTextInputLayout);
+        signInInputLayoutPassword = findViewById(R.id.signInTextInputPasswordLayout);
+        signUpInputLayoutPassword = findViewById(R.id.signUpTextInputPasswordLayout);
 
         signInPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
         signUpPasswordEditText.setFilters(new InputFilter[]{passwordFilter});
@@ -145,7 +147,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
         showSkipButton = getIntent().getBooleanExtra("showSkipButton", true);
 
-        if(showSkipButton) {
+        if (showSkipButton) {
             skipButton.setVisibility(View.VISIBLE);
         } else {
             skipButton.setVisibility(View.INVISIBLE);
@@ -232,16 +234,19 @@ public class MainRegistrationActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 setEyeVisibility(signUpEye, signUpPasswordEditText);
+                checkValidityPassword(signUpPasswordEditText, signUpInputLayoutPassword);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 setEyeVisibility(signUpEye, signUpPasswordEditText);
+                checkValidityPassword(signUpPasswordEditText, signUpInputLayoutPassword);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 setEyeVisibility(signUpEye, signUpPasswordEditText);
+                checkValidityPassword(signUpPasswordEditText, signUpInputLayoutPassword);
             }
         });
         signInPasswordEditText.addTextChangedListener(new TextWatcher() {
@@ -290,7 +295,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
-                        } else {
+                        }else if(signUpInputLayoutPassword.getError()!=null){
+                            Toast.makeText(getApplicationContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
+                        }  else {
                             serverID = registerUserByEmailPassword(signUpEmailEditText.getText().toString(), signUpPasswordEditText.getText().toString());
                             myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                             isReadyToResume = true;
@@ -304,7 +311,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                         } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
-                        } else {
+                        }   else{
                             User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
                             if (user != null) {
                                 if (user.date == null || user.name == null || user.sex == null || user.sign == null) {
@@ -429,7 +436,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         });
                     }
                 }
-                if(!isConfirmationRunning) {
+                if (!isConfirmationRunning) {
                     return;
                 }
                 isConfirmationRunning = false;
@@ -475,6 +482,15 @@ public class MainRegistrationActivity extends AppCompatActivity {
             eye.setVisibility(View.GONE);
         } else {
             eye.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void checkValidityPassword(TextInputEditText text, TextInputLayout layout) {
+        if (!text.toString().isEmpty() && text.length() < 8) {
+            layout.setError("Введите не менее 8 символов");
+            layout.setErrorIconDrawable(null);
+        } else {
+            layout.setError(null);
         }
     }
 

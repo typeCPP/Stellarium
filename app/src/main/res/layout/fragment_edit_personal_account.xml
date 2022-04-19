@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,7 +52,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1.7"
+            android:gravity="center|bottom"
             android:orientation="horizontal"
             android:weightSum="12">
 
@@ -60,66 +62,47 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:orientation="vertical"
-                android:weightSum="12">
+                android:background="@android:color/transparent">
 
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6"
-                    android:autoSizeMaxTextSize="18sp"
-                    android:autoSizeTextType="uniform"
-                    android:breakStrategy="balanced"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="bottom"
-                    android:maxLength="20"
-                    android:paddingLeft="10dp"
-                    android:text="@string/name"
-                    android:textColor="#B3FFFFFF" />
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/stroke_text_input_layout"
+                    app:boxStrokeWidth="2dp"
+                    app:endIconTint="@color/white"
+                    app:errorEnabled="true"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextColor="@color/hint_edit_personal_account">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6">
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_account_name"
+                        style="@style/style_edit_text_edit_personal_account"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:autofillHints="username"
-                        android:background="@drawable/edit_text_personal_account"
-                        android:breakStrategy="balanced"
-                        android:elegantTextHeight="true"
-                        android:ems="10"
-                        android:fontFamily="@font/gabriela_regular"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPersonName"
-                        android:maxHeight="1000dp"
-                        android:maxLines="1"
-                        android:minHeight="48dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="40dp"
-                        android:text="@string/name"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/cross_edit_name"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/ic_cross"
-                        android:onClick="onClickCrossName" />
-                </FrameLayout>
-            </LinearLayout>
+                        android:background="@android:color/transparent"
+                        android:hint="@string/name"
+                        android:inputType="text"
+                        android:paddingEnd="40dp"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/cross_edit_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_horizontal"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/ic_cross_white"
+                    android:onClick="onClickCrossName" />
+            </FrameLayout>
 
             <View
                 android:layout_width="0dp"
@@ -131,7 +114,8 @@
             android:id="@+id/edit_account_layout_password"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1.7"
+            android:gravity="center|bottom"
             android:orientation="horizontal"
             android:visibility="visible"
             android:weightSum="12">
@@ -141,66 +125,50 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:orientation="vertical"
-                android:visibility="visible"
-                android:weightSum="12">
+                android:background="@android:color/transparent">
 
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_text_input_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6"
-                    android:autoSizeMaxTextSize="18sp"
-                    android:autoSizeTextType="uniform"
-                    android:breakStrategy="balanced"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="bottom"
-                    android:paddingLeft="10dp"
-                    android:text="@string/password"
-                    android:textColor="#B3FFFFFF" />
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/stroke_text_input_layout"
+                    app:boxStrokeWidth="2dp"
+                    app:endIconTint="@color/white"
+                    app:errorEnabled="true"
+                    app:errorIconDrawable="@null"
+                    app:errorTextColor="@color/error_signin"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextColor="@color/hint_edit_personal_account">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6">
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_account_password"
+                        style="@style/style_edit_text_edit_personal_account"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/edit_text_personal_account"
-                        android:breakStrategy="balanced"
-                        android:elegantTextHeight="true"
-                        android:ems="10"
-                        android:fontFamily="@font/gabriela_regular"
-                        android:gravity="center_vertical"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword"
-                        android:maxHeight="1000dp"
-                        android:maxLines="1"
-                        android:minHeight="48dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="40dp"
-                        android:text="@string/password"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/eye_password"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="2dp"
-                        android:onClick="onClickCrossDate"
-                        android:src="@drawable/ic_eye_hide" />
-                </FrameLayout>
-            </LinearLayout>
+                        android:background="@android:color/transparent"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:paddingEnd="40dp"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/eye_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_horizontal"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:onClick="onClickCrossDate"
+                    android:src="@drawable/ic_eye_hide_white" />
+            </FrameLayout>
 
             <View
                 android:layout_width="0dp"
@@ -212,6 +180,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5"
+            android:gravity="center|bottom"
             android:orientation="horizontal"
             android:weightSum="12">
 
@@ -220,65 +189,47 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:orientation="vertical"
-                android:weightSum="12">
+                android:background="@android:color/transparent">
 
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6"
-                    android:autoSizeMaxTextSize="18sp"
-                    android:autoSizeTextType="uniform"
-                    android:breakStrategy="balanced"
-                    android:fontFamily="@font/gabriela_regular"
-                    android:gravity="bottom"
-                    android:paddingLeft="10dp"
-                    android:text="@string/birthday_day"
-                    android:textColor="#B3FFFFFF" />
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/stroke_text_input_layout"
+                    app:boxStrokeWidth="2dp"
+                    app:endIconTint="@color/white"
+                    app:errorEnabled="true"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextColor="@color/hint_edit_personal_account">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6">
-
-                    <TextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_account_date"
+                        style="@style/style_edit_text_edit_personal_account"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/edit_text_personal_account"
-                        android:breakStrategy="balanced"
-                        android:elegantTextHeight="true"
-                        android:ems="10"
-                        android:fontFamily="@font/gabriela_regular"
-                        android:gravity="center_vertical"
-                        android:imeOptions="actionDone"
-                        android:inputType="date"
-                        android:maxHeight="1000dp"
-                        android:maxLines="1"
-                        android:minHeight="48dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="40dp"
-                        android:text="@string/birthday_day"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/cross_edit_date"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/ic_cross"
-                        android:onClick="onClickCrossDate" />
-                </FrameLayout>
-            </LinearLayout>
+                        android:background="@android:color/transparent"
+                        android:hint="@string/birthday_day"
+                        android:inputType="date"
+                        android:paddingEnd="40dp"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/cross_edit_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_horizontal"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/ic_cross_white"
+                    android:onClick="onClickCrossDate" />
+            </FrameLayout>
 
             <View
                 android:layout_width="0dp"
@@ -286,16 +237,10 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:orientation="horizontal"
             android:weightSum="12">
 

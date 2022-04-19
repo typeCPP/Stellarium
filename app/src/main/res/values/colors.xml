@@ -97,4 +97,5 @@
     <color name="text_shadow_widget_mono">#000000</color>
     <color name="progress_bar_background_dark">#996C9DF1</color>
     <color name="progress_bar_progress_bar">#6C9DF1</color>
+    <color name="hint_edit_personal_account">#B3FFFFFF</color>
 </resources>
