@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.dialog.CustomDialog;
+import com.app.stellarium.dialog.DialogCheckingPassword;
 
 public class FragmentPersonalAccount extends Fragment {
 
@@ -74,7 +75,16 @@ public class FragmentPersonalAccount extends Fragment {
                 Fragment fragment = null;
                 switch (view.getId()) {
                     case R.id.layout_profile_edit:
-                        fragment = new FragmentEditPersonalAccount();
+                        DialogCheckingPassword dialogCheckingPassword = new DialogCheckingPassword(getContext());
+                        dialogCheckingPassword.show();
+                        dialogCheckingPassword.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialogCheckingPassword.setOnDismissListener(dialogInterface -> {
+                            if (dialogCheckingPassword.isRightPassword) {
+                                FragmentEditPersonalAccount fragmentEditPersonalAccount = new FragmentEditPersonalAccount();
+                                getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
+                                        .addToBackStack(null).replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
+                            }
+                        });
                         break;
                     case R.id.layout_profile_affirmations:
                         fragment = new FragmentFavoriteAffirmations();
