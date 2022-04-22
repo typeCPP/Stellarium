@@ -26,14 +26,11 @@ public class FragmentHome extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private TextView titleText;
-    private String mParam1;
-    private String mParam2;
     private Button affirmationButton, horoscopeButton, taroButton, compatibilityButton,
-            moonCalendarButton, numerologicButton, squareOfPythagorasButton, yesOrNoButton;
+            moonCalendarButton, numerologyButton, squareOfPythagorasButton, yesOrNoButton;
     private Animation scaleUp;
 
     public FragmentHome() {
-        // Required empty public constructor
     }
 
     public static FragmentHome newInstance(String param1, String param2) {
@@ -49,11 +46,6 @@ public class FragmentHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @SuppressLint({"ResourceType", "ClickableViewAccessibility", "SetTextI18n"})
@@ -72,7 +64,6 @@ public class FragmentHome extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.startAnimation(scaleUp);
-                    Bundle bundle = new Bundle();
                     Fragment fragment;
                     switch (view.getId()) {
                         case R.id.affirmationButton:
@@ -137,8 +128,8 @@ public class FragmentHome extends Fragment {
         moonCalendarButton = view.findViewById(R.id.moonCalendarButton);
         moonCalendarButton.setOnTouchListener(new ButtonOnTouchListener());
 
-        numerologicButton = view.findViewById(R.id.numerologicButton);
-        numerologicButton.setOnTouchListener(new ButtonOnTouchListener());
+        numerologyButton = view.findViewById(R.id.numerologicButton);
+        numerologyButton.setOnTouchListener(new ButtonOnTouchListener());
 
         squareOfPythagorasButton = view.findViewById(R.id.squareOfPythagorasButton);
         squareOfPythagorasButton.setOnTouchListener(new ButtonOnTouchListener());
@@ -158,7 +149,7 @@ public class FragmentHome extends Fragment {
             userCursor.moveToLast();
             return userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
         } else {
-            return "Андрей";
+            return "друг";
         }
     }
 

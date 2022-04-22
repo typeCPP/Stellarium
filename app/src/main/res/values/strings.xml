@@ -160,6 +160,6 @@
     <string name="error_password_edit_personal_account">Введите не менее 8 символов</string>
     <string name="info_for_check_password">Чтобы продолжить введите Ваш текущий пароль</string>
     <string name="send">Отправить</string>
-    <string name="text_when_wrong_password">К сожалению, Вы неправильно Ваш ввели пароль</string>
+    <string name="text_when_wrong_password">К сожалению, Вы неправильно ввели Ваш пароль</string>
     <string name="okay">Ок</string>
 </resources>
