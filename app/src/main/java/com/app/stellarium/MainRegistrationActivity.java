@@ -295,9 +295,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
-                        }else if(signUpInputLayoutPassword.getError()!=null){
+                        } else if (signUpInputLayoutPassword.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
-                        }  else {
+                        } else {
                             serverID = registerUserByEmailPassword(signUpEmailEditText.getText().toString(), signUpPasswordEditText.getText().toString());
                             myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                             isReadyToResume = true;
@@ -311,7 +311,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
                         } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
-                        }   else{
+                        } else {
                             User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
                             if (user != null) {
                                 if (user.date == null || user.name == null || user.sex == null || user.sign == null) {
@@ -568,8 +568,10 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                     MainRegistrationActivity.this.startActivity(myIntent);
                                 }
                             } else {
+                                int serverID = registerUserByUID(user.getUid(), false);
                                 Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                                 myIntent.putExtra("userUID", user.getUid());
+                                myIntent.putExtra("userServerID", serverID);
                                 myIntent.putExtra("userEmail", user.getEmail());
                                 myIntent.putExtra("userName", user.getDisplayName());
                                 myIntent.putExtra("isFacebook", false);
@@ -614,8 +616,10 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                     MainRegistrationActivity.this.startActivity(myIntent);
                                 }
                             } else {
+                                int serverID = registerUserByUID(user.getUid(), true);
                                 Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                                 myIntent.putExtra("userUID", user.getUid());
+                                myIntent.putExtra("userServerID", serverID);
                                 myIntent.putExtra("userEmail", user.getEmail());
                                 myIntent.putExtra("userName", user.getDisplayName());
                                 myIntent.putExtra("isFacebook", true);
@@ -631,9 +635,29 @@ public class MainRegistrationActivity extends AppCompatActivity {
                 });
     }
 
+    private int registerUserByUID(String uid, boolean isFacebook) {
+        ServerConnection serverConnection = new ServerConnection();
+        String params = "register/?";
+        if (isFacebook) {
+            params += "facebook=" + uid;
+        } else {
+            params += "google=" + uid;
+        }
+        String response = serverConnection.getStringResponseByParameters(params);
+        if (response != null) {
+            try {
+                return Integer.parseInt(response);
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
     private boolean checkUserByUID(String uid) {
         ServerConnection serverConnection = new ServerConnection();
         String response = serverConnection.getStringResponseByParameters("check_uid/?uid=" + uid);
+        Log.d("CHECK_UID", response);
         return !response.equals("Error");
     }
 

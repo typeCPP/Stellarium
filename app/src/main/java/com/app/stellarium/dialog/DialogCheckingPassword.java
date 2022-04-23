@@ -27,6 +27,7 @@ public class DialogCheckingPassword extends Dialog implements
     private float letterSpacing = 0.212f;
     private Boolean isShowText = false;
     public Boolean isRightPassword = false;
+    private String email;
 
     public DialogCheckingPassword(@NonNull Context context) {
         super(context);
@@ -79,6 +80,8 @@ public class DialogCheckingPassword extends Dialog implements
                 Dialog dialog;
                 try {
                     ServerConnection serverConnection = new ServerConnection();
+                    String response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + password);
+                    isRightPassword = !response.equals("False");
                     //тут нужно сравнить введенный пароль чела с лежащим у него в бд и поменять переменную isRightPassword
                     //String response = serverConnection.getStringResponseByParameters("passRecovery/?mail=" + email);
                 } catch (Exception exception) {
@@ -116,5 +119,13 @@ public class DialogCheckingPassword extends Dialog implements
         } else {
             eye.setVisibility(View.VISIBLE);
         }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -97,6 +97,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean checkForUserUID(SQLiteDatabase database) {
+        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
+                null,
+                null, null, null, null);
+        userCursor.moveToLast();
+        @SuppressLint("Range") String googleID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_GOOGLE_ID));
+        @SuppressLint("Range") String facebookID = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_FACEBOOK_ID));
+        return (googleID != null && !googleID.isEmpty()) || (facebookID != null && !facebookID.isEmpty());
+    }
+
     public void dropUserTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
         sqLiteDatabase.execSQL(UserTable.CREATE_TABLE);

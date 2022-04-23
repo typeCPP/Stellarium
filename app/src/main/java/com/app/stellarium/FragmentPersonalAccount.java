@@ -75,7 +75,14 @@ public class FragmentPersonalAccount extends Fragment {
                 Fragment fragment = null;
                 switch (view.getId()) {
                     case R.id.layout_profile_edit:
+                        if (databaseHelper.getCurrentUserServerID(databaseHelper.getReadableDatabase()) == 0 || databaseHelper.checkForUserUID(databaseHelper.getReadableDatabase())) {
+                            FragmentEditPersonalAccount fragmentEditPersonalAccount = new FragmentEditPersonalAccount();
+                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
+                                    .addToBackStack(null).replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
+                            break;
+                        }
                         DialogCheckingPassword dialogCheckingPassword = new DialogCheckingPassword(getContext());
+                        dialogCheckingPassword.setEmail(email.getText().toString());
                         dialogCheckingPassword.show();
                         dialogCheckingPassword.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         dialogCheckingPassword.setOnDismissListener(dialogInterface -> {

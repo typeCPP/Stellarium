@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
@@ -239,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
             params += "facebook=" + facebookID;
         }
         String response = serverConnection.getStringResponseByParameters(params);
+        Log.d("USER", response);
         User user = new Gson().fromJson(response, User.class);
         if (user.sign == null || user.sex == null || user.name == null || user.date == null) {
             return new Pair<>(user, new String[]{email, password, facebookID, googleID});
@@ -278,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count == 0) {
-            super.onBackPressed();
+            //super.onBackPressed();
         } else {
             getSupportFragmentManager().popBackStack();
         }

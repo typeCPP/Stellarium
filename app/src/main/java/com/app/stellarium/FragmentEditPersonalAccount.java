@@ -183,13 +183,13 @@ public class FragmentEditPersonalAccount extends Fragment {
                     editTextPassword.setLetterSpacing(letterSpacing);
                     editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     editTextPassword.setSelection(editTextPassword.length());
-                    isShow=false;
+                    isShow = false;
                 } else {
                     eyeEditPassword.setImageResource(R.drawable.ic_eye_show_white);
                     editTextPassword.setLetterSpacing(0f);
                     editTextPassword.setTransformationMethod(null);
                     editTextPassword.setSelection(editTextPassword.length());
-                    isShow=true;
+                    isShow = true;
                 }
             }
         });
@@ -235,20 +235,23 @@ public class FragmentEditPersonalAccount extends Fragment {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                int userID = databaseHelper.getCurrentUserServerID(database);
                 ContentValues contentValues = new ContentValues();
                 if (passwordTextInputLayout.getError() != null) {
                     Toast.makeText(getContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
-                }
-                else if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty() && !editTextPassword.getText().toString().isEmpty()) {
+                } else if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty()) {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
                     contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
                     contentValues.put(UserTable.COLUMN_PASSWORD, editTextPassword.getText().toString());
                     database.update(UserTable.TABLE_NAME, contentValues, "_ID=" + userId, null);
-                    int userID = databaseHelper.getCurrentUserServerID(database);
-                    database.close();
                     if (userID != 0) {
+                        if (!databaseHelper.checkForUserUID(database) && editTextPassword.getText().toString().isEmpty()) {
+                            Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        database.close();
                         ServerConnection serverConnection = new ServerConnection();
                         String params = "update_user/?";
                         List<Pair<String, String>> queryParams = new ArrayList<>();
@@ -275,6 +278,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                     getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_in_left, R.animator.slide_out_right)
                             .replace(R.id.frameLayout, fragment).commit();
                 } else {
+                    database.close();
                     Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();
                 }
             }
