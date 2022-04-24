@@ -34,6 +34,7 @@ import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.filters.PasswordFilter;
 import com.app.stellarium.filters.UsernameFilter;
+import com.app.stellarium.utils.PasswordEncoder;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.ZodiacSignUtils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -265,7 +266,9 @@ public class FragmentEditPersonalAccount extends Fragment {
                             queryParams.add(new Pair<>("sex", "0"));
 
                         queryParams.add(new Pair<>("sign", String.valueOf(signId)));
-                        queryParams.add(new Pair<>("password", editTextPassword.getText().toString()));
+                        if(!editTextPassword.getText().toString().isEmpty()) {
+                            queryParams.add(new Pair<>("password", PasswordEncoder.encodePasswordMD5(editTextPassword.getText().toString())));
+                        }
                         try {
                             params += ServerConnection.getQuery(queryParams);
                             serverConnection.getStringResponseByParameters(params);

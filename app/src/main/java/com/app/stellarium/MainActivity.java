@@ -24,6 +24,7 @@ import com.app.stellarium.database.tables.InformationTable;
 import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.database.tables.ZodiacSignsTable;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
+import com.app.stellarium.utils.PasswordEncoder;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.jsonmodels.User;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -212,15 +213,16 @@ public class MainActivity extends AppCompatActivity {
         String params = "auth/?";
         if (email != null && password != null && !email.isEmpty() && !password.isEmpty()) {
             params += "mail=" + email;
-            params += "&password=" + password;
+            params += "&password=" + PasswordEncoder.encodePasswordMD5(password);
         } else if (googleID != null && !googleID.isEmpty()) {
-            params += "google=" + googleID;
+            params += "google=" + PasswordEncoder.encodePasswordMD5(googleID);
         } else if (facebookID != null && !facebookID.isEmpty()) {
-            params += "facebook=" + facebookID;
+            params += "facebook=" + PasswordEncoder.encodePasswordMD5(facebookID);
         }
+        Log.d("QUERY", params);
         String response = serverConnection.getStringResponseByParameters(params);
-        Log.d("USER", response);
-        User user = new Gson().fromJson(response, User.class);
+        Log.d("RESPONSE", response);
+        User user = new Gson(). fromJson(response, User.class);
         if (user.sign == null || user.sex == null || user.name == null || user.date == null) {
             return new Pair<>(user, new String[]{email, password, facebookID, googleID});
         }

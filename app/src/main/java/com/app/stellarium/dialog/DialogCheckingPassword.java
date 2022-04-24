@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.app.stellarium.R;
+import com.app.stellarium.utils.PasswordEncoder;
 import com.app.stellarium.utils.ServerConnection;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -80,7 +81,7 @@ public class DialogCheckingPassword extends Dialog implements
                 Dialog dialog;
                 try {
                     ServerConnection serverConnection = new ServerConnection();
-                    String response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + password);
+                    String response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + PasswordEncoder.encodePasswordMD5(password));
                     isRightPassword = !response.equals("False");
                     //тут нужно сравнить введенный пароль чела с лежащим у него в бд и поменять переменную isRightPassword
                     //String response = serverConnection.getStringResponseByParameters("passRecovery/?mail=" + email);

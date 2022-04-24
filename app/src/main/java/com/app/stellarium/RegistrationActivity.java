@@ -30,6 +30,7 @@ import com.app.stellarium.database.tables.UserTable;
 import com.app.stellarium.dialog.EmailConfirmationDialog;
 import com.app.stellarium.filters.UsernameFilter;
 import com.app.stellarium.transitionGenerator.StellariumTransitionGenerator;
+import com.app.stellarium.utils.PasswordEncoder;
 import com.app.stellarium.utils.ServerConnection;
 import com.app.stellarium.utils.ZodiacSignUtils;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -127,10 +128,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (isFacebookUID && userUID != null) {
                         values.put(UserTable.COLUMN_FACEBOOK_ID, userUID);
-                        params += "&facebook=" + userUID;
+                        params += "&facebook=" + PasswordEncoder.encodePasswordMD5(userUID);
                     } else if (userUID != null) {
                         values.put(UserTable.COLUMN_GOOGLE_ID, userUID);
-                        params += "&google=" + userUID;
+                        params += "&google=" + PasswordEncoder.encodePasswordMD5(userUID);
                     }
                     if (email != null) {
                         values.put(UserTable.COLUMN_EMAIL, email);
@@ -138,7 +139,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                     if (password != null) {
                         values.put(UserTable.COLUMN_PASSWORD, password);
-                        params += "&password=" + password;
+                        params += "&password=" + PasswordEncoder.encodePasswordMD5(password);
                     }
                     mainActivityIntent = new Intent(RegistrationActivity.this, MainActivity.class);
                     if ((email != null && password != null) || userUID != null) {

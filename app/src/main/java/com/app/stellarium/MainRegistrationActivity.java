@@ -1,5 +1,7 @@
 package com.app.stellarium;
 
+import static com.app.stellarium.utils.PasswordEncoder.encodePasswordMD5;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentValues;
@@ -399,7 +401,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
     private int registerUserByEmailPassword(String email, String password) {
         ServerConnection serverConnection = new ServerConnection();
-        String response = serverConnection.getStringResponseByParameters("register/?mail=" + email + "&password=" + password);
+        String response = serverConnection.getStringResponseByParameters("register/?mail=" + email + "&password=" + encodePasswordMD5(password));
         if (response != null) {
             try {
                 return Integer.parseInt(response);
@@ -505,7 +507,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         String response = null;
         User user = null;
         try {
-            response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + password);
+            response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + encodePasswordMD5(password));
             if (response.equals("False")) {
                 throw new NullPointerException("Wrong user data.");
             }
@@ -597,7 +599,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             // Sign in success
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (checkUserByUID(user.getUid())) {
-                                User userToInsert = getUserByGoogleID(user.getUid());
+                                User userToInsert = getUserByFacebookID(user.getUid());
                                 if (userToInsert == null) {
                                     Intent myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                                     myIntent.putExtra("userUID", user.getUid());
@@ -639,9 +641,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
         ServerConnection serverConnection = new ServerConnection();
         String params = "register/?";
         if (isFacebook) {
-            params += "facebook=" + uid;
+            params += "facebook=" + encodePasswordMD5(uid);
         } else {
-            params += "google=" + uid;
+            params += "google=" + encodePasswordMD5(uid);
         }
         String response = serverConnection.getStringResponseByParameters(params);
         if (response != null) {
@@ -656,7 +658,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
     private boolean checkUserByUID(String uid) {
         ServerConnection serverConnection = new ServerConnection();
-        String response = serverConnection.getStringResponseByParameters("check_uid/?uid=" + uid);
+        String response = serverConnection.getStringResponseByParameters("check_uid/?uid=" + encodePasswordMD5(uid));
         Log.d("CHECK_UID", response);
         return !response.equals("Error");
     }
@@ -664,7 +666,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private User getUserByGoogleID(String uid) {
         try {
             ServerConnection serverConnection = new ServerConnection();
-            String response = serverConnection.getStringResponseByParameters("/auth/?google=" + uid);
+            String response = serverConnection.getStringResponseByParameters("/auth/?google=" + encodePasswordMD5(uid));
             return new Gson().fromJson(response, User.class);
         } catch (Exception e) {
             return null;
@@ -674,7 +676,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private User getUserByFacebookID(String uid) {
         try {
             ServerConnection serverConnection = new ServerConnection();
-            String response = serverConnection.getStringResponseByParameters("/auth/?facebook=" + uid);
+            String response = serverConnection.getStringResponseByParameters("/auth/?facebook=" + encodePasswordMD5(uid));
             return new Gson().fromJson(response, User.class);
         } catch (Exception e) {
             return null;
