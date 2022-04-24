@@ -215,9 +215,9 @@ public class MainActivity extends AppCompatActivity {
             params += "mail=" + email;
             params += "&password=" + PasswordEncoder.encodePasswordMD5(password);
         } else if (googleID != null && !googleID.isEmpty()) {
-            params += "google=" + PasswordEncoder.encodePasswordMD5(googleID);
+            params += "google=" + googleID;
         } else if (facebookID != null && !facebookID.isEmpty()) {
-            params += "facebook=" + PasswordEncoder.encodePasswordMD5(facebookID);
+            params += "facebook=" + facebookID;
         }
         Log.d("QUERY", params);
         String response = serverConnection.getStringResponseByParameters(params);

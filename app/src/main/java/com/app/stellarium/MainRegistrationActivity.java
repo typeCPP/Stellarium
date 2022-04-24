@@ -641,9 +641,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
         ServerConnection serverConnection = new ServerConnection();
         String params = "register/?";
         if (isFacebook) {
-            params += "facebook=" + encodePasswordMD5(uid);
+            params += "facebook=" + uid;
         } else {
-            params += "google=" + encodePasswordMD5(uid);
+            params += "google=" + uid;
         }
         String response = serverConnection.getStringResponseByParameters(params);
         if (response != null) {
@@ -658,7 +658,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
     private boolean checkUserByUID(String uid) {
         ServerConnection serverConnection = new ServerConnection();
-        String response = serverConnection.getStringResponseByParameters("check_uid/?uid=" + encodePasswordMD5(uid));
+        String response = serverConnection.getStringResponseByParameters("check_uid/?uid=" + uid);
         Log.d("CHECK_UID", response);
         return !response.equals("Error");
     }
@@ -666,7 +666,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private User getUserByGoogleID(String uid) {
         try {
             ServerConnection serverConnection = new ServerConnection();
-            String response = serverConnection.getStringResponseByParameters("/auth/?google=" + encodePasswordMD5(uid));
+            String response = serverConnection.getStringResponseByParameters("/auth/?google=" + uid);
             return new Gson().fromJson(response, User.class);
         } catch (Exception e) {
             return null;
@@ -676,7 +676,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private User getUserByFacebookID(String uid) {
         try {
             ServerConnection serverConnection = new ServerConnection();
-            String response = serverConnection.getStringResponseByParameters("/auth/?facebook=" + encodePasswordMD5(uid));
+            String response = serverConnection.getStringResponseByParameters("/auth/?facebook=" + uid);
             return new Gson().fromJson(response, User.class);
         } catch (Exception e) {
             return null;

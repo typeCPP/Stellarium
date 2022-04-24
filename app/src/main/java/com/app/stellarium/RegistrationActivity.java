@@ -128,10 +128,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (isFacebookUID && userUID != null) {
                         values.put(UserTable.COLUMN_FACEBOOK_ID, userUID);
-                        params += "&facebook=" + PasswordEncoder.encodePasswordMD5(userUID);
+                        params += "&facebook=" + userUID;
                     } else if (userUID != null) {
                         values.put(UserTable.COLUMN_GOOGLE_ID, userUID);
-                        params += "&google=" + PasswordEncoder.encodePasswordMD5(userUID);
+                        params += "&google=" + userUID;
                     }
                     if (email != null) {
                         values.put(UserTable.COLUMN_EMAIL, email);
