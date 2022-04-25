@@ -109,6 +109,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
                 updateInformationText();
             }
 
@@ -224,7 +225,6 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void updateStateButtons(TextView button) {
-        scrollViewVertical.scrollTo(0, 0);
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
         int oldNumberOfActiveButton = numberOfButton;

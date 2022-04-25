@@ -163,14 +163,31 @@ public class FragmentHoroscopePage extends Fragment {
         scrollView = view.findViewById(R.id.scrollView);
         scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         updateStateButtons(todayButton);
+        updateTextViews();
+        class SlideAnimationListener implements Animation.AnimationListener {
 
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
+                checkAndCloseOpenTextView();
+                updateTextViews();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        }
+
+        rightAnim.setAnimationListener(new SlideAnimationListener());
+        leftAnim.setAnimationListener(new SlideAnimationListener());
         return view;
     }
 
     private void updateStateButtons(@NonNull Button button) {
-        checkAndCloseOpenTextView();
-        scrollViewVertical.scrollTo(0, 0);
         button.setScaleX(1.4f);
         button.setScaleY(1.4f);
         int oldNumberOfActiveButton = numberOfActiveButton;
@@ -218,7 +235,6 @@ public class FragmentHoroscopePage extends Fragment {
             }
         }
         isStartPage = false;
-        updateTextViews();
     }
 
     private void activeSwipe(View view) {

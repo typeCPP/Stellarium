@@ -85,6 +85,7 @@ public class FragmentNumerology extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
                 textView.setText(getDescriptionFromBundle(numberOfActiveButton, bundle));
             }
 
@@ -127,7 +128,6 @@ public class FragmentNumerology extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
-        scrollViewVertical.scrollTo(0,0);
         int oldNumberOfActiveButton = numberOfActiveButton;
         button.setTextSize(17);
         if (button != generalCharacteristicButton) {
