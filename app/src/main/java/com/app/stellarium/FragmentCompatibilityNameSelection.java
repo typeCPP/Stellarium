@@ -78,8 +78,6 @@ public class FragmentCompatibilityNameSelection extends Fragment {
                     woman = editTextWoman.getText().toString();
                     if (man.isEmpty() || woman.isEmpty()) {
                         Toast.makeText(getContext(), "Пожалуйста, введите имена", Toast.LENGTH_SHORT).show();
-                    } else if ((man.trim().contains(" ")) || (woman.trim().contains(" "))) {
-                        Toast.makeText(getContext(), "Имена не должны содержать пробелы", Toast.LENGTH_SHORT).show();
                     } else {
                         workWithServerAndOpenFragment(man, woman);
                     }

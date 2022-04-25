@@ -49,7 +49,6 @@ public class FragmentFavoriteAffirmations extends Fragment {
                              Bundle savedInstanceState) {
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null) {
-            activity.setNumberOfPrevFragment();
             activity.hideBottomBar(true);
         }
 
