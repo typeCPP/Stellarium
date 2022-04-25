@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -28,6 +29,7 @@ public class FragmentCompatibilityName extends Fragment {
     private boolean isStartPage = true;
     private LinearLayout contentLayout;
     private String loveText, friendshipText, jobText;
+    private ScrollView scrollViewVertical;
     private int loveValue, friendshipValue, jobValue;
 
     private TextView informationTextView, loveProgressBarText, friendshipProgressBarText,
@@ -107,6 +109,7 @@ public class FragmentCompatibilityName extends Fragment {
         friendshipProgressBar = view.findViewById(R.id.progressBarFriendship);
         jobProgressBar = view.findViewById(R.id.progressBarWork);
 
+        scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         updateStateButtons(loveButton);
 
         String nameManString = null, nameWomanString = null;
@@ -178,6 +181,7 @@ public class FragmentCompatibilityName extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void updateStateButtons(TextView button) {
+        scrollViewVertical.scrollTo(0,0);
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
         int oldNumberOfActiveButton = numberOfButton;

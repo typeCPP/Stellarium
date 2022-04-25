@@ -14,14 +14,13 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import androidx.fragment.app.Fragment;
 
 import com.app.stellarium.utils.OnSwipeTouchListener;
-
-import java.util.Objects;
 
 
 public class FragmentCompatibilityZodiac extends Fragment {
@@ -35,7 +34,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
     private LinearLayout contentLayout;
-
+    private ScrollView scrollViewVertical;
     private String informationLove, informationSex, informationMarriage, informationFriendship;
     private int loveValue, sexValue, marriageValue, friendshipValue;
 
@@ -192,6 +191,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
         mainLayout.setAlpha(0f);
         mainLayout.animate().alpha(1f).setDuration(250).setListener(null);
 
+        scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         updateStateButtons(loveButton);
 
         circleWoman = view.findViewById(R.id.circle_woman);
@@ -224,6 +224,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void updateStateButtons(TextView button) {
+        scrollViewVertical.scrollTo(0, 0);
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
         int oldNumberOfActiveButton = numberOfButton;

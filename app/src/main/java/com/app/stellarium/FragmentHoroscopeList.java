@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -281,9 +280,7 @@ public class FragmentHoroscopeList extends Fragment {
             ServerConnection serverConnection = new ServerConnection();
             String response;
             response = serverConnection.getStringResponseByParameters("/horoscopes/?sign=" + signId);
-            Log.d("HOROSCOPE", String.valueOf(signId));
             horoscope = new Gson().fromJson(response, Horoscope.class);
-            Log.d("HOROSCOPE", horoscope.toString());
             Long characteristicId = insertSignCharacteristic(database, horoscope);
             insertPredictions(database, horoscope, periods[signId - 1], names[signId - 1], characteristicId);
         } catch (Exception e) {

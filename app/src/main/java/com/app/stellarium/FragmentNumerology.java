@@ -1,8 +1,6 @@
 package com.app.stellarium;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,8 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.app.stellarium.database.DatabaseHelper;
-import com.app.stellarium.database.tables.NumerologyTable;
 import com.app.stellarium.utils.OnSwipeTouchListener;
 
 
@@ -33,6 +29,7 @@ public class FragmentNumerology extends Fragment {
     private TextView textView, numerologyTitle;
     private boolean isStartPage = true;
     private HorizontalScrollView scrollView;
+    private ScrollView scrollViewVertical;
     private int numerologyNumber;
 
     @Override
@@ -109,7 +106,7 @@ public class FragmentNumerology extends Fragment {
         purposeButton = view.findViewById(R.id.purposeButton);
         purposeButton.setOnClickListener(new ButtonOnClickListener());
 
-        ScrollView scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
+        scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         activeSwipe(scrollViewVertical);
 
         textView = view.findViewById(R.id.typesOfPredictionsNumerology);
@@ -130,6 +127,7 @@ public class FragmentNumerology extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
+        scrollViewVertical.scrollTo(0,0);
         int oldNumberOfActiveButton = numberOfActiveButton;
         button.setTextSize(17);
         if (button != generalCharacteristicButton) {

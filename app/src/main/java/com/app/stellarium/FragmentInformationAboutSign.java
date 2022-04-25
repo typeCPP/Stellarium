@@ -32,6 +32,7 @@ public class FragmentInformationAboutSign extends Fragment {
     private Bundle bundle;
     private String[] characteristics;
     private HorizontalScrollView scrollView;
+    private ScrollView scrollViewVertical;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class FragmentInformationAboutSign extends Fragment {
         textView = view.findViewById(R.id.textInfoAboutSign);
         activeSwipe(textView);
 
-        ScrollView scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
+        scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         activeSwipe(scrollViewVertical);
 
         View firstEmptyView = view.findViewById(R.id.firstEmptyView);
@@ -118,7 +119,6 @@ public class FragmentInformationAboutSign extends Fragment {
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
 
         scrollView = view.findViewById(R.id.scrollView);
-
         updateStateButtons(descriptionButton);
 
         return view;
@@ -126,6 +126,7 @@ public class FragmentInformationAboutSign extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
+        scrollViewVertical.scrollTo(0,0);
         int oldNumberOfActiveButton = numberOfActiveButton;
         button.setTextSize(17);
         if (button != descriptionButton) {
