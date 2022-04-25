@@ -27,7 +27,7 @@ public class DialogCheckingPassword extends Dialog implements
     private Button tryAgainButton;
     private ImageView eyeImage;
     private TextInputEditText passwordEditText;
-    private float letterSpacing = 0.212f;
+    private float letterSpacing = 0.27f;
     private Boolean isShowText = false;
     public Boolean isRightPassword = false;
     private String email;
@@ -47,6 +47,7 @@ public class DialogCheckingPassword extends Dialog implements
         eyeImage.setVisibility(View.INVISIBLE);
 
         passwordEditText = findViewById(R.id.passwordEditText);
+        passwordEditText.setLetterSpacing(letterSpacing);
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
