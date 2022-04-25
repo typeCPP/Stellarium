@@ -183,7 +183,7 @@ public class FragmentHoroscopePage extends Fragment {
             tomorrowButton.setScaleY(1);
         } else {
             numberOfActiveButton = 2;
-            scrollView.scrollTo(R.id.tomorrowButton, 0);
+            scrollView.scrollTo(0, 0);
         }
         if (button != weekButton) {
             weekButton.setScaleX(1);
