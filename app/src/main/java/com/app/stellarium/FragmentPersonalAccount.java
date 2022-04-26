@@ -150,29 +150,24 @@ public class FragmentPersonalAccount extends Fragment {
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
                 null, null, null, null);
-        if (userCursor.getCount() > 0) {
-            userCursor.moveToLast();
-            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
-            String nameString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
-            String emailString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
-            if (emailString != null) {
-                layoutFullRegistration.setVisibility(View.GONE);
-                email.setText(emailString);
-            } else {
-                email.setVisibility(View.GONE);
-            }
-            signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
-            if (!birthdayString.isEmpty()) {
-                birthdayString = birthdayString.replaceAll("\\.", "/");
-                String[] temp = birthdayString.split("/", 3);
-                date.setText(temp[0] + "." + temp[1] + "." + temp[2]);
-            }
-            if (!nameString.isEmpty()) {
-                name.setText(nameString);
-            }
+        userCursor.moveToLast();
+        String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+        String nameString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+        String emailString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+        if (emailString != null) {
+            layoutFullRegistration.setVisibility(View.GONE);
+            email.setText(emailString);
         } else {
-            date.setText("01.01.1999");
-            name.setText("Андрей");
+            email.setVisibility(View.GONE);
+        }
+        signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
+        if (!birthdayString.isEmpty()) {
+            birthdayString = birthdayString.replaceAll("\\.", "/");
+            String[] temp = birthdayString.split("/", 3);
+            date.setText(temp[0] + "." + temp[1] + "." + temp[2]);
+        }
+        if (!nameString.isEmpty()) {
+            name.setText(nameString);
         }
     }
 
