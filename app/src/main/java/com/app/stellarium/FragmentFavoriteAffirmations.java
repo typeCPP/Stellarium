@@ -137,6 +137,7 @@ public class FragmentFavoriteAffirmations extends Fragment {
             AffirmationPagerAdapter pagerAdapter = new AffirmationPagerAdapter(pages);
             ViewPager viewPager = new ViewPager(getContext());
             viewPager.setAdapter(pagerAdapter);
+            viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
             viewPager.setCurrentItem(1);
             return viewPager;
         } else {
