@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class FragmentHoroscopePage extends Fragment {
     private Animation rightAnim, leftAnim;
     private boolean isStartPage = true;
     private HorizontalScrollView scrollView;
+    private ScrollView scrollViewVertical;
     private Bundle bundle;
     private String[][] predictions;
 
@@ -159,7 +161,7 @@ public class FragmentHoroscopePage extends Fragment {
         leftAnim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
 
         scrollView = view.findViewById(R.id.scrollView);
-
+        scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         updateStateButtons(todayButton);
 
 
@@ -168,6 +170,7 @@ public class FragmentHoroscopePage extends Fragment {
 
     private void updateStateButtons(@NonNull Button button) {
         checkAndCloseOpenTextView();
+        scrollViewVertical.scrollTo(0, 0);
         button.setScaleX(1.4f);
         button.setScaleY(1.4f);
         int oldNumberOfActiveButton = numberOfActiveButton;

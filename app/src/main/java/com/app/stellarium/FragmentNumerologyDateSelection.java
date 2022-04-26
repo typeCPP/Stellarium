@@ -239,18 +239,12 @@ public class FragmentNumerologyDateSelection extends Fragment {
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
                 null, null, null, null);
-        if (userCursor.getCount() > 0) {
-            userCursor.moveToLast();
-            @SuppressLint("Range") String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
-            birthdayString = birthdayString.replaceAll("\\.", "/");
-            String[] temp = birthdayString.split("/", 3);
-            birthdayDay = Integer.parseInt(temp[0]);
-            birthdayMonth = Integer.parseInt(temp[1]);
-            birthdayYear = Integer.parseInt(temp[2]);
-        } else {
-            birthdayDay = 18;
-            birthdayMonth = 7;
-            birthdayYear = 2002;
-        }
+        userCursor.moveToLast();
+        @SuppressLint("Range") String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+        birthdayString = birthdayString.replaceAll("\\.", "/");
+        String[] temp = birthdayString.split("/", 3);
+        birthdayDay = Integer.parseInt(temp[0]);
+        birthdayMonth = Integer.parseInt(temp[1]);
+        birthdayYear = Integer.parseInt(temp[2]);
     }
 }

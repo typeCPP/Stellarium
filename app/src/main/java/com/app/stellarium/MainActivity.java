@@ -62,11 +62,17 @@ public class MainActivity extends AppCompatActivity {
                     badgeDrawable.clearNumber();
                 }
                 Fragment fragment = null;
+                FragmentManager fm = getSupportFragmentManager();
+                int count = 0;
                 switch (item.getItemId()) {
 
                     case R.id.ic_personalAccount:
+                        count = fm.getBackStackEntryCount();
                         fragment = new FragmentPersonalAccount();
                         if (numberOfPrevFragment == 0) {
+                            for (int i = 0; i < count; ++i) {
+                                fm.popBackStack();
+                            }
                             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .replace(R.id.frameLayout, fragment).commit();
                         } else if (numberOfPrevFragment > 1) {
@@ -77,8 +83,12 @@ public class MainActivity extends AppCompatActivity {
                         numberOfPrevFragment = 1;
                         break;
                     case R.id.ic_home:
+                        count = fm.getBackStackEntryCount();
                         fragment = new FragmentHome();
                         if (numberOfPrevFragment == 0) {
+                            for (int i = 0; i < count; ++i) {
+                                fm.popBackStack();
+                            }
                             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                     .replace(R.id.frameLayout, fragment).commit();
                         } else if (numberOfPrevFragment == 1) {
@@ -93,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
                         numberOfPrevFragment = 2;
                         break;
                     case R.id.ic_information:
+                        count = fm.getBackStackEntryCount();
+                        for (int i = 0; i < count; ++i) {
+                            fm.popBackStack();
+                        }
                         fragment = new FragmentListOfInformation();
                         if (numberOfPrevFragment == 0) {
                             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
@@ -180,9 +194,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragmentAffirmation = new FragmentAffirmation();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frameLayout, fragmentAffirmation).commit();
-        }
-        else
-        {
+        } else {
             super.onResume();
         }
     }
@@ -215,14 +227,14 @@ public class MainActivity extends AppCompatActivity {
             params += "mail=" + email;
             params += "&password=" + PasswordEncoder.encodePasswordMD5(password);
         } else if (googleID != null && !googleID.isEmpty()) {
-            params += "google=" + PasswordEncoder.encodePasswordMD5(googleID);
+            params += "google=" + googleID;
         } else if (facebookID != null && !facebookID.isEmpty()) {
-            params += "facebook=" + PasswordEncoder.encodePasswordMD5(facebookID);
+            params += "facebook=" + facebookID;
         }
         Log.d("QUERY", params);
         String response = serverConnection.getStringResponseByParameters(params);
         Log.d("RESPONSE", response);
-        User user = new Gson(). fromJson(response, User.class);
+        User user = new Gson().fromJson(response, User.class);
         if (user.sign == null || user.sex == null || user.name == null || user.date == null) {
             return new Pair<>(user, new String[]{email, password, facebookID, googleID});
         }

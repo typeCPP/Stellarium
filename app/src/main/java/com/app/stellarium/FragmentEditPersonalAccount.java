@@ -266,7 +266,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                             queryParams.add(new Pair<>("sex", "0"));
 
                         queryParams.add(new Pair<>("sign", String.valueOf(signId)));
-                        if(!editTextPassword.getText().toString().isEmpty()) {
+                        if (!editTextPassword.getText().toString().isEmpty()) {
                             queryParams.add(new Pair<>("password", PasswordEncoder.encodePasswordMD5(editTextPassword.getText().toString())));
                         }
                         try {
@@ -363,40 +363,34 @@ public class FragmentEditPersonalAccount extends Fragment {
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
                 null, null, null, null);
-        if (userCursor.getCount() > 0) {
-            userCursor.moveToLast();
-            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
-            birthdayString = birthdayString.replaceAll("\\.", "/");
-            String name = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
-            String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
-            String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
-            if (email != null && password != null) {
-                editTextPassword.setText(password);
-            } else {
-                hidePasswordField();
-            }
-            int sex = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_SEX));
-            userId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_ID));
-            signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
-            switch (sex) {
-                case 0:
-                    radioButtonWoman.setChecked(true);
-                    break;
-                case 1:
-                    radioButtonMan.setChecked(true);
-                    break;
-            }
-            editTextName.setText(name);
-            editTextDate.setText(birthdayString);
-            String[] temp = birthdayString.split("/", 3);
-            birthdayDay = Integer.parseInt(temp[0]);
-            birthdayMonth = Integer.parseInt(temp[1]);
-            birthdayYear = Integer.parseInt(temp[2]);
+        userCursor.moveToLast();
+        String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+        birthdayString = birthdayString.replaceAll("\\.", "/");
+        String name = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+        String email = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+        String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
+        if (email != null && password != null) {
+            editTextPassword.setText(password);
         } else {
-            birthdayDay = 18;
-            birthdayMonth = 7;
-            birthdayYear = 2002;
+            hidePasswordField();
         }
+        int sex = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_SEX));
+        userId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_ID));
+        signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
+        switch (sex) {
+            case 0:
+                radioButtonWoman.setChecked(true);
+                break;
+            case 1:
+                radioButtonMan.setChecked(true);
+                break;
+        }
+        editTextName.setText(name);
+        editTextDate.setText(birthdayString);
+        String[] temp = birthdayString.split("/", 3);
+        birthdayDay = Integer.parseInt(temp[0]);
+        birthdayMonth = Integer.parseInt(temp[1]);
+        birthdayYear = Integer.parseInt(temp[2]);
     }
 
     private void hidePasswordField() {
