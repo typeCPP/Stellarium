@@ -134,6 +134,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:layout_weight="4.5"
                 android:background="@drawable/name_selection_background">
 
@@ -176,6 +178,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:layout_weight="4.5"
                 android:background="@drawable/name_selection_background">
 
