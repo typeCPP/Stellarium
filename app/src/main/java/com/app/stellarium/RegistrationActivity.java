@@ -148,6 +148,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         if (response != null) {
                             values.put(UserTable.COLUMN_SERVER_ID, serverID);
                             values.put(UserTable.COLUMN_MAIL_CONFIRMED, 1);
+                            databaseHelper.dropUserTable(database);
+                            databaseHelper.dropAffirmationTable(database);
+                            databaseHelper.dropFavoriteAffirmationsTable(database);
                             database.insert(UserTable.TABLE_NAME, null, values);
                             database.close();
                             databaseHelper.close();
@@ -160,6 +163,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             databaseHelper.close();
                         }
                     } else {
+                        databaseHelper.dropUserTable(database);
+                        databaseHelper.dropAffirmationTable(database);
+                        databaseHelper.dropFavoriteAffirmationsTable(database);
                         database.insert(UserTable.TABLE_NAME, null, values);
                         database.close();
                         databaseHelper.close();

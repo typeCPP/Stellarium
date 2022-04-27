@@ -63,6 +63,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.Gson;
 
+import java.net.SocketTimeoutException;
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
 
@@ -324,6 +326,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 } else {
                                     databaseHelper = new DatabaseHelper(getApplicationContext());
                                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                                    databaseHelper.dropUserTable(database);
+                                    databaseHelper.dropAffirmationTable(database);
+                                    databaseHelper.dropFavoriteAffirmationsTable(database);
                                     databaseHelper.insertUser(database, user);
                                     ContentValues contentValues = new ContentValues();
                                     contentValues.put(UserTable.COLUMN_EMAIL, signInEmailEditText.getText().toString());
@@ -509,9 +514,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
         try {
             response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + encodePasswordMD5(password));
             if (response.equals("False")) {
-                throw new NullPointerException("Wrong user data.");
+                throw new InvalidParameterException("Неверная почта или пароль.");
             }
             user = new Gson().fromJson(response, User.class);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Не удается установить соединение с сервером.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Неверная почта или пароль.", Toast.LENGTH_LONG).show();

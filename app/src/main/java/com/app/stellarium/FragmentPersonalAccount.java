@@ -130,11 +130,6 @@ public class FragmentPersonalAccount extends Fragment {
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-                databaseHelper.dropUserTable(databaseHelper.getWritableDatabase());
-                databaseHelper.dropAffirmationTable(databaseHelper.getWritableDatabase());
-                databaseHelper.dropFavoriteAffirmationsTable(databaseHelper.getWritableDatabase());
-                databaseHelper.close();
                 Intent myIntent = new Intent(getActivity(), MainRegistrationActivity.class);
                 myIntent.putExtra("showSkipButton", false);
                 getActivity().startActivity(myIntent);
