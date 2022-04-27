@@ -12,6 +12,8 @@ import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.stellarium.utils.ServerConnection;
+
 import java.util.Calendar;
 
 public class FragmentMoonCalendarDateSelection extends Fragment {
@@ -41,10 +43,16 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_moon_calendar_date_selection, container, false);
         calendarView = view.findViewById(R.id.calendarView);
         Time minTime = new Time();
-        minTime.set(1, 0, calendar.get(Calendar.YEAR));
-        calendarView.setMinDate(minTime.toMillis(true));
         Time maxTime = new Time();
-        maxTime.set(31, 11, calendar.get(Calendar.YEAR));
+        int serverYear = getCurrentYearFromServer();
+        if (serverYear != 0) {
+            minTime.set(1, 0, serverYear);
+            maxTime.set(31, 11, serverYear);
+        } else {
+            minTime.set(1, 0, calendar.get(Calendar.YEAR));
+            maxTime.set(31, 11, calendar.get(Calendar.YEAR));
+        }
+        calendarView.setMinDate(minTime.toMillis(true));
         calendarView.setMaxDate(maxTime.toMillis(true));
         calendarView.setFirstDayOfWeek(2);
         textViewDate = view.findViewById(R.id.date_date_selection);
@@ -53,7 +61,12 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
             int dayOfMonth = bundleFromMoonCalendar.getInt("dayOfMonth");
             int month = bundleFromMoonCalendar.getInt("month");
             Time time = new Time();
-            time.set(dayOfMonth, month, calendar.get(Calendar.YEAR));
+            serverYear = getCurrentYearFromServer();
+            if (serverYear != 0) {
+                time.set(dayOfMonth, month, serverYear);
+            } else {
+                time.set(dayOfMonth, month, calendar.get(Calendar.YEAR));
+            }
             calendarView.setDate(time.toMillis(true));
             textViewDate.setText(dayOfMonth + monthToString(month));
         }
@@ -116,5 +129,14 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
                 break;
         }
         return str;
+    }
+
+    private int getCurrentYearFromServer() {
+        ServerConnection serverConnection = new ServerConnection();
+        String response = serverConnection.getStringResponseByParameters("get_current_year");
+        if (response == null || response.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(response);
     }
 }
