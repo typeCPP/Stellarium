@@ -129,8 +129,9 @@ public class FragmentCompatibilityNameSelection extends Fragment {
 
     private Bundle getServerDataAndHashIDToBundle(String firstName, String secondName) {
         Bundle bundle = new Bundle();
-        bundle.putString("nameWoman", firstName.replaceAll("\\s+", ""));
-        bundle.putString("nameMan", secondName.replaceAll("\\s+", ""));
+        firstName.trim().replaceAll("\\s+"," ");
+        bundle.putString("nameWoman", firstName.trim().replaceAll("\\s+", " "));
+       bundle.putString("nameMan", secondName.trim().replaceAll("\\s+"," "));
         ServerConnection serverConnection = new ServerConnection();
         String response = serverConnection.getStringResponseByParameters("compName/?first=" + firstName + "&second=" + secondName);
         CompatibilityNames compatibilityNames = new Gson().fromJson(response, CompatibilityNames.class);

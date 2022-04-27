@@ -119,7 +119,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
 
-                    values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
+                    values.put(UserTable.COLUMN_NAME, editTextName.getText().toString().getText().toString().trim().replaceAll("\\s+", " "));
                     values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_SEX, sex);
                     int signId = ZodiacSignUtils.getUserSignID(editTextDate.getText().toString());

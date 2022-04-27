@@ -242,7 +242,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                     Toast.makeText(getContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
                 } else if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty()) {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
-                    contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
+                    contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString().trim().replaceAll("\\s+"," "));
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
                     contentValues.put(UserTable.COLUMN_PASSWORD, editTextPassword.getText().toString());
