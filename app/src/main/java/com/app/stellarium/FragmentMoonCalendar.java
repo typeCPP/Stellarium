@@ -144,10 +144,14 @@ public class FragmentMoonCalendar extends Fragment {
 
             @Override
             public void onAnimationStart(Animation animation) {
+                prevDayButton.setOnClickListener(null);
+                nextDayButton.setOnClickListener(null);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                prevDayButton.setOnClickListener(new ButtonOnClickListener());
+                nextDayButton.setOnClickListener(new ButtonOnClickListener());
                 updateInformationText(animation);
             }
 

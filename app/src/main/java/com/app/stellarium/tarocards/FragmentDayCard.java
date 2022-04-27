@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -42,10 +43,10 @@ public class FragmentDayCard extends Fragment {
     private ImageView first;
     private String descriptionFirstCard;
     private LoadingDialog loadingDialog;
+    private ScrollView scrollView;
 
-    public static FragmentOneCard newInstance(String param1, String param2) {
+    public static FragmentOneCard newInstance() {
         FragmentOneCard fragment = new FragmentOneCard();
-        Bundle args = new Bundle();
         return fragment;
     }
 
@@ -75,7 +76,6 @@ public class FragmentDayCard extends Fragment {
             taroShuffleView.anim();
             view1.setVisibility(View.GONE);
         });
-
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
             @Override
@@ -92,6 +92,9 @@ public class FragmentDayCard extends Fragment {
             taroSelectionView.showTarotSelectionView();
 
         });
+
+        scrollView = linearLayout.findViewById(R.id.scroll);
+        System.out.println(scrollView);
 
         class ViewOnClickListener implements View.OnClickListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
@@ -112,6 +115,7 @@ public class FragmentDayCard extends Fragment {
                         infoButton.setVisibility(View.GONE);
                         isFirstClickOnCard = false;
                     } else {
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         infoButton.setVisibility(View.GONE);

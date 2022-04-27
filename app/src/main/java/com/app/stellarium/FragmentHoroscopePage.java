@@ -335,7 +335,7 @@ public class FragmentHoroscopePage extends Fragment {
     @SuppressLint("ResourceAsColor")
     private void setAttributesForTextView(String text, TextView textView, LinearLayout layout) {
         textView.setText(text);
-        textView.setPadding(50, 30, 50, 30);
+        textView.setPadding(50, 30, 50, -10);
         textView.setTextSize(17);
         textView.setTextAppearance(R.style.style_horoscope_title);
         textView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.9f));

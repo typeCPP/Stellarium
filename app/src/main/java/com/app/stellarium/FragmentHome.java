@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,8 +22,6 @@ import java.util.Calendar;
 
 public class FragmentHome extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private TextView titleText;
     private Button affirmationButton, horoscopeButton, taroButton, compatibilityButton,
             moonCalendarButton, numerologyButton, squareOfPythagorasButton, yesOrNoButton;
@@ -33,12 +30,8 @@ public class FragmentHome extends Fragment {
     public FragmentHome() {
     }
 
-    public static FragmentHome newInstance(String param1, String param2) {
+    public static FragmentHome newInstance() {
         FragmentHome fragment = new FragmentHome();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -59,7 +52,7 @@ public class FragmentHome extends Fragment {
         titleText = view.findViewById(R.id.title_text);
         titleText.setText(getHelloStringByCurrentTime() + ", " + name);
         class ButtonOnTouchListener implements View.OnTouchListener {
-            @SuppressLint("ClickableViewAccessibility")
+            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -156,7 +149,6 @@ public class FragmentHome extends Fragment {
     private String getHelloStringByCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        Log.d("TIME", String.valueOf(hour));
         if (hour >= 12 && hour <= 17) {
             return "Добрый день";
         } else if (hour >= 18 && hour <= 23) {
