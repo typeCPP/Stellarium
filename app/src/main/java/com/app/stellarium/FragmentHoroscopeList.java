@@ -281,6 +281,7 @@ public class FragmentHoroscopeList extends Fragment {
             String response;
             response = serverConnection.getStringResponseByParameters("/horoscopes/?sign=" + signId);
             horoscope = new Gson().fromJson(response, Horoscope.class);
+            databaseHelper.dropHoroscopeTables(database);
             Long characteristicId = insertSignCharacteristic(database, horoscope);
             insertPredictions(database, horoscope, periods[signId - 1], names[signId - 1], characteristicId);
         } catch (Exception e) {
