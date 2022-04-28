@@ -89,15 +89,11 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
             }
         });
 
-        class ButtonOnTouchListener implements View.OnTouchListener {
-            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
+        class ButtonOnClickListener implements View.OnClickListener {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    view.startAnimation(scaleUp);
-                    workWithServer();
-                }
-                return true;
+            public void onClick(View view) {
+                view.startAnimation(scaleUp);
+                workWithServer();
             }
         }
         editTextDate.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +123,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
 
             }
         });
-        nextButton.setOnTouchListener(new ButtonOnTouchListener());
+        nextButton.setOnClickListener(new ButtonOnClickListener());
         return view;
     }
 
@@ -215,7 +211,12 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         ServerConnection serverConnection = new ServerConnection();
         String response = serverConnection.getStringResponseByParameters("pifagorSquare/?day=" + birthdayDay +
                 "&month=" + birthdayMonth + "&year=" + birthdayYear);
-        PythagoreanSquare pythagoreanSquare = new Gson().fromJson(response, PythagoreanSquare.class);
+        PythagoreanSquare pythagoreanSquare;
+        try {
+            pythagoreanSquare = new Gson().fromJson(response, PythagoreanSquare.class);
+        } catch (Exception e) {
+            return new Pair<>(null, null);
+        }
         if (pythagoreanSquare == null) {
             return new Pair<>(null, null);
         }
