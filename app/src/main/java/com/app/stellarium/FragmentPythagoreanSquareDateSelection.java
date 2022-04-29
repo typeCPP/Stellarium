@@ -180,7 +180,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                 datePickerDialog.dismiss();
             }
         });
-
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(R.color.button_registration_bottom_text);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("ок");

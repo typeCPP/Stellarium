@@ -117,11 +117,34 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                             break;
                     }
                     if (isSelectedWoman && isSelectedMan) {
-                        nextButton.animate().alpha(0).setDuration(500).setListener(null);
+                        nextButton.animate().alpha(0).setDuration(500).setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+                                nextButton.setVisibility(View.INVISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
+
+                            }
+                        });
+                        //nextButton.setVisibility(View.INVISIBLE);
                         layout_with_spinner.setVisibility(View.VISIBLE);
                     }
-
-                    spinner.animate().alpha(1f).setDuration(500).setListener(null);
+                    //    spinner.setVisibility(View.VISIBLE);
+                    // layout_with_spinner.setVisibility(View.VISIBLE);
+                    layout_with_spinner.setVisibility(View.VISIBLE);
+                    layout_with_spinner.animate().alpha(1f).setDuration(500).setListener(null);
                 }
                 return true;
             }
@@ -292,7 +315,27 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                                 }
                                 break;
                         }
-                        spinner.animate().alpha(0f).setDuration(500).setListener(null);
+                        layout_with_spinner.animate().alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+                                layout_with_spinner.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
+
+                            }
+                        });
                         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
                         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
@@ -318,7 +361,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                         }
 
                         if (isSelectedWoman && isSelectedMan) {
-
+                            nextButton.setVisibility(View.VISIBLE);
                             nextButton.animate().alpha(1).setDuration(500).setListener(new Animator.AnimatorListener() {
                                 @Override
                                 public void onAnimationStart(Animator animator) {
@@ -327,7 +370,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
 
                                 @Override
                                 public void onAnimationEnd(Animator animator) {
-                                    layout_with_spinner.setVisibility(View.INVISIBLE);
+                                    layout_with_spinner.setVisibility(View.GONE);
                                 }
 
                                 @Override
@@ -392,16 +435,21 @@ public class FragmentCompatibilitySignSelection extends Fragment {
         circleWoman.setOutAnimation(outAnimation);
         circleMan.setOutAnimation(outAnimation);
 
-
         nextButton.setAlpha(0f);
+        nextButton.setVisibility(View.INVISIBLE);
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         deltaY = size.y;
         deltaX = size.x;
-        spinner.setRadius(deltaX / 2 * 1.25f);
-        spinner.setAlpha(0f);
+        if (deltaX > 2000f) {
+            spinner.setRadius(deltaX / 2 * 1.05f);
+        } else {
+            spinner.setRadius(deltaX / 2 * 1.25f);
+        }
+        layout_with_spinner.setAlpha(0f);
+        layout_with_spinner.setVisibility(View.GONE);
 
         FrameLayout.LayoutParams params2 = (FrameLayout.LayoutParams) layout_with_spinner.getLayoutParams();
         params2.setMargins(0, (int) (deltaY / 3), 0, 0);
@@ -496,7 +544,7 @@ public class FragmentCompatibilitySignSelection extends Fragment {
                 bundle.putString("signTextWoman", signTextWoman.getText().toString());
                 bundle.putString("signTextMan", signTextMan.getText().toString());
 
-                bundle.putInt("womanSign",idOfWomanSign);
+                bundle.putInt("womanSign", idOfWomanSign);
                 bundle.putInt("manSign", idOfManSign);
 
                 bundle.putString("loveText", compatibilityHoroscope.love_text);

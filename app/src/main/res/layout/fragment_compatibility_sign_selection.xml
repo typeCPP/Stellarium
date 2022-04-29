@@ -175,6 +175,7 @@
                 android:layout_weight="4.5" />
 
             <LinearLayout
+                android:id="@+id/layout_with_button"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.75"

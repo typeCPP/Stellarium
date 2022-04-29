@@ -67,6 +67,7 @@ import java.net.SocketTimeoutException;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 public class MainRegistrationActivity extends AppCompatActivity {
 
@@ -462,7 +463,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
     }
 
     private void validate_email(TextInputEditText email, TextInputLayout layout) {
-        if (!email.getText().toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+        String regex = "(^|\\(|:)[a-z]+([-|\\.]?[a-z0-9])*@[a-z0-9]+([-|\\.]?[a-z0-9])*\\.[a-z]+(\\s|\\b|$|\\,|\\?)";
+        if (!email.getText().toString().isEmpty() && !Pattern.matches(regex, email.getText().toString())) {
             layout.setError("Некорректная почта.");
             layout.setErrorIconDrawable(null);
         } else {
