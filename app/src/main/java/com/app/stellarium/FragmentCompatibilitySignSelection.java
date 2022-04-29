@@ -138,11 +138,8 @@ public class FragmentCompatibilitySignSelection extends Fragment {
 
                             }
                         });
-                        //nextButton.setVisibility(View.INVISIBLE);
                         layout_with_spinner.setVisibility(View.VISIBLE);
                     }
-                    //    spinner.setVisibility(View.VISIBLE);
-                    // layout_with_spinner.setVisibility(View.VISIBLE);
                     layout_with_spinner.setVisibility(View.VISIBLE);
                     layout_with_spinner.animate().alpha(1f).setDuration(500).setListener(null);
                 }
