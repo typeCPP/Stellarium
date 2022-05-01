@@ -44,8 +44,9 @@ public class FragmentNumerology extends Fragment {
         View view = inflater.inflate(R.layout.fragment_numerology, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         numerologyTitle = view.findViewById(R.id.numerology_title);

@@ -56,8 +56,9 @@ public class FragmentCompatibilityZodiac extends Fragment {
         View view = inflater.inflate(R.layout.fragment_compatibility_zodiac, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         signTextMan = view.findViewById(R.id.sign_text_man);
         signTextWoman = view.findViewById(R.id.sign_text_woman);

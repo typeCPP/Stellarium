@@ -58,9 +58,9 @@ public class FragmentCompatibilityName extends Fragment {
         View view = inflater.inflate(R.layout.fragment_compatibility_name, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
-
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override

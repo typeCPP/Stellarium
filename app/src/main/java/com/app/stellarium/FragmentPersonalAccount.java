@@ -78,7 +78,7 @@ public class FragmentPersonalAccount extends Fragment {
                         if (databaseHelper.getCurrentUserServerID(databaseHelper.getReadableDatabase()) == 0 || databaseHelper.checkForUserUID(databaseHelper.getReadableDatabase())) {
                             FragmentEditPersonalAccount fragmentEditPersonalAccount = new FragmentEditPersonalAccount();
                             getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
-                                    .addToBackStack(null).replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
+                                    .addToBackStack("personal_account").replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
                             break;
                         }
                         DialogCheckingPassword dialogCheckingPassword = new DialogCheckingPassword(getContext());
@@ -89,7 +89,7 @@ public class FragmentPersonalAccount extends Fragment {
                             if (dialogCheckingPassword.isRightPassword) {
                                 FragmentEditPersonalAccount fragmentEditPersonalAccount = new FragmentEditPersonalAccount();
                                 getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
-                                        .addToBackStack(null).replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
+                                        .addToBackStack("personal_account").replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
                             }
                         });
                         break;
@@ -227,6 +227,15 @@ public class FragmentPersonalAccount extends Fragment {
                     signImage.setImageResource(R.drawable.big_pisces);
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(1);
         }
     }
 }

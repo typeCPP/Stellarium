@@ -85,8 +85,9 @@ public class FragmentCompatibilitySignSelection extends Fragment {
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         int MIN_DISTANCE = (int) (120.0f * dm.densityDpi / 300.0f + 0.5);
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         signTextMan = view.findViewById(R.id.sign_text_man);

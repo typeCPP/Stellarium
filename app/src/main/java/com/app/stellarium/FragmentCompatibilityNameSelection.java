@@ -64,9 +64,9 @@ public class FragmentCompatibilityNameSelection extends Fragment {
             }
         });
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
-
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
         class ButtonOnTouchListenerNext implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override

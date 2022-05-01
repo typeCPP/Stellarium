@@ -46,6 +46,7 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         String name = getUserName(databaseHelper.getReadableDatabase());
@@ -162,5 +163,12 @@ public class FragmentHome extends Fragment {
         }
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(2);
+        }
+    }
 }

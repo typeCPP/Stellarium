@@ -247,7 +247,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                     Toast.makeText(getContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
                 } else if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty()) {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
-                    contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString().trim().replaceAll("\\s+"," "));
+                    contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString().trim().replaceAll("\\s+", " "));
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
                     contentValues.put(UserTable.COLUMN_PASSWORD, editTextPassword.getText().toString());
@@ -282,9 +282,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                             Toast.makeText(getContext(), "Ошибка сохранения.", Toast.LENGTH_LONG).show();
                         }
                     }
-                    Fragment fragment = new FragmentPersonalAccount();
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_in_left, R.animator.slide_out_right)
-                            .replace(R.id.frameLayout, fragment).commit();
+                    getActivity().onBackPressed();
                 } else {
                     database.close();
                     Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();

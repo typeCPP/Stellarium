@@ -64,7 +64,7 @@ public class FragmentMoonCalendar extends Fragment {
 
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null) {
-            activity.setNumberOfPrevFragment();
+            activity.setNumberOfPrevFragment(0);
         }
         imageViewMoon = view.findViewById(R.id.moon);
         imageViewCalendar = view.findViewById(R.id.calendarImage);

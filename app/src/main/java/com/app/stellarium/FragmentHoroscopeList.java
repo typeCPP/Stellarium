@@ -160,8 +160,9 @@ public class FragmentHoroscopeList extends Fragment {
             }
         }
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;

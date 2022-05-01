@@ -66,8 +66,9 @@ public class FragmentNumerologyDateSelection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_numerology_date_selection, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
             @Override

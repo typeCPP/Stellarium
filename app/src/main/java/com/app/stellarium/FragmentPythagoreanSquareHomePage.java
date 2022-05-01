@@ -49,7 +49,7 @@ public class FragmentPythagoreanSquareHomePage extends Fragment {
 
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
-            activity.setNumberOfPrevFragment();
+            activity.setNumberOfPrevFragment(0);
 
         layoutDate = view.findViewById(R.id.date_layout_second);
         editTextDate = view.findViewById(R.id.pythagorean_date_home_page);

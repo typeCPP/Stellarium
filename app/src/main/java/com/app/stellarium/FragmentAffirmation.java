@@ -70,6 +70,7 @@ public class FragmentAffirmation extends Fragment {
             MainActivity activity = (MainActivity) getActivity();
             if (activity != null) {
                 activity.hideBottomBar(true);
+                activity.setNumberOfPrevFragment(0);
             }
             isOpenByWidget = false;
         }

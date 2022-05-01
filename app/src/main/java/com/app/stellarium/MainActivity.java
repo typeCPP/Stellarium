@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setVisibility(isHidden ? View.GONE : View.VISIBLE);
     }
 
-    public void setNumberOfPrevFragment() {
-        numberOfPrevFragment = 0;
+    public void setNumberOfPrevFragment(int numberOfPrevFragment) {
+        this.numberOfPrevFragment = numberOfPrevFragment;
     }
 }
