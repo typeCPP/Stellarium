@@ -119,8 +119,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         crossEditDate.setOnClickListener(crossClickListener);
         crossEditName.setOnClickListener(crossClickListener);
 
-        editTextName.setFilters(new InputFilter[]{usernameFilter});
-        editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
+        editTextName.setFilters(new InputFilter[]{usernameFilter, new InputFilter.LengthFilter(20)});
         editTextPassword.setFilters(new InputFilter[]{passwordFilter});
         editTextName.addTextChangedListener(new TextWatcher() {
             @Override

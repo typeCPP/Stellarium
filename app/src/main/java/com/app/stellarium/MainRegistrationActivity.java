@@ -296,7 +296,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 || signUpPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
 
-                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signUpEmailEditText.getText().toString()).matches()) {
+                        } else if (signUpInputLayout.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
@@ -314,7 +314,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         if (signInEmailEditText.getText().toString().isEmpty()
                                 || signInPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
-                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
+                        } else if (signInInputLayout.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else {
                             User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());

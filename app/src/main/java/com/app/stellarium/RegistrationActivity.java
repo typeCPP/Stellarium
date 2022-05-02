@@ -76,8 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         imageCross = findViewById(R.id.cross);
         editTextName = findViewById(R.id.registration_name);
-        editTextName.setFilters(new InputFilter[]{usernameFilter});
-        editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
+        editTextName.setFilters(new InputFilter[]{usernameFilter, new InputFilter.LengthFilter(20)});
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
         kbv = findViewById(R.id.image11);
