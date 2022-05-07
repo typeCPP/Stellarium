@@ -26,6 +26,7 @@ public class ActivityAfterClickWidget extends AppCompatActivity {
         } else {
             Intent intent = new Intent(ActivityAfterClickWidget.this, MainRegistrationActivity.class);
             ActivityAfterClickWidget.this.startActivity(intent);
+            finish();
         }
     }
 
@@ -33,6 +34,7 @@ public class ActivityAfterClickWidget extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ActivityAfterClickWidget.this, MainActivity.class);
         ActivityAfterClickWidget.this.startActivity(intent);
+        finish();
     }
 
     private static boolean checkSignedUser(SQLiteDatabase database) {
