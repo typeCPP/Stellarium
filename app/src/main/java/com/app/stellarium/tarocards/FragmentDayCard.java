@@ -94,7 +94,6 @@ public class FragmentDayCard extends Fragment {
         });
 
         scrollView = linearLayout.findViewById(R.id.scroll);
-        System.out.println(scrollView);
 
         class ViewOnClickListener implements View.OnClickListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
