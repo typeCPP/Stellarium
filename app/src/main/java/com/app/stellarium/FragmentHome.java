@@ -38,6 +38,7 @@ public class FragmentHome extends Fragment {
             moonCalendarButton, numerologyButton, squareOfPythagorasButton, yesOrNoButton;
     private Animation scaleUp;
     private LoadingDialog loadingDialog;
+    private boolean readyToGoNextAffirmation = true;
 
     public FragmentHome() {
     }
@@ -210,6 +211,7 @@ public class FragmentHome extends Fragment {
         Calendar calendar = Calendar.getInstance();
         String todayDate = String.valueOf(calendar.get(Calendar.YEAR)) + String.valueOf(calendar.get(Calendar.MONTH)) + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         Handler handler = new Handler();
+        readyToGoNextAffirmation = true;
         loadingDialog.show();
         loadingDialog.startGifAnimation();
         new Thread(new Runnable() {
@@ -218,36 +220,38 @@ public class FragmentHome extends Fragment {
                 if (!checkDatabaseForTodayAffirmation(database, todayDate)) {
                     try {
                         getAffirmationFromServerToDatabase(database, todayDate);
-                        loadingDialog.dismiss();
                     } catch (Exception e) {
+                        database.close();
+                        databaseHelper.close();
+                        readyToGoNextAffirmation = false;
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                database.close();
-                                databaseHelper.close();
                                 loadingDialog.stopGifAnimation();
                             }
                         });
                     }
                 }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Pair<String, String> pair = getTodayAffirmationTextAndBackground(database, todayDate);
-                        if (pair != null) {
-                            Bundle bundle = new Bundle();
-                            bundle.putString("text", pair.first);
-                            bundle.putString("backgroundName", pair.second);
-                            Fragment fragment = new FragmentAffirmation();
-                            fragment.setArguments(bundle);
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
-                            database.close();
-                            databaseHelper.close();
-                            loadingDialog.dismiss();
+                if (readyToGoNextAffirmation) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Pair<String, String> pair = getTodayAffirmationTextAndBackground(database, todayDate);
+                            if (pair != null) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("text", pair.first);
+                                bundle.putString("backgroundName", pair.second);
+                                Fragment fragment = new FragmentAffirmation();
+                                fragment.setArguments(bundle);
+                                getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                        .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                                database.close();
+                                databaseHelper.close();
+                                loadingDialog.dismiss();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }
