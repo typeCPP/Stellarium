@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -44,6 +45,7 @@ public class FragmentOneCard extends Fragment {
     private ImageView first;
     private String descriptionFirstCard;
     private ScrollView scrollView;
+    private boolean isReadyToStartAnimation = false;
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -74,8 +76,12 @@ public class FragmentOneCard extends Fragment {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.descriprion_card_view, null);
         ImageView closeView = linearLayout.findViewById(R.id.close);
         buttonStart.setOnClickListener(view1 -> {
-            taroShuffleView.anim();
-            view1.setVisibility(View.GONE);
+            if(isReadyToStartAnimation) {
+                taroShuffleView.anim();
+                view1.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(view.getContext(), "Ошибка соединения с сервером.", Toast.LENGTH_LONG).show();
+            }
         });
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
@@ -154,6 +160,7 @@ public class FragmentOneCard extends Fragment {
                         @Override
                         public void run() {
                             loadingDialog.stopGifAnimation();
+                            isReadyToStartAnimation = false;
                         }
                     });
                 } else {
@@ -166,6 +173,7 @@ public class FragmentOneCard extends Fragment {
                             pictures = new ArrayList<>();
                             first.setImageURI(Uri.parse(path + nameFirstPicture));
                             pictures.add(first);
+                            isReadyToStartAnimation = true;
                             loadingDialog.dismiss();
                         }
                     });

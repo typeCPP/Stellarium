@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -48,6 +49,7 @@ public class FragmentPyramidLovers extends Fragment {
     private ArrayList<ImageView> pictures;
     private LoadingDialog loadingDialog;
     private ScrollView scrollView;
+    private boolean isReadyToStartAnimation = false;
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -79,8 +81,12 @@ public class FragmentPyramidLovers extends Fragment {
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
         buttonStart.setOnClickListener(view1 -> {
-            taroShuffleView.anim();
-            view1.setVisibility(View.GONE);
+            if(isReadyToStartAnimation) {
+                taroShuffleView.anim();
+                view1.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(view.getContext(), "Ошибка соединения с сервером.", Toast.LENGTH_LONG).show();
+            }
         });
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
@@ -220,6 +226,7 @@ public class FragmentPyramidLovers extends Fragment {
                         @Override
                         public void run() {
                             loadingDialog.stopGifAnimation();
+                            isReadyToStartAnimation = false;
                         }
                     });
                 } else {
@@ -252,7 +259,7 @@ public class FragmentPyramidLovers extends Fragment {
                             pictures.add(third);
                             fourth.setImageURI(Uri.parse(path + nameFourthPicture));
                             pictures.add(fourth);
-
+                            isReadyToStartAnimation = true;
                             loadingDialog.dismiss();
                         }
                     });
