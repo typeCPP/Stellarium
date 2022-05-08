@@ -298,12 +298,16 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
                         } else if (signUpInputLayout.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
-                        } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
-                            Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else if (signUpInputLayoutPassword.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
+                        } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
+                            Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else {
                             serverID = registerUserByEmailPassword(signUpEmailEditText.getText().toString(), signUpPasswordEditText.getText().toString());
+                            if (serverID == 0) {
+                                Toast.makeText(getApplicationContext(), "Не удается установить соединение с сервером.", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                             isReadyToResume = true;
                             waitForEmailConfirmation(serverID, myIntent);
@@ -440,6 +444,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 emailConfirmationDialog.stopGifAnimation();
+                                isConfirmationRunning = false;
                             }
                         });
                     }
@@ -506,7 +511,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private boolean checkIfUserExists(String email) {
         ServerConnection serverConnection = new ServerConnection();
         String response = serverConnection.getStringResponseByParameters("user_exist/?mail=" + email);
-        return response.contains("True");
+        return response != null && response.contains("True");
     }
 
     private User getUserByEmailAndPassword(String email, String password) {
