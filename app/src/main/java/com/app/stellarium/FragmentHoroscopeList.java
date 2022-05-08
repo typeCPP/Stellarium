@@ -165,20 +165,22 @@ public class FragmentHoroscopeList extends Fragment {
         }
 
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        float density = displayMetrics.densityDpi;
+        System.out.println(density);
+        int padding = 100;
+        if (density > 410) {
+            padding = 220;
+        }
+
         circleLayout = view.findViewById(R.id.circle_layout);
-        circleLayout.setRadius(dpHeight - 20);
+        circleLayout.setRadius((float) displayMetrics.heightPixels / 2 - padding);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        layoutParams.setMargins((int) (circleLayout.getRadius() * -2), 0, 0, 0);
+        circleLayout.setLayoutParams(layoutParams);
         ariesButton = view.findViewById(R.id.ariesButton);
         ariesButton.setOnTouchListener(new ButtonOnTouchListener());
         ariesButton.setPadding(20, 20, 20, 20);
-        if (dpHeight < 620)
-            layoutParams.setMargins((int) (circleLayout.getRadius() * -2 - 190), 0, 0, 0);
-        else
-            layoutParams.setMargins((int) (circleLayout.getRadius() * -2), 0, 0, 0);
-        circleLayout.setLayoutParams(layoutParams);
 
         taurusButton = view.findViewById(R.id.taurusButton);
         taurusButton.setOnTouchListener(new ButtonOnTouchListener());

@@ -18,7 +18,7 @@
             android:persistentDrawingCache="animation"
             app:firstChildPosition="East"
             app:isRotating="true"
-            app:radius="250dp"
+            app:radius="2000dp"
             app:speed="75">
 
 
@@ -35,7 +35,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/aries"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -58,7 +63,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/taurus"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -81,7 +91,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/gemini"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -104,7 +119,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/cancer"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -127,7 +147,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/leo"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -150,7 +175,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/virgo"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -172,7 +202,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/libra"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -195,7 +230,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/scorpio"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -218,7 +258,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/sagittarius"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -241,7 +286,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/capricorn"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -264,7 +314,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/aquarius"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -286,7 +341,12 @@
                     android:layout_gravity="center|top"
                     android:gravity="center|top"
                     android:text="@string/pisces"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:autoSizeMaxTextSize="16sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:layout_width="match_parent"

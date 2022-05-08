@@ -84,9 +84,6 @@
             @font/gabriela_regular
         </item>
         <item name="android:textColor">@color/text_color_style_horoscope_title</item>
-        <item name="android:textSize">
-            16sp
-        </item>
     </style>
 
     <style name="style_title_button_pythagorean">
