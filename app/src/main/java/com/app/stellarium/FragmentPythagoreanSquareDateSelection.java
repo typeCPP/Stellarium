@@ -68,8 +68,9 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pythagorean_square_date_selection, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         isSetDate = false;
@@ -89,15 +90,11 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
             }
         });
 
-        class ButtonOnTouchListener implements View.OnTouchListener {
-            @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
+        class ButtonOnClickListener implements View.OnClickListener {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    view.startAnimation(scaleUp);
-                    workWithServer();
-                }
-                return true;
+            public void onClick(View view) {
+                view.startAnimation(scaleUp);
+                workWithServer();
             }
         }
         editTextDate.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +124,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
 
             }
         });
-        nextButton.setOnTouchListener(new ButtonOnTouchListener());
+        nextButton.setOnClickListener(new ButtonOnClickListener());
         return view;
     }
 
@@ -184,7 +181,7 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
                 datePickerDialog.dismiss();
             }
         });
-
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(R.color.button_registration_bottom_text);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("ок");
@@ -215,7 +212,12 @@ public class FragmentPythagoreanSquareDateSelection extends Fragment {
         ServerConnection serverConnection = new ServerConnection();
         String response = serverConnection.getStringResponseByParameters("pifagorSquare/?day=" + birthdayDay +
                 "&month=" + birthdayMonth + "&year=" + birthdayYear);
-        PythagoreanSquare pythagoreanSquare = new Gson().fromJson(response, PythagoreanSquare.class);
+        PythagoreanSquare pythagoreanSquare;
+        try {
+            pythagoreanSquare = new Gson().fromJson(response, PythagoreanSquare.class);
+        } catch (Exception e) {
+            return new Pair<>(null, null);
+        }
         if (pythagoreanSquare == null) {
             return new Pair<>(null, null);
         }

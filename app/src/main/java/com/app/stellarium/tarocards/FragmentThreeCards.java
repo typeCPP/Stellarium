@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -42,6 +44,8 @@ public class FragmentThreeCards extends Fragment {
             nameSecondCard, descriptionSecondCard, nameThirdPicture, nameThirdCard, descriptionThirdCard;
     private ArrayList<ImageView> pictures;
     private ImageView first, second, third;
+    private ScrollView scrollView;
+    private boolean isReadyToStartAnimation = false;
 
     public static FragmentThreeCards newInstance(String param1, String param2) {
         FragmentThreeCards fragment = new FragmentThreeCards();
@@ -74,8 +78,12 @@ public class FragmentThreeCards extends Fragment {
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
         buttonStart.setOnClickListener(view1 -> {
-            taroShuffleView.anim();
-            view1.setVisibility(View.GONE);
+            if(isReadyToStartAnimation) {
+                taroShuffleView.anim();
+                view1.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(view.getContext(), "Ошибка соединения с сервером.", Toast.LENGTH_LONG).show();
+            }
         });
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
@@ -99,6 +107,8 @@ public class FragmentThreeCards extends Fragment {
             buttonStart.setVisibility(View.GONE);
         });
 
+        scrollView = view.findViewById(R.id.scroll);
+
         class ViewOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -113,6 +123,7 @@ public class FragmentThreeCards extends Fragment {
                         descriptionView.setText(descriptionFirstCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(firstCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -127,6 +138,7 @@ public class FragmentThreeCards extends Fragment {
                         descriptionView.setText(descriptionSecondCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(secondCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -141,6 +153,7 @@ public class FragmentThreeCards extends Fragment {
                         descriptionView.setText(descriptionThirdCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(thirdCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -185,6 +198,7 @@ public class FragmentThreeCards extends Fragment {
                         @Override
                         public void run() {
                             loadingDialog.stopGifAnimation();
+                            isReadyToStartAnimation = false;
                         }
                     });
                 } else {
@@ -211,7 +225,7 @@ public class FragmentThreeCards extends Fragment {
                             pictures.add(second);
                             third.setImageURI(Uri.parse(path + nameThirdPicture));
                             pictures.add(third);
-
+                            isReadyToStartAnimation = true;
                             loadingDialog.dismiss();
                         }
                     });

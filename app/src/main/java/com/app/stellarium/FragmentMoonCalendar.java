@@ -64,7 +64,7 @@ public class FragmentMoonCalendar extends Fragment {
 
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null) {
-            activity.setNumberOfPrevFragment();
+            activity.setNumberOfPrevFragment(0);
         }
         imageViewMoon = view.findViewById(R.id.moon);
         imageViewCalendar = view.findViewById(R.id.calendarImage);
@@ -144,10 +144,14 @@ public class FragmentMoonCalendar extends Fragment {
 
             @Override
             public void onAnimationStart(Animation animation) {
+                prevDayButton.setOnClickListener(null);
+                nextDayButton.setOnClickListener(null);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                prevDayButton.setOnClickListener(new ButtonOnClickListener());
+                nextDayButton.setOnClickListener(new ButtonOnClickListener());
                 updateInformationText(animation);
             }
 

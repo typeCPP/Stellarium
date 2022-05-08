@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -53,6 +55,8 @@ public class FragmentSevenStars extends Fragment {
     private ImageView first, second, third, fourth, fifth, sixth, seventh;
     private ArrayList<ImageView> pictures;
     private LoadingDialog loadingDialog;
+    private ScrollView scrollView;
+    private boolean isReadyToStartAnimation = false;
 
     public static FragmentOneCard newInstance(String param1, String param2) {
         FragmentOneCard fragment = new FragmentOneCard();
@@ -85,8 +89,12 @@ public class FragmentSevenStars extends Fragment {
         layout.addView(linearLayout);
         ImageView closeView = linearLayout.findViewById(R.id.close);
         buttonStart.setOnClickListener(view1 -> {
-            taroShuffleView.anim();
-            view1.setVisibility(View.GONE);
+            if(isReadyToStartAnimation) {
+                taroShuffleView.anim();
+                view1.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(view.getContext(), "Ошибка соединения с сервером.", Toast.LENGTH_LONG).show();
+            }
         });
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
@@ -113,6 +121,8 @@ public class FragmentSevenStars extends Fragment {
             buttonStart.setVisibility(View.GONE);
         });
 
+        scrollView = view.findViewById(R.id.scroll);
+
         class ViewOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
             @Override
@@ -127,6 +137,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionFirstCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(firstCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -146,6 +157,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionSecondCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(secondCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -165,6 +177,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionThirdCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(thirdCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -184,6 +197,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionFourthCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(fourthCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -203,6 +217,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionFifthCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(fifthCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -222,6 +237,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionSixthCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(sixthCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -241,6 +257,7 @@ public class FragmentSevenStars extends Fragment {
                         descriptionView.setText(descriptionSeventhCard);
                         TextView characteristicCard = linearLayout.findViewById(R.id.characteristic_card);
                         characteristicCard.setText(seventhCard);
+                        scrollView.scrollTo(0, 0);
                         linearLayout.setVisibility(View.VISIBLE);
                         first.setVisibility(View.GONE);
                         second.setVisibility(View.GONE);
@@ -298,6 +315,7 @@ public class FragmentSevenStars extends Fragment {
                         @Override
                         public void run() {
                             loadingDialog.stopGifAnimation();
+                            isReadyToStartAnimation = false;
                         }
                     });
                 } else {
@@ -348,7 +366,7 @@ public class FragmentSevenStars extends Fragment {
                             pictures.add(sixth);
                             seventh.setImageURI(Uri.parse(path + nameSeventhPicture));
                             pictures.add(seventh);
-
+                            isReadyToStartAnimation = true;
                             loadingDialog.dismiss();
                         }
                     });

@@ -127,4 +127,13 @@ public class FragmentListOfInformation extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(3);
+        }
+    }
 }

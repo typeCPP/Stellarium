@@ -44,8 +44,9 @@ public class FragmentNumerology extends Fragment {
         View view = inflater.inflate(R.layout.fragment_numerology, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
         numerologyTitle = view.findViewById(R.id.numerology_title);
@@ -85,6 +86,7 @@ public class FragmentNumerology extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
                 textView.setText(getDescriptionFromBundle(numberOfActiveButton, bundle));
             }
 
@@ -127,7 +129,6 @@ public class FragmentNumerology extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
-        scrollViewVertical.scrollTo(0,0);
         int oldNumberOfActiveButton = numberOfActiveButton;
         button.setTextSize(17);
         if (button != generalCharacteristicButton) {

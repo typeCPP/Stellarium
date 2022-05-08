@@ -20,8 +20,8 @@ public class ServerConnection {
         try {
             URL url = new URL(serverURL + params);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(5000);
-            urlConnection.setConnectTimeout(5000);
+            urlConnection.setReadTimeout(2000);
+            urlConnection.setConnectTimeout(2000);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             Scanner s = new Scanner(in).useDelimiter("\\A");
             result = s.hasNext() ? s.next() : "";

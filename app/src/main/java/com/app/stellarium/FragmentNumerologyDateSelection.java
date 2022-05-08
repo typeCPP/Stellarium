@@ -66,8 +66,9 @@ public class FragmentNumerologyDateSelection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_numerology_date_selection, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
             @Override
@@ -198,7 +199,7 @@ public class FragmentNumerologyDateSelection extends Fragment {
                 datePickerDialog.dismiss();
             }
         });
-
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(R.color.button_registration_bottom_text);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("ок");

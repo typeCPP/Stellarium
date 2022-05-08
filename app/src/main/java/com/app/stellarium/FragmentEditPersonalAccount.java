@@ -12,7 +12,6 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import android.provider.Contacts;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -97,7 +96,8 @@ public class FragmentEditPersonalAccount extends Fragment {
         editTextName = view.findViewById(R.id.edit_account_name);
         editTextDate = view.findViewById(R.id.edit_account_date);
         editTextDate.setFocusable(false);
-        editTextDate.setFocusableInTouchMode(false);
+        crossEditDate.setFocusable(false);
+        crossEditName.setFocusable(false);
         passwordTextInputLayout = view.findViewById(R.id.password_text_input_layout);
         radioButtonMan = view.findViewById(R.id.radio_button_man);
         radioButtonWoman = view.findViewById(R.id.radio_button_woman);
@@ -105,6 +105,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         signImage = view.findViewById(R.id.sign_edit_personal_account);
         signText = view.findViewById(R.id.sign_text_edit_personal_account);
         eyeEditPassword = view.findViewById(R.id.eye_password);
+        eyeEditPassword.setFocusable(false);
 
         editTextPassword = view.findViewById(R.id.edit_account_password);
         editTextPassword.setLetterSpacing(letterSpacing);
@@ -118,8 +119,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         crossEditDate.setOnClickListener(crossClickListener);
         crossEditName.setOnClickListener(crossClickListener);
 
-        editTextName.setFilters(new InputFilter[]{usernameFilter});
-        editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
+        editTextName.setFilters(new InputFilter[]{usernameFilter, new InputFilter.LengthFilter(20)});
         editTextPassword.setFilters(new InputFilter[]{passwordFilter});
         editTextName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -198,6 +198,8 @@ public class FragmentEditPersonalAccount extends Fragment {
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editTextPassword.setEnabled(false);
+                editTextName.setEnabled(false);
                 dateSetListener = new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -229,6 +231,8 @@ public class FragmentEditPersonalAccount extends Fragment {
                 } else {
                     createDatePickerDialog(birthdayDay, birthdayMonth, birthdayYear, calendar);
                 }
+                editTextPassword.setEnabled(true);
+                editTextName.setEnabled(true);
             }
         });
 
@@ -242,7 +246,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                     Toast.makeText(getContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
                 } else if (!editTextName.getText().toString().isEmpty() && !editTextDate.getText().toString().isEmpty()) {
                     contentValues.put(UserTable.COLUMN_SEX, radioButtonMan.isChecked());
-                    contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
+                    contentValues.put(UserTable.COLUMN_NAME, editTextName.getText().toString().trim().replaceAll("\\s+", " "));
                     contentValues.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     contentValues.put(UserTable.COLUMN_HOROSCOPE_SIGN_ID, signId);
                     contentValues.put(UserTable.COLUMN_PASSWORD, editTextPassword.getText().toString());
@@ -277,9 +281,7 @@ public class FragmentEditPersonalAccount extends Fragment {
                             Toast.makeText(getContext(), "Ошибка сохранения.", Toast.LENGTH_LONG).show();
                         }
                     }
-                    Fragment fragment = new FragmentPersonalAccount();
-                    getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_in_left, R.animator.slide_out_right)
-                            .replace(R.id.frameLayout, fragment).commit();
+                    getActivity().onBackPressed();
                 } else {
                     database.close();
                     Toast.makeText(getContext(), "Заполните все поля.", Toast.LENGTH_LONG).show();
@@ -347,6 +349,7 @@ public class FragmentEditPersonalAccount extends Fragment {
             }
         });
         datePickerDialog.setCancelable(false);
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(R.color.button_registration_bottom_text);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(R.color.button_registration_bottom_text);
@@ -371,6 +374,7 @@ public class FragmentEditPersonalAccount extends Fragment {
         String password = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_PASSWORD));
         if (email != null && password != null) {
             editTextPassword.setText(password);
+            editTextPassword.setSelection(editTextPassword.getText().length());
         } else {
             hidePasswordField();
         }

@@ -47,8 +47,9 @@ public class FragmentInformationAboutSign extends Fragment {
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -120,13 +121,30 @@ public class FragmentInformationAboutSign extends Fragment {
 
         scrollView = view.findViewById(R.id.scrollView);
         updateStateButtons(descriptionButton);
+        setAttributesForTextView(characteristics[numberOfActiveButton - 1], textView);
+        class SlideAnimationListener implements Animation.AnimationListener {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
+                setAttributesForTextView(characteristics[numberOfActiveButton - 1], textView);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        }
+
+        rightAnim.setAnimationListener(new SlideAnimationListener());
+        leftAnim.setAnimationListener(new SlideAnimationListener());
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateStateButtons(@NonNull Button button) {
-        scrollViewVertical.scrollTo(0,0);
         int oldNumberOfActiveButton = numberOfActiveButton;
         button.setTextSize(17);
         if (button != descriptionButton) {
@@ -161,7 +179,6 @@ public class FragmentInformationAboutSign extends Fragment {
             }
         }
         isStartPage = false;
-        setAttributesForTextView(characteristics[numberOfActiveButton - 1], textView);
     }
 
     private void activeSwipe(View view) {
@@ -203,7 +220,7 @@ public class FragmentInformationAboutSign extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"ResourceAsColor", "WrongConstant"})
     private void setAttributesForTextView(String text, TextView textView) {
-       // textView.setMaxLines(1);
+        // textView.setMaxLines(1);
         textView.setText(text);
         textView.setPadding(10, 30, 10, 30);
     }

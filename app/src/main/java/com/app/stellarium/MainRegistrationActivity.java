@@ -63,8 +63,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.Gson;
 
+import java.net.SocketTimeoutException;
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 public class MainRegistrationActivity extends AppCompatActivity {
 
@@ -293,14 +296,18 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 || signUpPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
 
-                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signUpEmailEditText.getText().toString()).matches()) {
+                        } else if (signUpInputLayout.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
-                        } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
-                            Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else if (signUpInputLayoutPassword.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректный пароль.", Toast.LENGTH_LONG).show();
+                        } else if (checkIfUserExists(signUpEmailEditText.getText().toString())) {
+                            Toast.makeText(getApplicationContext(), "Пользователь с таким адресом электронной почты уже существует.", Toast.LENGTH_LONG).show();
                         } else {
                             serverID = registerUserByEmailPassword(signUpEmailEditText.getText().toString(), signUpPasswordEditText.getText().toString());
+                            if (serverID == 0) {
+                                Toast.makeText(getApplicationContext(), "Не удается установить соединение с сервером.", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             myIntent = new Intent(MainRegistrationActivity.this, RegistrationActivity.class);
                             isReadyToResume = true;
                             waitForEmailConfirmation(serverID, myIntent);
@@ -311,7 +318,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                         if (signInEmailEditText.getText().toString().isEmpty()
                                 || signInPasswordEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Заполните, пожалуйста, все поля.", Toast.LENGTH_LONG).show();
-                        } else if (!Patterns.EMAIL_ADDRESS.matcher(signInEmailEditText.getText().toString()).matches()) {
+                        } else if (signInInputLayout.getError() != null) {
                             Toast.makeText(getApplicationContext(), "Некорректная почта.", Toast.LENGTH_LONG).show();
                         } else {
                             User user = getUserByEmailAndPassword(signInEmailEditText.getText().toString(), signInPasswordEditText.getText().toString());
@@ -324,6 +331,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                                 } else {
                                     databaseHelper = new DatabaseHelper(getApplicationContext());
                                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
+                                    databaseHelper.dropUserTable(database);
+                                    databaseHelper.dropAffirmationTable(database);
+                                    databaseHelper.dropFavoriteAffirmationsTable(database);
                                     databaseHelper.insertUser(database, user);
                                     ContentValues contentValues = new ContentValues();
                                     contentValues.put(UserTable.COLUMN_EMAIL, signInEmailEditText.getText().toString());
@@ -434,6 +444,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 emailConfirmationDialog.stopGifAnimation();
+                                isConfirmationRunning = false;
                             }
                         });
                     }
@@ -457,7 +468,8 @@ public class MainRegistrationActivity extends AppCompatActivity {
     }
 
     private void validate_email(TextInputEditText email, TextInputLayout layout) {
-        if (!email.getText().toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+        String regex = "(^|\\(|:)[a-z]+([-|\\.]?[a-z0-9])*@[a-z0-9]+([-|\\.]?[a-z0-9])*\\.[a-z]+(\\s|\\b|$|\\,|\\?)";
+        if (!email.getText().toString().isEmpty() && !Pattern.matches(regex, email.getText().toString())) {
             layout.setError("Некорректная почта.");
             layout.setErrorIconDrawable(null);
         } else {
@@ -499,7 +511,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private boolean checkIfUserExists(String email) {
         ServerConnection serverConnection = new ServerConnection();
         String response = serverConnection.getStringResponseByParameters("user_exist/?mail=" + email);
-        return response.contains("True");
+        return response != null && response.contains("True");
     }
 
     private User getUserByEmailAndPassword(String email, String password) {
@@ -509,9 +521,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
         try {
             response = serverConnection.getStringResponseByParameters("auth/?mail=" + email + "&password=" + encodePasswordMD5(password));
             if (response.equals("False")) {
-                throw new NullPointerException("Wrong user data.");
+                throw new InvalidParameterException("Неверная почта или пароль.");
             }
             user = new Gson().fromJson(response, User.class);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Не удается установить соединение с сервером.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Неверная почта или пароль.", Toast.LENGTH_LONG).show();

@@ -56,8 +56,9 @@ public class FragmentCompatibilityZodiac extends Fragment {
         View view = inflater.inflate(R.layout.fragment_compatibility_zodiac, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         signTextMan = view.findViewById(R.id.sign_text_man);
         signTextWoman = view.findViewById(R.id.sign_text_woman);
@@ -109,6 +110,7 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
                 updateInformationText();
             }
 
@@ -224,7 +226,6 @@ public class FragmentCompatibilityZodiac extends Fragment {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void updateStateButtons(TextView button) {
-        scrollViewVertical.scrollTo(0, 0);
         button.setScaleX(1.2f);
         button.setScaleY(1.2f);
         int oldNumberOfActiveButton = numberOfButton;

@@ -65,8 +65,9 @@ public class FragmentHoroscopePage extends Fragment {
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         class ButtonOnClickListener implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -163,14 +164,31 @@ public class FragmentHoroscopePage extends Fragment {
         scrollView = view.findViewById(R.id.scrollView);
         scrollViewVertical = view.findViewById(R.id.scrollViewVertical);
         updateStateButtons(todayButton);
+        updateTextViews();
+        class SlideAnimationListener implements Animation.AnimationListener {
 
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                scrollViewVertical.scrollTo(0, 0);
+                checkAndCloseOpenTextView();
+                updateTextViews();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        }
+
+        rightAnim.setAnimationListener(new SlideAnimationListener());
+        leftAnim.setAnimationListener(new SlideAnimationListener());
         return view;
     }
 
     private void updateStateButtons(@NonNull Button button) {
-        checkAndCloseOpenTextView();
-        scrollViewVertical.scrollTo(0, 0);
         button.setScaleX(1.4f);
         button.setScaleY(1.4f);
         int oldNumberOfActiveButton = numberOfActiveButton;
@@ -218,7 +236,6 @@ public class FragmentHoroscopePage extends Fragment {
             }
         }
         isStartPage = false;
-        updateTextViews();
     }
 
     private void activeSwipe(View view) {
@@ -319,7 +336,7 @@ public class FragmentHoroscopePage extends Fragment {
     @SuppressLint("ResourceAsColor")
     private void setAttributesForTextView(String text, TextView textView, LinearLayout layout) {
         textView.setText(text);
-        textView.setPadding(50, 30, 50, 30);
+        textView.setPadding(50, 30, 50, -10);
         textView.setTextSize(17);
         textView.setTextAppearance(R.style.style_horoscope_title);
         textView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.9f));

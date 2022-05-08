@@ -38,7 +38,7 @@ public class FragmentTaroCards extends Fragment {
         View view = inflater.inflate(R.layout.fragment_taro_cards, container, false);
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null) {
-            activity.setNumberOfPrevFragment();
+            activity.setNumberOfPrevFragment(0);
         }
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})

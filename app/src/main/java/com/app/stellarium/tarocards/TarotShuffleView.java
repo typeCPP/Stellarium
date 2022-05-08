@@ -96,15 +96,16 @@ public class TarotShuffleView extends FrameLayout {
     }
 
     private void startShuffleAnimator() {
+        double maxX = getWidth();
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             int position = count - 1 - i;
             View view = getChildAt(position);
             View cardView = view.findViewById(R.id.card_view);
             if (position == 0) {
-                AnimHelper.startAnimation(1000, 1350, cardView, 450, 200, 400, listenerNull);
+                AnimHelper.startAnimation(1000, 1350, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 270), 200, 400, listenerNull);
             } else if (position == 1) {
-                AnimHelper.startAnimation(1300, 1300, cardView, 600, 300, 600, new CardAnimatorListener() {
+                AnimHelper.startAnimation(1300, 1300, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 120), 300, 600, new CardAnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         cuttingCardAnimator(new CardAnimatorListener() {
@@ -116,21 +117,21 @@ public class TarotShuffleView extends FrameLayout {
                     }
                 });
             } else if (position == 2) {
-                AnimHelper.startAnimation(1250, 1050, cardView, 550, 260, 520, listenerNull);
+                AnimHelper.startAnimation(1250, 1050, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 170), 260, 520, listenerNull);
             } else if (position == 3) {
-                AnimHelper.startAnimation(1500, 900, cardView, 500, 250, 500, listenerNull);
+                AnimHelper.startAnimation(1500, 900, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 220), 250, 500, listenerNull);
             } else if (position == 4) {
-                AnimHelper.startAnimation(1300, 750, cardView, 580, 280, 560, listenerNull);
+                AnimHelper.startAnimation(1300, 750, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 40), 280, 560, listenerNull);
             } else if (position == 5) {
-                AnimHelper.startAnimation(1400, 600, cardView, 650, 340, 680, listenerNull);
+                AnimHelper.startAnimation(1400, 600, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 80), 340, 680, listenerNull);
             } else if (position == 6) {
-                AnimHelper.startAnimation(1400, 450, cardView, 670, 320, 640, listenerNull);
+                AnimHelper.startAnimation(1400, 450, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 50), 320, 640, listenerNull);
             } else if (position == 7) {
-                AnimHelper.startAnimation(1400, 300, cardView, 630, 320, 640, listenerNull);
+                AnimHelper.startAnimation(1400, 300, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 90), 320, 640, listenerNull);
             } else if (position == 8) {
-                AnimHelper.startAnimation(1300, 150, cardView, 700, 350, 700, listenerNull);
+                AnimHelper.startAnimation(1300, 150, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 20), 350, 700, listenerNull);
             } else {
-                AnimHelper.startAnimation(1500, 0, cardView, 720, 360, 720, listenerNull);
+                AnimHelper.startAnimation(1500, 0, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 20), 360, 720, listenerNull);
             }
         }
     }

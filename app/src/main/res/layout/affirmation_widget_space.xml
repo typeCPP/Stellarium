@@ -11,7 +11,7 @@
         android:id="@+id/spaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/space"
+        android:src="@drawable/widget_space"
         android:scaleType="fitXY"/>
 
     <LinearLayout

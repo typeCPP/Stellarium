@@ -51,6 +51,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:padding="3dp"
+                    android:layout_marginRight="-8dp"
+                    android:layout_marginLeft="-8dp"
                     android:id="@+id/buttonNavigateToOneCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -87,6 +89,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:padding="3dp"
+                    android:layout_marginRight="-8dp"
+                    android:layout_marginLeft="-8dp"
                     android:id="@+id/buttonNavigateToDayCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -123,6 +127,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:padding="3dp"
+                    android:layout_marginRight="-8dp"
+                    android:layout_marginLeft="-8dp"
                     android:id="@+id/buttonNavigateToThreeCards"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -159,6 +165,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:padding="3dp"
+                    android:layout_marginRight="-8dp"
+                    android:layout_marginLeft="-8dp"
                     android:id="@+id/buttonNavigateToSevenStars"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -195,6 +203,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:padding="3dp"
+                    android:layout_marginRight="-8dp"
+                    android:layout_marginLeft="-8dp"
                     android:id="@+id/buttonNavigateToPyramidLovers"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -211,6 +221,10 @@
                     android:textAllCaps="false"
                     android:textColor="@color/black" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

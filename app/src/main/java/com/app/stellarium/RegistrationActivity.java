@@ -76,8 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         imageCross = findViewById(R.id.cross);
         editTextName = findViewById(R.id.registration_name);
-        editTextName.setFilters(new InputFilter[]{usernameFilter});
-        editTextName.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(20)});
+        editTextName.setFilters(new InputFilter[]{usernameFilter, new InputFilter.LengthFilter(20)});
         setAnimation(imageSwitcherWoman);
         setAnimation(imageSwitcherMan);
         kbv = findViewById(R.id.image11);
@@ -119,7 +118,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     SQLiteDatabase database = databaseHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
 
-                    values.put(UserTable.COLUMN_NAME, editTextName.getText().toString());
+                    values.put(UserTable.COLUMN_NAME, editTextName.getText().toString().trim().replaceAll("\\s+", " "));
                     values.put(UserTable.COLUMN_DATE_OF_BIRTH, editTextDate.getText().toString());
                     values.put(UserTable.COLUMN_SEX, sex);
                     int signId = ZodiacSignUtils.getUserSignID(editTextDate.getText().toString());
@@ -148,6 +147,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         if (response != null) {
                             values.put(UserTable.COLUMN_SERVER_ID, serverID);
                             values.put(UserTable.COLUMN_MAIL_CONFIRMED, 1);
+                            databaseHelper.dropUserTable(database);
+                            databaseHelper.dropAffirmationTable(database);
+                            databaseHelper.dropFavoriteAffirmationsTable(database);
                             database.insert(UserTable.TABLE_NAME, null, values);
                             database.close();
                             databaseHelper.close();
@@ -160,6 +162,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             databaseHelper.close();
                         }
                     } else {
+                        databaseHelper.dropUserTable(database);
+                        databaseHelper.dropAffirmationTable(database);
+                        databaseHelper.dropFavoriteAffirmationsTable(database);
                         database.insert(UserTable.TABLE_NAME, null, values);
                         database.close();
                         databaseHelper.close();
@@ -221,6 +226,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     private void createDatePickerDialog(int day, int month, int year, Calendar calendar) {
         datePickerDialog = new DatePickerDialog(this, R.style.CustomDatePickerDialog, dateSetListener, year, month, day);
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(R.color.button_registration_bottom_text);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(R.color.button_registration_bottom_text);

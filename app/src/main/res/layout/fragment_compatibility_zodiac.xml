@@ -345,7 +345,7 @@
                     android:fontFamily="@font/gabriela_regular"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/love_lowercase"
+                    android:text="@string/love"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
 

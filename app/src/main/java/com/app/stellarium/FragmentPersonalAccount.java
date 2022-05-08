@@ -78,7 +78,7 @@ public class FragmentPersonalAccount extends Fragment {
                         if (databaseHelper.getCurrentUserServerID(databaseHelper.getReadableDatabase()) == 0 || databaseHelper.checkForUserUID(databaseHelper.getReadableDatabase())) {
                             FragmentEditPersonalAccount fragmentEditPersonalAccount = new FragmentEditPersonalAccount();
                             getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
-                                    .addToBackStack(null).replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
+                                    .addToBackStack("personal_account").replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
                             break;
                         }
                         DialogCheckingPassword dialogCheckingPassword = new DialogCheckingPassword(getContext());
@@ -89,7 +89,7 @@ public class FragmentPersonalAccount extends Fragment {
                             if (dialogCheckingPassword.isRightPassword) {
                                 FragmentEditPersonalAccount fragmentEditPersonalAccount = new FragmentEditPersonalAccount();
                                 getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
-                                        .addToBackStack(null).replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
+                                        .addToBackStack("personal_account").replace(R.id.frameLayout, fragmentEditPersonalAccount).commit();
                             }
                         });
                         break;
@@ -130,11 +130,6 @@ public class FragmentPersonalAccount extends Fragment {
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-                databaseHelper.dropUserTable(databaseHelper.getWritableDatabase());
-                databaseHelper.dropAffirmationTable(databaseHelper.getWritableDatabase());
-                databaseHelper.dropFavoriteAffirmationsTable(databaseHelper.getWritableDatabase());
-                databaseHelper.close();
                 Intent myIntent = new Intent(getActivity(), MainRegistrationActivity.class);
                 myIntent.putExtra("showSkipButton", false);
                 getActivity().startActivity(myIntent);
@@ -150,29 +145,24 @@ public class FragmentPersonalAccount extends Fragment {
         Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
                 null,
                 null, null, null, null);
-        if (userCursor.getCount() > 0) {
-            userCursor.moveToLast();
-            String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
-            String nameString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
-            String emailString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
-            if (emailString != null) {
-                layoutFullRegistration.setVisibility(View.GONE);
-                email.setText(emailString);
-            } else {
-                email.setVisibility(View.GONE);
-            }
-            signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
-            if (!birthdayString.isEmpty()) {
-                birthdayString = birthdayString.replaceAll("\\.", "/");
-                String[] temp = birthdayString.split("/", 3);
-                date.setText(temp[0] + "." + temp[1] + "." + temp[2]);
-            }
-            if (!nameString.isEmpty()) {
-                name.setText(nameString);
-            }
+        userCursor.moveToLast();
+        String birthdayString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_DATE_OF_BIRTH));
+        String nameString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_NAME));
+        String emailString = userCursor.getString(userCursor.getColumnIndex(UserTable.COLUMN_EMAIL));
+        if (emailString != null) {
+            layoutFullRegistration.setVisibility(View.GONE);
+            email.setText(emailString);
         } else {
-            date.setText("01.01.1999");
-            name.setText("Андрей");
+            email.setVisibility(View.GONE);
+        }
+        signId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_HOROSCOPE_SIGN_ID));
+        if (!birthdayString.isEmpty()) {
+            birthdayString = birthdayString.replaceAll("\\.", "/");
+            String[] temp = birthdayString.split("/", 3);
+            date.setText(temp[0] + "." + temp[1] + "." + temp[2]);
+        }
+        if (!nameString.isEmpty()) {
+            name.setText(nameString);
         }
     }
 
@@ -237,6 +227,15 @@ public class FragmentPersonalAccount extends Fragment {
                     signImage.setImageResource(R.drawable.big_pisces);
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(1);
         }
     }
 }

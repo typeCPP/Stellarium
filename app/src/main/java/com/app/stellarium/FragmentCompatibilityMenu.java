@@ -38,8 +38,9 @@ public class FragmentCompatibilityMenu extends Fragment {
         scaleUp = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up);
 
         MainActivity activity = (MainActivity) getActivity();
-        if (activity != null)
-            activity.setNumberOfPrevFragment();
+        if (activity != null) {
+            activity.setNumberOfPrevFragment(0);
+        }
 
         class ButtonOnTouchListener implements View.OnTouchListener {
             @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})

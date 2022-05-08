@@ -39,10 +39,8 @@ public class FragmentAffirmation extends Fragment {
 
     private FrameLayout frameLayout;
     private TextView affirmationText;
-    private LoadingDialog loadingDialog;
     private LikeButton likeButton;
     private boolean isLiked = false;
-    private Affirmation affirmation;
     private boolean isOpenByWidget = false;
     public static String text;
     public FragmentAffirmation() {
@@ -70,6 +68,7 @@ public class FragmentAffirmation extends Fragment {
             MainActivity activity = (MainActivity) getActivity();
             if (activity != null) {
                 activity.hideBottomBar(true);
+                activity.setNumberOfPrevFragment(0);
             }
             isOpenByWidget = false;
         }
@@ -78,7 +77,6 @@ public class FragmentAffirmation extends Fragment {
 
         frameLayout = view.findViewById(R.id.frameLayout);
         affirmationText = view.findViewById(R.id.affirmation_text);
-        loadingDialog = new LoadingDialog(view.getContext());
         likeButton = view.findViewById(R.id.heart_button);
 
         Calendar calendar = Calendar.getInstance();
@@ -116,15 +114,10 @@ public class FragmentAffirmation extends Fragment {
             }
         });
 
-        loadingDialog.setOnClick(new UnaryOperator<Void>() {
-            @Override
-            public Void apply(Void unused) {
-                workWithBackgroundAndText();
-                return null;
-            }
-        });
-
-        workWithBackgroundAndText();
+        text = bundle.getString("text");
+        affirmationText.setText(text);
+        Drawable background = getBackgroundByName(bundle.getString("backgroundName"));
+        frameLayout.setBackground(background);
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
@@ -168,68 +161,6 @@ public class FragmentAffirmation extends Fragment {
         }
     }
 
-    private void workWithBackgroundAndText() {
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        Calendar calendar = Calendar.getInstance();
-        String todayDate = String.valueOf(calendar.get(Calendar.YEAR)) + String.valueOf(calendar.get(Calendar.MONTH)) + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        Handler handler = new Handler();
-        loadingDialog.show();
-        loadingDialog.startGifAnimation();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (!checkDatabaseForTodayAffirmation(database, todayDate)) {
-                    try {
-                        getDataFromServerToDatabase(database, todayDate);
-                        loadingDialog.dismiss();
-                    } catch (Exception e) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                loadingDialog.stopGifAnimation();
-                            }
-                        });
-                    }
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Pair<String, String> pair = getTodayBackgroundAndText(database, todayDate);
-                        if (pair != null) {
-                            Drawable background = getBackgroundByName(pair.second);
-                            frameLayout.setBackground(background);
-                            affirmationText.setText(pair.first);
-                            text = pair.first;
-                            loadingDialog.dismiss();
-                        }
-                    }
-                });
-            }
-        }).start();
-    }
-
-    private boolean checkDatabaseForTodayAffirmation(SQLiteDatabase database, String todayDate) {
-        @SuppressLint("Recycle") Cursor affirmationsCursor = database.query(AffirmationsTable.TABLE_NAME, null,
-                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
-                null, null, null, null);
-        return affirmationsCursor.getCount() > 0;
-    }
-
-    @SuppressLint("Range")
-    private Pair<String, String> getTodayBackgroundAndText(SQLiteDatabase database, String todayDate) {
-        Cursor affirmationsCursor = database.query(AffirmationsTable.TABLE_NAME, null,
-                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
-                null, null, null, null);
-        if (affirmationsCursor.getCount() < 1) {
-            return null;
-        }
-        affirmationsCursor.moveToLast();
-        String text = affirmationsCursor.getString(affirmationsCursor.getColumnIndex(AffirmationsTable.COLUMN_TEXT));
-        String backgroundName = affirmationsCursor.getString(affirmationsCursor.getColumnIndex(AffirmationsTable.COLUMN_PICTURE));
-        return new Pair<>(text, backgroundName);
-    }
-
     @SuppressLint("UseCompatLoadingForDrawables")
     private Drawable getBackgroundByName(String backgroundName) {
         Resources resources = getContext().getResources();
@@ -252,35 +183,6 @@ public class FragmentAffirmation extends Fragment {
         } else {
             return false;
         }
-    }
-
-    @SuppressLint("Range")
-    private void getDataFromServerToDatabase(SQLiteDatabase database, String todayDate) {
-        ServerConnection serverConnection = new ServerConnection();
-        Cursor userCursor = database.query(UserTable.TABLE_NAME, null,
-                null,
-                null, null, null, null);
-        String params;
-        userCursor.moveToLast();
-        int userServerId = userCursor.getInt(userCursor.getColumnIndex(UserTable.COLUMN_SERVER_ID));
-        if (userServerId == -1) {
-            params = "affirmationNotReg/";
-        } else {
-            params = "affirmation/?id=" + userServerId;
-        }
-        String response = serverConnection.getStringResponseByParameters(params);
-        affirmation = new Gson().fromJson(response, Affirmation.class);
-        if (affirmation == null) {
-            throw new NullPointerException();
-        }
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(AffirmationsTable.COLUMN_DATE, todayDate);
-        contentValues.put(AffirmationsTable.COLUMN_TEXT, affirmation.text);
-        contentValues.put(AffirmationsTable.COLUMN_ID, affirmation.id);
-        contentValues.put(AffirmationsTable.COLUMN_PICTURE, affirmation.picture);
-
-        database.insert(AffirmationsTable.TABLE_NAME, null, contentValues);
     }
 
     private void updateFavoriteAffirmationTable(SQLiteDatabase database, String todayDate, boolean addAffirmation) {

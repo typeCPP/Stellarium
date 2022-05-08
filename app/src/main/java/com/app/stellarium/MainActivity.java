@@ -12,7 +12,6 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +35,6 @@ import com.google.gson.Gson;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     BadgeDrawable badgeDrawable;
-    TextView titleText;
     private KenBurnsView kbv;
     private int numberOfPrevFragment = 2; //1 - personalAccount, 2 - Home, 3 - Information
 
@@ -329,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setVisibility(isHidden ? View.GONE : View.VISIBLE);
     }
 
-    public void setNumberOfPrevFragment() {
-        numberOfPrevFragment = 0;
+    public void setNumberOfPrevFragment(int numberOfPrevFragment) {
+        this.numberOfPrevFragment = numberOfPrevFragment;
     }
 }
