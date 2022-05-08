@@ -132,6 +132,7 @@ public class FragmentPersonalAccount extends Fragment {
             public void onClick(View view) {
                 Intent myIntent = new Intent(getActivity(), MainRegistrationActivity.class);
                 myIntent.putExtra("showSkipButton", false);
+                myIntent.putExtra("isBackButtonEnabled", true);
                 getActivity().startActivity(myIntent);
             }
         });

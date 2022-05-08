@@ -97,6 +97,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private int serverID;
     private Intent myIntent;
     private boolean showSkipButton = true;
+    private boolean isBackButtonEnabled = false;
 
     private float letterSpacing = 0.212f;
 
@@ -151,6 +152,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
         showSkipButton = getIntent().getBooleanExtra("showSkipButton", true);
+        isBackButtonEnabled = getIntent().getBooleanExtra("isBackButtonEnabled", false);
 
         if (showSkipButton) {
             skipButton.setVisibility(View.VISIBLE);
@@ -400,6 +402,13 @@ public class MainRegistrationActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        if(isBackButtonEnabled) {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onResume() {
