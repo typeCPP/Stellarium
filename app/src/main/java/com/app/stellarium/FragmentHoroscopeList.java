@@ -166,7 +166,7 @@ public class FragmentHoroscopeList extends Fragment {
 
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         float density = displayMetrics.densityDpi;
-        System.out.println(density);
+
         int padding = 100;
         if (density > 410) {
             padding = 220;

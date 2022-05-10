@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +21,11 @@ import androidx.fragment.app.Fragment;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
 import com.app.stellarium.database.tables.FavoriteAffirmationsTable;
-import com.app.stellarium.database.tables.UserTable;
-import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
-import com.app.stellarium.utils.jsonmodels.Affirmation;
-import com.google.gson.Gson;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import java.util.Calendar;
-import java.util.function.UnaryOperator;
 
 
 public class FragmentAffirmation extends Fragment {
@@ -64,7 +57,7 @@ public class FragmentAffirmation extends Fragment {
 
         Bundle bundle = getArguments();
         isOpenByWidget = true;
-        if (bundle == null) {
+        if (bundle != null && bundle.getInt("widget") != 1) {
             MainActivity activity = (MainActivity) getActivity();
             if (activity != null) {
                 activity.hideBottomBar(true);
