@@ -3,6 +3,7 @@ package com.app.stellarium.tarocards;
 import android.animation.Animator;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,15 +98,30 @@ public class TarotShuffleView extends FrameLayout {
 
     private void startShuffleAnimator() {
         double maxX = getWidth();
+
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        float density = displayMetrics.densityDpi;
+
+        int padding = 0;
+        if (density > 410) {
+            padding = 220;
+        }
+        if (density > 470) {
+            padding = 280;
+        }
+        if (density > 550) {
+            padding = 400;
+        }
+        double maxY = getHeight() - padding;
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             int position = count - 1 - i;
             View view = getChildAt(position);
             View cardView = view.findViewById(R.id.card_view);
             if (position == 0) {
-                AnimHelper.startAnimation(1000, 1350, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 270), 200, 400, listenerNull);
+                AnimHelper.startAnimation(1000, 1350, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 270), 200, (int) maxY - 200, listenerNull);
             } else if (position == 1) {
-                AnimHelper.startAnimation(1300, 1300, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 120), 300, 600, new CardAnimatorListener() {
+                AnimHelper.startAnimation(1300, 1300, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 120), 300, (int) maxY - 300, new CardAnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         cuttingCardAnimator(new CardAnimatorListener() {
@@ -117,21 +133,21 @@ public class TarotShuffleView extends FrameLayout {
                     }
                 });
             } else if (position == 2) {
-                AnimHelper.startAnimation(1250, 1050, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 170), 260, 520, listenerNull);
+                AnimHelper.startAnimation(1250, 1050, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 170), 260, (int) maxY - 260, listenerNull);
             } else if (position == 3) {
-                AnimHelper.startAnimation(1500, 900, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 220), 250, 500, listenerNull);
+                AnimHelper.startAnimation(1500, 900, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 220), 250, (int) maxY - 250, listenerNull);
             } else if (position == 4) {
-                AnimHelper.startAnimation(1300, 750, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 40), 280, 560, listenerNull);
+                AnimHelper.startAnimation(1300, 750, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 40), 280, (int) maxY - 280, listenerNull);
             } else if (position == 5) {
-                AnimHelper.startAnimation(1400, 600, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 80), 340, 680, listenerNull);
+                AnimHelper.startAnimation(1400, 600, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 80), 340, (int) maxY - 340, listenerNull);
             } else if (position == 6) {
-                AnimHelper.startAnimation(1400, 450, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 50), 320, 640, listenerNull);
+                AnimHelper.startAnimation(1400, 450, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 50), 320, (int) maxY - 320, listenerNull);
             } else if (position == 7) {
-                AnimHelper.startAnimation(1400, 300, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 90), 320, 640, listenerNull);
+                AnimHelper.startAnimation(1400, 300, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 90), 320, (int) maxY - 320, listenerNull);
             } else if (position == 8) {
-                AnimHelper.startAnimation(1300, 150, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 20), 350, 700, listenerNull);
+                AnimHelper.startAnimation(1300, 150, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 20), 350, (int) maxY - 350, listenerNull);
             } else {
-                AnimHelper.startAnimation(1500, 0, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 20), 360, 720, listenerNull);
+                AnimHelper.startAnimation(1500, 0, cardView, (int) (maxX - CARD_DEFAULT_WIDTH - 20), 360, (int) maxY - 360, listenerNull);
             }
         }
     }
