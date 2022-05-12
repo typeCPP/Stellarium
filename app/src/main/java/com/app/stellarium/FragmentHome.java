@@ -198,16 +198,6 @@ public class FragmentHome extends Fragment {
         }
     }
 
-    private int getCurrentAffirmationID(String todayDate, SQLiteDatabase database) {
-        Cursor affirmationCursor = database.query(AffirmationsTable.TABLE_NAME, null,
-                AffirmationsTable.COLUMN_DATE + " = " + todayDate,
-                null, null, null, null);
-        affirmationCursor.moveToFirst();
-        @SuppressLint("Range") int idTodayAffirmation
-                = affirmationCursor.getInt(affirmationCursor.getColumnIndex(AffirmationsTable.COLUMN_ID));
-        return idTodayAffirmation;
-    }
-
     private void workWithBackgroundAndTextForAffirmation() {
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
