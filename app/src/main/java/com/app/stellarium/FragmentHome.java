@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.app.stellarium.utils.jsonmodels.MoonCalendar;
 import com.app.stellarium.database.DatabaseHelper;
 import com.app.stellarium.database.tables.AffirmationsTable;
 import com.app.stellarium.database.tables.UserTable;
@@ -38,7 +39,7 @@ public class FragmentHome extends Fragment {
             moonCalendarButton, numerologyButton, squareOfPythagorasButton, yesOrNoButton;
     private Animation scaleUp;
     private LoadingDialog loadingDialog;
-    private boolean readyToGoNextAffirmation = true;
+    private boolean readyToGoNextAffirmation = true, readyToGiveTextOfMoonCalendar = true;
 
     public FragmentHome() {
     }
@@ -84,9 +85,6 @@ public class FragmentHome extends Fragment {
                                 }
                             });
                             workWithBackgroundAndTextForAffirmation();
-                            //fragment = new FragmentAffirmation();
-                            //getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                            //       .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.horoscopeButton:
                             fragment = new FragmentHoroscopeList();
@@ -104,9 +102,14 @@ public class FragmentHome extends Fragment {
                                     .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                             break;
                         case R.id.moonCalendarButton:
-                            fragment = new FragmentMoonCalendar();
-                            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                            loadingDialog.setOnClick(new UnaryOperator<Void>() {
+                                @Override
+                                public Void apply(Void unused) {
+                                    workWithTextForMoonCalendar();
+                                    return null;
+                                }
+                            });
+                            workWithTextForMoonCalendar();
                             break;
                         case R.id.numerologicButton:
                             fragment = new FragmentNumerologyDateSelection();
@@ -254,6 +257,60 @@ public class FragmentHome extends Fragment {
                 }
             }
         }).start();
+    }
+
+    private void workWithTextForMoonCalendar() {
+        Handler handler = new Handler();
+        try {
+            loadingDialog.show();
+            loadingDialog.startGifAnimation();
+            Calendar calendar = Calendar.getInstance();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ServerConnection serverConnection = new ServerConnection();
+                    int date = (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DAY_OF_MONTH);
+                    String response = serverConnection.getStringResponseByParameters("moonCalendar/?date=" + date);
+                    MoonCalendar moonCalendar = new Gson().fromJson(response, MoonCalendar.class);
+                    if (moonCalendar == null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                readyToGiveTextOfMoonCalendar = false;
+                                loadingDialog.stopGifAnimation();
+                            }
+                        });
+                    } else {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                readyToGiveTextOfMoonCalendar = true;
+                                Bundle bundle = new Bundle();
+                                bundle.putString("phase", moonCalendar.phase);
+                                bundle.putString("characteristics", moonCalendar.characteristics);
+                                bundle.putString("health", moonCalendar.health);
+                                bundle.putString("relations", moonCalendar.relations);
+                                bundle.putString("business", moonCalendar.business);
+                                bundle.putInt("dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
+                                bundle.putInt("month", calendar.get(Calendar.MONTH));
+                                Fragment fragment = new FragmentMoonCalendar();
+                                fragment.setArguments(bundle);
+                                getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                        .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                                loadingDialog.dismiss();
+                            }
+                        });
+                    }
+                }
+            }).start();
+        } catch (Exception e) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.stopGifAnimation();
+                }
+            });
+        }
     }
 
     private boolean checkDatabaseForTodayAffirmation(SQLiteDatabase database, String todayDate) {

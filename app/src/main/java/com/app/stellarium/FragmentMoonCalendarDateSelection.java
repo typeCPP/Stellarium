@@ -1,9 +1,12 @@
 package com.app.stellarium;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +15,13 @@ import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.stellarium.dialog.LoadingDialog;
 import com.app.stellarium.utils.ServerConnection;
+import com.google.gson.Gson;
+import com.app.stellarium.utils.jsonmodels.MoonCalendar;
 
 import java.util.Calendar;
+import java.util.function.UnaryOperator;
 
 public class FragmentMoonCalendarDateSelection extends Fragment {
 
@@ -22,6 +29,7 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
     private CalendarView calendarView;
     private Calendar calendar = Calendar.getInstance();
     private TextView textViewDate;
+    private LoadingDialog loadingDialog;
 
     public FragmentMoonCalendarDateSelection() {
         // Required empty public constructor
@@ -37,10 +45,12 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_moon_calendar_date_selection, container, false);
+        loadingDialog = new LoadingDialog(view.getContext());
         calendarView = view.findViewById(R.id.calendarView);
         Time minTime = new Time();
         Time maxTime = new Time();
@@ -77,13 +87,14 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
             Fragment fragment = new FragmentMoonCalendar();
             calendarView.setDate(time.toMillis(true));
             textViewDate.setText(dayOfMonth + monthToString(month));
-            Bundle bundle = new Bundle();
-            bundle.putInt("dayOfMonth", dayOfMonth);
-            bundle.putInt("month", month);
-            bundle.putInt("year", year);
-            fragment.setArguments(bundle);
-            getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
-                    .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+            loadingDialog.setOnClick(new UnaryOperator<Void>() {
+                @Override
+                public Void apply(Void unused) {
+                    getDescriptionFromServerByDate(dayOfMonth, month);
+                    return null;
+                }
+            });
+            getDescriptionFromServerByDate(dayOfMonth, month);
         });
         return view;
     }
@@ -138,5 +149,58 @@ public class FragmentMoonCalendarDateSelection extends Fragment {
             return 0;
         }
         return Integer.parseInt(response);
+    }
+
+    private void getDescriptionFromServerByDate(int dayOfMonth, int month) {
+        Handler handler = new Handler();
+        try {
+            loadingDialog.show();
+            loadingDialog.startGifAnimation();
+            Calendar calendar = Calendar.getInstance();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ServerConnection serverConnection = new ServerConnection();
+                    int date = (month + 1) * 100 + dayOfMonth;
+                    System.out.println(date);
+                    String response = serverConnection.getStringResponseByParameters("moonCalendar/?date=" + date);
+                    MoonCalendar moonCalendar = new Gson().fromJson(response, MoonCalendar.class);
+                    if (moonCalendar == null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadingDialog.stopGifAnimation();
+                            }
+                        });
+                    } else {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("phase", moonCalendar.phase);
+                                bundle.putString("characteristics", moonCalendar.characteristics);
+                                bundle.putString("health", moonCalendar.health);
+                                bundle.putString("relations", moonCalendar.relations);
+                                bundle.putString("business", moonCalendar.business);
+                                bundle.putInt("dayOfMonth", dayOfMonth);
+                                bundle.putInt("month", month);
+                                Fragment fragment = new FragmentMoonCalendar();
+                                fragment.setArguments(bundle);
+                                getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
+                                        .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
+                                loadingDialog.dismiss();
+                            }
+                        });
+                    }
+                }
+            }).start();
+        } catch (Exception e) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.stopGifAnimation();
+                }
+            });
+        }
     }
 }

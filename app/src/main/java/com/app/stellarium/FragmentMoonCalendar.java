@@ -79,12 +79,11 @@ public class FragmentMoonCalendar extends Fragment {
         textViewHealthTitle = view.findViewById(R.id.title_health);
         textViewRelationsTitle = view.findViewById(R.id.title_relations);
         textViewBusinessTitle = view.findViewById(R.id.title_business);
-
         loadingDialog = new LoadingDialog(view.getContext());
         loadingDialog.setOnClick(new UnaryOperator<Void>() {
             @Override
             public Void apply(Void unused) {
-                getDescriptionFromServerByDate((monthSelection + 1) * 100 + dateOfMonthSelection);
+                getDescriptionFromServerByDate(dateOfMonthSelection,monthSelection);
                 return null;
             }
         });
@@ -125,21 +124,6 @@ public class FragmentMoonCalendar extends Fragment {
 
         prevDayButton = view.findViewById(R.id.datePrevDay);
         prevDayButton.setOnClickListener(new ButtonOnClickListener());
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            dateOfMonthSelection = bundle.getInt("dayOfMonth");
-            monthSelection = bundle.getInt("month");
-            textViewDate.setText(dateOfMonthSelection + monthToString(monthSelection));
-            changeDateViews(dateOfMonthSelection, monthSelection);
-            getDescriptionFromServerByDate((monthSelection + 1) * 100 + dateOfMonthSelection);
-        } else {
-            dateOfMonthSelection = calendar.get(Calendar.DAY_OF_MONTH);
-            monthSelection = calendar.get(Calendar.MONTH);
-            textViewDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + monthToString(calendar.get(Calendar.MONTH)));
-            changeDateViews(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH));
-            getDescriptionFromServerByDate((calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DAY_OF_MONTH));
-        }
-
         class SlideAnimationListener implements Animation.AnimationListener {
 
             @Override
@@ -164,18 +148,13 @@ public class FragmentMoonCalendar extends Fragment {
                 if (leftAnim == animation) {
                     dateOfMonthSelection = Integer.parseInt(leftTitle.substring(0, 2));
                     monthSelection = Integer.parseInt(leftTitle.substring(3, 5)) - 1;
-                    System.out.println("date: " + dateOfMonthSelection + " month :" + monthSelection);
-                    textViewDate.setText(leftTitle.substring(0, 2) + monthToString(Integer.parseInt(leftTitle.substring(3, 5)) - 1));
-                    getDescriptionFromServerByDate(Integer.parseInt(leftTitle.substring(3, 5)) * 100 + Integer.parseInt(leftTitle.substring(0, 2)));
-                    changeDateViews(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)) - 1);
+                    getDescriptionFromServerByDate(Integer.parseInt(leftTitle.substring(0, 2)), Integer.parseInt(leftTitle.substring(3, 5)));
                     time = new Time();
                     time.set(Integer.parseInt(leftTitle.substring(0, 2)) + 1, Integer.parseInt(leftTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
                 } else if (rightAnim == animation) {
                     dateOfMonthSelection = Integer.parseInt(rightTitle.substring(0, 2));
                     monthSelection = Integer.parseInt(rightTitle.substring(3, 5)) - 1;
-                    textViewDate.setText(rightTitle.substring(0, 2) + monthToString(Integer.parseInt(rightTitle.substring(3, 5)) - 1));
-                    getDescriptionFromServerByDate(Integer.parseInt(rightTitle.substring(3, 5)) * 100 + Integer.parseInt(rightTitle.substring(0, 2)));
-                    changeDateViews(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)) - 1);
+                    getDescriptionFromServerByDate(Integer.parseInt(rightTitle.substring(0, 2)), Integer.parseInt(rightTitle.substring(3, 5)));
                     time = new Time();
                     time.set(Integer.parseInt(rightTitle.substring(0, 2)) - 1, Integer.parseInt(rightTitle.substring(3, 5)) - 1, calendar.get(Calendar.YEAR));
                 }
@@ -189,6 +168,19 @@ public class FragmentMoonCalendar extends Fragment {
 
         frameLayout = view.findViewById(R.id.mainFrame);
         textLayout = view.findViewById(R.id.textLayout);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            textViewDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + monthToString(calendar.get(Calendar.MONTH)));
+            textViewPhase.setText(bundle.getString("phase"));
+            textViewCharacteristic.setText(bundle.getString("characteristics"));
+            textViewHealth.setText(bundle.getString("health"));
+            textViewRelations.setText(bundle.getString("relations"));
+            textViewBusiness.setText(bundle.getString("business"));
+            dateOfMonthSelection = bundle.getInt("dayOfMonth");
+            monthSelection = bundle.getInt("month");
+            textViewDate.setText(dateOfMonthSelection + monthToString(monthSelection));
+            changeDateViews(dateOfMonthSelection, monthSelection);
+        }
         activeSwipe(frameLayout);
         activeSwipe(textViewHealth);
         activeSwipe(textViewPhase);
@@ -260,18 +252,12 @@ public class FragmentMoonCalendar extends Fragment {
         });
     }
 
-
-    private void getDescriptionFromServerByDate(int date) {
+    private void getDescriptionFromServerByDate(int dayOfMonth, int month) {
         Handler handler = new Handler();
+        int date = (month) * 100 + dayOfMonth;
         try {
             loadingDialog.show();
             loadingDialog.startGifAnimation();
-            //Сделал чтобы после анимации не появлялся текст предыдущего дня, а сразу новый
-            textViewPhase.setText("");
-            textViewCharacteristic.setText("");
-            textViewHealth.setText("");
-            textViewRelations.setText("");
-            textViewBusiness.setText("");
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -287,6 +273,7 @@ public class FragmentMoonCalendar extends Fragment {
                         });
                     } else {
                         handler.post(new Runnable() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void run() {
                                 textViewPhase.setText(moonCalendar.phase);
@@ -294,6 +281,8 @@ public class FragmentMoonCalendar extends Fragment {
                                 textViewHealth.setText(moonCalendar.health);
                                 textViewRelations.setText(moonCalendar.relations);
                                 textViewBusiness.setText(moonCalendar.business);
+                                textViewDate.setText(dayOfMonth + monthToString(month - 1));
+                                changeDateViews(dayOfMonth, month - 1);
                                 loadingDialog.dismiss();
                             }
                         });
