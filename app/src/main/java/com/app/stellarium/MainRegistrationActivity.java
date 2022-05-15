@@ -15,15 +15,16 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.DisplayMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -63,7 +64,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.Gson;
 
-import java.net.SocketTimeoutException;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
@@ -79,6 +79,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private Button forgotPasswordBtn;
     private Button btnSignup;
     private Button btnSignin;
+    private RelativeLayout mainRegistration;
     private Animation scaleUp;
     TextInputEditText signInEmailEditText, signInPasswordEditText, signUpEmailEditText, signUpPasswordEditText;
     Button facebookButton, googleButton, skipButton;
@@ -112,6 +113,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         signInPasswordEditText = findViewById(R.id.signInPasswordEditText);
         signUpEmailEditText = findViewById(R.id.signUpEmailEditText);
         signUpPasswordEditText = findViewById(R.id.signUpPasswordEditText);
+        mainRegistration = findViewById(R.id.activity_main_registration);
 
         signUpEye = findViewById(R.id.signup_eye_password);
         signUpEye.setVisibility(View.GONE);
@@ -146,6 +148,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
         llSignin = findViewById(R.id.llSignin);
         scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_up);
 
+        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+        float widthPixels = displayMetrics.widthPixels;
+        float heightPixels = displayMetrics.heightPixels;
+        if (heightPixels / widthPixels < 1.55) {
+            mainRegistration.setBackgroundResource(R.drawable.star_sky_reg2);
+        }
         signUpPasswordEditText.setLetterSpacing(letterSpacing);
         signInPasswordEditText.setLetterSpacing(letterSpacing);
 

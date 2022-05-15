@@ -36,6 +36,8 @@
                 android:shadowColor="@color/text_shadow_widget_mono"
                 android:shadowDx="3"
                 android:shadowDy="3"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:shadowRadius="3"
                 android:text="@string/affirmation_text"
                 android:textAlignment="center"

@@ -21,7 +21,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -52,10 +53,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
                 android:paddingBottom="4dp"
-                app:anim_scale_factor="3"
+                app:anim_scale_factor="2"
                 app:circle_end_color="@color/like_color"
                 app:circle_start_color="@color/alert_dialog_background_stroke"
-                app:icon_size="9dp"
+                app:icon_size="11dp"
                 app:icon_type="heart"
                 app:liked="false" />
 

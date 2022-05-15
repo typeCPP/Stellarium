@@ -13,6 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -73,6 +76,9 @@ public class FragmentYesOrNo extends Fragment {
                 return true;
             }
         }
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+
+
         ball = new Ball();
         ballAskButton = (Button) view.findViewById(R.id.ball_ask_button);
         ballClearButton = (Button) view.findViewById(R.id.ball_clear_button);
@@ -83,6 +89,44 @@ public class FragmentYesOrNo extends Fragment {
         fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
+
+        int sizeInDPstart = 205;
+
+        int marginInDpStart = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, sizeInDPstart, getResources()
+                        .getDisplayMetrics());
+
+        int sizeInDPend = 190;
+
+        int marginInDpEnd = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, sizeInDPend, getResources()
+                        .getDisplayMetrics());
+
+        float widthPixels = displayMetrics.widthPixels;
+        float heightPixels = displayMetrics.heightPixels;
+        if (heightPixels / widthPixels < 1.55 && heightPixels / widthPixels > 1.35) {
+            RelativeLayout.LayoutParams textViewLayoutParams =  (RelativeLayout.LayoutParams) ballResponseTextView.getLayoutParams();
+            textViewLayoutParams.setMarginStart(marginInDpStart);
+            textViewLayoutParams.setMarginEnd(marginInDpEnd);
+            ballResponseTextView.setLayoutParams(textViewLayoutParams);
+        }
+        int sizeInDPstart2 = 280;
+
+        int marginInDpStart2 = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, sizeInDPstart2, getResources()
+                        .getDisplayMetrics());
+
+        int sizeInDPend2 = 270;
+
+        int marginInDpEnd2 = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, sizeInDPend2, getResources()
+                        .getDisplayMetrics());
+        if (heightPixels / widthPixels <= 1.35) {
+            RelativeLayout.LayoutParams textViewLayoutParams =  (RelativeLayout.LayoutParams) ballResponseTextView.getLayoutParams();
+            textViewLayoutParams.setMarginStart(marginInDpStart2);
+            textViewLayoutParams.setMarginEnd(marginInDpEnd2);
+            ballResponseTextView.setLayoutParams(textViewLayoutParams);
+        }
         accelerometerListener = new SensorEventListener() {
             private boolean flipped = false;
 

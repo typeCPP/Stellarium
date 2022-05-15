@@ -5,13 +5,16 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -57,7 +60,7 @@ public class FragmentAffirmation extends Fragment {
 
         Bundle bundle = getArguments();
         isOpenByWidget = true;
-        if (bundle != null && bundle.getInt("widget") != 1) {
+        if (bundle.keySet().size() != 3) {
             MainActivity activity = (MainActivity) getActivity();
             if (activity != null) {
                 activity.hideBottomBar(true);
@@ -72,6 +75,10 @@ public class FragmentAffirmation extends Fragment {
         affirmationText = view.findViewById(R.id.affirmation_text);
         likeButton = view.findViewById(R.id.heart_button);
 
+
+        if(getScreenSize() > 6.5){
+            likeButton.setIconSizeDp(14);
+        }
         Calendar calendar = Calendar.getInstance();
         String todayDate
                 = String.valueOf(calendar.get(Calendar.YEAR))
@@ -145,7 +152,7 @@ public class FragmentAffirmation extends Fragment {
         super.onResume();
         isOpenByWidget = true;
         Bundle bundle = getArguments();
-        if (bundle == null) {
+        if (bundle.keySet().size() != 3) {
             MainActivity activity = (MainActivity) getActivity();
             if (activity != null) {
                 activity.hideBottomBar(true);
@@ -194,5 +201,17 @@ public class FragmentAffirmation extends Fragment {
             String[] args = {String.valueOf(idTodayAffirmation)};
             database.delete(FavoriteAffirmationsTable.TABLE_NAME, "AFFIRMATION_ID=?", args);
         }
+    }
+    private double getScreenSize() {
+        Point point = new Point();
+        ((WindowManager) getContext().getSystemService(getContext().WINDOW_SERVICE)).getDefaultDisplay().getRealSize(point);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int width=point.x;
+        int height=point.y;
+        double wi=(double)width/(double)displayMetrics.xdpi;
+        double hi=(double)height/(double)displayMetrics.ydpi;
+        double x = Math.pow(wi,2);
+        double y = Math.pow(hi,2);
+        return (Math.round((Math.sqrt(x+y)) * 10.0) / 10.0);
     }
 }

@@ -5,11 +5,14 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -95,6 +98,11 @@ public class FragmentFavoriteAffirmations extends Fragment {
             FrameLayout frameLayout = page.findViewById(R.id.frameLayout);
             frameLayout.setBackground(getBackgroundByName(affirmation.picture));
             LikeButton likeButton = page.findViewById(R.id.heart_button);
+            if(getScreenSize() > 6.5){
+                likeButton.setIconSizeDp(14);
+            }else{
+                likeButton.setIconSizeDp(11);
+            }
             likeButton.setOnLikeListener(new OnLikeListener() {
 
                 @SuppressLint("Range")
@@ -189,5 +197,17 @@ public class FragmentFavoriteAffirmations extends Fragment {
             String[] args = {String.valueOf(idAffirmation)};
             database.delete(FavoriteAffirmationsTable.TABLE_NAME, "AFFIRMATION_ID=?", args);
         }
+    }
+    private double getScreenSize() {
+        Point point = new Point();
+        ((WindowManager) getContext().getSystemService(getContext().WINDOW_SERVICE)).getDefaultDisplay().getRealSize(point);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int width=point.x;
+        int height=point.y;
+        double wi=(double)width/(double)displayMetrics.xdpi;
+        double hi=(double)height/(double)displayMetrics.ydpi;
+        double x = Math.pow(wi,2);
+        double y = Math.pow(hi,2);
+        return (Math.round((Math.sqrt(x+y)) * 10.0) / 10.0);
     }
 }
