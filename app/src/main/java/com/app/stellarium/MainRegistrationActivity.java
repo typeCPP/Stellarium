@@ -5,6 +5,7 @@ import static com.app.stellarium.utils.PasswordEncoder.encodePasswordMD5;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -379,6 +381,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         tvSignupInvoker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 isSigninScreen = false;
                 showSignupForm();
             }
@@ -387,6 +390,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         tvSigninInvoker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 isSigninScreen = true;
                 showSigninForm();
             }
@@ -413,7 +417,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(isBackButtonEnabled) {
+        if (isBackButtonEnabled) {
             super.onBackPressed();
         }
     }
@@ -757,5 +761,11 @@ public class MainRegistrationActivity extends AppCompatActivity {
         Animation clockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_left_to_right);
         btnSignin.startAnimation(clockwise);
         forgotPasswordBtn.startAnimation(clockwise);
+    }
+    private void hideKeyboard(){
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }
