@@ -101,6 +101,7 @@ public class FragmentMoonCalendar extends Fragment {
                         bundle.putInt("dayOfMonth", dateOfMonthSelection);
                         bundle.putInt("month", monthSelection);
                         fragment.setArguments(bundle);
+                        getParentFragmentManager().popBackStack();
                         getParentFragmentManager().beginTransaction().setCustomAnimations(R.animator.fragment_alpha_in, R.animator.fragment_alpha_out, R.animator.fragment_alpha_in, R.animator.fragment_alpha_out)
                                 .addToBackStack(null).replace(R.id.frameLayout, fragment).commit();
                         break;
